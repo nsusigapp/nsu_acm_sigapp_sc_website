@@ -36,10 +36,6 @@ module.exports = function(sequelize, DataTypes) {
 			type: DataTypes.DATE,
 			allowNull: false
 		},
-		create_date: {
-			type: DataTypes.DATE,
-			allowNull: false
-		},
 		status: {
 			type: DataTypes.INTEGER(4),
 			allowNull: false

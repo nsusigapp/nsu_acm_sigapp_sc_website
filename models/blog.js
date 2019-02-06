@@ -32,10 +32,6 @@ module.exports = function(sequelize, DataTypes) {
 		img_url: {
 			type: DataTypes.STRING(255),
 			allowNull: true
-		},
-		create_date: {
-			type: DataTypes.DATE,
-			allowNull: false
 		}
 	}, {
 		tableName: 'blog'

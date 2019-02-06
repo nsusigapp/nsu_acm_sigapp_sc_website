@@ -1,5 +1,5 @@
 const SequelizeAuto = require('sequelize-auto')
-const auto = new SequelizeAuto('sigapp', 'root', '');
+const auto = new SequelizeAuto('nsu_sigapp_sc', 'root', '123456');
 
 auto.run(function (err) {
   if(err) 

@@ -23,10 +23,6 @@ module.exports = function(sequelize, DataTypes) {
 		f_post_description: {
 			type: DataTypes.TEXT,
 			allowNull: false
-		},
-		create_date: {
-			type: DataTypes.DATE,
-			allowNull: false
 		}
 	}, {
 		tableName: 'forum'

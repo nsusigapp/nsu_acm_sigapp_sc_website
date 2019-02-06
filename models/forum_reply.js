@@ -27,10 +27,6 @@ module.exports = function(sequelize, DataTypes) {
 		reply_content: {
 			type: DataTypes.TEXT,
 			allowNull: false
-		},
-		create_date: {
-			type: DataTypes.DATE,
-			allowNull: false
 		}
 	}, {
 		tableName: 'forum_reply'

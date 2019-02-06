@@ -50,10 +50,6 @@ module.exports = function(sequelize, DataTypes) {
 		status: {
 			type: DataTypes.INTEGER(4),
 			allowNull: false
-		},
-		join_date: {
-			type: DataTypes.DATE,
-			allowNull: false
 		}
 	}, {
 		tableName: 'users'
