@@ -49,7 +49,6 @@ CREATE TABLE IF NOT EXISTS users(
     password LONGTEXT NOT NULL,
     avatar_url VARCHAR(255) DEFAULT "img/sunglasses.png",
     status TINYINT NOT NULL,
-    join_date DATETIME NOT NULL,
     PRIMARY KEY(u_id,user_name,nsu_id) 
 );
 
@@ -65,7 +64,6 @@ CREATE TABLE IF NOT EXISTS blog(
     blog_description LONGTEXT NOT NULL,
     like_count INT DEFAULT 0,
     img_url VARCHAR(255),
-    create_date DATETIME NOT NULL,
     FOREIGN KEY(author_id) REFERENCES users(u_id) ON DELETE SET NULL # if the user who made the post is removed/deleted
 	 															  	# then the posts author_id will be set to NULL
 																  	# So when a user visits the post in the website, if the author_id of that
@@ -85,7 +83,6 @@ CREATE TABLE IF NOT EXISTS blog_comments(
     author_id INT,
     blog_id INT,
     com_content LONGTEXT NOT NULL,
-    create_date DATETIME NOT NULL,
     FOREIGN KEY(author_id) REFERENCES users(u_id) ON DELETE SET NULL,
     FOREIGN KEY(blog_id) REFERENCES blog(blog_id) ON DELETE CASCADE # if the blog is deleted, so are its comments
 );
@@ -108,7 +105,6 @@ CREATE TABLE IF NOT EXISTS forum(
     author_id INT,
     f_post_title VARCHAR(255) NOT NULL,
     f_post_description LONGTEXT NOT NULL,
-    create_date DATETIME NOT NULL,
     FOREIGN KEY(author_id) REFERENCES users(u_id) ON DELETE SET NULL
 );
 
@@ -117,7 +113,6 @@ CREATE TABLE IF NOT EXISTS forum_reply(
     author_id INT,
     forum_p_id INT,
     reply_content LONGTEXT NOT NULL,
-    create_date DATETIME NOT NULL,
     FOREIGN KEY(author_id) REFERENCES users(u_id) ON DELETE SET NULL,
     FOREIGN KEY(forum_p_id) REFERENCES forum(f_post_id) ON DELETE CASCADE
 );
@@ -137,7 +132,6 @@ CREATE TABLE IF NOT EXISTS events(
     event_description LONGTEXT NOT NULL,
     start_date DATETIME NOT NULL,
     end_date DATETIME NOT NULL,
-    create_date DATETIME NOT NULL,
     status TINYINT NOT NULL,
     registered_count INT NOT NULL DEFAULT 0,
     FOREIGN KEY(created_by) REFERENCES users(u_id) ON DELETE SET NULL
