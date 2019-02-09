@@ -49,12 +49,24 @@ CREATE TABLE IF NOT EXISTS users(
     password LONGTEXT NOT NULL,
     avatar_url VARCHAR(255) DEFAULT "img/sunglasses.png",
     status TINYINT NOT NULL,
+    token LONGTEXT NOT NULL,
     PRIMARY KEY(u_id,user_name,nsu_id) 
 );
 
 CREATE TABLE IF NOT EXISTS roles(
     role_id INT PRIMARY KEY AUTO_INCREMENT,
     role_name VARCHAR(45) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS tags(
+    tag_id INT PRIMARY KEY AUTO_INCREMENT,
+    tag_name VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS post_tag(
+    post_id INT,
+    tag_id INT,
+    FOREIGN KEY(author_id) REFERENCES users(u_id) ON DELETE SET NULL,
 );
 
 CREATE TABLE IF NOT EXISTS blog(
