@@ -165,3 +165,31 @@ body {
   padding: 2rem;
   width: 50%;
   margin: 0 auto; }
+
+.registration-box {
+  margin-top: 3rem; }
+  .registration-box .icon-input-box:not(:last-child) {
+    margin-right: 1rem; }
+  .registration-box .icon-input-box {
+    width: 100%;
+    display: flex;
+    margin-bottom: 1.5rem; }
+    .registration-box .icon-input-box i {
+      background: #333;
+      color: #fff;
+      padding: 1.5rem 2rem; }
+    .registration-box .icon-input-box input {
+      width: 100%;
+      padding: 1.5rem 2rem;
+      outline: 0;
+      border: 1px solid #333;
+      border-left: none;
+      border-top-right-radius: 3px;
+      border-bottom-right-radius: 3px;
+      transition: all 0.3s; }
+      .registration-box .icon-input-box input:focus {
+        border-color: #1e90ff;
+        box-shadow: 0 0 0 0.2rem rgba(30, 144, 255, 0.5); }
+  .registration-box-form--input-paral {
+    display: flex;
+    justify-content: space-between; }
