@@ -4,7 +4,8 @@
   "description": "NSU ACM SIGAPP SC WEBSITE",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon ./server.js"
+    "start": "nodemon ./server.js",
+    "sass:compile": "node-sass public/sass/main.scss public/css/style.css -w"
   },
   "author": "MrScX,SpaceKnight,MD.Faisal",
   "license": "ISC",

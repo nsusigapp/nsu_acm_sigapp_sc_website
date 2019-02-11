@@ -1,0 +1,27 @@
+<nav class="main-nav-bar">
+
+    <div class="main-nav-bar-links">
+        <ul class="main-nav-bar-links--list">
+            <li class="main-nav-bar-links--list-item"><a href="index.php"><i class="fas fa-home main-nav-bar-links--list-icons"></i><span
+                        class="active">Home</span></a></li>
+            <li class="main-nav-bar-links--list-item"><a href="/events" target="_blank"><i class="fas fa-calendar-alt main-nav-bar-links--list-icons"></i><span>Events</span></a></li>
+            <li class="main-nav-bar-links--list-item"><a href="/workshop" target="_blank"><i class="fas fa-cog main-nav-bar-links--list-icons"></i><span>Workshop</span></a></li>
+            <li class="main-nav-bar-links--list-item"><a href="https://github.com/nsusigapp/nsu_acm_sigapp_sc_website"
+                    target="_blank"><i class="fab fa-github main-nav-bar-links--list-icons"></i><span>Github</span></a></li>
+            <li class="main-nav-bar-links--list-item"><a href="/officers" target="_blank"><img src="images/boss.svg"
+                        class="main-nav-bar-links--list-img-icon"><span>Officers</span></a></li>
+        </ul>
+    </div>
+
+    <div class="main-nav-bar-logo-box">
+        <img src="images/hero-logo.jpg" alt="main-logo" class="main-nav-bar-logo-box--logo">
+    </div>
+
+    <div class="main-nav-bar--user-section">
+        <a href="#" class="flat-slight-round-btn" id="openSignInModal">Accounts</a>
+    </div>
+
+    <div class="main-nav-bar-sign-in--modal" id="signInModal">
+        <%- include sign_in_modal.ejs %>
+    </div>
+</nav>

@@ -1,0 +1,13 @@
+.page-title-box{
+
+    &--heading-primary{
+        font-weight: 700;
+        font-size: 2.4rem;
+        margin-bottom: $primaryHeadingMargin;
+    }
+
+    &--heading-secondary{
+        font-weight: 400;
+        font-size: 1.9rem;
+    }
+}

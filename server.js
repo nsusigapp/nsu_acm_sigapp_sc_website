@@ -21,6 +21,12 @@ app.get("/",(req,res,next)=>{
     res.render("index");
 });
 
+app.get("/register",(req,res,next)=>{
+    res.render("registration",{
+        pageTitle: "Sign Up || Registration"
+    });
+});
+
 
 app.listen(3000,()=>{
     console.log("server started on port: 3000");
