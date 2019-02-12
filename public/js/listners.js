@@ -13,6 +13,27 @@
                 $("#signInModal").fadeOut();
             }
         });
+
+        // check password match;
+
+        const checkPassword= function(){
+            let passwd= $("#password").val();
+            let rePasswd= $("#re_password").val();
+
+            if(passwd !== rePasswd){
+                $("#re_password").css({
+                    "border-color": "crimson",
+                    "box-shadow": "0 0 0 0.2rem rgba(220,20,60,.5)"
+                });
+            }else{
+                $("#re_password").css({
+                    "border-color": "green",
+                    "box-shadow": "0 0 0 0.2rem rgba(88,214,141,.5)"
+                });
+            }
+        }
+
+        $("#re_password").keyup(checkPassword);
     });
 
 })();
