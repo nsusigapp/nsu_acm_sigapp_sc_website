@@ -21,6 +21,10 @@ DROP TABLE IF EXISTS blog_comments;
 
 DROP TABLE IF EXISTS blog_category;
 
+DROP TABLE IF EXISTS tags;
+
+DROP TABLE IF EXISTS blog_tag;
+
 DROP TABLE IF EXISTS forum;
 
 DROP TABLE IF EXISTS forum_reply;
@@ -37,10 +41,15 @@ DROP TABLE IF EXISTS reports;
 
 DROP TABLE IF EXISTS email_queue;
 
+CREATE TABLE IF NOT EXISTS roles(
+    role_id INT PRIMARY KEY AUTO_INCREMENT,
+    role_name VARCHAR(45) NOT NULL
+);
+
 CREATE TABLE IF NOT EXISTS users(
     u_id INT AUTO_INCREMENT,
     nsu_id VARCHAR(45) NOT NULL,
-    role_id INT NOT NULL,
+    role_id INT,
     first_name VARCHAR(45) NOT NULL,
     last_name VARCHAR(45) NOT NULL,
     user_name VARCHAR(45) NOT NULL,
@@ -50,23 +59,8 @@ CREATE TABLE IF NOT EXISTS users(
     avatar_url VARCHAR(255) DEFAULT "img/sunglasses.png",
     status TINYINT NOT NULL,
     token LONGTEXT NOT NULL,
-    PRIMARY KEY(u_id,user_name,nsu_id) 
-);
-
-CREATE TABLE IF NOT EXISTS roles(
-    role_id INT PRIMARY KEY AUTO_INCREMENT,
-    role_name VARCHAR(45) NOT NULL
-);
-
-CREATE TABLE IF NOT EXISTS tags(
-    tag_id INT PRIMARY KEY AUTO_INCREMENT,
-    tag_name VARCHAR(255) NOT NULL
-);
-
-CREATE TABLE IF NOT EXISTS post_tag(
-    post_id INT,
-    tag_id INT,
-    FOREIGN KEY(author_id) REFERENCES users(u_id) ON DELETE SET NULL,
+    PRIMARY KEY(u_id,user_name,nsu_id),
+    FOREIGN KEY(role_id) REFERENCES roles(role_id) ON DELETE SET NULL
 );
 
 CREATE TABLE IF NOT EXISTS blog(
@@ -97,6 +91,18 @@ CREATE TABLE IF NOT EXISTS blog_comments(
     com_content LONGTEXT NOT NULL,
     FOREIGN KEY(author_id) REFERENCES users(u_id) ON DELETE SET NULL,
     FOREIGN KEY(blog_id) REFERENCES blog(blog_id) ON DELETE CASCADE # if the blog is deleted, so are its comments
+);
+
+CREATE TABLE IF NOT EXISTS tags(
+    tag_id INT PRIMARY KEY AUTO_INCREMENT,
+    tag_name VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS blog_tag(
+    blog_id INT,
+    tag_id INT,
+    FOREIGN KEY(blog_id) REFERENCES blog(blog_id) ON DELETE SET NULL,
+    FOREIGN KEY(tag_id) REFERENCES tags(tag_id) ON DELETE SET NULL
 );
 
 CREATE TABLE IF NOT EXISTS categories(

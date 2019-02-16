@@ -4,10 +4,18 @@
         font-weight: 700;
         font-size: 2.4rem;
         margin-bottom: $primaryHeadingMargin;
+
+        @media only screen and(max-width: 460px){
+            font-size: 2.1rem;
+        }
     }
 
     &--heading-secondary{
         font-weight: 400;
         font-size: 1.9rem;
+
+        @media only screen and(max-width: 460px){
+            font-size: 1.7rem;
+        }
     }
 }

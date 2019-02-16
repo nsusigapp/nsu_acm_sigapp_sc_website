@@ -14,10 +14,16 @@ body {
   font-weight: 700;
   font-size: 2.4rem;
   margin-bottom: 1.5rem; }
+  @media only screen and (max-width: 460px) {
+    .page-title-box--heading-primary {
+      font-size: 2.1rem; } }
 
 .page-title-box--heading-secondary {
   font-weight: 400;
   font-size: 1.9rem; }
+  @media only screen and (max-width: 460px) {
+    .page-title-box--heading-secondary {
+      font-size: 1.7rem; } }
 
 .underline {
   height: 2px;

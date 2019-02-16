@@ -20,8 +20,9 @@
 
             <div class="underline"></div>
         </div>
+        
         <div class="registration-box">
-            <form class="registration-box-form" action="POST">
+            <form class="registration-box-form" id="registration-box-form" action="/register" method="POST">
                 <div class="registration-box-form--input-paral">
                     <div class="icon-input-box">
                         <i class="fas fa-user"></i>
@@ -37,6 +38,11 @@
                 <div class="icon-input-box">
                     <i class="fas fa-hashtag"></i>
                     <input type="text" name="user_name" placeholder="Username">
+                    <% if(error){ %>
+                        <% if(errorMsg.userNameExists){ %>
+                            <h4>Username Exists!</h4>
+                        <% } %>
+                    <% } %>
                 </div>
 
                 <div class="icon-input-box">
@@ -47,12 +53,12 @@
                 <div class="registration-box-form--input-paral">
                     <div class="icon-input-box">
                         <i class="fas fa-envelope"></i>
-                        <input type="email" name="nsu_mail" placeholder="NSU Email">
+                        <input id="nsuMail" type="email" name="nsu_email" placeholder="NSU Email">
                     </div>
 
                     <div class="icon-input-box">
                         <i class="fas fa-envelope"></i>
-                        <input type="email" name="alt_mail" placeholder="Alternate Email">
+                        <input type="email" name="alt_email" placeholder="Alternate Email">
                     </div>
                 </div>
 
@@ -68,7 +74,7 @@
                     </div>
                 </div>
 
-                <input type="submit" value="Register" class="full-width-btn full-width-btn--black">
+                <input id="registerBtn" type="submit" value="Register" class="full-width-btn full-width-btn--black">
                 
             </form>
         </div>

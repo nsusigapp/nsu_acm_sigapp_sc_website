@@ -1,0 +1,6 @@
+{
+    "auth": {
+        "jwtsecret": "12nhlsha89£%#@!!!",
+        "expiresIn": "365d"
+    }
+}

@@ -1,7 +1,10 @@
 /* jshint indent: 1 */
 
+const jwt= require("jsonwebtoken");
+const config= require("config");
+
 module.exports = function(sequelize, DataTypes) {
-	return sequelize.define('users', {
+	const User= sequelize.define('users', {
 		u_id: {
 			type: DataTypes.INTEGER(11),
 			allowNull: false,
@@ -15,7 +18,11 @@ module.exports = function(sequelize, DataTypes) {
 		},
 		role_id: {
 			type: DataTypes.INTEGER(11),
-			allowNull: false
+			allowNull: true,
+			references: {
+				model: 'roles',
+				key: 'role_id'
+			}
 		},
 		first_name: {
 			type: DataTypes.STRING(45),
@@ -50,8 +57,18 @@ module.exports = function(sequelize, DataTypes) {
 		status: {
 			type: DataTypes.INTEGER(4),
 			allowNull: false
+		},
+		token: {
+			type: DataTypes.TEXT,
+			allowNull: false
 		}
 	}, {
 		tableName: 'users'
 	});
+
+	User.generateAuthToken= function(payload){
+		return jwt.sign(payload,config.get("auth")["jwtsecret"],{ expiresIn: config.get("auth")["expiresIn"] });
+	}
+
+	return User;
 };
