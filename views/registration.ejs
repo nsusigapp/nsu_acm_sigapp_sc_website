@@ -38,17 +38,24 @@
                 <div class="icon-input-box">
                     <i class="fas fa-hashtag"></i>
                     <input type="text" name="user_name" placeholder="Username">
-                    <% if(error){ %>
-                        <% if(errorMsg.userNameExists){ %>
-                            <h4>Username Exists!</h4>
-                        <% } %>
-                    <% } %>
                 </div>
+
+                <% if(error){ %>
+                    <% if(errorMsg.userNameExists){ %>
+                        <h4 class="error-flash">*Username Exists!</h4>
+                    <% } %>
+                <% } %>
 
                 <div class="icon-input-box">
                     <i class="fas fa-id-badge"></i>
                     <input type="text" name="nsu_id" placeholder="NSU ID">
                 </div>
+                
+                <% if(error){ %>
+                    <% if(errorMsg.nsuIdExists){ %>
+                        <h4 class="error-flash">*ID already Exists!</h4>
+                    <% } %>
+                <% } %>
 
                 <div class="registration-box-form--input-paral">
                     <div class="icon-input-box">
@@ -61,6 +68,12 @@
                         <input type="email" name="alt_email" placeholder="Alternate Email">
                     </div>
                 </div>
+
+                <% if(error){ %>
+                    <% if(errorMsg.emailExists){ %>
+                        <h4 class="error-flash">*Email already in use!</h4>
+                    <% } %>
+                <% } %>
 
                 <div class="registration-box-form--input-paral">
                     <div class="icon-input-box">

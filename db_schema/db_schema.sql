@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS roles(
 CREATE TABLE IF NOT EXISTS users(
     u_id INT AUTO_INCREMENT,
     nsu_id VARCHAR(45) NOT NULL,
-    role_id INT,
+    role_id INT DEFAULT 1, # all newly registered users will have role_id 1
     first_name VARCHAR(45) NOT NULL,
     last_name VARCHAR(45) NOT NULL,
     user_name VARCHAR(45) NOT NULL,
@@ -57,7 +57,7 @@ CREATE TABLE IF NOT EXISTS users(
     alt_email VARCHAR(255) NOT NULL,
     password LONGTEXT NOT NULL,
     avatar_url VARCHAR(255) DEFAULT "img/sunglasses.png",
-    status TINYINT NOT NULL,
+    status TINYINT NOT NULL DEFAULT 0, # default status deactivated, will activate after clicking on email link
     token LONGTEXT NOT NULL,
     PRIMARY KEY(u_id,user_name,nsu_id),
     FOREIGN KEY(role_id) REFERENCES roles(role_id) ON DELETE SET NULL

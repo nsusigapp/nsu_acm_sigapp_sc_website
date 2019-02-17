@@ -6,7 +6,6 @@ const helmet= require("helmet");
 const csurf= require("csurf");
 const compression= require("compression");
 const bodyParser= require("body-parser");
-const axios= require("axios");
 
 const authRoutes= require("./routes/auth");
 
@@ -25,6 +24,7 @@ app.use(helmet());
 app.use(cookieParser());
 
 app.use(bodyParser.json());
+
 app.use(bodyParser.urlencoded({extended: false}));
 
 app.use("/",authRoutes.router);
