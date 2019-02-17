@@ -34,16 +34,24 @@ const postRegisterUser= (req,res,next)=>{
     
             userDbData.status= 1;
 
-            userDbData.token= users.generateAuthToken({
-                nsu_id: userDbData.nsu_id,
-                user_name: userDbData.user_name,
-                role_id: userDbData.role_id,
-                status: userDbData.status,
-            });
+            bcrypt.hash(userDbData.password,saltRounds)
+            .then(hash => {
+                
+                userFormData.password= hash;
 
-            users.create(userDbData)
-            .then(res => console.log(res))
+                userDbData.token= users.generateAuthToken({
+                    nsu_id: userDbData.nsu_id,
+                    user_name: userDbData.user_name,
+                    role_id: userDbData.role_id,
+                    status: userDbData.status,
+                });
+
+                users.create(userDbData)
+                .then(res => console.log(res))
+                .catch(err => console.log(err));
+            })
             .catch(err => console.log(err));
+
         });
     }
     
