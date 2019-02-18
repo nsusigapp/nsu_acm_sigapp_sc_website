@@ -252,3 +252,11 @@ body {
     @media only screen and (max-width: 460px) {
       .registration-box-form--input-paral {
         flex-direction: column; } }
+
+.reg-success-flash {
+  background: #1e8fff69;
+  color: #fff;
+  border: 1px solid #DAF7A6;
+  text-align: center;
+  padding: 1rem;
+  border-radius: 3px; }

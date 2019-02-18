@@ -5,6 +5,7 @@
 DROP DATABASE IF EXISTS nsu_sigapp_sc;
 
 CREATE DATABASE IF NOT EXISTS nsu_sigapp_sc;
+
 USE nsu_sigapp_sc;
 
 # Drop tables if they already exist
@@ -47,19 +48,18 @@ CREATE TABLE IF NOT EXISTS roles(
 );
 
 CREATE TABLE IF NOT EXISTS users(
-    u_id INT AUTO_INCREMENT,
-    nsu_id VARCHAR(45) NOT NULL,
+    u_id INT PRIMARY KEY AUTO_INCREMENT,
+    nsu_id VARCHAR(45) NOT NULL UNIQUE,
     role_id INT DEFAULT 1, # all newly registered users will have role_id 1
     first_name VARCHAR(45) NOT NULL,
     last_name VARCHAR(45) NOT NULL,
-    user_name VARCHAR(45) NOT NULL,
-    nsu_email VARCHAR(255) NOT NULL,
+    user_name VARCHAR(45) NOT NULL UNIQUE,
+    nsu_email VARCHAR(255) NOT NULL UNIQUE,
     alt_email VARCHAR(255) NOT NULL,
     password LONGTEXT NOT NULL,
     avatar_url VARCHAR(255) DEFAULT "img/sunglasses.png",
     status TINYINT NOT NULL DEFAULT 0, # default status deactivated, will activate after clicking on email link
     token LONGTEXT NOT NULL,
-    PRIMARY KEY(u_id,user_name,nsu_id),
     FOREIGN KEY(role_id) REFERENCES roles(role_id) ON DELETE SET NULL
 );
 
@@ -181,3 +181,6 @@ CREATE TABLE IF NOT EXISTS email_queue(
     send_progress VARCHAR(45) NOT NULL,
     sent_at DATETIME NOT NULL
 );
+
+INSERT INTO roles(role_name) VALUE("user");
+INSERT INTO roles(role_name) VALUE("admin");

@@ -27,8 +27,13 @@ app.use(bodyParser.json());
 
 app.use(bodyParser.urlencoded({extended: false}));
 
-app.use("/",authRoutes.router);
+// user routes
 
+app.get("/",(req,res,next)=>{
+    res.send("<h1>Hello There!</h1>");
+});
+
+app.use("/",authRoutes.router);
 
 app.listen(3000,()=>{
     console.log("server started on port: 3000");

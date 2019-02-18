@@ -1,13 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <%- include includes/meta.ejs  %>
-    <title><%= pageTitle %></title>
+    <title>
+        <%= pageTitle %>
+    </title>
 </head>
+
 <body>
     <%- include includes/header.ejs  %>
 
     <main class="regisration-page">
+        <% if(regSuccess){ %>
+
+            <div class="reg-success-flash">
+                <h2>Registration Successful!</h2>
+                <h3>Redirecting in <span id="timer"></span> Or Click <a href="/">HERE</a></h3>
+
+                <script type="text/javascript">
+
+                    let countTo= 10;
+                    const timer= setInterval(function(){
+
+                        document.getElementById("timer").textContent= countTo + "...";
+                        countTo--;
+
+                        if (countTo == 0){
+                            clearInterval(timer);
+                            window.location.href= 'http://localhost:3000/';
+                        }
+
+                    },1000);
+                </script>
+            </div>
+
+        <% }else{ %>
         <div class="page-title-box">
             <h1 class="page-title-box--heading-primary">
                 Join NSU ACM SIGAPP SC and be a part of the progress!
@@ -20,8 +48,10 @@
 
             <div class="underline"></div>
         </div>
-        
+
         <div class="registration-box">
+
+
             <form class="registration-box-form" id="registration-box-form" action="/register" method="POST">
                 <div class="registration-box-form--input-paral">
                     <div class="icon-input-box">
@@ -35,27 +65,38 @@
                     </div>
                 </div>
 
+                <% if(error){ %>
+                <% if(errorMsg.invalidName){ %>
+                <h4 class="error-flash">*Invalid Name!</h4>
+                <% } %>
+                <% } %>
+
                 <div class="icon-input-box">
                     <i class="fas fa-hashtag"></i>
                     <input type="text" name="user_name" placeholder="Username">
                 </div>
 
                 <% if(error){ %>
-                    <% if(errorMsg.userNameExists){ %>
-                        <h4 class="error-flash">*Username Exists!</h4>
-                    <% } %>
+                <% if(errorMsg.userNameExists){ %>
+                <h4 class="error-flash">*Username Exists!</h4>
+                <% }else if(errorMsg.invalidUserName){ %>
+                <h4 class="error-flash">*Invalid Username!</h4>
                 <% } %>
+                <% }%>
+
 
                 <div class="icon-input-box">
                     <i class="fas fa-id-badge"></i>
                     <input type="text" name="nsu_id" placeholder="NSU ID">
                 </div>
-                
+
                 <% if(error){ %>
-                    <% if(errorMsg.nsuIdExists){ %>
-                        <h4 class="error-flash">*ID already Exists!</h4>
-                    <% } %>
+                <% if(errorMsg.nsuIdExists){ %>
+                <h4 class="error-flash">*ID already Exists!</h4>
+                <% }else if(errorMsg.invalidNsuId){ %>
+                <h4 class="error-flash">*Invalid NSU ID!</h4>
                 <% } %>
+                <% }%>
 
                 <div class="registration-box-form--input-paral">
                     <div class="icon-input-box">
@@ -70,10 +111,12 @@
                 </div>
 
                 <% if(error){ %>
-                    <% if(errorMsg.emailExists){ %>
-                        <h4 class="error-flash">*Email already in use!</h4>
-                    <% } %>
+                <% if(errorMsg.emailExists){ %>
+                <h4 class="error-flash">*Email already in use!</h4>
+                <% }else if(errorMsg.invalidNsuEmail || errorMsg.invalidAltEmail){ %>
+                <h4 class="error-flash">*Invalid Email!</h4>
                 <% } %>
+                <% }%>
 
                 <div class="registration-box-form--input-paral">
                     <div class="icon-input-box">
@@ -87,12 +130,23 @@
                     </div>
                 </div>
 
+                <% if(error){ %>
+                <% if(errorMsg.passwdMisMatch){ %>
+                <h4 class="error-flash">*Passwords do not match!</h4>
+                <% }else if(errorMsg.invalidPasswd){ %>
+                <h4 class="error-flash">*Invalid Password!</h4>
+                <% } %>
+                <% }%>
+
                 <input id="registerBtn" type="submit" value="Register" class="full-width-btn full-width-btn--black">
-                
+
             </form>
+
         </div>
+        <% } %>
     </main>
 
     <script src="js/listners.js"></script>
 </body>
+
 </html>

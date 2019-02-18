@@ -79,6 +79,7 @@
                 alert(message);
 
             }else{
+
                 $("#registration-box-form").submit();
             }
         }

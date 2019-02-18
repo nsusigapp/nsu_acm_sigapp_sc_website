@@ -14,11 +14,12 @@ module.exports = function(sequelize, DataTypes) {
 		nsu_id: {
 			type: DataTypes.STRING(45),
 			allowNull: false,
-			primaryKey: true
+			unique: true
 		},
 		role_id: {
 			type: DataTypes.INTEGER(11),
 			allowNull: true,
+			defaultValue: '1',
 			references: {
 				model: 'roles',
 				key: 'role_id'
@@ -35,11 +36,12 @@ module.exports = function(sequelize, DataTypes) {
 		user_name: {
 			type: DataTypes.STRING(45),
 			allowNull: false,
-			primaryKey: true
+			unique: true
 		},
 		nsu_email: {
 			type: DataTypes.STRING(255),
-			allowNull: false
+			allowNull: false,
+			unique: true
 		},
 		alt_email: {
 			type: DataTypes.STRING(255),
@@ -56,7 +58,8 @@ module.exports = function(sequelize, DataTypes) {
 		},
 		status: {
 			type: DataTypes.INTEGER(4),
-			allowNull: false
+			allowNull: false,
+			defaultValue: '0'
 		},
 		token: {
 			type: DataTypes.TEXT,
@@ -66,9 +69,9 @@ module.exports = function(sequelize, DataTypes) {
 		tableName: 'users'
 	});
 
-	User.generateAuthToken= function(payload){
-		return jwt.sign(payload,config.get("auth")["jwtsecret"],{ expiresIn: config.get("auth")["expiresIn"] });
+	User.generateAuthToken= payload => {
+		return jwt.sign(payload, config.get("auth")["jwtsecret"],{ expiresIn: "365d" });
 	}
-
+	
 	return User;
 };
