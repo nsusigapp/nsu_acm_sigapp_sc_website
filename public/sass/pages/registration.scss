@@ -62,17 +62,11 @@
 }
 
 .reg-success-flash{
-    background: #1e8fff69;
-    color: #fff;
-    border: 1px solid #DAF7A6;
+    background: #1e8fff44;
+    color: crimson;
+    border: 1px solid #999;
     text-align: center;
     padding: 1rem;
     border-radius: 3px;
-    h2{
-
-    }
-
-    h3{
-
-    }
+    box-shadow: 2px 3px 4px rgba(0, 0, 0, 0.3)
 }
