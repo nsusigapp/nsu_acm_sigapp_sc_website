@@ -45,7 +45,7 @@
         const checkNsuEmail= function(){
             let nsuMail= $("#nsuMail").val();
 
-            if(!(nsuMail.includes("@northsouth.edu"))){
+            if(!(nsuMail.endsWith("@northsouth.edu"))){
                 onErrorCss("#nsuMail");
             }else{
                 onSuccessCss("#nsuMail");
@@ -68,7 +68,7 @@
 
                 alert(message);
 
-            }else if(!($("#nsuMail").val().includes("@northsouth.edu"))){
+            }else if(!($("#nsuMail").val().endsWith("@northsouth.edu"))){
 
                 message= "Invalid NSU Email!";
                 alert(message);

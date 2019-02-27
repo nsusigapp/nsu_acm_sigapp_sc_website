@@ -1,0 +1,48 @@
+
+.icon-input-box:not(:last-child){
+    margin-right: 1rem;
+
+    @media only screen and(max-width: 460px){
+        margin-right: 0rem;
+    }
+}
+
+.icon-input-box{
+    width: 100%;
+    display: flex;
+    margin-bottom: 1.5rem;
+
+    i{
+        background: #333;
+        color: #fff;
+        padding: 1.5rem 2rem;
+    }
+
+    input{
+        width: 100%;
+        padding: 1.5rem 2rem;
+        outline: 0;
+        border: 1px solid #333;
+        border-left: none;
+        border-top-right-radius: 3px;
+        border-bottom-right-radius: 3px;
+        transition: all 0.3s;
+
+        &:focus{
+            border-color: #1e90ff;
+            box-shadow: 0 0 0 0.2rem rgba(#1e90ff,.5);
+        }
+    }
+}
+
+.common-form{
+    
+    &--input-paral{
+        display: flex;
+        justify-content: space-between;
+
+        @media only screen and(max-width: 460px){
+            flex-direction: column;
+        }
+    }
+}

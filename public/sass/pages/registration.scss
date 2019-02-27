@@ -1,7 +1,13 @@
+$success: #B0DB7D;
+$secondary: #99DBB4;
+$gray: #CBCDD3;
+$white: #FCFCFC;
+$error: #EF8D9C;
+$orange: #FFC39E;
 
 .regisration-page{
     padding: 2rem;
-    width: 50%;
+    width: 51%;
     margin: 0 auto;
 
     @media only screen and(max-width: 860px){
@@ -10,55 +16,9 @@
 }
 
 .registration-box{
+    // display: flex;
     margin-top: 3rem;
-
-    .icon-input-box:not(:last-child){
-        margin-right: 1rem;
-
-        @media only screen and(max-width: 460px){
-            margin-right: 0rem;
-        }
-    }
-
-    .icon-input-box{
-        width: 100%;
-        display: flex;
-        margin-bottom: 1.5rem;
-
-        i{
-            background: #333;
-            color: #fff;
-            padding: 1.5rem 2rem;
-        }
-
-        input{
-            width: 100%;
-            padding: 1.5rem 2rem;
-            outline: 0;
-            border: 1px solid #333;
-            border-left: none;
-            border-top-right-radius: 3px;
-            border-bottom-right-radius: 3px;
-            transition: all 0.3s;
-
-            &:focus{
-                border-color: #1e90ff;
-                box-shadow: 0 0 0 0.2rem rgba(#1e90ff,.5);
-            }
-        }
-    }
-
-    &-form{
-        
-        &--input-paral{
-            display: flex;
-            justify-content: space-between;
-
-            @media only screen and(max-width: 460px){
-                flex-direction: column;
-            }
-        }
-    }
+    justify-content: space-evenly;
 }
 
 .reg-success-flash{
@@ -69,4 +29,71 @@
     padding: 1rem;
     border-radius: 3px;
     box-shadow: 2px 3px 4px rgba(0, 0, 0, 0.3)
+}
+
+
+.flash-message-container{
+    
+    .flash-box-success{
+        background: linear-gradient(to bottom right, $success 40%, $secondary 100%);
+    }
+
+    .flash-box-error{
+        background: linear-gradient(135deg, #f0223e, #f34238);
+    }
+
+    .flash-box{
+        padding: 2rem 3rem;
+        border-radius: 1rem;
+        box-shadow: 5px 5px 12px rgba($gray, 10%);
+        margin-bottom: 2rem;
+
+        &--title{
+            color: $white;
+            margin-bottom: 1rem;
+        }
+
+        &--req{
+            margin-left: 5%;
+            list-style-type: none;
+
+            li{
+                font-weight: bold;
+            }
+
+            li::before{
+                content: "\2714\0020";
+                color: $white;
+            }
+        }
+
+        &--req-success{
+            @include textGradient(to right, #1E90FF, rgba(128, 53, 187, 0.5));
+
+            li::before{
+                content: error"\2714\0020";
+                color: $dogerBlue;
+                display: inline-block;
+                margin-right: 1rem;
+                margin-bottom: 1rem;
+            }
+        }
+
+        &--req-error{
+            @include textGradient(to right, yellow, $white);
+
+            li::before{
+                content: "x";
+                color: red;
+                background: $white;
+                display: inline-block;
+                text-align: center;
+                height: 23px;
+                width: 23px;
+                border-radius: 50%;
+                margin-right: 1rem;
+                margin-bottom: 1rem;
+            }
+        }
+    }
 }

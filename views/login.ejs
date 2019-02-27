@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include includes/meta.ejs  %>
+    <title>
+        <%= pageTitle %>
+    </title>
+</head>
+<body>
+    <%- include includes/header.ejs  %>
+
+    <main class="login-page">
+        <div class="login-box">
+            <h1 class="login-box--title">login</h1>
+            <form class="login-box--form" action="" method="POST">
+                <div class="icon-input-box">
+                    <i class="fas fa-id-badge"></i>
+                    <input type="text" name="nsu_id" placeholder="NSU ID">
+                </div>
+
+                <div class="icon-input-box">
+                    <i class="fas fa-user-secret"></i>
+                    <input type="password" name="passowrd" placeholder="Password">
+                </div>
+                <a href="#" class="login-box-forgot-passwd-link">Forgot Password?</a>
+                <input class="full-width-btn full-width-btn--black-raised" type="submit" value="Login">
+            </form>
+        </div>
+    </main>
+
+
+</body>
+</html>

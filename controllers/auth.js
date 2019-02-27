@@ -15,8 +15,7 @@ const Op = require("sequelize").Op;
 
 // GET /register
 const getRegisterPage = (req, res, next) => {
-
-    renderRegPage(res, false, false, {});
+    renderRegPage(req, res, false);
 }
 
 // POST /register
@@ -84,12 +83,14 @@ const postRegisterUser = (req, res, next) => {
                         isSuccess= false;
 
                         return renderRegPage(res,error,isSuccess,dbFetchErrorObj);
+
                     }else if(errorKey==="nsu_email"){
                         dbFetchErrorObj["emailExists"]= true;
                         error= true;
                         isSuccess= false;
 
                         return renderRegPage(res,error,isSuccess,dbFetchErrorObj);
+                        
                     }else if(errorKey==="user_name"){
                         dbFetchErrorObj["userNameExists"]= true;
                         error= true;
@@ -104,7 +105,22 @@ const postRegisterUser = (req, res, next) => {
         .catch(err => console.log(err));
 }
 
+const getLoginPage= (req,res,next) => {
+
+    res.render("login",{
+        pageTitle: "Login Page",
+        path: "/login",
+    });
+
+}
+
+const postLoginUser= (req,res,next) => {
+
+}
+
 module.exports = {
     getRegisterPage,
     postRegisterUser,
+    getLoginPage,
+    postLoginUser,
 }

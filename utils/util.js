@@ -1,11 +1,10 @@
 // helper
-const renderRegPage= (res,error,isSuccess,errorObj)=>{
+const renderRegPage= (req,res,isSuccess)=>{
     res.render("registration",{
         pageTitle: "Registration Page",
         path: "/registration",
-        error: error,
+        error: req.flash("info"),
         regSuccess: isSuccess,
-        errorMsg: errorObj,
     });
 }
 

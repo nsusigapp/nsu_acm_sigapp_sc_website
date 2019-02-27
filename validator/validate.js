@@ -15,7 +15,14 @@ const userSchema= joi.object().keys({
     re_password: joi.string().alphanum().min(6).required(),
 });
 
+const loginSchema= joi.object().keys({
+	
+
+});
+
 const validateRegForm= (req,res,next) => {
+
+    const error= [];
 
     const formInputErrorObj= {
         invalidName: false,
@@ -29,7 +36,7 @@ const validateRegForm= (req,res,next) => {
 
     const {...userFormData}= req.body;
 
-    let error= false;
+    let isError= false;
     let errorKey= null;
 
     const isValid= joi.validate(userFormData,userSchema);
@@ -42,115 +49,93 @@ const validateRegForm= (req,res,next) => {
 
     if(errorKey === "first_name" || errorKey === "last_name"){
         formInputErrorObj["invalidName"]= true;
-        error= true;
+        isError= true;
 
-        return renderRegPage(res,error,false,formInputErrorObj);
+        error.push(isError);
+        error.push(formInputErrorObj);
+
+        req.flash("info",error);
+
+        res.redirect("/register");
 
     }else if(errorKey === "user_name"){
         formInputErrorObj["invalidUserName"]= true;
-        error= true;
+        isError= true;
 
-        return renderRegPage(res,error,false,formInputErrorObj);
+        error.push(isError);
+        error.push(formInputErrorObj);
+
+        req.flash("info",error);
+
+        res.redirect("/register");
 
     }else if(errorKey === "nsu_id"){
         formInputErrorObj["invalidNsuId"]= true;
-        error= true;
+        isError= true;
 
-        return renderRegPage(res,error,false,formInputErrorObj);
+        error.push(isError);
+        error.push(formInputErrorObj);
+
+        req.flash("info",error);
+
+        res.redirect("/register");
 
     }else if(errorKey === "nsu_email"){
         formInputErrorObj["invalidNsuEmail"]= true;
-        error= true;
+        isError= true;
 
-        return renderRegPage(res,error,false,formInputErrorObj);
+        error.push(isError);
+        error.push(formInputErrorObj);
+
+        req.flash("info",error);
+
+        res.redirect("/register");
 
     }else if(errorKey === "alt_email"){
         formInputErrorObj["invalidAltEmail"]= true;
-        error= true;
+        isError= true;
 
-        return renderRegPage(res,error,false,formInputErrorObj);
+        error.push(isError);
+        error.push(formInputErrorObj);
+
+        req.flash("info",error);
+
+        res.redirect("/register");
 
     }else if(errorKey === "password"){
         formInputErrorObj["invalidPasswd"]= true;
-        error= true;
+        isError= true;
 
-        return renderRegPage(res,error,false,formInputErrorObj);
+        error.push(isError);
+        error.push(formInputErrorObj);
+
+        req.flash("info",error);
+
+        res.redirect("/register");
 
     }else if(userFormData.password !== userFormData.re_password){
         formInputErrorObj["passwdMisMatch"]= true;
-        error= true;
+        isError= true;
 
-        return renderRegPage(res,error,false,formInputErrorObj);
+        error.push(isError);
+        error.push(formInputErrorObj);
+
+        req.flash("info",error);
+
+        res.redirect("/register");
+
     }
 }
 
-// const checkIfExistsAndCreateUser= (res,userFormData,registerUser)=>{
+const validateLogInForm= (req,res,next) => {
+    
+    const {...loginFormData}= req.body;
 
-//     const dbFetchErrorObj= {
-//         userNameExists: false,
-//         emailExists: false,
-//         nsuIdExists: false,
-//     }
-
-//     let errorDb= false;
-
-//     users.findAll({
-//         attributes: ["u_id"],
-//         where: {
-//             user_name: userFormData.user_name,
-//         }
-//     })
-//     .then(userNameData => {
-//         if(userNameData.length > 1){
-//             dbFetchErrorObj["userNameExists"]= true;
-//             errorDb= true;
-
-//             return renderRegPage(res,errorDb,dbFetchErrorObj);
-
-//         }else{
-//             users.findAll({
-//                 attributes: ["u_id"],
-//                 where: {
-//                     nsu_id: userFormData.nsu_id
-//                 }
-//             })
-//             .then(userIdData => {
-//                 if(userIdData.length > 1){
-//                     dbFetchErrorObj["nsuIdExists"]= true;
-//                     errorDb= true;
-
-//                     return renderRegPage(res,errorDb,dbFetchErrorObj);
-                    
-//                 }else{
-//                     users.findAll({
-//                         attributes: ["u_id"],
-//                         where: {
-//                             nsu_email: userFormData.nsu_email
-//                         }
-//                     })
-//                     .then(userEmailData => {
-//                         if(userEmailData.length > 1){
-//                             dbFetchErrorObj["emailExists"]= true;
-//                             errorDb= true;
-        
-//                             return renderRegPage(res,errorDb,dbFetchErrorObj);
-//                         }else{
-
-//                             return registerUser();
-//                         }
-//                     })
-//                     .catch(err => console.log(err));
-//                 }
-//             })
-//             .catch(err => console.log(err));
-//         }
-//     })
-//     .catch(err => console.log(err));
-// }
+}
 
 
 module.exports= {
     userSchema,
     validateRegForm,
-    // checkIfExistsAndCreateUser,
+    validateLogInForm,
 }

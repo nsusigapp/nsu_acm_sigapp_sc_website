@@ -36,113 +36,115 @@
             </div>
 
         <% }else{ %>
-        <div class="page-title-box">
-            <h1 class="page-title-box--heading-primary">
-                Join NSU ACM SIGAPP SC and be a part of the progress!
-            </h1>
+            <div class="page-title-box page-title-box--center">
+                <h1 class="page-title-box--heading-primary">
+                    Join NSU ACM SIGAPP SC and be a part of the progress!
+                </h1>
 
-            <h2 class="page-title-box--heading-secondary">
-                NSU ACM SIGAPP SC is a growing community of computer enthusiasts,<br>
-                start your journey by registering below
-            </h2>
+                <h2 class="page-title-box--heading-secondary">
+                    NSU ACM SIGAPP SC is a growing community of computer enthusiasts,<br>
+                    start your journey by registering below
+                </h2>
 
-            <div class="underline"></div>
-        </div>
+                <div class="underline"></div>
+            </div>
 
-        <div class="registration-box">
+            <div class="registration-box">
 
+                <% if(!error[0]){ %>
+                    <div class="flash-message-container">
+                        <div class="flash-box flash-box-success">
+                            <h3 class="flash-box--title">Requirements</h3>
 
-            <form class="registration-box-form" id="registration-box-form" action="/register" method="POST">
-                <div class="registration-box-form--input-paral">
-                    <div class="icon-input-box">
-                        <i class="fas fa-user"></i>
-                        <input type="text" name="first_name" placeholder="First Name">
+                            <ul class="flash-box--req flash-box--req-success">
+                                <li>Username Must be between [03-32] characters long</li>
+                                <li>Must provide a valid NSU ID</li>
+                                <li>Must provide a valid NSU Email Address</li>
+                            </ul>
+                        </div>
                     </div>
+                <% }else{ %>
+                    <div class="flash-message-container">
+                            <div class="flash-box flash-box-error">
+                                <h3 class="flash-box--title">Requirements</h3>
+    
+                                <ul class="flash-box--req flash-box--req-error">
+                                        
+                                    <% if(error[1].invalidName){ %>
+                                        <li>Invalid Name!</li>
+                                    <% }else if(error[1].invalidUserName){ %>
+                                        <li>Invalid Username!</li>
+                                    <% }else if(error[1].invalidNsuId){ %>
+                                        <li>Invalid NSU ID!</li>
+                                    <% }else if(error[1].invalidNsuEmail){ %>
+                                        <li>Invalid NSU Email!</li>
+                                    <% }else if(error[1].invalidAltEmail){ %>
+                                        <li>Invalid Alternate Email!</li>
+                                    <% }else if(error[1].invalidPasswd){ %>
+                                        <li>Invalid Password!</li>
+                                    <% }else if(error[1].passwdMisMatch){ %>
+                                        <li>Password Mismatch!</li>
+                                    <% } %>
+                                </ul>
+                            </div>
+                        </div>
+                <% } %>
 
-                    <div class="icon-input-box">
-                        <i class="fas fa-user"></i>
-                        <input type="text" name="last_name" placeholder="Last Name">
-                    </div>
+                <div>
+                    <form class="registration-box-form" id="registration-box-form" action="/register" method="POST">
+                        <div class="common-form--input-paral">
+                            <div class="icon-input-box">
+                                <i class="fas fa-user"></i>
+                                <input type="text" name="first_name" placeholder="First Name">
+                            </div>
+    
+                            <div class="icon-input-box">
+                                <i class="fas fa-user"></i>
+                                <input type="text" name="last_name" placeholder="Last Name">
+                            </div>
+                        </div>
+    
+                        <div class="icon-input-box">
+                            <i class="fas fa-hashtag"></i>
+                            <input type="text" name="user_name" placeholder="Username">
+                        </div>
+    
+                        <div class="icon-input-box">
+                            <i class="fas fa-id-badge"></i>
+                            <input type="text" name="nsu_id" placeholder="NSU ID">
+                        </div>
+    
+                        <div class="common-form--input-paral">
+                            <div class="icon-input-box">
+                                <i class="fas fa-envelope"></i>
+                                <input id="nsuMail" type="email" name="nsu_email" placeholder="NSU Email">
+                            </div>
+    
+                            <div class="icon-input-box">
+                                <i class="fas fa-envelope"></i>
+                                <input type="email" name="alt_email" placeholder="Alternate Email">
+                            </div>
+                        </div>
+
+                        <div class="common-form--input-paral">
+                            <div class="icon-input-box">
+                                <i class="fas fa-user-secret"></i>
+                                <input id="password" type="password" name="password" placeholder="Password">
+                            </div>
+    
+                            <div class="icon-input-box">
+                                <i class="fas fa-user-secret"></i>
+                                <input id="re_password" type="password" name="re_password" placeholder="Re-Password">
+                            </div>
+                        </div>
+    
+                        <input id="registerBtn" type="submit" value="Register" class="full-width-btn full-width-btn--black">
+    
+                    </form>
+
                 </div>
 
-                <% if(error){ %>
-                <% if(errorMsg.invalidName){ %>
-                <h4 class="error-flash">*Invalid Name!</h4>
-                <% } %>
-                <% } %>
-
-                <div class="icon-input-box">
-                    <i class="fas fa-hashtag"></i>
-                    <input type="text" name="user_name" placeholder="Username">
-                </div>
-
-                <% if(error){ %>
-                <% if(errorMsg.userNameExists){ %>
-                <h4 class="error-flash">*Username Exists!</h4>
-                <% }else if(errorMsg.invalidUserName){ %>
-                <h4 class="error-flash">*Invalid Username!</h4>
-                <% } %>
-                <% }%>
-
-
-                <div class="icon-input-box">
-                    <i class="fas fa-id-badge"></i>
-                    <input type="text" name="nsu_id" placeholder="NSU ID">
-                </div>
-
-                <% if(error){ %>
-                <% if(errorMsg.nsuIdExists){ %>
-                <h4 class="error-flash">*ID already Exists!</h4>
-                <% }else if(errorMsg.invalidNsuId){ %>
-                <h4 class="error-flash">*Invalid NSU ID!</h4>
-                <% } %>
-                <% }%>
-
-                <div class="registration-box-form--input-paral">
-                    <div class="icon-input-box">
-                        <i class="fas fa-envelope"></i>
-                        <input id="nsuMail" type="email" name="nsu_email" placeholder="NSU Email">
-                    </div>
-
-                    <div class="icon-input-box">
-                        <i class="fas fa-envelope"></i>
-                        <input type="email" name="alt_email" placeholder="Alternate Email">
-                    </div>
-                </div>
-
-                <% if(error){ %>
-                <% if(errorMsg.emailExists){ %>
-                <h4 class="error-flash">*Email already in use!</h4>
-                <% }else if(errorMsg.invalidNsuEmail || errorMsg.invalidAltEmail){ %>
-                <h4 class="error-flash">*Invalid Email!</h4>
-                <% } %>
-                <% }%>
-
-                <div class="registration-box-form--input-paral">
-                    <div class="icon-input-box">
-                        <i class="fas fa-user-secret"></i>
-                        <input id="password" type="password" name="password" placeholder="Password">
-                    </div>
-
-                    <div class="icon-input-box">
-                        <i class="fas fa-user-secret"></i>
-                        <input id="re_password" type="password" name="re_password" placeholder="Re-Password">
-                    </div>
-                </div>
-
-                <% if(error){ %>
-                <% if(errorMsg.passwdMisMatch){ %>
-                <h4 class="error-flash">*Passwords do not match!</h4>
-                <% }else if(errorMsg.invalidPasswd){ %>
-                <h4 class="error-flash">*Invalid Password!</h4>
-                <% } %>
-                <% }%>
-
-                <input id="registerBtn" type="submit" value="Register" class="full-width-btn full-width-btn--black">
-
-            </form>
-
-        </div>
+            </div>
         <% } %>
     </main>
 
