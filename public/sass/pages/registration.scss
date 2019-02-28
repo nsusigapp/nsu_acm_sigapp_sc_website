@@ -16,19 +16,17 @@ $orange: #FFC39E;
 }
 
 .registration-box{
-    // display: flex;
     margin-top: 3rem;
     justify-content: space-evenly;
 }
 
 .reg-success-flash{
-    background: #1e8fff44;
-    color: crimson;
-    border: 1px solid #999;
+    background: linear-gradient(to bottom right, $success 40%, $secondary 100%);
+    color: $white;
     text-align: center;
-    padding: 1rem;
-    border-radius: 3px;
-    box-shadow: 2px 3px 4px rgba(0, 0, 0, 0.3)
+    padding: 1.5rem;
+    border-radius: 1rem;
+    box-shadow: 5px 5px 12px rgba($gray, 10%);
 }
 
 

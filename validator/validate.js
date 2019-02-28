@@ -22,8 +22,6 @@ const loginSchema= joi.object().keys({
 
 const validateRegForm= (req,res,next) => {
 
-    const error= [];
-
     const formInputErrorObj= {
         invalidName: false,
         invalidUserName: false,
@@ -36,10 +34,16 @@ const validateRegForm= (req,res,next) => {
 
     const {...userFormData}= req.body;
 
-    let isError= false;
     let errorKey= null;
 
     const isValid= joi.validate(userFormData,userSchema);
+
+    const flashRedirect= errorObj => {
+    
+        req.flash("info",errorObj);
+
+        return res.redirect("/register");
+    }
 
     if(isValid.error !== null){
         errorKey= isValid.error.details[0].context.key;
@@ -48,82 +52,46 @@ const validateRegForm= (req,res,next) => {
     }
 
     if(errorKey === "first_name" || errorKey === "last_name"){
+
         formInputErrorObj["invalidName"]= true;
-        isError= true;
 
-        error.push(isError);
-        error.push(formInputErrorObj);
-
-        req.flash("info",error);
-
-        res.redirect("/register");
+        flashRedirect(formInputErrorObj);
 
     }else if(errorKey === "user_name"){
+
         formInputErrorObj["invalidUserName"]= true;
-        isError= true;
 
-        error.push(isError);
-        error.push(formInputErrorObj);
-
-        req.flash("info",error);
-
-        res.redirect("/register");
+        flashRedirect(formInputErrorObj);
 
     }else if(errorKey === "nsu_id"){
+
         formInputErrorObj["invalidNsuId"]= true;
-        isError= true;
 
-        error.push(isError);
-        error.push(formInputErrorObj);
-
-        req.flash("info",error);
-
-        res.redirect("/register");
+        flashRedirect(formInputErrorObj);
 
     }else if(errorKey === "nsu_email"){
+
         formInputErrorObj["invalidNsuEmail"]= true;
-        isError= true;
 
-        error.push(isError);
-        error.push(formInputErrorObj);
-
-        req.flash("info",error);
-
-        res.redirect("/register");
+        flashRedirect(formInputErrorObj);
 
     }else if(errorKey === "alt_email"){
+
         formInputErrorObj["invalidAltEmail"]= true;
-        isError= true;
 
-        error.push(isError);
-        error.push(formInputErrorObj);
-
-        req.flash("info",error);
-
-        res.redirect("/register");
+        flashRedirect(formInputErrorObj);
 
     }else if(errorKey === "password"){
+
         formInputErrorObj["invalidPasswd"]= true;
-        isError= true;
 
-        error.push(isError);
-        error.push(formInputErrorObj);
-
-        req.flash("info",error);
-
-        res.redirect("/register");
+        flashRedirect(formInputErrorObj);
 
     }else if(userFormData.password !== userFormData.re_password){
+
         formInputErrorObj["passwdMisMatch"]= true;
-        isError= true;
 
-        error.push(isError);
-        error.push(formInputErrorObj);
-
-        req.flash("info",error);
-
-        res.redirect("/register");
-
+        flashRedirect(formInputErrorObj);
     }
 }
 

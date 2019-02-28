@@ -13,9 +13,11 @@ const saltRounds = 10;
 
 const Op = require("sequelize").Op;
 
+// -----------------------------------------------------------------------
+
 // GET /register
 const getRegisterPage = (req, res, next) => {
-    renderRegPage(req, res, false);
+    renderRegPage(req, res);
 }
 
 // POST /register
@@ -24,7 +26,7 @@ const postRegisterUser = (req, res, next) => {
     const { ...userFormData } = req.body;
 
     let isSuccess= false;
-    let error= false;
+    // let error= false;
 
     const { re_password, ...userDbData } = userFormData;
 
@@ -59,9 +61,9 @@ const postRegisterUser = (req, res, next) => {
                     })
                         .then(resQueue => {
                             isSuccess= true;
-                            error= false;
 
-                            renderRegPage(res, error, isSuccess, {});
+                            req.flash("regInfo",isSuccess);
+                            res.redirect("/register");
                         })
                         .catch(err => console.log(err));
                 })
@@ -73,31 +75,28 @@ const postRegisterUser = (req, res, next) => {
                         nsuIdExists: false,
                     }
 
-                    let error= false;
-
-                    const errorKey= err.errors[0].path
+                    const errorKey= err.errors[0].path;
 
                     if(errorKey==="nsu_id"){
                         dbFetchErrorObj["nsuIdExists"]= true;
-                        error= true;
-                        isSuccess= false;
+                        
+                        req.flash("info",dbFetchErrorObj);
 
-                        return renderRegPage(res,error,isSuccess,dbFetchErrorObj);
+                        res.redirect("/register");
 
                     }else if(errorKey==="nsu_email"){
                         dbFetchErrorObj["emailExists"]= true;
-                        error= true;
-                        isSuccess= false;
 
-                        return renderRegPage(res,error,isSuccess,dbFetchErrorObj);
-                        
+                        req.flash("info",dbFetchErrorObj);
+
+                        res.redirect("/register");
+
                     }else if(errorKey==="user_name"){
                         dbFetchErrorObj["userNameExists"]= true;
-                        error= true;
-                        isSuccess= false;
 
-                        return renderRegPage(res,error,isSuccess,dbFetchErrorObj);
-                    }
+                        req.flash("info",dbFetchErrorObj);
+
+                        res.redirect("/register");                    }
 
                 });
 

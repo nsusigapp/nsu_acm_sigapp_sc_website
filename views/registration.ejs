@@ -10,10 +10,9 @@
 
 <body>
     <%- include includes/header.ejs  %>
-
+    
     <main class="regisration-page">
-        <% if(regSuccess){ %>
-
+        <% if(regSuccess.length > 0 && regSuccess[0]){ %>
             <div class="reg-success-flash">
                 <h2>Registration Successful!</h2>
                 <h3>Redirecting in <span id="timer"></span> Or Click <a href="/">HERE</a></h3>
@@ -50,8 +49,7 @@
             </div>
 
             <div class="registration-box">
-
-                <% if(!error[0]){ %>
+                <% if(error.length === 0){ %>
                     <div class="flash-message-container">
                         <div class="flash-box flash-box-success">
                             <h3 class="flash-box--title">Requirements</h3>
@@ -66,24 +64,39 @@
                 <% }else{ %>
                     <div class="flash-message-container">
                             <div class="flash-box flash-box-error">
-                                <h3 class="flash-box--title">Requirements</h3>
+                                <h3 class="flash-box--title">Error!</h3>
     
                                 <ul class="flash-box--req flash-box--req-error">
                                         
-                                    <% if(error[1].invalidName){ %>
+                                    <% if(error[0].invalidName){ %>
                                         <li>Invalid Name!</li>
-                                    <% }else if(error[1].invalidUserName){ %>
-                                        <li>Invalid Username!</li>
-                                    <% }else if(error[1].invalidNsuId){ %>
+
+                                    <% }else if(error[0].invalidUserName){ %>
+                                        <li>Username is too short or contains invalid characters!</li>
+
+                                    <% }else if(error[0].invalidNsuId){ %>
                                         <li>Invalid NSU ID!</li>
-                                    <% }else if(error[1].invalidNsuEmail){ %>
+
+                                    <% }else if(error[0].invalidNsuEmail){ %>
                                         <li>Invalid NSU Email!</li>
-                                    <% }else if(error[1].invalidAltEmail){ %>
+
+                                    <% }else if(error[0].invalidAltEmail){ %>
                                         <li>Invalid Alternate Email!</li>
-                                    <% }else if(error[1].invalidPasswd){ %>
-                                        <li>Invalid Password!</li>
-                                    <% }else if(error[1].passwdMisMatch){ %>
+
+                                    <% }else if(error[0].invalidPasswd){ %>
+                                        <li>Password too short!</li>
+
+                                    <% }else if(error[0].passwdMisMatch){ %>
                                         <li>Password Mismatch!</li>
+
+                                    <% }else if(error[0].userNameExists){  %>
+                                        <li>Username Exists!</li>
+                                        
+                                    <% }else if(error[0].emailExists){  %>
+                                        <li>Email Exists!</li>
+
+                                    <% }else if(error[0].nsuIdExists){  %>
+                                        <li>Email Exists!</li>
                                     <% } %>
                                 </ul>
                             </div>

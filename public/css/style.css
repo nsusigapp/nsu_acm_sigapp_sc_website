@@ -275,13 +275,12 @@ body {
   justify-content: space-evenly; }
 
 .reg-success-flash {
-  background: #1e8fff44;
-  color: crimson;
-  border: 1px solid #999;
+  background: linear-gradient(to bottom right, #B0DB7D 40%, #99DBB4 100%);
+  color: #FCFCFC;
   text-align: center;
-  padding: 1rem;
-  border-radius: 3px;
-  box-shadow: 2px 3px 4px rgba(0, 0, 0, 0.3); }
+  padding: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 5px 5px 12px #cbcdd3; }
 
 .flash-message-container .flash-box-success {
   background: linear-gradient(to bottom right, #B0DB7D 40%, #99DBB4 100%); }
@@ -349,7 +348,7 @@ body {
       margin: 3rem 0rem; } }
   .login-box--title {
     text-transform: uppercase;
-    background: #333;
+    background: linear-gradient(to right, #4a6e7d, #64a7c3);
     color: #fff;
     box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.3);
     margin-bottom: 2rem;
