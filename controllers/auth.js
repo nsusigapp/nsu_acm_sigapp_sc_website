@@ -171,6 +171,11 @@ const postLoginUser = (req, res, next) => {
 // POST /logout
 const postLogout = (req, res, next) => {
 
+    req.session.destroy(err => {
+        res.clearCookie("_pass");
+        res.redirect('/');
+      });
+
 }
 
 module.exports = {

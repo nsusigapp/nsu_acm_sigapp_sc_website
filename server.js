@@ -50,10 +50,11 @@ app.use(bodyParser.urlencoded({extended: false}));
 // user routes
 
 app.get("/",(req,res,next)=>{
-    console.log(req.session.userData);
+
     res.render("index",{
         loggedIn: req.session.userData,
     });
+
 });
 
 app.use("/",authRoutes.router);

@@ -16,8 +16,10 @@
 <body>
     <h1 class="hello">Hello World!</h1>
 
-    <% if(loggedIn.uid){ %>
-        <button type="submit">LogOut</button>
+    <% if(loggedIn){ %>
+        <form action="/logout" method="POST">
+            <button type="submit">LogOut</button>
+        </form>
     <% } %>
 
 </body>
