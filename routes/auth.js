@@ -14,6 +14,8 @@ router.get("/login",authController.getLoginPage);
 
 router.post("/login",validateLogInForm,authController.postLoginUser);
 
+router.post("/logout",authController.postLogout);
+
 module.exports= {
     router,
 }

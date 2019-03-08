@@ -32,9 +32,16 @@
         }
     }
 
+    &-forgot-passwd-link--right{
+        float: right;
+    }
+
+    &-forgot-passwd-link--left{
+        float: left;
+    }
+
     &-forgot-passwd-link{
         margin-bottom: 2rem;
-        float: right;
         font-weight: 700;
         text-decoration: none;
         color: black;

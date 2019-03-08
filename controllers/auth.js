@@ -1,9 +1,5 @@
 
 const { users, email_queue: emailQueue } = require("../models/index");
-const { validateRegForm } = require("../validator/validate");
-const { checkIfExistsAndCreateUser } = require("../validator/validate");
-const { renderRegPage } = require("../utils/util");
-
 
 const bcrypt = require('bcrypt');
 const nodemailer = require('nodemailer');
@@ -17,18 +13,23 @@ const Op = require("sequelize").Op;
 
 // GET /register
 const getRegisterPage = (req, res, next) => {
-    renderRegPage(req, res);
+
+    res.render("registration", {
+        pageTitle: "Registration Page",
+        path: "/registration",
+        error: req.flash("info"),
+        regSuccess: req.flash("regInfo"),
+    });
+    
 }
+
 
 // POST /register
 const postRegisterUser = (req, res, next) => {
 
-    const { ...userFormData } = req.body;
+    const { re_password, ...userDbData } = req.body;
 
-    let isSuccess= false;
-    // let error= false;
-
-    const { re_password, ...userDbData } = userFormData;
+    let isSuccess = false;
 
     bcrypt.hash(userDbData.password, saltRounds)
         .then(hash => {
@@ -60,43 +61,46 @@ const postRegisterUser = (req, res, next) => {
                         sent_at: Date.now(),
                     })
                         .then(resQueue => {
-                            isSuccess= true;
 
-                            req.flash("regInfo",isSuccess);
-                            res.redirect("/register");
+                            isSuccess = true;
+
+                            req.flash("regInfo", isSuccess);
+
+                            return res.redirect("/register");
                         })
                         .catch(err => console.log(err));
                 })
                 .catch(err => {
 
-                    const dbFetchErrorObj= {
+                    const dbFetchErrorObj = {
                         userNameExists: false,
                         emailExists: false,
                         nsuIdExists: false,
                     }
 
-                    const errorKey= err.errors[0].path;
+                    const errorKey = err.errors[0].path;
 
-                    if(errorKey==="nsu_id"){
-                        dbFetchErrorObj["nsuIdExists"]= true;
-                        
-                        req.flash("info",dbFetchErrorObj);
+                    if (errorKey === "nsu_id") {
+                        dbFetchErrorObj["nsuIdExists"] = true;
 
-                        res.redirect("/register");
+                        req.flash("info", dbFetchErrorObj);
 
-                    }else if(errorKey==="nsu_email"){
-                        dbFetchErrorObj["emailExists"]= true;
+                        return res.redirect("/register");
 
-                        req.flash("info",dbFetchErrorObj);
+                    } else if (errorKey === "nsu_email") {
+                        dbFetchErrorObj["emailExists"] = true;
 
-                        res.redirect("/register");
+                        req.flash("info", dbFetchErrorObj);
 
-                    }else if(errorKey==="user_name"){
-                        dbFetchErrorObj["userNameExists"]= true;
+                        return res.redirect("/register");
 
-                        req.flash("info",dbFetchErrorObj);
+                    } else if (errorKey === "user_name") {
+                        dbFetchErrorObj["userNameExists"] = true;
 
-                        res.redirect("/register");                    }
+                        req.flash("info", dbFetchErrorObj);
+
+                        return res.redirect("/register");
+                    }
 
                 });
 
@@ -104,16 +108,68 @@ const postRegisterUser = (req, res, next) => {
         .catch(err => console.log(err));
 }
 
-const getLoginPage= (req,res,next) => {
+// GET /login
+const getLoginPage = (req, res, next) => {
 
-    res.render("login",{
+    res.render("login", {
         pageTitle: "Login Page",
         path: "/login",
+        error: req.flash("loginErr"),
     });
 
 }
 
-const postLoginUser= (req,res,next) => {
+// POST /login
+const postLoginUser = (req, res, next) => {
+
+    const {...loginFormData}= req.body;
+
+    users.findOne({
+        where: {
+            nsu_id: loginFormData["nsu_id"],
+        }
+    })
+        .then(fetchedUser => {
+
+            if(!fetchedUser){ // user does not exists
+
+                req.flash("loginErr",{
+                    userDoesNotExist: true,
+                });
+
+                res.redirect("/login");
+
+            }else{
+                bcrypt.compare(loginFormData["password"],fetchedUser["password"])
+                    .then(checkPass => {
+
+                        if(!checkPass){
+
+                            req.flash("loginErr",{
+                                passwordMisMatch: true,
+                            });
+            
+                            res.redirect("/login");
+                        }else{
+
+                            req.session.userData= {
+                                uid: fetchedUser.u_id
+                            }
+
+                            res.cookie("_pass",fetchedUser.token,{httpOnly: true,maxAge: 30*24*60*60*1000});
+
+                            res.redirect("/");
+                        }
+                    })
+                    .catch(err =>  console.log(err));
+            }
+        })
+        .catch(err => console.log("err"));
+
+}
+
+// POST /logout
+const postLogout = (req, res, next) => {
 
 }
 
@@ -122,4 +178,5 @@ module.exports = {
     postRegisterUser,
     getLoginPage,
     postLoginUser,
+    postLogout,
 }

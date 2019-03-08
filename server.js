@@ -38,7 +38,7 @@ app.use(session({
         port: 6378,
         client: redis,
     }),
-    cookie: {maxAge: 6000000}
+    cookie: {httpOnly: true,maxAge: 30*24*60*60*1000} // 30 days
 }));
 
 app.use(flash());
@@ -50,7 +50,10 @@ app.use(bodyParser.urlencoded({extended: false}));
 // user routes
 
 app.get("/",(req,res,next)=>{
-    res.send("<h1>Hello There!</h1>");
+    console.log(req.session.userData);
+    res.render("index",{
+        loggedIn: req.session.userData,
+    });
 });
 
 app.use("/",authRoutes.router);

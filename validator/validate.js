@@ -1,9 +1,6 @@
 
 const joi= require("joi");
 
-const {renderRegPage}= require("../utils/util");
-const {users}= require("../models/index");
-
 const userSchema= joi.object().keys({
     first_name: joi.string().required(),
     last_name: joi.string().required(),
@@ -16,8 +13,8 @@ const userSchema= joi.object().keys({
 });
 
 const loginSchema= joi.object().keys({
-	
-
+	nsu_id: joi.string().regex(/^[01][0-9][0-3]\d{4}(\d{3})?$/).required(),
+    password: joi.string().alphanum().min(6).required(),
 });
 
 const validateRegForm= (req,res,next) => {
@@ -99,11 +96,42 @@ const validateLogInForm= (req,res,next) => {
     
     const {...loginFormData}= req.body;
 
+    const loginInputError= {
+        invalidNsuId: false,
+        invalidPasswd: false,
+    }
+
+    let errorKey= null;
+
+    const isValid= joi.validate(loginFormData,loginSchema);
+
+    if(isValid.error !== null){
+        errorKey= isValid.error.details[0].context.key;
+    }else{
+        next();
+    }
+
+    if(errorKey === "nsu_id"){
+
+        loginInputError["invalidNsuId"]= true;
+
+        req.flash("loginErr",loginInputError);
+
+        return res.redirect("/login");
+
+    }else if(errorKey === "password"){
+
+        loginInputError["invalidPasswd"]= true;
+
+        req.flash("loginErr",loginInputError);
+
+        return res.redirect("/login");
+
+    }
 }
 
 
 module.exports= {
-    userSchema,
     validateRegForm,
     validateLogInForm,
 }

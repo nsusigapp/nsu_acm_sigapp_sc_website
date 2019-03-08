@@ -262,26 +262,6 @@ body {
     .common-form--input-paral {
       flex-direction: column; } }
 
-.regisration-page {
-  padding: 2rem;
-  width: 51%;
-  margin: 0 auto; }
-  @media only screen and (max-width: 860px) {
-    .regisration-page {
-      width: 100%; } }
-
-.registration-box {
-  margin-top: 3rem;
-  justify-content: space-evenly; }
-
-.reg-success-flash {
-  background: linear-gradient(to bottom right, #B0DB7D 40%, #99DBB4 100%);
-  color: #FCFCFC;
-  text-align: center;
-  padding: 1.5rem;
-  border-radius: 1rem;
-  box-shadow: 5px 5px 12px #cbcdd3; }
-
 .flash-message-container .flash-box-success {
   background: linear-gradient(to bottom right, #B0DB7D 40%, #99DBB4 100%); }
 
@@ -330,6 +310,26 @@ body {
       margin-right: 1rem;
       margin-bottom: 1rem; }
 
+.reg-success-flash {
+  background: linear-gradient(to bottom right, #B0DB7D 40%, #99DBB4 100%);
+  color: #FCFCFC;
+  text-align: center;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 5px 5px 12px #cbcdd3; }
+
+.regisration-page {
+  padding: 2rem;
+  width: 51%;
+  margin: 0 auto; }
+  @media only screen and (max-width: 860px) {
+    .regisration-page {
+      width: 100%; } }
+
+.registration-box {
+  margin-top: 3rem;
+  justify-content: space-evenly; }
+
 .login-page {
   padding: 2rem;
   width: 50%;
@@ -356,9 +356,12 @@ body {
     @media only screen and (max-width: 860px) {
       .login-box--title {
         font-size: 2rem; } }
+  .login-box-forgot-passwd-link--right {
+    float: right; }
+  .login-box-forgot-passwd-link--left {
+    float: left; }
   .login-box-forgot-passwd-link {
     margin-bottom: 2rem;
-    float: right;
     font-weight: 700;
     text-decoration: none;
     color: black;
