@@ -1,24 +1,27 @@
 
-const express= require("express");
+const express = require("express");
 
-const redis= require("redis").createClient();
-const cookieParser= require("cookie-parser");
-const session= require("express-session");
+const redis = require("redis").createClient();
+const cookieParser = require("cookie-parser");
+const session = require("express-session");
 const RedisStore = require("connect-redis")(session);
 const flash = require("connect-flash");
-const helmet= require("helmet");
-const csurf= require("csurf");
-const compression= require("compression");
-const bodyParser= require("body-parser");
-const config= require("config");
+const helmet = require("helmet");
+const dotenv = require("dotenv");
+const csurf = require("csurf");
+const compression = require("compression");
+const bodyParser = require("body-parser");
 
-const authRoutes= require("./routes/auth");
+const authRoutes = require("./routes/auth");
+const errorRoutes = require("./routes/errors");
 
-const app= express();
+const app = express();
 
-app.set("view engine","ejs");
+dotenv.config();
 
-app.set("views","views");
+app.set("view engine", "ejs");
+
+app.set("views", "views");
 
 app.use(express.static(__dirname + "/public"));
 
@@ -30,7 +33,7 @@ app.use(cookieParser(config.get("auth")["cookiesecret"]));
 
 app.use(session({
     name: "_sid",
-    secret: config.get("auth")["sessionsecret"],
+    secret: process.env.SCOOK_SECRET,
     resave: false,
     saveUninitialized: false,
     store: new RedisStore({
@@ -38,27 +41,32 @@ app.use(session({
         port: 6378,
         client: redis,
     }),
-    cookie: {httpOnly: true,maxAge: 30*24*60*60*1000} // 30 days
+    cookie: { httpOnly: true, maxAge: 30 * 24 * 60 * 60 * 1000 } // 30 days
 }));
 
 app.use(flash());
 
 app.use(bodyParser.json());
 
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({ extended: false }));
 
 // user routes
 
-app.get("/",(req,res,next)=>{
+// check if user is logged in
+app.use(authMiddleWare.isLoggedIn);
 
-    res.render("index",{
+app.get("/", (req, res, next) => {
+
+    res.render("index", {
         loggedIn: req.session.userData,
     });
 
 });
 
-app.use("/",authRoutes.router);
+app.use("/", authRoutes.router);
 
-app.listen(3000,()=>{
+app.use(errorRoutes.router);
+
+app.listen(3000, () => {
     console.log("server started on port: 3000");
 });

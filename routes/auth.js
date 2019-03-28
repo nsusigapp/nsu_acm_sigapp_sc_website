@@ -16,6 +16,6 @@ router.post("/login",validateLogInForm,authController.postLoginUser);
 
 router.post("/logout",authController.postLogout);
 
-module.exports= {
+module.exports = {
     router,
 }
