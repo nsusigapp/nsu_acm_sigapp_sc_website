@@ -8,14 +8,6 @@ module.exports = function(sequelize, DataTypes) {
 			primaryKey: true,
 			autoIncrement: true
 		},
-		created_by: {
-			type: DataTypes.INTEGER(11),
-			allowNull: true,
-			references: {
-				model: 'users',
-				key: 'u_id'
-			}
-		},
 		event_type: {
 			type: DataTypes.STRING(45),
 			allowNull: false

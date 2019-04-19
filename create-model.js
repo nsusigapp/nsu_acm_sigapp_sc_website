@@ -9,6 +9,40 @@ const auto = new SequelizeAuto('nsu_sigapp_sc', 'root', '123456');
 //   console.log(auto.foreignKeys); // foreign key list
 // });
 
-// const db= require("./models/index");
+const db = require("./models/index");
 
-// db.sequelize.sync();
+const { users: User, blog: Blog, forum: Forum, 
+    blog_comments: BlogCom, blog_like_track: BlogLike, 
+    events: Event, event_registered_people: EventRegPeople, forum_reply: ForumReply } = require("./models/index");
+
+User.hasMany(Blog);
+User.hasMany(Forum);
+User.hasMany(BlogCom);
+User.hasMany(ForumReply);
+User.hasMany(BlogLike);
+User.hasMany(Event);
+User.hasMany(EventRegPeople);
+
+Blog.hasMany(BlogCom);
+Blog.hasMany(BlogLike);
+Blog.belongsTo(User);
+
+Forum.hasMany(ForumReply);
+Forum.belongsTo(User);
+
+ForumReply.belongsTo(Forum);
+ForumReply.belongsTo(User);
+
+BlogCom.belongsTo(Blog);
+BlogCom.belongsTo(User);
+
+BlogLike.belongsTo(User);
+BlogLike.belongsTo(Blog);
+
+Event.belongsTo(User);
+Event.hasMany(EventRegPeople);
+
+EventRegPeople.belongsTo(Event);
+EventRegPeople.belongsTo(User);
+
+db.sequelize.sync();

@@ -3,7 +3,10 @@
 const jwt= require("jsonwebtoken");
 const config= require("config");
 
+const { blog: Blog, forum: Forum } = require("./index");
+
 module.exports = function(sequelize, DataTypes) {
+
 	const User= sequelize.define('users', {
 		u_id: {
 			type: DataTypes.INTEGER(11),

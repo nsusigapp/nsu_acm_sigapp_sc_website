@@ -8,14 +8,6 @@ module.exports = function(sequelize, DataTypes) {
 			primaryKey: true,
 			autoIncrement: true
 		},
-		author_id: {
-			type: DataTypes.INTEGER(11),
-			allowNull: true,
-			references: {
-				model: 'users',
-				key: 'u_id'
-			}
-		},
 		f_post_title: {
 			type: DataTypes.STRING(255),
 			allowNull: false

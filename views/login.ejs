@@ -32,6 +32,8 @@
                             <% }else if(error[0].passwordMisMatch){ %>
                                 <li>Password Doesn't Match!</li>
 
+                            <% }else if(error[0].bannedUser){ %>
+                                <li>User Status: Deactivated!</li>
                             <% } %>
                         </ul>
                     </div>
