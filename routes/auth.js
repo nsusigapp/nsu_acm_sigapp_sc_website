@@ -1,20 +1,20 @@
 
-const authController= require("../controllers/auth");
-const {validateRegForm}= require("../validator/validate");
-const {validateLogInForm}= require("../validator/validate");
+const authController = require("../controllers/auth");
+const { validateRegForm } = require("../validator/validate");
+const { validateLogInForm } = require("../validator/validate");
 
 
-const router= require("express").Router();
+const router = require("express").Router();
 
-router.get("/register",authController.getRegisterPage);
+router.get("/register", authController.getRegisterPage);
 
-router.post("/register",validateRegForm,authController.postRegisterUser);
+router.post("/register", validateRegForm, authController.postRegisterUser);
 
-router.get("/login",authController.getLoginPage);
+router.get("/login", authController.getLoginPage);
 
-router.post("/login",validateLogInForm,authController.postLoginUser);
+router.post("/login", validateLogInForm, authController.postLoginUser);
 
-router.post("/logout",authController.postLogout);
+router.post("/logout", authController.postLogout);
 
 module.exports = {
     router,

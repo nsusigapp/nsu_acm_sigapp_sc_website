@@ -15,6 +15,8 @@ const bodyParser = require("body-parser");
 const authRoutes = require("./routes/auth");
 const errorRoutes = require("./routes/errors");
 
+const authMiddleWare = require("./middlewares/auth");
+
 const app = express();
 
 dotenv.config();
@@ -29,7 +31,7 @@ app.use(compression());
 
 app.use(helmet());
 
-app.use(cookieParser(config.get("auth")["cookiesecret"]));
+app.use(cookieParser(process.env.SCOOK_SECRET));
 
 app.use(session({
     name: "_sid",

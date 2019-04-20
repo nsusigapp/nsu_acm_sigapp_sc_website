@@ -5,7 +5,7 @@ const fourOFour = (req, res, next) => {
 
 const fiveHundread = (err, req, res, next) => {
     return res.status(err.status || 500).send({ error: err });
-};
+}
 
 module.exports = {
     fourOFour,

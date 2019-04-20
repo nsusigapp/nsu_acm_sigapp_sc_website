@@ -7,6 +7,10 @@
     "start": "nodemon ./server.js",
     "sass:compile": "node-sass public/sass/main.scss public/css/style.css -w"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nsusigapp/nsu_acm_sigapp_sc_website.git"
+  },
   "author": "MrScX,SpaceKnight,MD.Faisal",
   "license": "ISC",
   "dependencies": {
@@ -14,7 +18,6 @@
     "bcrypt": "^3.0.3",
     "body-parser": "^1.18.3",
     "compression": "^1.7.3",
-    "config": "^3.0.1",
     "connect-flash": "^0.1.1",
     "connect-redis": "^3.4.0",
     "cookie-parser": "^1.4.3",
@@ -24,11 +27,9 @@
     "ejs": "^2.6.1",
     "express": "^4.16.4",
     "express-session": "^1.15.6",
-    "express-validator": "^5.3.1",
     "helmet": "^3.15.0",
     "joi": "^14.3.1",
     "jsonwebtoken": "^8.4.0",
-    "lodash": "^4.17.11",
     "multer": "^1.4.1",
     "mysql": "^2.16.0",
     "mysql2": "^1.6.4",

@@ -2,7 +2,6 @@
 const { users: User, email_queue: EmailQueue, sequelize } = require("../models/index");
 
 const bcrypt = require('bcrypt');
-const nodemailer = require('nodemailer');
 
 const saltRounds = 10;
 
@@ -36,7 +35,6 @@ const postRegisterUser = (req, res, next) => {
 
             userDbData.token = User.generateAuthToken({
                 nsu_id: userDbData.nsu_id,
-                user_name: userDbData.user_name,
                 role_id: userDbData.role_id,
                 status: userDbData.status,
             });
@@ -167,7 +165,9 @@ const postLoginUser = (req, res, next) => {
                         } else {
 
                             req.session.userData = {
-                                uid: fetchedUser.u_id
+                                uid: fetchedUser.u_id,
+                                user_name: fetchedUser.user_name,
+                                nsu_id: fetchedUser
                             }
 
                             res.cookie("_pass", fetchedUser.token, { httpOnly: true, maxAge: 30 * 24 * 60 * 60 * 1000 });
@@ -179,7 +179,6 @@ const postLoginUser = (req, res, next) => {
             }
         })
         .catch(err => console.log("err"));
-
 }
 
 // POST /logout

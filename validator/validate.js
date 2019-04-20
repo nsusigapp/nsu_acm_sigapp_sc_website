@@ -1,7 +1,7 @@
 
-const joi= require("joi");
+const joi = require("joi");
 
-const userSchema= joi.object().keys({
+const userSchema = joi.object().keys({
     first_name: joi.string().required(),
     last_name: joi.string().required(),
     user_name: joi.string().alphanum().min(3).max(30).required(),
@@ -12,14 +12,13 @@ const userSchema= joi.object().keys({
     re_password: joi.string().alphanum().min(6).required(),
 });
 
-const loginSchema= joi.object().keys({
-	nsu_id: joi.string().regex(/^[01][0-9][0-3]\d{4}(\d{3})?$/).required(),
-    password: joi.string().alphanum().min(6).required(),
+const loginSchema = joi.object().keys({
+    nsu_id: joi.string().regex(/^[01][0-9][0-3]\d{4}(\d{3})?$/).required(),
 });
 
-const validateRegForm= (req,res,next) => {
+const validateRegForm = (req, res, next) => {
 
-    const formInputErrorObj= {
+    const formInputErrorObj = {
         invalidName: false,
         invalidUserName: false,
         invalidNsuId: false,
@@ -29,101 +28,98 @@ const validateRegForm= (req,res,next) => {
         passwdMisMatch: false,
     }
 
-    const {...userFormData}= req.body;
+    const { ...userFormData } = req.body;
 
-    let errorKey= null;
+    let errorKey = null;
 
-    const isValid= joi.validate(userFormData,userSchema);
+    const isValid = joi.validate(userFormData, userSchema);
 
-    const flashRedirect= errorObj => {
-    
-        req.flash("info",errorObj);
+    const flashRedirect = errorObj => {
+
+        req.flash("info", errorObj);
 
         return res.redirect("/register");
     }
 
-    if(isValid.error !== null){
-        errorKey= isValid.error.details[0].context.key;
-    }else{
+    if (isValid.error !== null) {
+
+        errorKey = isValid.error.details[0].context.key;
+
+    } else {
+        
         next();
     }
 
-    if(errorKey === "first_name" || errorKey === "last_name"){
+    if (errorKey === "first_name" || errorKey === "last_name") {
 
-        formInputErrorObj["invalidName"]= true;
-
-        flashRedirect(formInputErrorObj);
-
-    }else if(errorKey === "user_name"){
-
-        formInputErrorObj["invalidUserName"]= true;
+        formInputErrorObj["invalidName"] = true;
 
         flashRedirect(formInputErrorObj);
 
-    }else if(errorKey === "nsu_id"){
+    } else if (errorKey === "user_name") {
 
-        formInputErrorObj["invalidNsuId"]= true;
-
-        flashRedirect(formInputErrorObj);
-
-    }else if(errorKey === "nsu_email"){
-
-        formInputErrorObj["invalidNsuEmail"]= true;
+        formInputErrorObj["invalidUserName"] = true;
 
         flashRedirect(formInputErrorObj);
 
-    }else if(errorKey === "alt_email"){
+    } else if (errorKey === "nsu_id") {
 
-        formInputErrorObj["invalidAltEmail"]= true;
-
-        flashRedirect(formInputErrorObj);
-
-    }else if(errorKey === "password"){
-
-        formInputErrorObj["invalidPasswd"]= true;
+        formInputErrorObj["invalidNsuId"] = true;
 
         flashRedirect(formInputErrorObj);
 
-    }else if(userFormData.password !== userFormData.re_password){
+    } else if (errorKey === "nsu_email") {
 
-        formInputErrorObj["passwdMisMatch"]= true;
+        formInputErrorObj["invalidNsuEmail"] = true;
+
+        flashRedirect(formInputErrorObj);
+
+    } else if (errorKey === "alt_email") {
+
+        formInputErrorObj["invalidAltEmail"] = true;
+
+        flashRedirect(formInputErrorObj);
+
+    } else if (errorKey === "password") {
+
+        formInputErrorObj["invalidPasswd"] = true;
+
+        flashRedirect(formInputErrorObj);
+
+    } else if (userFormData.password !== userFormData.re_password) {
+
+        formInputErrorObj["passwdMisMatch"] = true;
 
         flashRedirect(formInputErrorObj);
     }
 }
 
-const validateLogInForm= (req,res,next) => {
-    
-    const {...loginFormData}= req.body;
+const validateLogInForm = (req, res, next) => {
 
-    const loginInputError= {
+    const { ...loginFormData } = req.body;
+
+    const loginInputError = {
         invalidNsuId: false,
-        invalidPasswd: false,
     }
 
-    let errorKey= null;
+    let errorKey = null;
 
-    const isValid= joi.validate(loginFormData,loginSchema);
+    const isValid = joi.validate(loginFormData, loginSchema);
 
-    if(isValid.error !== null){
-        errorKey= isValid.error.details[0].context.key;
-    }else{
+    if (isValid.error !== null) {
+
+        errorKey = isValid.error.details[0].context.key;
+
+    } else {
+
         next();
     }
 
-    if(errorKey === "nsu_id"){
+    if (errorKey === "nsu_id") {
 
-        loginInputError["invalidNsuId"]= true;
+        loginInputError["invalidNsuId"] = true;
 
-        req.flash("loginErr",loginInputError);
-
-        return res.redirect("/login");
-
-    }else if(errorKey === "password"){
-
-        loginInputError["invalidPasswd"]= true;
-
-        req.flash("loginErr",loginInputError);
+        req.flash("loginErr", loginInputError);
 
         return res.redirect("/login");
 
@@ -131,7 +127,7 @@ const validateLogInForm= (req,res,next) => {
 }
 
 
-module.exports= {
+module.exports = {
     validateRegForm,
     validateLogInForm,
 }

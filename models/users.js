@@ -1,7 +1,6 @@
 /* jshint indent: 1 */
 
 const jwt= require("jsonwebtoken");
-const config= require("config");
 
 const { blog: Blog, forum: Forum } = require("./index");
 
@@ -73,7 +72,7 @@ module.exports = function(sequelize, DataTypes) {
 	});
 
 	User.generateAuthToken= payload => {
-		return jwt.sign(payload, config.get("auth")["jwtsecret"],{ expiresIn: "365d" });
+		return jwt.sign(payload, config.get("auth")["jwtsecret"],{ expiresIn: process.env.EXPIRY_TIME });
 	}
 	
 	return User;

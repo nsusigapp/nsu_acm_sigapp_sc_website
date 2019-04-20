@@ -1,92 +1,88 @@
-(function(){
-    
-    // open modal;
-    $(document).ready(function(){
-        $("#openSignInModal").click(function(event){
-            event.stopPropagation();
-            $("#signInModal").fadeToggle();
-        });
 
-        // close modal on click outside of modal
-        $(document).on("click",function(event){
-            if(!$(event.target).closest("#signInModal").length){
-                $("#signInModal").fadeOut();
+(function () {
+    const onErrorCss = (elem) => {
+
+        elem.style.borderColor = "crimson";
+        elem.style.boxShadow = "0 0 0 0.2rem rgba(220,20,60,.5)";
+    }
+
+    const onSuccessCss = (elem) => {
+
+        elem.style.borderColor = "green";
+        elem.style.boxShadow = "0 0 0 0.2rem rgba(88,214,141,.5)";
+    }
+
+    // check password match;
+    const checkPassword = function () {
+
+        const passwdField = document.getElementById("password");
+        const rePasswdField = document.getElementById("re_password");
+
+        let passwd = passwdField.value;
+        let rePasswd = rePasswdField.value;
+
+        if (passwd !== rePasswd) {
+
+            onErrorCss(passwdField);
+
+        } else if (rePasswd.length > 0) {
+
+            onSuccessCss(rePasswdField);
+        }
+    }
+
+    const checkNsuEmail = function () {
+
+        const mailField = document.getElementById("nsuMail");
+
+        let nsuMail = mailField.value;
+
+        if (!(nsuMail.endsWith("@northsouth.edu"))) {
+
+            onErrorCss(mailField);
+
+        } else {
+
+            onSuccessCss(mailField);
+        }
+    }
+
+    const validateFields = function (event) {
+        
+        event.preventDefault();
+        let isFieldEmpty = false;
+        let message = "";
+
+        $(".registration-box-form input[type!=submit]").each(function () {
+            if ($(this).val() === "") {
+                isFieldEmpty = true;
+                message = "There Are Empty Fields!";
             }
         });
 
-        // css changes
+        if (isFieldEmpty) {
 
-        const onErrorCss= (id)=>{
-            $(id).css({
-                "border-color": "crimson",
-                "box-shadow": "0 0 0 0.2rem rgba(220,20,60,.5)"
-            });
+            alert(message);
+
+        } else if (!($("#nsuMail").val().endsWith("@northsouth.edu"))) {
+
+            message = "Invalid NSU Email!";
+            alert(message);
+
+        } else if ($("#password").val() !== $("#re_password").val()) {
+
+            message = "Password Do Not Match!";
+            alert(message);
+
+        } else {
+
+            $("#registration-box-form").submit();
         }
+    }
 
-        const onSuccessCss= (id)=>{
-            $(id).css({
-                "border-color": "green",
-                "box-shadow": "0 0 0 0.2rem rgba(88,214,141,.5)"
-            });
-        }
-
-        // check password match;
-        const checkPassword= function(){
-            let passwd= $("#password").val();
-            let rePasswd= $("#re_password").val();
-
-            if(passwd !== rePasswd){
-                onErrorCss("#re_password");
-            }else if(rePasswd.length > 0){
-                onSuccessCss("#re_password")
-            }
-        }
-
-        const checkNsuEmail= function(){
-            let nsuMail= $("#nsuMail").val();
-
-            if(!(nsuMail.endsWith("@northsouth.edu"))){
-                onErrorCss("#nsuMail");
-            }else{
-                onSuccessCss("#nsuMail");
-            }
-        }
-
-        const validateFields= function(event){
-            event.preventDefault();
-            let isFieldEmpty= false;
-            let message= "";
-
-            $(".registration-box-form input[type!=submit]").each(function(){
-                if($(this).val() === ""){
-                    isFieldEmpty= true;
-                    message= "There Are Empty Fields!";
-                }
-            });
-
-            if(isFieldEmpty){
-
-                alert(message);
-
-            }else if(!($("#nsuMail").val().endsWith("@northsouth.edu"))){
-
-                message= "Invalid NSU Email!";
-                alert(message);
-
-            }else if($("#password").val() !== $("#re_password").val()){
-
-                message= "Password Do Not Match!";
-                alert(message);
-
-            }else{
-
-                $("#registration-box-form").submit();
-            }
-        }
-
-        $("#re_password").keyup(checkPassword);
-        $("#nsuMail").keyup(checkNsuEmail);
-        $("#registerBtn").click(validateFields);
-    });
+    document.getElementById("re_password").addEventListener("keyup", checkPassword);
+    document.getElementById("nsuMail").addEventListener("keyup", checkNsuEmail);
+    document.getElementById("registerBtn").addEventListener("click", validateFields);
 
 })();
+
