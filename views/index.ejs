@@ -16,7 +16,7 @@
 <body>
     <h1 class="hello">Hello World!</h1>
 
-    <% if(loggedIn){ %>
+    <% if(userInfo.loggedIn){ %>
         <form action="/logout" method="POST">
             <button type="submit">LogOut</button>
         </form>

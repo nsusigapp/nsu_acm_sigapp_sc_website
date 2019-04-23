@@ -72,7 +72,7 @@ module.exports = function(sequelize, DataTypes) {
 	});
 
 	User.generateAuthToken= payload => {
-		return jwt.sign(payload, config.get("auth")["jwtsecret"],{ expiresIn: process.env.EXPIRY_TIME });
+		return jwt.sign(payload, process.env.JWT_SECRET,{ expiresIn: process.env.EXPIRY_TIME });
 	}
 	
 	return User;

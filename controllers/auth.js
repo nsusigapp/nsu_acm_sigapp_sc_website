@@ -7,6 +7,15 @@ const saltRounds = 10;
 
 const Op = require("sequelize").Op;
 
+const userStatus = {
+    ACTIVE: 1,
+    IN_ACTIVE: 0
+}
+
+const roleID = {
+    USER: 1,
+}
+
 // -----------------------------------------------------------------------
 
 // GET /register
@@ -35,8 +44,8 @@ const postRegisterUser = (req, res, next) => {
 
             userDbData.token = User.generateAuthToken({
                 nsu_id: userDbData.nsu_id,
-                role_id: userDbData.role_id,
-                status: userDbData.status,
+                role_id: roleID.USER,
+                status: userStatus.IN_ACTIVE,
             });
 
             sequelize.transaction(function (t) {

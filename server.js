@@ -12,9 +12,11 @@ const csurf = require("csurf");
 const compression = require("compression");
 const bodyParser = require("body-parser");
 
+const userRoutes = require("./routes/user");
 const authRoutes = require("./routes/auth");
 const errorRoutes = require("./routes/errors");
 
+const userDataMiddleware = require("./middlewares/userData");
 const authMiddleWare = require("./middlewares/auth");
 
 const app = express();
@@ -57,15 +59,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // check if user is logged in
 app.use(authMiddleWare.isLoggedIn);
 
-app.get("/", (req, res, next) => {
+app.use(userDataMiddleware.fetchProfilePicture);
 
-    res.render("index", {
-        loggedIn: req.session.userData,
-    });
+app.use(userRoutes.router);
 
-});
-
-app.use("/", authRoutes.router);
+app.use(authRoutes.router);
 
 app.use(errorRoutes.router);
 

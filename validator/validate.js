@@ -46,7 +46,7 @@ const validateRegForm = (req, res, next) => {
         errorKey = isValid.error.details[0].context.key;
 
     } else {
-        
+
         next();
     }
 
@@ -96,7 +96,7 @@ const validateRegForm = (req, res, next) => {
 
 const validateLogInForm = (req, res, next) => {
 
-    const { ...loginFormData } = req.body;
+    const { nsu_id, _ } = req.body;
 
     const loginInputError = {
         invalidNsuId: false,
@@ -104,7 +104,7 @@ const validateLogInForm = (req, res, next) => {
 
     let errorKey = null;
 
-    const isValid = joi.validate(loginFormData, loginSchema);
+    const isValid = joi.validate({ nsu_id }, loginSchema); // data has to be passed to JOI in object format
 
     if (isValid.error !== null) {
 

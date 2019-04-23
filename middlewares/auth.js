@@ -6,6 +6,7 @@ const isLoggedIn = (req, res, next) => {
     if (req.session.userData && req.cookies["_pass"]) {
 
         try {
+            
             const decodeToken = jwt.verify(req.cookies["_pass"], process.env.JWT_SECRET);
 
             res.locals.userInfo = {
