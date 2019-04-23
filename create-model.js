@@ -13,7 +13,8 @@ const db = require("./models/index");
 
 const { users: User, blog: Blog, forum: Forum, 
     blog_comments: BlogCom, blog_like_track: BlogLike, 
-    events: Event, event_registered_people: EventRegPeople, forum_reply: ForumReply } = require("./models/index");
+    events: Event, event_registered_people: EventRegPeople, 
+    forum_reply: ForumReply, reports: Report } = require("./models/index");
 
 User.hasMany(Blog);
 User.hasMany(Forum);
@@ -22,6 +23,7 @@ User.hasMany(ForumReply);
 User.hasMany(BlogLike);
 User.hasMany(Event);
 User.hasMany(EventRegPeople);
+User.hasMany(Report);
 
 Blog.hasMany(BlogCom);
 Blog.hasMany(BlogLike);
@@ -44,5 +46,8 @@ Event.hasMany(EventRegPeople);
 
 EventRegPeople.belongsTo(Event);
 EventRegPeople.belongsTo(User);
+
+Report.belongsTo(User);
+
 
 db.sequelize.sync();

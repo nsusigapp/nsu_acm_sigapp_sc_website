@@ -1,22 +1,59 @@
 
 (function () {
+
+    const passwdField = document.getElementById("password");
+    const rePasswdField = document.getElementById("re_password");
+
+    const mailField = document.getElementById("nsuMail");
+
+    // change css on error
     const onErrorCss = (elem) => {
 
         elem.style.borderColor = "crimson";
         elem.style.boxShadow = "0 0 0 0.2rem rgba(220,20,60,.5)";
     }
 
+    // change css upon validation
     const onSuccessCss = (elem) => {
 
         elem.style.borderColor = "green";
         elem.style.boxShadow = "0 0 0 0.2rem rgba(88,214,141,.5)";
     }
 
+    // add input error msg to the flashbox;
+    const appendToErrorList = (msg) => {
+
+        const flashBox = document.getElementById("flash-box-list");
+        const flashBoxList = Array.from(document.getElementById("flash-box-list").childNodes);
+        
+        // add/remove error classes for appropriate styles
+
+        if(flashBox.parentElement.classList.contains("flash-box-success")){
+
+            flashBox.parentElement.classList.remove("flash-box-success");
+            flashBox.classList.remove("flash-box--req-success");
+        }
+
+        if(!(flashBox.parentElement.classList.contains("flash-box-error"))){
+
+            flashBox.parentElement.classList.add("flash-box-error");
+            flashBox.classList.add("flash-box--req-error");
+        }
+
+        //remove existing lists
+        flashBoxList.forEach(item => {
+            item.parentNode.removeChild(item);
+        });
+
+        // add the erorr li
+        const li = document.createElement("li");
+        li.textContent = msg;
+
+        flashBox.appendChild(li);
+    }
+
     // check password match;
     const checkPassword = function () {
-
-        const passwdField = document.getElementById("password");
-        const rePasswdField = document.getElementById("re_password");
 
         let passwd = passwdField.value;
         let rePasswd = rePasswdField.value;
@@ -24,16 +61,17 @@
         if (passwd !== rePasswd) {
 
             onErrorCss(passwdField);
+            onErrorCss(rePasswdField);
 
-        } else if (rePasswd.length > 0) {
+        } else if (rePasswd.length > 0 && rePasswd === passwd) {
 
+            onSuccessCss(passwdField);
             onSuccessCss(rePasswdField);
         }
     }
 
+    // validate nsu email
     const checkNsuEmail = function () {
-
-        const mailField = document.getElementById("nsuMail");
 
         let nsuMail = mailField.value;
 
@@ -47,14 +85,18 @@
         }
     }
 
+    // validate form before form submision
     const validateFields = function (event) {
         
         event.preventDefault();
         let isFieldEmpty = false;
         let message = "";
 
-        $(".registration-box-form input[type!=submit]").each(function () {
-            if ($(this).val() === "") {
+        const inputFields = Array.from(document.querySelectorAll(".registration-box-form input"));
+
+        inputFields.forEach((input) => {
+            
+            if(input.value === ""){
                 isFieldEmpty = true;
                 message = "There Are Empty Fields!";
             }
@@ -62,26 +104,27 @@
 
         if (isFieldEmpty) {
 
-            alert(message);
+            appendToErrorList(message);
 
-        } else if (!($("#nsuMail").val().endsWith("@northsouth.edu"))) {
+        } else if (!mailField.value.endsWith("@northsouth.edu")) {
 
             message = "Invalid NSU Email!";
-            alert(message);
+            appendToErrorList(message);
 
-        } else if ($("#password").val() !== $("#re_password").val()) {
+        } else if (passwdField.value !== rePasswdField.value) {
 
-            message = "Password Do Not Match!";
-            alert(message);
+            message = "Passwords Do Not Match!";
+            appendToErrorList(message);
 
         } else {
 
-            $("#registration-box-form").submit();
+            document.getElementById("registration-box-form").submit();
         }
-    }
+    }  
 
-    document.getElementById("re_password").addEventListener("keyup", checkPassword);
-    document.getElementById("nsuMail").addEventListener("keyup", checkNsuEmail);
+    // event listeners
+    rePasswdField.addEventListener("keyup", checkPassword);
+    mailField.addEventListener("keyup", checkNsuEmail);
     document.getElementById("registerBtn").addEventListener("click", validateFields);
 
 })();

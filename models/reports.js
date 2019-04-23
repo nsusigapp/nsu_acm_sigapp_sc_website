@@ -13,7 +13,7 @@ module.exports = function(sequelize, DataTypes) {
 			allowNull: true,
 			references: {
 				model: 'users',
-				key: 'u_id'
+				key: 'u_id',
 			}
 		},
 		content_link: {
@@ -29,7 +29,7 @@ module.exports = function(sequelize, DataTypes) {
 			allowNull: true,
 			references: {
 				model: 'users',
-				key: 'u_id'
+				key: 'u_id',
 			}
 		}
 	}, {

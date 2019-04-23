@@ -46,7 +46,7 @@
         }
 
         &--req-error{
-            @include textGradient(to right, yellow, $white);
+            color: yellow;
 
             li::before{
                 content: "x";

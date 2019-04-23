@@ -54,7 +54,7 @@
                         <div class="flash-box flash-box-success">
                             <h3 class="flash-box--title">Requirements</h3>
 
-                            <ul class="flash-box--req flash-box--req-success">
+                            <ul id="flash-box-list" class="flash-box--req flash-box--req-success">
                                 <li>Username Must be between [03-32] characters long</li>
                                 <li>Must provide a valid NSU ID</li>
                                 <li>Must provide a valid NSU Email Address</li>
@@ -66,7 +66,7 @@
                             <div class="flash-box flash-box-error">
                                 <h3 class="flash-box--title">Error!</h3>
     
-                                <ul class="flash-box--req flash-box--req-error">
+                                <ul id="flash-box-list" class="flash-box--req flash-box--req-error">
                                         
                                     <% if(error[0].invalidName){ %>
                                         <li>Invalid Name!</li>
@@ -124,7 +124,7 @@
     
                         <div class="icon-input-box">
                             <i class="fas fa-id-badge"></i>
-                            <input type="text" name="nsu_id" placeholder="NSU ID">
+                            <input type="text" name="nsu_id" placeholder="NSU ID" autocomplete="off">
                         </div>
     
                         <div class="common-form--input-paral">
@@ -151,7 +151,8 @@
                             </div>
                         </div>
     
-                        <input id="registerBtn" type="submit" value="Register" class="full-width-btn full-width-btn--black">
+                        <input id="registerBtn" type="submit" value="Register" 
+                        class="full-width-btn full-width-btn--black margin-gutter-medium">
     
                     </form>
 
