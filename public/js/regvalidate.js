@@ -5,6 +5,8 @@
     const rePasswdField = document.getElementById("re_password");
 
     const mailField = document.getElementById("nsuMail");
+    const idField = document.getElementById("nsuID");
+
 
     // change css on error
     const onErrorCss = (elem) => {
@@ -109,6 +111,11 @@
         } else if (!mailField.value.endsWith("@northsouth.edu")) {
 
             message = "Invalid NSU Email!";
+            appendToErrorList(message);
+
+        } else if (!(idField.value.match(/^[01][0-9][0-3]\d{4}(\d{3})?$/))) {
+
+            message = "Invalid NSU ID!";
             appendToErrorList(message);
 
         } else if (passwdField.value !== rePasswdField.value) {

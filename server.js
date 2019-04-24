@@ -54,8 +54,6 @@ app.use(bodyParser.json());
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// user routes
-
 // check if user is logged in
 app.use(authMiddleWare.isLoggedIn);
 

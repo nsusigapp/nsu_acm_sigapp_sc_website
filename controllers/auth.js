@@ -1,20 +1,16 @@
 
 const { users: User, email_queue: EmailQueue, sequelize } = require("../models/index");
 
+const userStatus = require("../utils/userStatus");
+
+const roleID = require("../utils/userRoles");
+
 const bcrypt = require('bcrypt');
 
 const saltRounds = 10;
 
 const Op = require("sequelize").Op;
 
-const userStatus = {
-    ACTIVE: 1,
-    IN_ACTIVE: 0
-}
-
-const roleID = {
-    USER: 1,
-}
 
 // -----------------------------------------------------------------------
 
@@ -200,10 +196,24 @@ const postLogout = (req, res, next) => {
 
 }
 
+const getForgotPasswdPage = (req, res, next) => {
+
+    return res.render("forgot_password",{
+        pageTitle: "Forgot Password"
+    });
+}
+
+const postForgotPassword = (req, res, next) => {
+
+    const { registered_email: regEmail } = req.body;
+}
+
 module.exports = {
     getRegisterPage,
     postRegisterUser,
     getLoginPage,
     postLoginUser,
     postLogout,
+    getForgotPasswdPage,
+    postForgotPassword
 }

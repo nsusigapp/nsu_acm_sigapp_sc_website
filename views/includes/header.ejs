@@ -2,7 +2,7 @@
 
     <div class="main-nav-bar-links">
         <ul class="main-nav-bar-links--list">
-            <li class="main-nav-bar-links--list-item"><a href="index.php"><i class="fas fa-home main-nav-bar-links--list-icons"></i><span
+            <li class="main-nav-bar-links--list-item"><a href="/"><i class="fas fa-home main-nav-bar-links--list-icons"></i><span
                         class="active">Home</span></a></li>
             <li class="main-nav-bar-links--list-item"><a href="/events" target="_blank"><i class="fas fa-calendar-alt main-nav-bar-links--list-icons"></i><span>Events</span></a></li>
             <li class="main-nav-bar-links--list-item"><a href="/workshop" target="_blank"><i class="fas fa-cog main-nav-bar-links--list-icons"></i><span>Workshop</span></a></li>
@@ -13,14 +13,16 @@
     </div>
 
     <div class="main-nav-bar-logo-box">
-        <img src="images/hero-logo.jpg" alt="main-logo" class="main-nav-bar-logo-box--logo">
+        <a href="/">
+            <img src="images/hero-logo.jpg" alt="main-logo" class="main-nav-bar-logo-box--logo">
+        </a>
     </div>
 
     <div class="main-nav-bar--user-section">
-        <a href="#" class="flat-slight-round-btn" id="openSignInModal">Accounts</a>
+        <a href="/login" class="flat-slight-round-btn">SIGN IN!</a>
     </div>
 
-    <div class="main-nav-bar-sign-in--modal" id="signInModal">
+    <!-- <div class="main-nav-bar-sign-in--modal" id="signInModal">
         <%- include sign_in_modal.ejs %>
-    </div>
+    </div> -->
 </nav>
