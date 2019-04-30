@@ -4,8 +4,11 @@ const { users: User, email_queue: EmailQueue, sequelize } = require("../models/i
 const userStatus = require("../utils/userStatus");
 
 const roleID = require("../utils/userRoles");
+const pageTitle = require("../utils/pageTitles");
 
 const bcrypt = require('bcrypt');
+
+const jwt = require("jsonwebtoken");
 
 const saltRounds = 10;
 
@@ -18,7 +21,7 @@ const Op = require("sequelize").Op;
 const getRegisterPage = (req, res, next) => {
 
     return res.render("registration", {
-        pageTitle: "Registration Page",
+        pageTitle: pageTitle.REGISTER,
         path: "/registration",
         error: req.flash("info"),
         regSuccess: req.flash("regInfo"),
@@ -119,7 +122,7 @@ const postRegisterUser = (req, res, next) => {
 const getLoginPage = (req, res, next) => {
 
     return res.render("login", {
-        pageTitle: "Login Page",
+        pageTitle: pageTitle.LOGIN,
         path: "/login",
         error: req.flash("loginErr"),
     });
@@ -196,16 +199,22 @@ const postLogout = (req, res, next) => {
 
 }
 
+// GET /forgot-password
 const getForgotPasswdPage = (req, res, next) => {
 
-    return res.render("forgot_password",{
-        pageTitle: "Forgot Password"
+    return res.render("forgot_password", {
+        pageTitle: pageTitle.FORGOT_PASSWORD,
     });
 }
 
+// POST /forgot-password
 const postForgotPassword = (req, res, next) => {
 
     const { registered_email: regEmail } = req.body;
+
+    const token = jwt.sign({ regEmail }, process.env.JWT_SECRET, { expiresIn: process.env.PASS_TOKEN_EXP_TIME });
+
+    const resetUrlLink = `/forgot-password/?token=${token}`;
 }
 
 module.exports = {

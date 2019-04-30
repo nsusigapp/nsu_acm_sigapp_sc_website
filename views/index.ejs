@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <%- include includes/meta.ejs  %>
     <style>
         .hello{
             text-align: center;
@@ -11,9 +10,11 @@
             font-size: 45px;
         }
     </style>
-    <title>NSU ACM SIGAPP SC</title>
+    <title><%= pageTitle %></title>
 </head>
 <body>
+    <%- include includes/header.ejs  %>
+
     <h1 class="hello">Hello World!</h1>
 
     <% if(userInfo.loggedIn){ %>

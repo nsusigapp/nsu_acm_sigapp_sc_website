@@ -8,14 +8,6 @@ module.exports = function(sequelize, DataTypes) {
 			primaryKey: true,
 			autoIncrement: true
 		},
-		reported_by: {
-			type: DataTypes.INTEGER(11),
-			allowNull: true,
-			references: {
-				model: 'users',
-				key: 'u_id',
-			}
-		},
 		content_link: {
 			type: DataTypes.TEXT,
 			allowNull: false
@@ -23,14 +15,6 @@ module.exports = function(sequelize, DataTypes) {
 		status: {
 			type: DataTypes.INTEGER(4),
 			allowNull: false
-		},
-		resolved_by: {
-			type: DataTypes.INTEGER(11),
-			allowNull: true,
-			references: {
-				model: 'users',
-				key: 'u_id',
-			}
 		}
 	}, {
 		tableName: 'reports'

@@ -88,7 +88,8 @@ body {
         height: 1.7rem;
         padding-right: 0.8rem; }
       .main-nav-bar-links--list-icons {
-        padding-right: 0.8rem; }
+        padding-right: 0.8rem;
+        color: #1f2833; }
       .main-nav-bar-links--list-item {
         position: relative;
         overflow: hidden;
@@ -137,13 +138,13 @@ body {
 .flat-slight-round-btn {
   text-decoration: none;
   color: #fff;
-  background: #333;
+  background: #1f2833;
   padding: 1rem 2rem;
   border-radius: 4px;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
   transition: all 0.4s; }
   .flat-slight-round-btn:hover {
-    background: #514C4C; }
+    background: #2C3E50; }
 
 .full-width-btn {
   font-family: "Quicksand";
@@ -157,7 +158,7 @@ body {
   transition: all 0.3s; }
 
 .full-width-btn--black {
-  background: #333;
+  background: #1f2833;
   color: #fff;
   box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.3); }
   .full-width-btn--black:hover {
@@ -167,12 +168,12 @@ body {
     box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.3); }
 
 .full-width-btn--black-raised {
-  background: #333;
-  box-shadow: 3px 3px 0 #4d4d4d;
+  background: #1f2833;
+  box-shadow: 3px 3px 0 #324153;
   color: #fff; }
   .full-width-btn--black-raised:hover {
-    background: #404040;
-    box-shadow: 2px 2px 0 #4d4d4d;
+    background: #293443;
+    box-shadow: 2px 2px 0 #324153;
     transform: translate(2px, 2px); }
   .full-width-btn--black-raised:active {
     box-shadow: 3px 3px 0 transparent;
@@ -260,7 +261,7 @@ body {
   display: flex;
   margin-bottom: 1.5rem; }
   .icon-input-box i {
-    background: #333;
+    background: #1f2833;
     color: #fff;
     padding: 1.5rem 2rem; }
   .icon-input-box input {

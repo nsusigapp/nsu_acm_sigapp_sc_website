@@ -3,9 +3,7 @@
 
 <head>
     <%- include includes/meta.ejs  %>
-    <title>
-        <%= pageTitle %>
-    </title>
+    <title><%= pageTitle %></title>
 </head>
 
 <body>
@@ -14,9 +12,54 @@
 
     <canvas id="canvas"></canvas>
 
-    <script>
-        // var dec;
+    <main class="login-page">
+        <div class="login-box">
+            
+            <% if(error.length > 0){ %>
+                <div class="flash-message-container">
+                    <div class="flash-box flash-box-error">
+                        <h3 class="flash-box--title">Error</h3>
+        
+                        <ul class="flash-box--req flash-box--req-error">
+                            <% if(error[0].invalidNsuId){ %>
+                                <li>Invalid NSU ID!</li>
 
+                            <% }else if(error[0].userDoesNotExist){ %>
+                                <li>User does not exists!</li>
+
+                            <% }else if(error[0].invalidPasswd){ %>
+                                <li>Invalid Password!</li>
+
+                            <% }else if(error[0].passwordMisMatch){ %>
+                                <li>Password Doesn't Match!</li>
+
+                            <% }else if(error[0].bannedUser){ %>
+                                <li>User Status: Deactivated!</li>
+                            <% } %>
+                        </ul>
+                    </div>
+                </div>
+            <% } %>
+
+            <h1 class="login-box--title">login</h1>
+            <form class="login-box--form" action="/login" method="POST">
+                <div class="icon-input-box">
+                    <i class="fas fa-id-badge"></i>
+                    <input id="nsuID" type="text" name="nsu_id" placeholder="NSU ID">
+                </div>
+
+                <div class="icon-input-box">
+                    <i class="fas fa-user-secret"></i>
+                    <input type="password" name="password" placeholder="Password">
+                </div>
+                <a href="/register" class="login-box-forgot-passwd-link login-box-forgot-passwd-link--left">Or Sign Up!</a>
+                <a href="/forgot-password" class="login-box-forgot-passwd-link login-box-forgot-passwd-link--right">Forgot Password?</a>
+                <input id="login" class="full-width-btn full-width-btn--black" type="submit" value="Login">
+            </form>
+        </div>
+    </main>
+
+    <script>
         var canvas = document.querySelector("canvas");
         var ctx = canvas.getContext("2d");
 
@@ -82,53 +125,6 @@
         animate();
     
     </script>
-
-    <main class="login-page">
-        <div class="login-box">
-            
-            <% if(error.length > 0){ %>
-                <div class="flash-message-container">
-                    <div class="flash-box flash-box-error">
-                        <h3 class="flash-box--title">Error</h3>
-        
-                        <ul class="flash-box--req flash-box--req-error">
-                            <% if(error[0].invalidNsuId){ %>
-                                <li>Invalid NSU ID!</li>
-
-                            <% }else if(error[0].userDoesNotExist){ %>
-                                <li>User does not exists!</li>
-
-                            <% }else if(error[0].invalidPasswd){ %>
-                                <li>Invalid Password!</li>
-
-                            <% }else if(error[0].passwordMisMatch){ %>
-                                <li>Password Doesn't Match!</li>
-
-                            <% }else if(error[0].bannedUser){ %>
-                                <li>User Status: Deactivated!</li>
-                            <% } %>
-                        </ul>
-                    </div>
-                </div>
-            <% } %>
-
-            <h1 class="login-box--title">login</h1>
-            <form class="login-box--form" action="/login" method="POST">
-                <div class="icon-input-box">
-                    <i class="fas fa-id-badge"></i>
-                    <input id="nsuID" type="text" name="nsu_id" placeholder="NSU ID">
-                </div>
-
-                <div class="icon-input-box">
-                    <i class="fas fa-user-secret"></i>
-                    <input type="password" name="password" placeholder="Password">
-                </div>
-                <a href="/register" class="login-box-forgot-passwd-link login-box-forgot-passwd-link--left">Or Sign Up!</a>
-                <a href="/forgot-password" class="login-box-forgot-passwd-link login-box-forgot-passwd-link--right">Forgot Password?</a>
-                <input id="login" class="full-width-btn full-width-btn--black" type="submit" value="Login">
-            </form>
-        </div>
-    </main>
 
     <!-- <script>
         (function(){
