@@ -87,6 +87,21 @@
         }
     }
 
+        // validate nsu id
+    const checkNsuId = function () {
+
+        let nsuId = idField.value;
+
+        if (!(nsuId.match(/^[01][0-9][0-3]\d{4}(\d{3})?$/))) {
+
+            onErrorCss(idField);
+
+        } else {
+
+            onSuccessCss(idField);
+        }
+    }
+
     // validate form before form submision
     const validateFields = function (event) {
         
@@ -132,6 +147,7 @@
     // event listeners
     rePasswdField.addEventListener("keyup", checkPassword);
     mailField.addEventListener("keyup", checkNsuEmail);
+    idField.addEventListener("keyup",checkNsuId);
     document.getElementById("registerBtn").addEventListener("click", validateFields);
 
 })();

@@ -4,6 +4,11 @@
     margin: 0;
 }
 
+::selection {
+    background: #1F2833;
+    color: #fff;
+}
+
 html{
     font-size: 62.5%;
 }
