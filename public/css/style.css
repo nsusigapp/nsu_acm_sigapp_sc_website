@@ -69,6 +69,38 @@ body {
   margin-top: -1rem;
   margin-bottom: 0.5rem; }
 
+.main-nav-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
+  padding: 1rem 0rem; }
+  .main-nav-bar--link-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; }
+    .main-nav-bar--link-box--logo-box--logo {
+      width: 24rem;
+      margin-right: 1rem;
+      margin-left: 1.8rem; }
+    .main-nav-bar--link-box--links-list {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      list-style-type: none; }
+      .main-nav-bar--link-box--links-list--item a {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        text-decoration: none;
+        color: black; }
+      .main-nav-bar--link-box--links-list--item-icon {
+        height: 4rem;
+        margin-right: 0.5rem;
+        margin-left: 1rem; }
+      .main-nav-bar--link-box--links-list--item-icon-text {
+        font-size: 2rem; }
+
 .flat-slight-round-btn {
   text-decoration: none;
   color: #fff;

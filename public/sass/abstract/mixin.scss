@@ -3,3 +3,11 @@
     color: transparent;
     -webkit-background-clip: text;
 }
+
+@mixin displayFlex($justify, $align) {
+
+    display: flex;
+    justify-content: $justify;
+    align-items: $align;
+    
+}
