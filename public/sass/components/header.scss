@@ -109,6 +109,7 @@
 .main-nav-bar{
 
     @include displayFlex(space-between,center);
+
     box-shadow: 0px 2px 2px rgba($color: #000000, $alpha: 0.25);
     padding: 1rem 0rem;
 
@@ -161,6 +162,79 @@
 
     &--btn-box{
 
+        @include displayFlex(space-between,center);
+
+        &--search-bar{
+            form {
+                margin: 0;
+            }
+
+            &--search{
+
+                .searchTerm {
+                    border: none;
+                    outline: none;
+                    background: #D5DEEA;
+                    padding: 0.8rem 4rem 0.8rem 1rem;
+                    border-radius: 0.3rem;
+                }
+                .searchTerm:focus{
+                    outline: 1px solid #333;
+                }
+
+                .searchButton{
+                    padding:0.8rem 1rem 0.8rem 1rem;
+                    background: #D5DEEA;
+                    color: black;
+                    border: none; 
+                    cursor: pointer;
+                    border-radius: 0.3rem;
+                }
+
+                .searchButton::hover{
+                    background: rgba(102, 133, 173, 0.979);
+                }
+
+                .searchButton:focus{
+                    outline: 1px solid #333;
+                }
+            }
+
+        }
+
+        &--profile-info{
+
+            @include displayFlex(space-between,center);
+
+            a{
+                @include displayFlex(space-between,center);
+                text-decoration: none;
+            }
+
+            &--img{
+                height: 7rem;
+                width: 7rem;
+                margin-left: 2.8rem;
+                border-radius: 10%;
+            }
+
+            &--name{
+                font-size: 1.8rem;
+                font-weight: 500;
+                margin-left: 1rem;
+                margin-right: 1rem;
+            }
+
+            .arrow-down {
+                width: 0; 
+                height: 0; 
+                border-left: 1rem solid transparent;
+                border-right: 1rem solid transparent;
+                
+                border-top: 1rem solid black;
+                margin-right: 4rem;
+              }
+        }
     }
 
 }
