@@ -165,18 +165,19 @@
         @include displayFlex(space-between,center);
 
         &--search-bar{
-            form {
+          
                 margin: 0;
-            }
-
+    
             &--search{
+                display: flex;
 
                 .searchTerm {
                     border: none;
                     outline: none;
                     background: #D5DEEA;
-                    padding: 0.8rem 4rem 0.8rem 1rem;
-                    border-radius: 0.3rem;
+                    padding: 1.5rem 4rem 1.5rem 1rem;
+                    border-top-left-radius: 0.3rem;
+                    border-bottom-left-radius: 0.3rem;
                 }
                 .searchTerm:focus{
                     outline: 1px solid #333;
@@ -188,7 +189,8 @@
                     color: black;
                     border: none; 
                     cursor: pointer;
-                    border-radius: 0.3rem;
+                    border-top-right-radius: 0.3rem;
+                    border-bottom-right-radius: 0.3rem;
                 }
 
                 .searchButton::hover{
@@ -212,8 +214,8 @@
             }
 
             &--img{
-                height: 7rem;
-                width: 7rem;
+                height: 4.5rem;
+                width: 4.5rem;
                 margin-left: 2.8rem;
                 border-radius: 10%;
             }
@@ -228,10 +230,10 @@
             .arrow-down {
                 width: 0; 
                 height: 0; 
-                border-left: 1rem solid transparent;
-                border-right: 1rem solid transparent;
+                border-left: 0.8rem solid transparent;
+                border-right: 0.8rem solid transparent;
                 
-                border-top: 1rem solid black;
+                border-top: 0.8rem solid black;
                 margin-right: 4rem;
               }
         }
