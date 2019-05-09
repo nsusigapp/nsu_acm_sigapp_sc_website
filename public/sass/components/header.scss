@@ -208,6 +208,7 @@
             a{
                 @include displayFlex(space-between,center);
                 text-decoration: none;
+                color: #000;
             }
 
             &--img{
@@ -215,6 +216,7 @@
                 width: 4.5rem;
                 margin-left: 2.8rem;
                 border-radius: 10%;
+                object-fit: cover;
             }
 
             &--name{
@@ -222,6 +224,7 @@
                 font-weight: 500;
                 margin-left: 1rem;
                 margin-right: 1rem;
+                color: #000;
             }
 
             .arrow-down {

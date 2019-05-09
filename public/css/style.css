@@ -147,17 +147,20 @@ body {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        text-decoration: none; }
+        text-decoration: none;
+        color: #000; }
       .main-nav-bar--btn-box--profile-info--img {
         height: 4.5rem;
         width: 4.5rem;
         margin-left: 2.8rem;
-        border-radius: 10%; }
+        border-radius: 10%;
+        object-fit: cover; }
       .main-nav-bar--btn-box--profile-info--name {
         font-size: 1.8rem;
         font-weight: 500;
         margin-left: 1rem;
-        margin-right: 1rem; }
+        margin-right: 1rem;
+        color: #000; }
       .main-nav-bar--btn-box--profile-info .arrow-down {
         width: 0;
         height: 0;
@@ -415,6 +418,9 @@ body {
       font-size: 2.3rem;
       color: white;
       font-weight: 400; }
+  .home-header--text-box--btn {
+    display: flex;
+    justify-content: center; }
 
 .regisration-page {
   padding: 2rem;
