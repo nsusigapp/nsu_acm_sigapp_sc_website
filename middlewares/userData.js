@@ -1,4 +1,4 @@
-const { sequelize, users: Users } = require("../models/index");
+const { sequelize, users: Users, categories: Category } = require("../models/index");
 
 // fetch profile picture from DB;
 const fetchProfilePicture = (req, res, next) => {
@@ -25,6 +25,21 @@ const fetchProfilePicture = (req, res, next) => {
 
 }
 
+const fetchForumCategories = (req, res, next) => {
+
+    Category.findAll({
+        attributes: ["cat_name"]
+    })
+        .then(fetchedCat => {
+
+            res.locals.categories = fetchedCat;
+
+            next();
+        })
+        .catch(err => console.log(err));
+}
+
 module.exports = {
     fetchProfilePicture,
+    fetchForumCategories
 }

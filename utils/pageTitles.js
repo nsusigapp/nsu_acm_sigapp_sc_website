@@ -1,9 +1,12 @@
 
+const baseTitle = " || NSU ACM SIGAPP SC";
+
 const pageTitle = {
-    INDEX: "Home || NSU ACM SIGAPP SC",
-    REGISTER: "Join NSU ACM SIGAPP SC",
-    LOGIN: "Login",
-    FORGOT_PASSWORD: "Recover Password",
+    INDEX: "Home" + baseTitle,
+    REGISTER: "Register" + baseTitle,
+    LOGIN: "Login" + baseTitle,
+    FORGOT_PASSWORD: "Recover Password" + baseTitle,
+    FORUM: "Forum" + baseTitle,
 }
 
 module.exports = pageTitle;

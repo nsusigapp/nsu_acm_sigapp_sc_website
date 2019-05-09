@@ -1,35 +1,79 @@
-
 <nav class="main-nav-bar">
+    <div class="main-nav-bar--link-box">
 
-    <div class="main-nav-bar-links">
-        <ul class="main-nav-bar-links--list">
-            <li class="main-nav-bar-links--list-item">
+        <div class="main-nav-bar--link-box--logo-box">
+            <a href="/">
+                <img src="/images/hero-logo.png" alt="main-logo" class="main-nav-bar--link-box--logo-box--logo">
+            </a>
 
-                <a href="/">
-                    <i class="fas fa-home main-nav-bar-links--list-icons"></i>
-                    <span class="active">Home</span>
-                </a>
+        </div>
 
-            </li>
-            <li class="main-nav-bar-links--list-item"><a href="/events" target="_blank"><i class="fas fa-calendar-alt main-nav-bar-links--list-icons"></i><span>Events</span></a></li>
-            <li class="main-nav-bar-links--list-item"><a href="/workshop" target="_blank"><i class="fas fa-cog main-nav-bar-links--list-icons"></i><span>Workshop</span></a></li>
-            <li class="main-nav-bar-links--list-item"><a href="https://github.com/nsusigapp/nsu_acm_sigapp_sc_website"
-                    target="_blank"><i class="fab fa-github main-nav-bar-links--list-icons"></i><span>Github</span></a></li>
-            <li class="main-nav-bar-links--list-item"><a href="/officers" target="_blank"><i class="fas fa-dragon main-nav-bar-links--list-icons"></i><span>Officers</span></a></li>
-        </ul>
+        <div class="main-nav-bar--link-box--links">
+            <ul class="main-nav-bar--link-box--links-list">
+                <li class="main-nav-bar--link-box--links-list--item">
+                    <a href="">
+                        <img src="/images/house.svg" alt="" class="main-nav-bar--link-box--links-list--item-icon">
+                        <span class="main-nav-bar--link-box--links-list--item-icon-text">
+                            Home
+                        </span>
+                    </a>
+                </li>
+                <li class="main-nav-bar--link-box--links-list--item">
+                    <a href="">
+                        <img src="/images/content.svg" alt="" class="main-nav-bar--link-box--links-list--item-icon">
+                        <span class="main-nav-bar--link-box--links-list--item-icon-text">
+                            Forum
+                        </span>
+                    </a>
+                </li>
+                <li class="main-nav-bar--link-box--links-list--item">
+                    <a href="">
+                        <img src="/images/blogger-botton.svg" alt=""
+                            class="main-nav-bar--link-box--links-list--item-icon">
+                        <span class="main-nav-bar--link-box--links-list--item-icon-text">
+                            Blog
+                        </span>
+                    </a>
+                </li>
+                <li class="main-nav-bar--link-box--links-list--item">
+                    <a href="">
+                        <img src="/images/planning.svg" alt="" class="main-nav-bar--link-box--links-list--item-icon">
+                        <span class="main-nav-bar--link-box--links-list--item-icon-text">
+                            Event
+                        </span>
+                    </a>
+                </li>
+                <li class="main-nav-bar--link-box--links-list--item">
+
+                </li>
+            </ul>
+        </div>
+
     </div>
 
-    <div class="main-nav-bar-logo-box">
-        <a href="/">
-            <img src="images/hero-logo.jpg" alt="main-logo" class="main-nav-bar-logo-box--logo">
-        </a>
-    </div>
+    <div class="main-nav-bar--btn-box">
 
-    <div class="main-nav-bar--user-section">
-        <a href="/login" class="flat-slight-round-btn">LOG IN!</a>
-    </div>
+        <div class="main-nav-bar--btn-box--search-box">
+            <form class="main-nav-bar--btn-box--search-box--form">
+                <input class="main-nav-bar--btn-box--search-box--form-search" placeholder="Search..." />
+                <button type="submit" class="searchButton">
+                    <i class="fa fa-search"></i></button>
+            </form>
+             
+        </div>
 
-    <!-- <div class="main-nav-bar-sign-in--modal" id="signInModal">
-        <%- include sign_in_modal.ejs %>
-    </div> -->
+        <div class="main-nav-bar--btn-box--profile-info">
+
+            <a href="" class="">
+                <img src="/images/abir-pp.jpg" alt="" 
+                class="main-nav-bar--btn-box--profile-info--img">
+                <span class="main-nav-bar--btn-box--profile-info--name"> Hi, Abir!</span>
+            </a>
+
+            <a href="">
+                <div class="arrow-down"></div>
+            </a>
+        </div>
+
+    </div>
 </nav>

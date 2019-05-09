@@ -8,6 +8,14 @@ const getIndexPage = (req, res, next) => {
     });
 }
 
+const getForumPage = (req, res, next) => {
+
+    return res.render("forum",{
+        pageTitle: pageTitle.FORUM,
+    });
+}
+
 module.exports = {
     getIndexPage,
+    getForumPage,
 }

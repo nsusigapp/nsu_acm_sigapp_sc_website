@@ -2,97 +2,14 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
-    <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,700" rel="stylesheet">
+    <%- include includes/meta.ejs  %>
 
-    <link rel="icon" href="images/favicon.ico">
-    <link rel="stylesheet" href="css/style.css">
-    <title>Forum || NSU ACM SIGAPP SC</title>
+    <title><%= pageTitle %></title>
 </head>
 
 <body>
-    <nav class="main-nav-bar">
-        <div class="main-nav-bar--link-box">
-
-            <div class="main-nav-bar--link-box--logo-box">
-                <a href="/">
-                    <img src="images/hero-logo.png" alt="main-logo" class="main-nav-bar--link-box--logo-box--logo">
-                </a>
-
-            </div>
-
-            <div class="main-nav-bar--link-box--links">
-                <ul class="main-nav-bar--link-box--links-list">
-                    <li class="main-nav-bar--link-box--links-list--item">
-                        <a href="">
-                            <img src="images/house.svg" alt="" class="main-nav-bar--link-box--links-list--item-icon">
-                            <span class="main-nav-bar--link-box--links-list--item-icon-text">
-                                Home
-                            </span>
-                        </a>
-                    </li>
-                    <li class="main-nav-bar--link-box--links-list--item">
-                        <a href="">
-                            <img src="images/content.svg" alt="" class="main-nav-bar--link-box--links-list--item-icon">
-                            <span class="main-nav-bar--link-box--links-list--item-icon-text">
-                                Forum
-                            </span>
-                        </a>
-                    </li>
-                    <li class="main-nav-bar--link-box--links-list--item">
-                        <a href="">
-                            <img src="images/blogger-botton.svg" alt=""
-                                class="main-nav-bar--link-box--links-list--item-icon">
-                            <span class="main-nav-bar--link-box--links-list--item-icon-text">
-                                Blog
-                            </span>
-                        </a>
-                    </li>
-                    <li class="main-nav-bar--link-box--links-list--item">
-                        <a href="">
-                            <img src="images/planning.svg" alt="" class="main-nav-bar--link-box--links-list--item-icon">
-                            <span class="main-nav-bar--link-box--links-list--item-icon-text">
-                                Event
-                            </span>
-                        </a>
-                    </li>
-                    <li class="main-nav-bar--link-box--links-list--item">
-
-                    </li>
-                </ul>
-            </div>
-
-        </div>
-
-        <div class="main-nav-bar--btn-box">
-
-            <div class="main-nav-bar--btn-box--search-box">
-                <form class="main-nav-bar--btn-box--search-box--form">
-                    <input class="main-nav-bar--btn-box--search-box--form-search" placeholder="Search..." />
-                    <button type="submit" class="searchButton">
-                        <i class="fa fa-search"></i></button>
-                </form>
-                 
-            </div>
-
-            <div class="main-nav-bar--btn-box--profile-info">
-
-                <a href="" class="">
-                    <img src="./images/abir-pp.jpg" alt="" 
-                    class="main-nav-bar--btn-box--profile-info--img">
-                    <span class="main-nav-bar--btn-box--profile-info--name"> Hi, Abir!</span>
-                </a>
-
-                <a href="">
-                    <div class="arrow-down"></div>
-                </a>
-            </div>
-  
-        </div>
-    </nav>
+    
+    <%- include includes/header.ejs  %>
 
     <main class="main-content-forum">
 
@@ -102,26 +19,15 @@
             </h2>
 
             <ul class="forum-sidebar-categories--category">
-                <li class="forum-sidebar-categories--category-item">
-                    <a href="/">
-                        # JavaScript
-                    </a>
-                </li>
-                <li class="forum-sidebar-categories--category-item">
-                    <a href="/">
-                        # C++
-                    </a>
-                </li>
-                <li class="forum-sidebar-categories--category-item">
-                    <a href="/">
-                        # PHP
-                    </a>
-                </li>
-                <li class="forum-sidebar-categories--category-item">
-                    <a href="/">
-                        # NodeJS
-                    </a>
-                </li>
+
+                <% categories.forEach(category => { %>
+                    <li class="forum-sidebar-categories--category-item">
+                        <a href="/forum/?cat_name=<%= category.cat_name %>">
+                            # <%= category.cat_name %>
+                        </a>
+                    </li>
+                <% }); %>
+
             </ul>
         </div>
 
@@ -138,8 +44,8 @@
                     <div class="forum-questions-box--card-left-icon-box">
 
                         <div class="forum-questions-box--card-left-icon-box--container">
-                            <img src="./images/star.svg" class="forum-questions-box--card-left-icon-box--container--icon">
-                            <img src="./images/question.svg" class="forum-questions-box--card-left-icon-box--container--icon">
+                            <img src="/images/star.svg" class="forum-questions-box--card-left-icon-box--container--icon">
+                            <img src="/images/question.svg" class="forum-questions-box--card-left-icon-box--container--icon">
                         </div>
 
                         <div class="forum-questions-box--card-left-icon-box-count-box">
@@ -181,8 +87,8 @@
                     <div class="forum-questions-box--card-left-icon-box">
 
                         <div class="forum-questions-box--card-left-icon-box--container">
-                            <img src="./images/star.svg" class="forum-questions-box--card-left-icon-box--container--icon">
-                            <img src="./images/question.svg" class="forum-questions-box--card-left-icon-box--container--icon">
+                            <img src="/images/star.svg" class="forum-questions-box--card-left-icon-box--container--icon">
+                            <img src="/images/question.svg" class="forum-questions-box--card-left-icon-box--container--icon">
                         </div>
 
                         <div class="forum-questions-box--card-left-icon-box-count-box">
@@ -216,8 +122,8 @@
                     <div class="forum-questions-box--card-left-icon-box">
 
                         <div class="forum-questions-box--card-left-icon-box--container">
-                            <img src="./images/star.svg" class="forum-questions-box--card-left-icon-box--container--icon">
-                            <img src="./images/question.svg" class="forum-questions-box--card-left-icon-box--container--icon">
+                            <img src="/images/star.svg" class="forum-questions-box--card-left-icon-box--container--icon">
+                            <img src="/images/question.svg" class="forum-questions-box--card-left-icon-box--container--icon">
                         </div>
 
                         <div class="forum-questions-box--card-left-icon-box-count-box">
@@ -251,8 +157,8 @@
                     <div class="forum-questions-box--card-left-icon-box">
 
                         <div class="forum-questions-box--card-left-icon-box--container">
-                            <img src="./images/star.svg" class="forum-questions-box--card-left-icon-box--container--icon">
-                            <img src="./images/question.svg" class="forum-questions-box--card-left-icon-box--container--icon">
+                            <img src="/images/star.svg" class="forum-questions-box--card-left-icon-box--container--icon">
+                            <img src="/images/question.svg" class="forum-questions-box--card-left-icon-box--container--icon">
                         </div>
 
                         <div class="forum-questions-box--card-left-icon-box-count-box">
@@ -286,8 +192,8 @@
                     <div class="forum-questions-box--card-left-icon-box">
 
                         <div class="forum-questions-box--card-left-icon-box--container">
-                            <img src="./images/star.svg" class="forum-questions-box--card-left-icon-box--container--icon">
-                            <img src="./images/question.svg" class="forum-questions-box--card-left-icon-box--container--icon">
+                            <img src="/images/star.svg" class="forum-questions-box--card-left-icon-box--container--icon">
+                            <img src="/images/question.svg" class="forum-questions-box--card-left-icon-box--container--icon">
                         </div>
 
                         <div class="forum-questions-box--card-left-icon-box-count-box">
