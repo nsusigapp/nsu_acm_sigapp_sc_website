@@ -1,0 +1,27 @@
+.home-header{
+    background: url(../images/wallhaven-700506.jpg);
+    height: 100vh;
+    background-size: cover;
+    @include displayFlex(space-between,center);
+
+    &--text-box{
+
+        &--title{
+            @include displayFlex(space-between,center);
+            flex-direction: column;
+
+            &--main{
+                font-size: 3rem;
+                color: white;
+            }
+
+            &--sub{
+                font-size: 2.3rem;
+                color: white;
+                font-weight: 400;
+            }
+        }
+
+    }
+
+}

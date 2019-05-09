@@ -113,31 +113,32 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center; }
-    .main-nav-bar--btn-box--search-bar {
+    .main-nav-bar--btn-box--search-box {
       margin: 0; }
-      .main-nav-bar--btn-box--search-bar--search {
-        display: flex; }
-        .main-nav-bar--btn-box--search-bar--search .searchTerm {
+      .main-nav-bar--btn-box--search-box--form {
+        display: flex;
+        position: relative; }
+        .main-nav-bar--btn-box--search-box--form-search {
+          font-family: "Quicksand", sans-serif;
           border: none;
           outline: none;
           background: #D5DEEA;
-          padding: 1.5rem 4rem 1.5rem 1rem;
-          border-top-left-radius: 0.3rem;
-          border-bottom-left-radius: 0.3rem; }
-        .main-nav-bar--btn-box--search-bar--search .searchTerm:focus {
-          outline: 1px solid #333; }
-        .main-nav-bar--btn-box--search-bar--search .searchButton {
-          padding: 0.8rem 1rem 0.8rem 1rem;
-          background: #D5DEEA;
+          padding: 1.5rem 10rem 1.5rem 1rem;
+          border-radius: 0.3rem;
+          box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
+          transition: all 0.3s; }
+          .main-nav-bar--btn-box--search-box--form-search:focus {
+            border-color: #1e90ff;
+            box-shadow: 0 0 0 0.2rem rgba(30, 144, 255, 0.5); }
+        .main-nav-bar--btn-box--search-box--form .searchButton {
+          position: absolute;
+          right: 5%;
+          top: 25%;
+          font-size: 2rem;
           color: black;
           border: none;
           cursor: pointer;
-          border-top-right-radius: 0.3rem;
-          border-bottom-right-radius: 0.3rem; }
-        .main-nav-bar--btn-box--search-bar--search .searchButton::hover {
-          background: rgba(102, 133, 173, 0.979); }
-        .main-nav-bar--btn-box--search-bar--search .searchButton:focus {
-          outline: 1px solid #333; }
+          background: transparent; }
     .main-nav-bar--btn-box--profile-info {
       display: flex;
       justify-content: space-between;
@@ -223,6 +224,14 @@ body {
   transition: all 0.2s; }
   .narrow-solid-button-light-dark:hover {
     background: #5C83AA; }
+
+.btn-home {
+  display: inline-block;
+  background: linear-gradient(#374353, rgba(123, 143, 169, 0.58));
+  color: #fff;
+  text-decoration: none;
+  padding: 1rem 2.3rem;
+  border-radius: 5rem; }
 
 .sign-in-modal {
   border: 1px solid #FF4F4F;
@@ -381,6 +390,26 @@ body {
   padding: 1.5rem;
   border-radius: 1rem;
   box-shadow: 5px 5px 12px #cbcdd3; }
+
+.home-header {
+  background: url(../images/wallhaven-700506.jpg);
+  height: 100vh;
+  background-size: cover;
+  display: flex;
+  justify-content: space-between;
+  align-items: center; }
+  .home-header--text-box--title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column; }
+    .home-header--text-box--title--main {
+      font-size: 3rem;
+      color: white; }
+    .home-header--text-box--title--sub {
+      font-size: 2.3rem;
+      color: white;
+      font-weight: 400; }
 
 .regisration-page {
   padding: 2rem;

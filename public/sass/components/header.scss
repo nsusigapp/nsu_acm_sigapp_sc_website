@@ -164,44 +164,41 @@
 
         @include displayFlex(space-between,center);
 
-        &--search-bar{
+        &--search-box{
           
                 margin: 0;
     
-            &--search{
+            &--form{
                 display: flex;
+                position: relative;
 
-                .searchTerm {
+                &-search {
+                    font-family: "Quicksand", sans-serif;
                     border: none;
                     outline: none;
                     background: #D5DEEA;
-                    padding: 1.5rem 4rem 1.5rem 1rem;
-                    border-top-left-radius: 0.3rem;
-                    border-bottom-left-radius: 0.3rem;
-                }
-                .searchTerm:focus{
-                    outline: 1px solid #333;
+                    padding: 1.5rem 10rem 1.5rem 1rem;
+                    border-radius: 0.3rem;
+                    box-shadow: 0 2px 2px rgba(#000, 0.25);
+                    transition: all 0.3s;
+
+                    &:focus{
+                        border-color: #1e90ff;
+                        box-shadow: 0 0 0 0.2rem rgba(#1e90ff,.5);
+                    }
                 }
 
                 .searchButton{
-                    padding:0.8rem 1rem 0.8rem 1rem;
-                    background: #D5DEEA;
+                    position: absolute;
+                    right: 5%;;
+                    top: 25%;
+                    font-size: 2rem;
                     color: black;
                     border: none; 
                     cursor: pointer;
-                    border-top-right-radius: 0.3rem;
-                    border-bottom-right-radius: 0.3rem;
-                }
-
-                .searchButton::hover{
-                    background: rgba(102, 133, 173, 0.979);
-                }
-
-                .searchButton:focus{
-                    outline: 1px solid #333;
+                    background: transparent;
                 }
             }
-
         }
 
         &--profile-info{
