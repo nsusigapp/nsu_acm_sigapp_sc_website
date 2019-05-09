@@ -1,8 +1,13 @@
 .home-header{
-    background: url(../images/wallhaven-700506.jpg);
-    height: 100vh;
+
+    background: linear-gradient(
+        to right bottom,
+        rgba($color-primary-light, 0.8),
+        rgba($color-primary-dark, 0.8)),url(../images/wallhaven-700506.jpg);
+    height: 80vh;
     background-size: cover;
-    @include displayFlex(space-between,center);
+    background-position: center;
+    @include displayFlex(center,center);
 
     &--text-box{
 
