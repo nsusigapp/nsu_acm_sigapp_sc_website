@@ -1,9 +1,6 @@
 .home-header{
 
-    background: linear-gradient(
-        to right bottom,
-        rgba($color-primary-light, 0.8),
-        rgba($color-primary-dark, 0.8)),url(../images/wallhaven-700506.jpg);
+    background: url(../images/wallhaven-700506.jpg);
     height: 80vh;
     background-size: cover;
     background-position: center;
@@ -25,6 +22,11 @@
                 color: white;
                 font-weight: 400;
             }
+        }
+
+        &--btn{
+            display:flex;
+            justify-content:center;
         }
 
     }
