@@ -396,7 +396,7 @@ body {
   box-shadow: 5px 5px 12px #cbcdd3; }
 
 .home-header {
-  background: url(../images/wallhaven-700506.jpg);
+  background: linear-gradient(to right bottom, rgba(0, 0, 0, 0.8), rgba(255, 255, 255, 0.8)), url(../images/wallhaven-700506.jpg);
   height: 80vh;
   background-size: cover;
   background-position: center;
