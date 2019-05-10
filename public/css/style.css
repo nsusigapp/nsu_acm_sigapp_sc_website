@@ -240,6 +240,25 @@ body {
   color: #fff;
   margin-top: 3rem; }
 
+.login-box-form-box--form-btn {
+  border: none;
+  outline: none;
+  background: rgba(255, 165, 0, 0.8);
+  padding: 1.2rem;
+  color: #fff;
+  border-radius: 3px;
+  font-weight: 700;
+  font-size: 1.6rem;
+  cursor: pointer;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+  text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  translate: all 0.3s; }
+  .login-box-form-box--form-btn:hover {
+    transform: translateY(0.5px);
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.25); }
+  .login-box-form-box--form-btn:active {
+    transform: translateY(2px); }
+
 .sign-in-modal {
   border: 1px solid #FF4F4F;
   display: inline-block;
@@ -399,7 +418,7 @@ body {
   box-shadow: 5px 5px 12px #cbcdd3; }
 
 .home-header {
-  background: linear-gradient(to right bottom, rgba(0, 0, 0, 0.8), rgba(255, 255, 255, 0.8)), url(../images/wallhaven-700506.jpg);
+  background: url(../images/wallhaven-700506.jpg);
   height: 80vh;
   background-size: cover;
   background-position: center;
@@ -566,3 +585,49 @@ body {
             margin-left: 1rem;
             margin-right: 2.7rem;
             font-weight: bold; }
+
+.main-content-new-login {
+  display: flex;
+  justify-content: center; }
+  .main-content-new-login .login-box {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.25);
+    border-top-left-radius: 3rem;
+    border-bottom-left-radius: 3rem;
+    margin-bottom: 10rem; }
+    .main-content-new-login .login-box--img-box {
+      border-top-left-radius: 3rem;
+      border-bottom-left-radius: 3rem; }
+      .main-content-new-login .login-box--img-box--img {
+        display: block;
+        height: 45rem;
+        width: 45rem;
+        border-top-left-radius: 3rem;
+        border-bottom-left-radius: 3rem;
+        object-fit: cover; }
+    .main-content-new-login .login-box-form-box {
+      padding: 2.5rem; }
+      .main-content-new-login .login-box-form-box--title {
+        margin-bottom: 1rem;
+        font-weight: normal;
+        font-size: 4rem; }
+      .main-content-new-login .login-box-form-box--quote {
+        font-size: 1.8rem;
+        font-style: italic;
+        color: rgba(0, 0, 0, 0.5);
+        margin-bottom: 5rem; }
+      .main-content-new-login .login-box-form-box--form {
+        display: flex;
+        flex-direction: column; }
+        .main-content-new-login .login-box-form-box--form-input {
+          font-family: "Quicksand", sans-serif;
+          outline: none;
+          border: 1px solid orange;
+          border-radius: 4px;
+          padding: 1.5rem 1rem;
+          margin-bottom: 1.5rem;
+          transition: all 0.3s; }
+          .main-content-new-login .login-box-form-box--form-input:focus {
+            box-shadow: 0 0 0 0.2rem rgba(255, 165, 0, 0.5); }
