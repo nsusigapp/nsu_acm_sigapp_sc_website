@@ -42,6 +42,15 @@ body {
   text-decoration: underline;
   font-size: 2.5rem; }
 
+.center-secondary-text {
+  color: #374353;
+  text-decoration: underline;
+  display: flex;
+  justify-content: center; }
+
+.about-us-title {
+  color: #5C83AA; }
+
 .margin-gutter-small {
   margin-bottom: 2rem; }
 
@@ -168,6 +177,13 @@ body {
         border-right: 0.8rem solid transparent;
         border-top: 0.8rem solid black;
         margin-right: 4rem; }
+
+.event-img-box .image-event1 {
+  height: 2rem; }
+
+.event-img-box--content--title--link {
+  color: black;
+  text-decoration: none; }
 
 .flat-slight-round-btn {
   text-decoration: none;
@@ -424,7 +440,7 @@ body {
   border-radius: 1rem;
   box-shadow: 5px 5px 12px #cbcdd3; }
 
-.home-header {
+.main-content .home-header {
   background: linear-gradient(to right bottom, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)), url(../images/hero-img.jpg);
   height: 80vh;
   background-size: cover;
@@ -432,21 +448,26 @@ body {
   display: flex;
   justify-content: center;
   align-items: center; }
-  .home-header--text-box--title {
+  .main-content .home-header--text-box--title {
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-direction: column; }
-    .home-header--text-box--title--main {
+    .main-content .home-header--text-box--title--main {
       font-size: 3rem;
       color: white; }
-    .home-header--text-box--title--sub {
+    .main-content .home-header--text-box--title--sub {
       font-size: 2.3rem;
       color: white;
       font-weight: 400; }
-  .home-header--text-box--btn {
+  .main-content .home-header--text-box--btn {
     display: flex;
     justify-content: center; }
+
+.main-content--section-about--content {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start; }
 
 .regisration-page {
   padding: 2rem;

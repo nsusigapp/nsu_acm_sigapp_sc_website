@@ -1,0 +1,20 @@
+.event-img-box{
+
+    .image-event1{
+        height: 2rem;
+    }
+
+    &--content{
+        &--title{
+            &--link{
+                color: black;
+                text-decoration: none;
+            }
+        }
+        &--extra{
+            &--link{
+
+            }
+        }
+    }
+}

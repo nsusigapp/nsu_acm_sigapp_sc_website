@@ -1,37 +1,61 @@
-.home-header{
+.main-content{
 
-    background: linear-gradient(
-        to right bottom,
-        rgba(#fff,0.2),rgba(#fff,0.2)
-    ), url(../images/hero-img.jpg);
-    height: 80vh;
-    background-size: cover;
-    background-position: center;
-    @include displayFlex(center,center);
+    .home-header{
+    
+        background: linear-gradient(
+            to right bottom,
+            rgba(#fff,0.2),rgba(#fff,0.2)
+        ), url(../images/hero-img.jpg);
+        height: 80vh;
+        background-size: cover;
+        background-position: center;
+        @include displayFlex(center,center);
+    
+        &--text-box{
+    
+            &--title{
+                @include displayFlex(space-between,center);
+                flex-direction: column;
+    
+                &--main{
+                    font-size: 3rem;
+                    color: white;
+                }
+    
+                &--sub{
+                    font-size: 2.3rem;
+                    color: white;
+                    font-weight: 400;
+                }
+            }
+    
+            &--btn{
+                display:flex;
+                justify-content:center;
+            }
+    
+        }
+    
+    }
 
-    &--text-box{
+    &--section-about{
 
         &--title{
-            @include displayFlex(space-between,center);
-            flex-direction: column;
 
-            &--main{
-                font-size: 3rem;
-                color: white;
-            }
 
-            &--sub{
-                font-size: 2.3rem;
-                color: white;
-                font-weight: 400;
-            }
         }
 
-        &--btn{
-            display:flex;
-            justify-content:center;
-        }
+        &--content{
+            @include displayFlex(space-around,flex-start);
 
+            &--left{
+
+            }
+
+            &--right{
+
+            }
+        }
     }
 
 }
