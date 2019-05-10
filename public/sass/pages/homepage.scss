@@ -41,19 +41,25 @@
     &--section-about{
 
         &--title{
-
-
+            color: #374353;
+            text-decoration: underline;
         }
 
         &--content{
-            @include displayFlex(space-around,flex-start);
+
+            @include displayFlex(space-around, center);
+            padding: 5rem;
 
             &--left{
 
+                flex: 1;
+                margin-right: 5rem;
+                
             }
 
             &--right{
 
+                flex: 1;
             }
         }
     }

@@ -42,14 +42,15 @@ body {
   text-decoration: underline;
   font-size: 2.5rem; }
 
-.center-secondary-text {
-  color: #374353;
-  text-decoration: underline;
-  display: flex;
-  justify-content: center; }
+.center-text {
+  text-align: center; }
 
 .about-us-title {
   color: #5C83AA; }
+
+.about-us-para {
+  line-height: 2.8rem;
+  color: #535151; }
 
 .margin-gutter-small {
   margin-bottom: 2rem; }
@@ -183,12 +184,19 @@ body {
         border-top: 0.8rem solid black;
         margin-right: 4rem; }
 
-.event-img-box .image-event1 {
-  height: 2rem; }
-
-.event-img-box--content--title--link {
-  color: black;
-  text-decoration: none; }
+.event-box {
+  background: #D5DEEA;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  display: flex;
+  justify-content: flex-start;
+  align-items: center; }
+  .event-box-img-container--img {
+    display: block;
+    height: 10rem;
+    width: 15rem; }
+  .event-box--content--title--link {
+    color: black;
+    text-decoration: none; }
 
 .flat-slight-round-btn {
   text-decoration: none;
@@ -469,10 +477,20 @@ body {
     display: flex;
     justify-content: center; }
 
+.main-content--section-about--title {
+  color: #374353;
+  text-decoration: underline; }
+
 .main-content--section-about--content {
   display: flex;
   justify-content: space-around;
-  align-items: flex-start; }
+  align-items: center;
+  padding: 5rem; }
+  .main-content--section-about--content--left {
+    flex: 1;
+    margin-right: 5rem; }
+  .main-content--section-about--content--right {
+    flex: 1; }
 
 .regisration-page {
   padding: 2rem;
