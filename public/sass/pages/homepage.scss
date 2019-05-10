@@ -1,6 +1,9 @@
 .home-header{
 
-    background: url(../images/wallhaven-700506.jpg);
+    background: linear-gradient(
+        to right bottom,
+        rgba(#fff,0.2),rgba(#fff,0.2)
+    ), url(../images/hero-img.jpg);
     height: 80vh;
     background-size: cover;
     background-position: center;
