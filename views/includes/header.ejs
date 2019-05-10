@@ -62,9 +62,9 @@
              
         </div>
 
-        <div class="main-nav-bar--btn-box--profile-info">
-
-            <% if(userInfo.loggedIn){ %>
+        
+        <% if(userInfo.loggedIn){ %>
+            <div class="main-nav-bar--btn-box--profile-info">
                 <a href="" class="">
                     <img src="/images/abir-pp.jpg" alt="" 
                     class="main-nav-bar--btn-box--profile-info--img">
@@ -74,13 +74,15 @@
                 <a href="">
                     <div class="arrow-down"></div>
                 </a>
-            <% } else { %>
+            </div>
+        <% } else { %>
 
-                <a class="full-width-btn full-width-btn--black" href="/register">SIGNUP</a>
+            <div class="main-nav-bar--btn-box--btn">
+                <a href="/login" class="flat-slight-round-btn">LOG IN!</a>
+                <a href="/register" class="flat-slight-round-btn">Register</a>
+            </div>
 
-            <% } %>
-
-        </div>
+        <% } %>
 
     </div>
 </nav>

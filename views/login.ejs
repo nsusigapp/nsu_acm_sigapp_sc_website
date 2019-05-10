@@ -36,15 +36,25 @@
             
                             <ul class="flash-box--req flash-box--req-error">
                                 <% if(error[0].invalidNsuId){ %>
+
                                     <li>Invalid NSU ID!</li>
+
                                 <% }else if(error[0].userDoesNotExist){ %>
+
                                     <li>User does not exists!</li>
+
                                 <% }else if(error[0].invalidPasswd){ %>
+
                                     <li>Invalid Password!</li>
+
                                 <% }else if(error[0].passwordMisMatch){ %>
+
                                     <li>Password Doesn't Match!</li>
+
                                 <% }else if(error[0].bannedUser){ %>
+
                                     <li>User Status: Deactivated!</li>
+
                                 <% } %>
                             </ul>
                         </div>
@@ -55,8 +65,8 @@
 
                 <form class="login-box-form-box--form" action="/login" method="POST">
 
-                    <input class="login-box-form-box--form-input" type="text" placeholder="Username">
-                    <input class="login-box-form-box--form-input" type="password" placeholder="Password">
+                    <input class="login-box-form-box--form-input" name="nsu_id" type="text" placeholder="NSU ID">
+                    <input class="login-box-form-box--form-input" name="password" type="password" placeholder="Password">
                     <input class="login-box-form-box--form-btn" type="submit" value="LOGIN">
 
                 </form>

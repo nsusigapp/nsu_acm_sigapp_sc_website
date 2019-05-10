@@ -139,6 +139,11 @@ body {
           border: none;
           cursor: pointer;
           background: transparent; }
+    .main-nav-bar--btn-box--btn {
+      margin: 0rem 2rem; }
+      .main-nav-bar--btn-box--btn a {
+        display: inline-block;
+        margin-right: 1rem; }
     .main-nav-bar--btn-box--profile-info {
       display: flex;
       justify-content: space-between;
