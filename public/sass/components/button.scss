@@ -8,7 +8,6 @@
     transition: all 0.4s;
 
     &:hover{
-        // background: #514C4C;
         background: #2C3E50;
     }
 }
@@ -76,6 +75,16 @@
     }
 }
 
+.narrow-solid-button-light{
+    background: #5C83AA;
+    color: #fff;
+    transition: all 0.2s;
+
+    &:hover{
+        background: #374353;
+    }
+}
+
 .btn-home{
 
     text-decoration: none;
@@ -116,3 +125,4 @@
         transform: translateY(2px);
     }
 }
+

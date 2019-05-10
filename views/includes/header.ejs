@@ -64,15 +64,22 @@
 
         <div class="main-nav-bar--btn-box--profile-info">
 
-            <a href="" class="">
-                <img src="/images/abir-pp.jpg" alt="" 
-                class="main-nav-bar--btn-box--profile-info--img">
-                <span class="main-nav-bar--btn-box--profile-info--name"> Hi, Abir!</span>
-            </a>
+            <% if(userInfo.loggedIn){ %>
+                <a href="" class="">
+                    <img src="/images/abir-pp.jpg" alt="" 
+                    class="main-nav-bar--btn-box--profile-info--img">
+                    <span class="main-nav-bar--btn-box--profile-info--name"> Hi, Abir!</span>
+                </a>
 
-            <a href="">
-                <div class="arrow-down"></div>
-            </a>
+                <a href="">
+                    <div class="arrow-down"></div>
+                </a>
+            <% } else { %>
+
+                <a class="full-width-btn full-width-btn--black" href="/register">SIGNUP</a>
+
+            <% } %>
+
         </div>
 
     </div>

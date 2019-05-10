@@ -123,3 +123,8 @@
         }
     }
 }
+
+.forum-pagination{
+    @include displayFlex(space-between, center);
+    margin-bottom: 5rem;
+}

@@ -1,67 +1,70 @@
-#canvas{
-    position:absolute;
-    left:0;
-    top:0;
-    z-index:-1;
-}
 
-// .yooo{
-//     background: url("/images/hero.jpg");
-//     background-size: cover;
-//     background-position: center;
-// }
+.main-content-new-login{
+    display: flex;
+    justify-content: center;
+    margin-top: 7rem;
 
-.login-page{
-    padding: 2rem;
-    width: 50%;
-    margin: 0 auto;
+    .login-box{
+        @include displayFlex(flex-start,flex-start);
+        box-shadow: 0px 4px 15px rgba($color: #000000, $alpha: 0.25);
+        border-top-left-radius: 3rem;
+        border-bottom-left-radius: 3rem;
+        margin-bottom: 10rem;
 
-    @media only screen and(max-width: 860px){
-        padding: 1rem;
-        width: 100%;
-    }
-}
+        &--img-box{
+            border-top-left-radius: 3rem;
+            border-bottom-left-radius: 3rem;
 
-.login-box{
-    width: 75%;
-    margin: 7rem auto;
+            &--img{
+                display: block;
+                height: 45rem;
+                width: 45rem;
+                border-top-left-radius: 3rem;
+                border-bottom-left-radius: 3rem;
+                object-fit: cover;
+            }
+        }
 
-    @media only screen and(max-width: 860px){
-        width: 100%;
-        margin: 3rem 0rem;
-    }
+        &-form-box{
 
-    &--title{
-        text-transform: uppercase;
-        background: linear-gradient(to right, #4a6e7d, #64a7c3);
-        color: #fff;
-        padding: 1rem;
+            padding: 2.5rem;
 
-        @media only screen and(max-width: 860px){
-            font-size: 2rem;
+            &--title{
+                margin-bottom: 1rem;
+                font-weight: normal;
+                font-size: 4rem;
+            }
+
+            &--quote{
+                font-size: 1.8rem;
+                font-style: italic;
+                color: rgba($color: #000000, $alpha: 0.50);
+                margin-bottom: 5rem;
+            }
+
+            &--form{
+
+                display: flex;
+                flex-direction: column;
+
+                &-input{
+                    font-family: "Quicksand", sans-serif;
+                    outline: none;
+                    border: 1px solid orange;
+                    border-radius: 4px;
+                    padding: 1.5rem 1rem;
+                    margin-bottom: 1.5rem;
+                    transition: all 0.3s;
+
+                    &:focus{
+                        box-shadow: 0 0 0 0.2rem rgba(orange,.5);
+                    }
+                }
+            }
         }
     }
+}
 
-    &-forgot-passwd-link--right{
-        float: right;
-    }
-
-    &-forgot-passwd-link--left{
-        float: left;
-    }
-
-    &-forgot-passwd-link{
-        margin-bottom: 2rem;
-        font-weight: 700;
-        text-decoration: none;
-        color: black;
-        border-bottom: 1px solid black;
-        padding-bottom: 0.2rem;
-    }
-
-    &--form{
-        border: 2px solid rgba(0,0,0,.1);
-        padding: 5rem 1rem 3rem 1rem;
-        box-shadow: 0px 2px 3px rgba($color: #000000, $alpha: 0.3);
-    }
+.login-flash{
+    margin-top: -4rem;
 }
