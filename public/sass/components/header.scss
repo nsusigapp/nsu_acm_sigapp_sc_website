@@ -201,6 +201,15 @@
             }
         }
 
+        &--btn{
+            margin: 0rem 2rem;
+
+            a{
+                display: inline-block;
+                margin-right: 1rem;
+            }
+        }
+
         &--profile-info{
 
             @include displayFlex(space-between,center);
