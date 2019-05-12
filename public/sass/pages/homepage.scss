@@ -40,16 +40,17 @@
 
     &--section-about{
 
-        &--title{
-            color: #374353;
-            text-decoration: underline;
-        }
-
         &--content{
 
             @include displayFlex(space-around, flex-start);
             padding: 5rem;
 
+            @media only screen and(max-width: 600px){
+                flex-direction: column;
+                padding: 1rem;
+                justify-content: center;
+            }
+            
             &--left{
 
                 flex: 1;
@@ -64,7 +65,23 @@
         }
     }
 
+    .faculty-advisor{
+
+        &-box{
+            @include displayFlex(center,center);
+            
+            &--card{
+                color: #374353;
+                text-decoration: none;
+                @include displayFlex(center,center);
+                flex-direction: column;
+            }
+        }
+    }
+
     .home-officer{
+
+        padding: 5rem;
 
         &--box{
 
@@ -72,11 +89,11 @@
             @include displayFlex(space-around,center);
             padding: 2rem;
             margin-bottom: 2rem;
-            margin-left: 5.5rem;
-            margin-right: 5.5rem;
             margin-top: 2.5rem;
 
             &--img-box{
+
+                flex: 1;
 
                 &--img{
                     height: 20rem;
@@ -89,9 +106,16 @@
 
             &--info{
 
+<<<<<<< HEAD
                 margin-left: 3rem;
                 margin-right: 3rem;
                 
+=======
+                flex: 4;
+                margin-left: 3rem;
+                margin-right: 3rem;
+
+>>>>>>> 21a4bb47745904105978f4cf9fc92bcc2a12f39f
                 &--name{
                     font-size: 2.5rem;
                     color:#374353;
@@ -105,17 +129,29 @@
     
                 &--description{
                     font-weight: 500;
+                    line-height: 2.8rem;
                 }
             }
-
-
         }
     }
 
     .neighbourhood{
 
+        padding: 5rem;
+        
         &--box{
+            @include displayFlex(space-around, center);
+            flex-wrap: wrap;
+        }
+    }
 
+    .home-join-box{
+
+        &--link{
+            text-decoration: none;
+            &--text{
+                text-decoration: none;
+                font-size: 4rem;            }
         }
     }
 
