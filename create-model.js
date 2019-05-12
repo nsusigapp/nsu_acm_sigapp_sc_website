@@ -1,5 +1,14 @@
-const SequelizeAuto = require('sequelize-auto')
-const auto = new SequelizeAuto('nsu_sigapp_sc', 'root', '123456');
+const SequelizeAuto = require('sequelize-auto'); // package to auto generate models from database;
+const auto = new SequelizeAuto('nsu_sigapp_sc', 'root', '123456'); 
+// ^^ set credentials; [dbName,Username,Password] ^^
+
+/**
+ * This part below creates model files from existing database;
+ * Created by writing SQL in .sql files;
+ * Use whenever necessary to make work faster; but make sure to create associations manually;
+ * Auto generating models have issues; Such as ommiting foreignKey constraints;
+ * Those needs to be manually added wth associations to be able to mae INNER JOIN and other types of queries;
+ */
 
 // auto.run(function (err) {
 //   if(err) 
@@ -9,18 +18,30 @@ const auto = new SequelizeAuto('nsu_sigapp_sc', 'root', '123456');
 //   console.log(auto.foreignKeys); // foreign key list
 // });
 
-const db = require("./models/index");
+// ^^ // ^^ // ^^ //
 
+// This index file can be used to access all the model files together; Instead of manually requireing them;
+const db = require("./models/index");
+// ^^ this file reads all of the models from models folder and imports them in this global db variable;
+
+// import all models for associations
 const { users: User, blog: Blog, forum: Forum,
     blog_comments: BlogCom, blog_like_track: BlogLike,
     events: Event, event_registered_people: EventRegPeople,
-    forum_reply: ForumReply, reports: Report, roles: Role } = require("./models/index");
+    forum_answer: ForumAnswer, reports: Report, roles: Role, forum_like_track: ForumLike } = require("./models/index");
+
+// All associations are defined here; Associations are foreignKeys joining tables;
+// Associations allows you to run JOIN queries [INNER JOIN/OUTER JOIN] the sequelize way;
+//  INSTEAD OF RUNNING RAW QUERIES; Raw queries should be avoided whenever possible;
+//  Unless absolutely necessary; DO not run raw queries;
+
 
 User.hasMany(Blog);
 User.hasMany(Forum);
 User.hasMany(BlogCom);
-User.hasMany(ForumReply);
+User.hasMany(ForumAnswer);
 User.hasMany(BlogLike);
+// User.hasMany(ForumLike);
 User.hasMany(Event);
 User.hasMany(EventRegPeople);
 
@@ -34,6 +55,12 @@ User.hasMany(Report, {
     foreignKey: "resolved_by",
 });
 
+// One-To-One Relation;
+User.belongsTo(Role, {
+    as: "userRole",
+    foreignKey: "role_id",
+});
+
 Blog.hasMany(BlogCom);
 Blog.hasMany(BlogLike);
 
@@ -42,28 +69,53 @@ Blog.belongsTo(User, {
     foreignKey: "author_id"
 });
 
-Forum.hasMany(ForumReply);
+Forum.hasMany(ForumAnswer);
+// Forum.hasMany(ForumLike);
 
 Forum.belongsTo(User, {
     as: "author",
     foreignKey: "author_id",
 });
 
-ForumReply.belongsTo(Forum, {
-    as: "reply",
+ForumAnswer.belongsTo(Forum, {
+    as: "answer",
     foreignKey: "forum_p_id"
 });
 
-ForumReply.belongsTo(User, {
+ForumAnswer.belongsTo(User, {
     as: "author",
     foreignKey: "author_id",
 });
 
-BlogCom.belongsTo(Blog);
-BlogCom.belongsTo(User);
+BlogCom.belongsTo(Blog, {
+    as: "comment",
+    foreignKey: "blog_id",
+});
 
-BlogLike.belongsTo(User);
-BlogLike.belongsTo(Blog);
+BlogCom.belongsTo(User, {
+    as: "comment_author",
+    foreignKey: "user_id",
+});
+
+BlogLike.belongsTo(User, {
+    as: "blog_liker",
+    foreignKey: "user_id",
+});
+
+BlogLike.belongsTo(Blog, {
+    as: "blog_liked",
+    foreignKey: "blog_id",
+});
+
+ForumLike.belongsTo(Forum, {
+    as: "forum_liked",
+    foreignKey: "forum_id",
+});
+
+ForumLike.belongsTo(User, {
+    as: "forum_liker",
+    foreignKey: "user_id",
+});
 
 Event.belongsTo(User);
 Event.hasMany(EventRegPeople);
@@ -91,8 +143,8 @@ db.sequelize.sync({
     .then(res => {
 
         Role.bulkCreate([
-            { role_name: "User" },
-            { role_name: "Admin" }
+            { role_name: "USER" },
+            { role_name: "ADMIN" }
         ]);
 
     })

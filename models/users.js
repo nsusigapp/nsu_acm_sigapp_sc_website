@@ -18,15 +18,6 @@ module.exports = function(sequelize, DataTypes) {
 			allowNull: false,
 			unique: true
 		},
-		role_id: {
-			type: DataTypes.INTEGER(11),
-			allowNull: true,
-			defaultValue: '1',
-			references: {
-				model: 'roles',
-				key: 'role_id'
-			}
-		},
 		first_name: {
 			type: DataTypes.STRING(45),
 			allowNull: false
