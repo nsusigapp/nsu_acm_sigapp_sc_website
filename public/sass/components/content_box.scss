@@ -1,3 +1,10 @@
+.event-header{
+    &--blue{
+        color: #5C83AA;
+        font-size: 2rem;
+    }
+}
+
 .event-box{
 
     background: #D5DEEA;
@@ -15,8 +22,10 @@
 
     &--content{
 
-        &--title{
+        @include displayFlex(space-between,center);
 
+        &--title{
+            margin-left: 1rem;
             &--link{
                 color: black;
                 text-decoration: none;
@@ -24,10 +33,7 @@
         }
 
         &--extra{
-
-            &--link{
-
-            }
+           
         }
     }
 }
