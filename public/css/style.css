@@ -102,6 +102,9 @@ body {
       width: 24rem;
       margin-right: 1rem;
       margin-left: 1.8rem; }
+    @media only screen and (max-width: 1150px) {
+      .main-nav-bar--link-box--links {
+        display: none; } }
     .main-nav-bar--link-box--links-list {
       display: flex;
       justify-content: space-between;
@@ -508,6 +511,13 @@ body {
   display: flex;
   justify-content: center;
   margin-top: 7rem; }
+  @media only screen and (max-width: 1050px) {
+    .main-content-new-login {
+      padding: 0rem 3rem; } }
+  @media only screen and (max-width: 750px) {
+    .main-content-new-login {
+      padding: 3rem;
+      margin-top: 3rem; } }
   .main-content-new-login .login-box {
     display: flex;
     justify-content: flex-start;
@@ -516,9 +526,18 @@ body {
     border-top-left-radius: 3rem;
     border-bottom-left-radius: 3rem;
     margin-bottom: 10rem; }
+    @media only screen and (max-width: 750px) {
+      .main-content-new-login .login-box {
+        border-top-left-radius: 0rem;
+        border-bottom-left-radius: 0rem; } }
     .main-content-new-login .login-box--img-box {
       border-top-left-radius: 3rem;
       border-bottom-left-radius: 3rem; }
+      @media only screen and (max-width: 750px) {
+        .main-content-new-login .login-box--img-box {
+          display: none;
+          border-top-left-radius: 0rem;
+          border-bottom-left-radius: 0rem; } }
       .main-content-new-login .login-box--img-box--img {
         display: block;
         height: 45rem;
@@ -526,6 +545,10 @@ body {
         border-top-left-radius: 3rem;
         border-bottom-left-radius: 3rem;
         object-fit: cover; }
+        @media only screen and (max-width: 1050px) {
+          .main-content-new-login .login-box--img-box--img {
+            height: 45rem;
+            width: 35rem; } }
     .main-content-new-login .login-box-form-box {
       padding: 2.5rem; }
       .main-content-new-login .login-box-form-box--title {
