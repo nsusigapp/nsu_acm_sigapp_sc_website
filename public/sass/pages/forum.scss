@@ -68,9 +68,9 @@
             margin-bottom: 3rem;
             transition: all 0.2s;
 
-            &:hover{
-                transform: scale(1.03);
-            }
+            // &:hover{
+            //     transform: scale(1.02);
+            // }
             
 
             &-left{
@@ -79,6 +79,14 @@
 
                 &-title-box{
                     font-size: 1.4rem;
+
+                    @media only screen and(max-width: 850px){
+                        font-size: 1.2rem;
+                    }
+
+                    @media only screen and(max-width: 550px){
+                        font-size: 1rem;
+                    }
 
                     &--cat-pills{
                         @include displayFlex(flex-start, center);
@@ -106,6 +114,10 @@
                         &--icon{
                             height: 3.5rem;
                             margin-right: 2rem;
+
+                            @media only screen and(max-width: 550px){
+                                height: 3rem;
+                            }
                         }
                     }
 
@@ -118,6 +130,21 @@
                         }
                     }
 
+                }
+            }
+
+            &-author-box{
+
+                &--author{
+                    @media only screen and(max-width: 550px){
+                        font-size: 1.4rem;
+                    }
+                }
+
+                &--publish{
+                    @media only screen and(max-width: 550px){
+                        font-size: 1.4rem;
+                    }
                 }
             }
         }

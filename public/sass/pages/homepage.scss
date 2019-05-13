@@ -106,16 +106,10 @@
 
             &--info{
 
-<<<<<<< HEAD
-                margin-left: 3rem;
-                margin-right: 3rem;
-                
-=======
                 flex: 4;
                 margin-left: 3rem;
                 margin-right: 3rem;
 
->>>>>>> 21a4bb47745904105978f4cf9fc92bcc2a12f39f
                 &--name{
                     font-size: 2.5rem;
                     color:#374353;
@@ -137,7 +131,7 @@
 
     .neighbourhood{
 
-        padding: 5rem;
+        padding: 1rem 5rem 5rem 5rem;
         
         &--box{
             @include displayFlex(space-around, center);

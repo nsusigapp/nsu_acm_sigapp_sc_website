@@ -33,6 +33,10 @@
 .main-content-title{
     text-decoration: underline;
     font-size: 2.5rem;
+
+    @media only screen and(max-width: 550px){
+        font-size: 2.2rem;
+    }
 }
 
 .center-text{

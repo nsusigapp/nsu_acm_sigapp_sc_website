@@ -32,6 +32,11 @@ const { roles: Role } = require("./models/index");
 //  INSTEAD OF RUNNING RAW QUERIES; Raw queries should be avoided whenever possible;
 //  Unless absolutely necessary; DO not run raw queries;
 
+/**
+ * Associations have been moved to their respective model files
+ * but the notes shall remain here for reference;
+ */
+
 
 db.sequelize.sync({
     force: true

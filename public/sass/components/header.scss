@@ -16,6 +16,10 @@
                 width: 24rem;
                 margin-right: 1rem;
                 margin-left: 1.8rem;
+
+                @media only screen and(max-width: 545px){
+                    width: 18rem;
+                }
             }
 
         }
@@ -63,7 +67,11 @@
 
         &--search-box{
           
-                margin: 0;
+            margin: 0;
+
+            @media only screen and(max-width: 810px){
+                display: none;
+            }
     
             &--form{
                 display: flex;

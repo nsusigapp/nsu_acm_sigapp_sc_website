@@ -41,6 +41,9 @@ body {
 .main-content-title {
   text-decoration: underline;
   font-size: 2.5rem; }
+  @media only screen and (max-width: 550px) {
+    .main-content-title {
+      font-size: 2.2rem; } }
 
 .center-text {
   text-align: center; }
@@ -67,6 +70,9 @@ body {
 
 .margin-gutter-small {
   margin-bottom: 2rem; }
+
+.margin-gutter-large {
+  margin-bottom: 10rem; }
 
 .margin-top-medium {
   margin-top: 5rem; }
@@ -106,6 +112,9 @@ body {
       width: 24rem;
       margin-right: 1rem;
       margin-left: 1.8rem; }
+      @media only screen and (max-width: 545px) {
+        .main-nav-bar--link-box--logo-box--logo {
+          width: 18rem; } }
     @media only screen and (max-width: 1150px) {
       .main-nav-bar--link-box--links {
         display: none; } }
@@ -132,6 +141,9 @@ body {
     align-items: center; }
     .main-nav-bar--btn-box--search-box {
       margin: 0; }
+      @media only screen and (max-width: 810px) {
+        .main-nav-bar--btn-box--search-box {
+          display: none; } }
       .main-nav-bar--btn-box--search-box--form {
         display: flex;
         position: relative; }
@@ -579,7 +591,7 @@ body {
         line-height: 2.8rem; }
 
 .main-content .neighbourhood {
-  padding: 5rem; }
+  padding: 1rem 5rem 5rem 5rem; }
   .main-content .neighbourhood--box {
     display: flex;
     justify-content: space-around;
@@ -726,14 +738,18 @@ body {
       padding: 1.5rem;
       margin-bottom: 3rem;
       transition: all 0.2s; }
-      .main-content-forum .forum-questions-box--card:hover {
-        transform: scale(1.03); }
       .main-content-forum .forum-questions-box--card-left {
         display: flex;
         justify-content: flex-start;
         align-items: center; }
         .main-content-forum .forum-questions-box--card-left-title-box {
           font-size: 1.4rem; }
+          @media only screen and (max-width: 850px) {
+            .main-content-forum .forum-questions-box--card-left-title-box {
+              font-size: 1.2rem; } }
+          @media only screen and (max-width: 550px) {
+            .main-content-forum .forum-questions-box--card-left-title-box {
+              font-size: 1rem; } }
           .main-content-forum .forum-questions-box--card-left-title-box--cat-pills {
             display: flex;
             justify-content: flex-start;
@@ -756,10 +772,19 @@ body {
             .main-content-forum .forum-questions-box--card-left-icon-box--container--icon {
               height: 3.5rem;
               margin-right: 2rem; }
+              @media only screen and (max-width: 550px) {
+                .main-content-forum .forum-questions-box--card-left-icon-box--container--icon {
+                  height: 3rem; } }
           .main-content-forum .forum-questions-box--card-left-icon-box-count-box--count {
             margin-left: 1rem;
             margin-right: 2.7rem;
             font-weight: bold; }
+      @media only screen and (max-width: 550px) {
+        .main-content-forum .forum-questions-box--card-author-box--author {
+          font-size: 1.4rem; } }
+      @media only screen and (max-width: 550px) {
+        .main-content-forum .forum-questions-box--card-author-box--publish {
+          font-size: 1.4rem; } }
 
 .forum-pagination {
   display: flex;

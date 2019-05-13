@@ -3,8 +3,6 @@ const { users: User, blog: Blog, forum: Forum,
     events: Event, event_registered_people: EventRegPeople,
     forum_answer: ForumAnswer, reports: Report, roles: Role, forum_like_track: ForumLike } = require("./models/index");
 
-
-
 User.findAll({
     include: [{
         model: Blog,
