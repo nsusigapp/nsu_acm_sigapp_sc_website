@@ -1,7 +1,8 @@
 /* jshint indent: 1 */
 
 module.exports = function(sequelize, DataTypes) {
-	return sequelize.define('events', {
+
+	const Event =  sequelize.define('events', {
 		event_id: {
 			type: DataTypes.INTEGER(11),
 			allowNull: false,
@@ -40,4 +41,18 @@ module.exports = function(sequelize, DataTypes) {
 	}, {
 		tableName: 'events'
 	});
+
+	Event.associate = models => {
+		
+		Event.belongsTo(models.users, {
+			foreignKey: "user_id",
+		});
+
+		Event.hasMany(models.event_registered_people, {
+			foreignKey: "event_id",
+		});
+
+	}
+
+	return Event;
 };

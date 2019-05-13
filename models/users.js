@@ -6,7 +6,7 @@ const { blog: Blog, forum: Forum } = require("./index");
 
 module.exports = function(sequelize, DataTypes) {
 
-	const User= sequelize.define('users', {
+	const User = sequelize.define('users', {
 		u_id: {
 			type: DataTypes.INTEGER(11),
 			allowNull: false,
@@ -61,6 +61,63 @@ module.exports = function(sequelize, DataTypes) {
 	}, {
 		tableName: 'users'
 	});
+
+	User.associate = models => {
+
+		User.belongsTo(models.roles, {
+			foreignKey: "role_id"
+		});
+
+		// id of who created the blog post;
+		User.hasMany(models.blog, {
+			foreignKey: "author_id",
+		});
+
+		// id of who created the forum post
+		User.hasMany(models.forum, {
+			foreignKey: "author_id",
+		});
+
+		// id of who made the blog comment;
+		User.hasMany(models.blog_comments, {
+			foreignKey: "user_id",
+		});
+
+		// id of who made the answer;
+		User.hasMany(models.forum_answer, {
+			foreignKey: "author_id",
+		});
+
+		// id of who liked the forum;
+		User.hasMany(models.forum_like_track, {
+			foreignKey: "user_id",
+		});
+
+		// who liked the post; id of liker
+		User.hasMany(models.blog_like_track, {
+			foreignKey: "user_id",
+		});
+
+		// user_id is who created the event; id of the creator;
+		User.hasMany(models.events, {
+			foreignKey: "user_id",
+		});
+
+		User.hasMany(models.reports, {
+			as: "reporter",
+			foreignKey: "reported_by",
+		});
+		
+		User.hasMany(models.reports, {
+			as: "resolver",
+			foreignKey: "resolved_by",
+		});
+
+		User.hasMany(models.event_registered_people, {
+			foreignKey: "event_id",
+		});
+
+	};
 
 	User.generateAuthToken= payload => {
 		return jwt.sign(payload, process.env.JWT_SECRET,{ expiresIn: process.env.EXPIRY_TIME });

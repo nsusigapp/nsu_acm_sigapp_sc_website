@@ -1,7 +1,7 @@
 /* jshint indent: 1 */
 
 module.exports = function(sequelize, DataTypes) {
-	return sequelize.define('forum', {
+	const Forum =  sequelize.define('forum', {
 		f_post_id: {
 			type: DataTypes.INTEGER(11),
 			allowNull: false,
@@ -19,4 +19,23 @@ module.exports = function(sequelize, DataTypes) {
 	}, {
 		tableName: 'forum'
 	});
+
+	Forum.associate = models => {
+
+		Forum.belongsTo(models.users, {
+			foreignKey: "author_id",
+		});
+
+		Forum.hasMany(models.forum_answer, {
+			foreignKey: "forum_p_id"
+		});
+
+		Forum.hasMany(models.forum_like_track, {
+			foreignKey: "forum_id",
+		});
+
+		
+	}
+
+	return Forum;
 };

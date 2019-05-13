@@ -1,7 +1,7 @@
 /* jshint indent: 1 */
 
 module.exports = function(sequelize, DataTypes) {
-	return sequelize.define('reports', {
+	const Report = sequelize.define('reports', {
 		report_id: {
 			type: DataTypes.INTEGER(11),
 			allowNull: false,
@@ -19,4 +19,25 @@ module.exports = function(sequelize, DataTypes) {
 	}, {
 		tableName: 'reports'
 	});
+
+
+	Report.associate = models => {
+
+		Report.belongsTo(models.users, {
+			as: "reporter",
+			foreignKey: "reported_by",
+			onDelete: "SET NULL",
+			onUpdate: "CASCADE"
+		});
+		
+		Report.belongsTo(models.users, {
+			as: "resolver",
+			foreignKey: "resolved_by",
+			onDelete: "SET NULL",
+			onUpdate: "CASCADE"
+		});
+		
+	}
+
+	return Report;
 };
