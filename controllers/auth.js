@@ -1,7 +1,7 @@
 
-const { users: User, email_queue: EmailQueue, sequelize } = require("../models/index");
+const { sequelize, users: User, email_queue: EmailQueue, session: Session } = require("../models/index");
 
-const userStatus = require("../utils/userStatus");
+const { userStatus, sessStatus } = require("../utils/statusConst");
 
 const roleID = require("../utils/userRoles");
 

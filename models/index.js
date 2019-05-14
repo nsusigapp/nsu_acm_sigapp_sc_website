@@ -1,5 +1,14 @@
 'use strict';
 
+/**
+ * File to load all model files
+ * This file can be used to access all models
+ * Use this to require in the models which to be used
+ * It also contains the sequelize object
+ * which can be used to create transactions
+ * or interface with the queryInterface directly
+ */
+
 const fs = require('fs');
 const path = require('path');
 const Sequelize = require('sequelize');

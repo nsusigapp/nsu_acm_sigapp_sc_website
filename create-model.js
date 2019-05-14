@@ -49,7 +49,8 @@ db.sequelize.sync({
         ]);
 
         Quote.bulkCreate([
-            { quote_text: "You are my password. People can unlock me through you" }
+            { quote_text: "You are my password. People can unlock me through you" },
+            { quote_text: "War, War Never Changes" }
         ]);
 
     })

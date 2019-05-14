@@ -117,6 +117,10 @@ module.exports = function(sequelize, DataTypes) {
 			foreignKey: "event_id",
 		});
 
+		User.hasMany(models.session, {
+			foreignKey: "u_id",
+		});
+
 	};
 
 	User.generateAuthToken= payload => {
