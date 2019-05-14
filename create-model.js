@@ -25,7 +25,7 @@ const db = require("./models/index");
 // ^^ this file reads all of the models from models folder and imports them in this global db variable;
 
 // import all models for associations
-const { roles: Role } = require("./models/index");
+const { roles: Role, quotes: Quote } = require("./models/index");
 
 // All associations are defined here; Associations are foreignKeys joining tables;
 // Associations allows you to run JOIN queries [INNER JOIN/OUTER JOIN] the sequelize way;
@@ -46,6 +46,10 @@ db.sequelize.sync({
         Role.bulkCreate([
             { role_name: "USER" },
             { role_name: "ADMIN" }
+        ]);
+
+        Quote.bulkCreate([
+            { quote_text: "You are my password. People can unlock me through you" }
         ]);
 
     })

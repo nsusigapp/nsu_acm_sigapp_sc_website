@@ -4,6 +4,7 @@ const { users: User, email_queue: EmailQueue, sequelize } = require("../models/i
 const userStatus = require("../utils/userStatus");
 
 const roleID = require("../utils/userRoles");
+
 const pageTitle = require("../utils/pageTitles");
 
 const bcrypt = require('bcrypt');
@@ -124,6 +125,7 @@ const getLoginPage = (req, res, next) => {
     return res.render("login", {
         pageTitle: pageTitle.LOGIN,
         path: "/login",
+        quote: req.randomQuote,
         error: req.flash("loginErr"),
     });
 
@@ -149,7 +151,7 @@ const postLoginUser = (req, res, next) => {
 
                 return res.redirect("/login");
 
-            } else if (fetchedUser.status === 0) {
+            } else if (fetchedUser.status === userStatus.IN_ACTIVE) { // user is deactivated
 
                 req.flash("loginErr", {
                     bannedUser: true,
@@ -175,7 +177,7 @@ const postLoginUser = (req, res, next) => {
                             req.session.userData = {
                                 uid: fetchedUser.u_id,
                                 user_name: fetchedUser.user_name,
-                                nsu_id: fetchedUser
+                                nsu_id: fetchedUser.nsu_id,
                             }
 
                             res.cookie("_pass", fetchedUser.token, { httpOnly: true, maxAge: 30 * 24 * 60 * 60 * 1000 });
@@ -192,10 +194,43 @@ const postLoginUser = (req, res, next) => {
 // POST /logout
 const postLogout = (req, res, next) => {
 
-    req.session.destroy(err => {
-        res.clearCookie("_pass");
-        return res.redirect('/');
-    });
+    if (req.session.userData) {
+
+        // const session = require("express-session");
+        // const RedisStore = require("connect-redis")(session);
+
+        // const store = new RedisStore();
+
+        // console.log("REDIS STORE OBJECT");
+
+        // console.log(store);
+
+        // store.destroy(req.sessionID, err => {
+        //     if (err) {
+        //         console.log(err);
+        //     } else {
+        //         res.redirect("/");
+        //     }
+        // });
+        
+        req.session.destroy(err => {
+
+            if (err) {
+                console.log(err);
+
+                res.redirect("/");
+            } else {
+
+                res.clearCookie("_pass");
+                return res.redirect('/');
+            }
+
+        });
+
+    } else {
+
+        res.redirect("/");
+    }
 
 }
 

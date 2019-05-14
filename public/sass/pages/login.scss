@@ -19,7 +19,7 @@
         border-top-left-radius: 3rem;
         border-bottom-left-radius: 3rem;
         margin-bottom: 10rem;
-
+        
         @media only screen and(max-width: 750px){
             border-top-left-radius: 0rem;
             border-bottom-left-radius: 0rem;
@@ -53,6 +53,11 @@
         &-form-box{
 
             padding: 2.5rem;
+            width: 55rem;
+
+            @media only screen and(max-width: 750px){
+                width: 40rem;
+            }
 
             &--title{
                 margin-bottom: 1rem;

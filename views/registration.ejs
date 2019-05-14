@@ -15,7 +15,7 @@
         <% if(regSuccess.length > 0 && regSuccess[0]){ %>
             <div class="reg-success-flash">
                 <h2>Registration Successful!</h2>
-                <h3>Redirecting in <span id="timer"></span> Or Click <a href="/">HERE</a></h3>
+                <h3>Redirecting in <span id="timer"></span> Or Click <a href="/login">HERE</a></h3>
 
                 <script type="text/javascript">
 
@@ -27,7 +27,7 @@
 
                         if (countTo == 0){
                             clearInterval(timer);
-                            window.location.href= 'http://localhost:3000/';
+                            window.location.href= 'http://localhost:3000/login';
                         }
 
                     },1000);

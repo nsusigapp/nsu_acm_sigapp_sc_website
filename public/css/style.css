@@ -659,7 +659,11 @@ body {
             height: 45rem;
             width: 35rem; } }
     .main-content-new-login .login-box-form-box {
-      padding: 2.5rem; }
+      padding: 2.5rem;
+      width: 55rem; }
+      @media only screen and (max-width: 750px) {
+        .main-content-new-login .login-box-form-box {
+          width: 40rem; } }
       .main-content-new-login .login-box-form-box--title {
         margin-bottom: 1rem;
         font-weight: normal;
