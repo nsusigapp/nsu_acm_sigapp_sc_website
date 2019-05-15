@@ -149,7 +149,16 @@
                 
                 border-top: 0.8rem solid black;
                 margin-right: 4rem;
-              }
+            }
+
+            &--dropdown-link{
+                position: relative;
+            }
+
+
+            &--dropdown-content{
+                position: absolute;
+            }
         }
     }
 
