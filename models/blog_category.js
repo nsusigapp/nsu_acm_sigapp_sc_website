@@ -4,7 +4,7 @@
  * This is a joining table;
  * result of normalizing the database
  * It connects categories and blog together
- * Many-To-Many Relation as blogs can have manyu categories;
+ * Many-To-Many Relation as blogs can have many categories;
  */
 
 module.exports = function(sequelize, DataTypes) {

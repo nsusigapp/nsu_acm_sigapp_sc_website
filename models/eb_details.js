@@ -1,3 +1,10 @@
+
+/**
+ * EB messages for the homepage;
+ * these are dynamic as panel can change at any times;
+ * these can be then updated from the admin panel
+ */
+
 module.exports = function(sequelize, DataTypes) {
 	return sequelize.define('about_us', {
 		id: {

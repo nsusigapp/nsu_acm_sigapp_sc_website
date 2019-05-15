@@ -93,17 +93,17 @@ CREATE TABLE IF NOT EXISTS blog_comments(
     FOREIGN KEY(blog_id) REFERENCES blog(blog_id) ON DELETE CASCADE # if the blog is deleted, so are its comments
 );
 
-CREATE TABLE IF NOT EXISTS tags(
-    tag_id INT PRIMARY KEY AUTO_INCREMENT,
-    tag_name VARCHAR(255) NOT NULL
-);
+-- CREATE TABLE IF NOT EXISTS tags(
+--     tag_id INT PRIMARY KEY AUTO_INCREMENT,
+--     tag_name VARCHAR(255) NOT NULL
+-- );
 
-CREATE TABLE IF NOT EXISTS blog_tag(
-    blog_id INT,
-    tag_id INT,
-    FOREIGN KEY(blog_id) REFERENCES blog(blog_id) ON DELETE SET NULL,
-    FOREIGN KEY(tag_id) REFERENCES tags(tag_id) ON DELETE SET NULL
-);
+-- CREATE TABLE IF NOT EXISTS blog_tag(
+--     blog_id INT,
+--     tag_id INT,
+--     FOREIGN KEY(blog_id) REFERENCES blog(blog_id) ON DELETE SET NULL,
+--     FOREIGN KEY(tag_id) REFERENCES tags(tag_id) ON DELETE SET NULL
+-- );
 
 CREATE TABLE IF NOT EXISTS categories(
     cat_id INT PRIMARY KEY AUTO_INCREMENT,
@@ -181,6 +181,3 @@ CREATE TABLE IF NOT EXISTS email_queue(
     send_progress VARCHAR(45) NOT NULL,
     sent_at DATETIME NOT NULL
 );
-
-INSERT INTO roles(role_name) VALUE("user");
-INSERT INTO roles(role_name) VALUE("admin");

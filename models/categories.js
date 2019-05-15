@@ -23,6 +23,11 @@ module.exports = function(sequelize, DataTypes) {
 			foreignKey: "cat_id",
 			onDelete: "SET NULL"
 		});
+
+		Category.hasMany(models.forum_category, {
+			foreignKey: "cat_id",
+			onDelete: "SET NULL"
+		});
 	}
 
 	return Category;

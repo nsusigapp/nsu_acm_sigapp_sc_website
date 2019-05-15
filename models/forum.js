@@ -34,7 +34,10 @@ module.exports = function(sequelize, DataTypes) {
 			foreignKey: "forum_id",
 		});
 
-		
+		Forum.hasMany(models.forum_category, {
+			foreignKey: "f_post_id",
+			onDelete: "CASCADE"
+		});
 	}
 
 	return Forum;

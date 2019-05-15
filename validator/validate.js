@@ -1,4 +1,9 @@
 
+/**
+ * Registration and login validations happen here
+ * these are run before user data actually reaches the database
+ */
+
 const joi = require("joi");
 
 const userSchema = joi.object().keys({

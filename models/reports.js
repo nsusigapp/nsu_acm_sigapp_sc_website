@@ -1,5 +1,11 @@
 /* jshint indent: 1 */
 
+/**
+ * User reports;
+ * user can report other users, posts, etc
+ * hope we won't need this; but just in case misuse ever happens
+ */
+
 module.exports = function(sequelize, DataTypes) {
 	const Report = sequelize.define('reports', {
 		report_id: {
