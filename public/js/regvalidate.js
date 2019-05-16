@@ -6,6 +6,7 @@
 
     const mailField = document.getElementById("nsuMail");
     const idField = document.getElementById("nsuID");
+    const unameField = document.getElementById("username");
 
 
     // change css on error
@@ -55,7 +56,7 @@
     }
 
     // check password match;
-    const checkPassword = function () {
+    const checkPassword = function() {
 
         let passwd = passwdField.value;
         let rePasswd = rePasswdField.value;
@@ -73,7 +74,7 @@
     }
 
     // validate nsu email
-    const checkNsuEmail = function () {
+    const checkNsuEmail = function() {
 
         let nsuMail = mailField.value;
 
@@ -87,8 +88,8 @@
         }
     }
 
-        // validate nsu id
-    const checkNsuId = function () {
+    // validate nsu id
+    const checkNsuId = function() {
 
         let nsuId = idField.value;
 
@@ -102,9 +103,20 @@
         }
     }
 
+    const checkUnameAvailable = function() {
+
+        axios.post("/check-username", {
+            username: unameField.value,
+        })
+            .then(res => {
+                console.log(res);
+            })
+            .catch(err => console.log(err));
+    }
+
     // validate form before form submision
-    const validateFields = function (event) {
-        
+    const validateFields = function(event) {
+    
         event.preventDefault();
         let isFieldEmpty = false;
         let message = "";
@@ -147,7 +159,8 @@
     // event listeners
     rePasswdField.addEventListener("keyup", checkPassword);
     mailField.addEventListener("keyup", checkNsuEmail);
-    idField.addEventListener("keyup",checkNsuId);
+    idField.addEventListener("keyup", checkNsuId);
+    unameField.addEventListener("keyup", checkUnameAvailable);
     document.getElementById("registerBtn").addEventListener("click", validateFields);
 
 })();

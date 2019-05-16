@@ -13,6 +13,7 @@ const compression = require("compression");
 const bodyParser = require("body-parser");
 
 const userRoutes = require("./routes/user");
+const frontendValidationRoutes = require("./routes/frontendValidation"); 
 const authRoutes = require("./routes/auth");
 const errorRoutes = require("./routes/errors");
 
@@ -68,6 +69,8 @@ app.use(authMiddleWare.isLoggedIn);
 app.use(userDataMiddleware.fetchProfilePicture);
 
 app.use(userRoutes.router);
+
+app.use(frontendValidationRoutes.router);
 
 app.use(authRoutes.router);
 

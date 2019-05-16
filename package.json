@@ -38,6 +38,7 @@
     "sequelize": "^4.42.0",
     "sequelize-auto": "^0.4.29",
     "sequelize-cli": "^5.4.0",
+    "sharp": "^0.22.1",
     "winston": "^3.2.1"
   },
   "devDependencies": {
