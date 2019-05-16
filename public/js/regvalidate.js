@@ -109,7 +109,30 @@
             username: unameField.value,
         })
             .then(res => {
-                console.log(res);
+
+                if (document.getElementById("uname_span") === null) { // if element doesn't exist; attach to DOM
+
+                    const span = document.createElement("span");
+                    const unameDiv = document.getElementById("uname_div");
+
+                    span.setAttribute("class", "margin-gutter-small");
+                    span.style.display = "inline-block";
+                    span.setAttribute("id", "uname_span");
+
+                    unameDiv.parentElement.insertBefore(span, unameDiv);
+                }
+
+                if (res.data.available) {
+
+                    document.getElementById("uname_span").style.color = "green";
+                    document.getElementById("uname_span").textContent = "Username Available!";
+
+                } else {
+
+                    document.getElementById("uname_span").style.color = "crimson";
+                    document.getElementById("uname_span").textContent = "x Username Unavailable!";
+                }
+
             })
             .catch(err => console.log(err));
     }

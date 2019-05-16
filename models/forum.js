@@ -15,7 +15,12 @@ module.exports = function(sequelize, DataTypes) {
 		f_post_description: {
 			type: DataTypes.TEXT,
 			allowNull: false
-		}
+		},
+		like_count: {
+			type: DataTypes.INTEGER(11),
+			allowNull: true,
+			defaultValue: '0'
+		},
 	}, {
 		tableName: 'forum'
 	});
