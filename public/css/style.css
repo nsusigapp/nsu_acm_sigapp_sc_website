@@ -509,6 +509,28 @@ body {
   .floating-rounded--card--img {
     height: 10rem; }
 
+.common-paginate--list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style-type: none; }
+  .common-paginate--list .active {
+    background: #374353;
+    color: #fff;
+    padding: 0.4rem;
+    border-radius: 0.2rem;
+    border-bottom-right-radius: 0.5rem; }
+  .common-paginate--list-item {
+    margin-right: 1rem; }
+    .common-paginate--list-item .step-icon {
+      font-size: 3rem;
+      margin-left: 1rem;
+      margin-right: 1rem; }
+    .common-paginate--list-item--link {
+      color: #76797a;
+      text-decoration: none;
+      font-weight: bold; }
+
 .main-content .home-header {
   background: linear-gradient(to right bottom, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)), url(../images/hero-img.jpg);
   height: 80vh;
