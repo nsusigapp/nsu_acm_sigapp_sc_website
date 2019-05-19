@@ -2,34 +2,34 @@
 
 module.exports = function(sequelize, DataTypes) {
 
-	const Category = sequelize.define('categories', {
-		cat_id: {
+	const Tag = sequelize.define('tags', {
+		tag_id: {
 			type: DataTypes.INTEGER(11),
 			allowNull: false,
 			primaryKey: true,
 			autoIncrement: true
 		},
-		cat_name: {
+		tag_name: {
 			type: DataTypes.STRING(45),
 			allowNull: false
 		}
 	}, {
-		tableName: 'categories'
+		tableName: 'tags'
 	});
 
-	Category.associate = models => {
+	Tag.associate = models => {
 
-		Category.hasMany(models.blog_category, {
-			foreignKey: "cat_id",
+		Tag.hasMany(models.blog_tag, {
+			foreignKey: "tag_id",
 			onDelete: "SET NULL"
 		});
 
-		Category.hasMany(models.forum_category, {
-			foreignKey: "cat_id",
+		Tag.hasMany(models.forum_tag, {
+			foreignKey: "tag_id",
 			onDelete: "SET NULL"
 		});
 	}
 
-	return Category;
+	return Tag;
 
 };

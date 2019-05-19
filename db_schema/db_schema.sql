@@ -22,9 +22,9 @@ DROP TABLE IF EXISTS blog_comments;
 
 DROP TABLE IF EXISTS blog_category;
 
-DROP TABLE IF EXISTS tags;
+-- DROP TABLE IF EXISTS tags;
 
-DROP TABLE IF EXISTS blog_tag;
+-- DROP TABLE IF EXISTS blog_tag;
 
 DROP TABLE IF EXISTS forum;
 

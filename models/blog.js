@@ -44,7 +44,7 @@ module.exports = function(sequelize, DataTypes) {
 			foreignKey: "blog_id",
 		});
 
-		Blog.hasMany(models.blog_category, {
+		Blog.hasMany(models.blog_tag, {
 			foreignKey: "blog_id",
 			onDelete: "CASCADE"
 		});

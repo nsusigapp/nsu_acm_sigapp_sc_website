@@ -121,6 +121,12 @@
     &:active{
         transform: translateY(2px);
     }
+
+    @media only screen and(max-width: 750px){
+        background: #5C83AA;
+        margin-bottom: 2rem;
+    }
+
 }
 
 .learn-more-btn{

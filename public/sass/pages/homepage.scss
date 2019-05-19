@@ -2,6 +2,7 @@
 
     .home-header{
     
+        @include displayFlex(center,center);
         background: linear-gradient(
             to right bottom,
             rgba(#fff,0.2),rgba(#fff,0.2)
@@ -9,7 +10,6 @@
         height: 80vh;
         background-size: cover;
         background-position: center;
-        @include displayFlex(center,center);
     
         &--text-box{
     
@@ -85,11 +85,15 @@
 
         &--box{
 
-            background: rgba(213,222,234,0.63);
             @include displayFlex(space-around,center);
+            background: rgba(213,222,234,0.63);
             padding: 2rem;
             margin-bottom: 2rem;
             margin-top: 2.5rem;
+
+            @media only screen and(max-width: 600px){
+                flex-direction: column;
+            }
 
             &--img-box{
 

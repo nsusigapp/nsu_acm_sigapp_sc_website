@@ -65,7 +65,10 @@ module.exports = function(sequelize, DataTypes) {
 	User.associate = models => {
 
 		User.belongsTo(models.roles, {
-			foreignKey: "role_id"
+			foreignKey: {
+				name: "role_id",
+				allowNull: false,
+			}
 		});
 
 		// id of who created the blog post;

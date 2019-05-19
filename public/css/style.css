@@ -327,6 +327,10 @@ body {
     box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.25); }
   .login-box-form-box--form-btn:active {
     transform: translateY(2px); }
+  @media only screen and (max-width: 750px) {
+    .login-box-form-box--form-btn {
+      background: #5C83AA;
+      margin-bottom: 2rem; } }
 
 .learn-more-btn {
   background: #333333;
@@ -509,36 +513,38 @@ body {
   .floating-rounded--card--img {
     height: 10rem; }
 
-.common-paginate--list {
+.common-paginate {
+  margin-bottom: 3.5rem; }
+  .common-paginate--list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style-type: none; }
+    .common-paginate--list .active {
+      background: #374353;
+      color: #fff;
+      padding: 0.4rem;
+      border-radius: 0.2rem;
+      border-bottom-right-radius: 0.5rem; }
+    .common-paginate--list-item {
+      margin-right: 1rem; }
+      .common-paginate--list-item .step-icon {
+        font-size: 3rem;
+        margin-left: 1rem;
+        margin-right: 1rem; }
+      .common-paginate--list-item--link {
+        color: #76797a;
+        text-decoration: none;
+        font-weight: bold; }
+
+.main-content .home-header {
   display: flex;
   justify-content: center;
   align-items: center;
-  list-style-type: none; }
-  .common-paginate--list .active {
-    background: #374353;
-    color: #fff;
-    padding: 0.4rem;
-    border-radius: 0.2rem;
-    border-bottom-right-radius: 0.5rem; }
-  .common-paginate--list-item {
-    margin-right: 1rem; }
-    .common-paginate--list-item .step-icon {
-      font-size: 3rem;
-      margin-left: 1rem;
-      margin-right: 1rem; }
-    .common-paginate--list-item--link {
-      color: #76797a;
-      text-decoration: none;
-      font-weight: bold; }
-
-.main-content .home-header {
   background: linear-gradient(to right bottom, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)), url(../images/hero-img.jpg);
   height: 80vh;
   background-size: cover;
-  background-position: center;
-  display: flex;
-  justify-content: center;
-  align-items: center; }
+  background-position: center; }
   .main-content .home-header--text-box--title {
     display: flex;
     justify-content: space-between;
@@ -586,13 +592,16 @@ body {
 .main-content .home-officer {
   padding: 5rem; }
   .main-content .home-officer--box {
-    background: rgba(213, 222, 234, 0.63);
     display: flex;
     justify-content: space-around;
     align-items: center;
+    background: rgba(213, 222, 234, 0.63);
     padding: 2rem;
     margin-bottom: 2rem;
     margin-top: 2.5rem; }
+    @media only screen and (max-width: 600px) {
+      .main-content .home-officer--box {
+        flex-direction: column; } }
     .main-content .home-officer--box--img-box {
       flex: 1; }
       .main-content .home-officer--box--img-box--img {
@@ -710,8 +719,14 @@ body {
           padding: 1.5rem 1rem;
           margin-bottom: 1.5rem;
           transition: all 0.3s; }
+          @media only screen and (max-width: 750px) {
+            .main-content-new-login .login-box-form-box--form-input {
+              border: 1px solid #1f2833; } }
           .main-content-new-login .login-box-form-box--form-input:focus {
             box-shadow: 0 0 0 0.2rem rgba(255, 165, 0, 0.5); }
+            @media only screen and (max-width: 750px) {
+              .main-content-new-login .login-box-form-box--form-input:focus {
+                box-shadow: 0 0 0 0.2rem rgba(31, 40, 51, 0.5); } }
 
 .login-flash {
   margin-top: -4rem; }
@@ -724,7 +739,8 @@ body {
   padding: 0rem 5rem; }
   @media only screen and (max-width: 600px) {
     .main-content-forum {
-      padding: 0rem 1.5rem; } }
+      padding: 0rem 1.5rem;
+      flex-direction: column; } }
   .main-content-forum .forum-sidebar-categories {
     background: rgba(55, 67, 83, 0.1);
     padding: 1rem 2rem;
@@ -732,13 +748,19 @@ body {
     height: 70vh; }
     @media only screen and (max-width: 600px) {
       .main-content-forum .forum-sidebar-categories {
-        display: none; } }
+        width: 100%;
+        height: 40vh;
+        margin-bottom: 5rem; } }
     .main-content-forum .forum-sidebar-categories--title {
       display: inline-block;
       color: #5C83AA;
       text-decoration: underline; }
     .main-content-forum .forum-sidebar-categories--category {
       list-style-type: none; }
+      .main-content-forum .forum-sidebar-categories--category .active {
+        color: #5C83AA;
+        border-bottom: 1px solid #5C83AA;
+        padding-bottom: 0.3rem; }
       .main-content-forum .forum-sidebar-categories--category-item {
         margin: 3rem 0rem; }
         .main-content-forum .forum-sidebar-categories--category-item a {
@@ -783,7 +805,8 @@ body {
           .main-content-forum .forum-questions-box--card-left-title-box--cat-pills {
             display: flex;
             justify-content: flex-start;
-            align-items: center; }
+            align-items: center;
+            flex-wrap: wrap; }
             .main-content-forum .forum-questions-box--card-left-title-box--cat-pills--pills {
               background: #1F2833;
               color: #fff;

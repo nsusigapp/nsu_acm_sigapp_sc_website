@@ -1,9 +1,7 @@
 
 const { sequelize, users: User, email_queue: EmailQueue, session: Session } = require("../models/index");
 
-const { userStatus, sessStatus } = require("../utils/statusConst");
-
-const roleID = require("../utils/userRoles");
+const { userStatus, roleID, sessStatus } = require("../utils/userConst");
 
 const pageTitle = require("../utils/pageTitles");
 
@@ -41,6 +39,7 @@ const postRegisterUser = (req, res, next) => {
         .then(hash => {
 
             userDbData.password = hash;
+            userDbData.role_id = roleID.USER;
 
             userDbData.token = User.generateAuthToken({
                 nsu_id: userDbData.nsu_id,
@@ -79,6 +78,8 @@ const postRegisterUser = (req, res, next) => {
                     })
             })
                 .catch(err => {
+
+                    console.log(err);
 
                     // roll back if error occurs
                     const dbFetchErrorObj = {

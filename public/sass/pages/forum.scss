@@ -7,6 +7,7 @@
 
     @media only screen and(max-width: 600px){
         padding: 0rem 1.5rem;
+        flex-direction: column;
     }
 
     .forum-sidebar-categories{
@@ -17,7 +18,9 @@
         height: 70vh;
 
         @media only screen and(max-width: 600px){
-            display: none;
+            width: 100%;
+            height: 40vh;
+            margin-bottom: 5rem;
         }
 
         &--title{
@@ -28,6 +31,12 @@
 
         &--category{
             list-style-type: none;
+
+            .active{
+                color: #5C83AA;
+                border-bottom: 1px solid #5C83AA;
+                padding-bottom: 0.3rem;
+            }
 
             &-item{
 
@@ -90,6 +99,7 @@
 
                     &--cat-pills{
                         @include displayFlex(flex-start, center);
+                        flex-wrap: wrap;
 
                         &--pills{
                             background: #1F2833;

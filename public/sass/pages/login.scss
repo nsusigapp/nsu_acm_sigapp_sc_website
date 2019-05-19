@@ -86,8 +86,16 @@
                     margin-bottom: 1.5rem;
                     transition: all 0.3s;
 
+                    @media only screen and(max-width: 750px){
+                        border: 1px solid #1f2833;
+                    }
+        
                     &:focus{
                         box-shadow: 0 0 0 0.2rem rgba(orange,.5);
+
+                        @media only screen and(max-width: 750px){
+                            box-shadow: 0 0 0 0.2rem rgba(#1f2833,.5);
+                        }
                     }
                 }
             }

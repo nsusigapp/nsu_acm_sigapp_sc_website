@@ -2,7 +2,7 @@
 const router = require("express").Router();
 
 const userControllers = require("../controllers/user");
-const { fetchForumCategories } = require("../middlewares/userData");
+const { fetchForumCategories } = require("../middlewares/forum");
 
 router.get("/", userControllers.getIndexPage);
 

@@ -9,24 +9,24 @@
 
 module.exports = function(sequelize, DataTypes) {
 
-	const ForumCat = sequelize.define('forum_category', {
+	const ForumTag = sequelize.define('forum_tag', {
 		
 	}, {
-		tableName: 'forum_category'
+		tableName: 'forum_tag'
 	});
 
-	ForumCat.associate = models => {
+	ForumTag.associate = models => {
 
-		ForumCat.belongsTo(models.forum, {
+		ForumTag.belongsTo(models.forum, {
 			foreignKey: "f_post_id",
 			onDelete: "CASCADE"
 		});
 
-		ForumCat.belongsTo(models.categories, {
-			foreignKey: "cat_id",
+		ForumTag.belongsTo(models.tags, {
+			foreignKey: "tag_id",
 			onDelete: "SET NULL"
 		});
 	}
 
-	return ForumCat;
+	return ForumTag;
 };

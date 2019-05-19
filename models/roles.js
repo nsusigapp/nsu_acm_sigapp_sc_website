@@ -6,11 +6,11 @@ module.exports = function(sequelize, DataTypes) {
 			type: DataTypes.INTEGER(11),
 			allowNull: false,
 			primaryKey: true,
-			autoIncrement: true
+			autoIncrement: true,
 		},
 		role_name: {
 			type: DataTypes.STRING(45),
-			allowNull: false
+			allowNull: false,
 		}
 	}, {
 		tableName: 'roles'
@@ -19,8 +19,11 @@ module.exports = function(sequelize, DataTypes) {
 	Role.associate = models => {
 		
 		Role.hasMany(models.users, {
-			foreignKey: "role_id",
-		})
+			foreignKey: {
+				name: "role_id",
+				allowNull: false,
+			}
+		});
 	}
 
 	return Role;

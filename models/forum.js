@@ -39,7 +39,7 @@ module.exports = function(sequelize, DataTypes) {
 			foreignKey: "forum_id",
 		});
 
-		Forum.hasMany(models.forum_category, {
+		Forum.hasMany(models.forum_tag, {
 			foreignKey: "f_post_id",
 			onDelete: "CASCADE"
 		});

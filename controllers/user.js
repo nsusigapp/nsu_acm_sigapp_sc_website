@@ -3,15 +3,18 @@ const pageTitle = require("../utils/pageTitles");
 
 const getIndexPage = (req, res, next) => {
 
-    return res.render("index",{
+    return res.render("index", {
         pageTitle: pageTitle.INDEX,
     });
 }
 
 const getForumPage = (req, res, next) => {
 
-    return res.render("forum",{
+    const selectedTag = req.query.tag_name;
+
+    return res.render("forum", {
         pageTitle: pageTitle.FORUM,
+        active: selectedTag,
     });
 }
 

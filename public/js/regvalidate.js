@@ -105,9 +105,7 @@
 
     const checkUnameAvailable = function() {
 
-        axios.post("/check-username", {
-            username: unameField.value,
-        })
+        axios.get(`/check-username/?username=${unameField.value}`)
             .then(res => {
 
                 if (document.getElementById("uname_span") === null) { // if element doesn't exist; attach to DOM
@@ -177,7 +175,7 @@
 
             document.getElementById("registration-box-form").submit();
         }
-    }  
+    }
 
     // event listeners
     rePasswdField.addEventListener("keyup", checkPassword);

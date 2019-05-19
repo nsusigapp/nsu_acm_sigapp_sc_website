@@ -53,20 +53,31 @@ app.use(flash());
 
 app.use(bodyParser.json());
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use((req, res, next)=>{
-    if(req.sessionID)
-        console.log(req.sessionID);
-        console.log(req.session.id);
-        console.log(req.session);
-    next();
-});
+// app.use((req, res, next)=>{
+//     if(req.sessionID)
+//         console.log(req.sessionID);
+//         console.log(req.session.id);
+//         console.log(req.session);
+//     next();
+// });
 
 // check if user is logged in
 app.use(authMiddleWare.isLoggedIn);
 
 app.use(userDataMiddleware.fetchProfilePicture);
+
+app.get("/test", (req, res, next) => {
+
+    res.render("test");
+});
+
+app.post("/test", (req, res, next) => {
+
+    console.log(req.body);
+
+});
 
 app.use(userRoutes.router);
 

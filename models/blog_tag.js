@@ -9,25 +9,25 @@
 
 module.exports = function(sequelize, DataTypes) {
 	
-	const BlogCat =  sequelize.define('blog_category', {
+	const BlogTag =  sequelize.define('blog_tag', {
 
 	}, {
-		tableName: 'blog_category'
+		tableName: 'blog_tag'
 	});
 
-	BlogCat.associate = models => {
+	BlogTag.associate = models => {
 
-		BlogCat.belongsTo(models.blog, {
+		BlogTag.belongsTo(models.blog, {
 			foreignKey: "blog_id",
 			onDelete: "CASCADE"
 		});
 
-		BlogCat.belongsTo(models.categories, {
-			foreignKey: "cat_id",
+		BlogTag.belongsTo(models.tags, {
+			foreignKey: "tag_id",
 			onDelete: "SET NULL"
 		});
 	}
 
-	return BlogCat;
+	return BlogTag;
 
 };

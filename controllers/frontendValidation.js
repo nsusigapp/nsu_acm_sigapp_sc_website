@@ -4,30 +4,40 @@ const Op = Sequelize.Op;
 
 const checkUserNameAvailable = (req, res, next) => {
 
-    const userName = req.body.username;
+    if (req.query.username) {
 
-    User.findOne({
-        attributes: ["user_name"],
-        where: {
-            user_name: userName
-        }
-    })
-        .then(user => {
-
-            if (user !== null) {
-
-                return res.json({
-                    available: false
-                });
-
-            } else {
-
-                return res.json({
-                    available: true
-                });
+        const userName = req.query.username;
+    
+        User.findOne({
+            attributes: ["user_name"],
+            where: {
+                user_name: userName
             }
         })
-        .catch(err => console.log(err));
+            .then(user => {
+    
+                if (user !== null) {
+    
+                    return res.json({
+                        available: false
+                    });
+    
+                } else {
+    
+                    return res.json({
+                        available: true
+                    });
+                }
+            })
+            .catch(err => console.log(err));
+
+    } else {
+        
+        return res.json({
+            error: "key not defined",
+        });
+    }
+
 }
 
 module.exports = {

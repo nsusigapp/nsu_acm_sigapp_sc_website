@@ -20,10 +20,12 @@
 
             <ul class="forum-sidebar-categories--category">
 
-                <% categories.forEach(category => { %>
+                <% tags.forEach(tag => { %>
                     <li class="forum-sidebar-categories--category-item">
-                        <a href="/forum/?cat_name=<%= category.cat_name %>">
-                            # <%= category.cat_name %>
+                        <!-- check with ternary condition, if tag_name equals to the tag selected -->
+                        <!-- Will add active class, if tag is selected -->
+                        <a class="<%= active === tag.tag_name ? ' active' : '' %>" href="/forum/?tag_name=<%= tag.tag_name %>">
+                            # <%= tag.tag_name %>
                         </a>
                     </li>
                 <% }); %>
