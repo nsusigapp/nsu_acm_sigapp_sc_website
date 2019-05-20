@@ -77,11 +77,6 @@
             margin-bottom: 3rem;
             transition: all 0.2s;
 
-            // &:hover{
-            //     transform: scale(1.02);
-            // }
-            
-
             &-left{
 
                 @include displayFlex(flex-start, center);

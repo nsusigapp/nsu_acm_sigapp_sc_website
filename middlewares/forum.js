@@ -63,7 +63,7 @@ const loadForumDataInit = (req, res, next) => {
                         post.tags = postTags.map(postTag => postTag["tag.tag_name"]);
                         return post;
                     })
-    
+                    .catch(err => console.log(err));
             }))
                 .then(mergedPost => {
                     
@@ -74,7 +74,7 @@ const loadForumDataInit = (req, res, next) => {
                 .catch(err => console.log(err));
     
         })
-            .catch(err => console.log(err));
+        .catch(err => console.log(err));
 
 }
 

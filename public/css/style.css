@@ -857,7 +857,8 @@ body {
     .main-blog-content-wrapper .main-blog--right-user-info-user-block--img {
       width: 8rem;
       height: 8rem;
-      border-radius: 50%; }
+      border-radius: 50%;
+      object-fit: cover; }
     .main-blog-content-wrapper .main-blog--right-user-info-user-block-name-box {
       margin-left: 1rem; }
       .main-blog-content-wrapper .main-blog--right-user-info-user-block-name-box--name {
