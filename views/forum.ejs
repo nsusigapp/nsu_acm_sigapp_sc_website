@@ -62,9 +62,10 @@
                             <h2 class="forum-questions-box--card-left-title-box--title">
                                 <%= post.f_post_title %>
                             </h2>
-                            <div class="forum-questions-box--card-left-title-box--cat-pills">
+                            
+                            <div class="tag-pills-box">
                                 <% post.tags.forEach(tag => { %>
-                                    <span class="forum-questions-box--card-left-title-box--cat-pills--pills">
+                                    <span class="tag-pills-box--pills">
                                         <%= tag %>
                                     </span>
                                 <% }); %>

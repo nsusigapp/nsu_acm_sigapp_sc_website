@@ -1,0 +1,32 @@
+.main-forum-content-wrapper{
+
+    @include displayFlex(space-between, flex-start);
+    padding: 4rem 2rem;
+
+    .main-forum--left{
+        flex: 3.3; // this is 3.3 times larger than the right componenet
+        margin-right: 7rem;
+
+        .main-forum--title{
+            font-size: 2.5rem;
+            text-align: justify;
+            display: inline-block;
+            border-bottom: 1px solid #000;
+            padding-bottom: 0.5rem;
+        }
+
+        .main-forum--content{
+            background: #D5DEEA;
+            padding: 2rem;
+
+            &--paragraph{
+                line-height: 1.7;
+                font-size: 1.8rem;
+            }
+        }
+    }
+
+    .main-forum--right{
+        flex: 1;
+    }
+}

@@ -26,6 +26,10 @@
 
 @import "./components/pagination";
 
+@import "./components/author_info_card";
+
+@import "./components/tags_pills";
+
 @import "./components/footer";
 
 @import "./pages/homepage";
@@ -38,4 +42,4 @@
 
 @import "./pages/forum_create";
 
-@import "./pages/blog_view";
+@import "./pages/forum_view";

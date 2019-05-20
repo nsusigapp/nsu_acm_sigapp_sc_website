@@ -8,7 +8,7 @@ const dateFormat = date => {
     const year = formatDate.getFullYear();
     const day = formatDate.getDate();
 
-    return `${month} ${day}, ${year}`;
+    return `${day} ${month}, ${year}`;
 }
 
 module.exports = dateFormat;

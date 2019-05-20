@@ -1,7 +1,7 @@
 
 .main-content-forum{
 
-    @include displayFlex(flex-start,flex-start);
+    @include displayFlex(flex-start, flex-start);
     margin-top: 3rem;
     padding: 0rem 5rem;
 
@@ -90,20 +90,6 @@
 
                     @media only screen and(max-width: 550px){
                         font-size: 1rem;
-                    }
-
-                    &--cat-pills{
-                        @include displayFlex(flex-start, center);
-                        flex-wrap: wrap;
-
-                        &--pills{
-                            background: #1F2833;
-                            color: #fff;
-                            padding: 0.5rem;
-                            margin-right: 0.5rem;
-                            margin-top: 1rem;
-                            font-weight: 700;
-                        }
                     }
                 }
 
