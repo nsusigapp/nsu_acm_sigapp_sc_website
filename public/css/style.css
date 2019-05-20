@@ -504,7 +504,6 @@ body {
   width: 35%;
   margin-top: 2rem;
   margin-bottom: 2rem;
-  margin-right: 5rem;
   display: flex;
   justify-content: center;
   transition: all 0.2s; }
@@ -536,6 +535,43 @@ body {
         color: #76797a;
         text-decoration: none;
         font-weight: bold; }
+
+.main-footer {
+  display: flex;
+  flex-direction: column; }
+  .main-footer--primary {
+    background: #374353;
+    padding: 2rem; }
+    .main-footer--primary--img-box {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      margin-left: 2rem; }
+      .main-footer--primary--img-box .acm-logo-img {
+        height: 6rem; }
+      .main-footer--primary--img-box .sigapp-text-img {
+        height: 5rem; }
+  .main-footer--secondary {
+    background: #D5DEEA;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; }
+    .main-footer--secondary-box {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-left: 1rem;
+      margin-right: 1rem; }
+    .main-footer--secondary .footer-logo {
+      color: #374353;
+      font-size: 2rem;
+      margin-right: 0.5rem; }
+    .main-footer--secondary .footer-dev-name {
+      background: linear-gradient(to top, rgba(7, 39, 32, 0.856), crimson);
+      color: transparent;
+      -webkit-background-clip: text;
+      font-weight: bold; }
 
 .main-content .home-header {
   display: flex;
@@ -633,11 +669,18 @@ body {
     align-items: center;
     flex-wrap: wrap; }
 
-.main-content .home-join-box--link {
-  text-decoration: none; }
-  .main-content .home-join-box--link--text {
+.main-content .home-join-box {
+  text-align: center; }
+  .main-content .home-join-box--link {
     text-decoration: none;
-    font-size: 4rem; }
+    display: inline-block; }
+    .main-content .home-join-box--link--text {
+      text-decoration: none;
+      font-size: 4rem; }
+      .main-content .home-join-box--link--text .join-us-logo {
+        transition: all 0.3s; }
+      .main-content .home-join-box--link--text:hover .join-us-logo {
+        transform: rotate(45deg); }
 
 .regisration-page {
   padding: 2rem;
