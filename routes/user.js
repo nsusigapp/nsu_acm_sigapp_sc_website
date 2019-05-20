@@ -2,11 +2,11 @@
 const router = require("express").Router();
 
 const userControllers = require("../controllers/user");
-const { fetchForumCategories } = require("../middlewares/forum");
+const { fetchForumCategories, loadForumDataInit } = require("../middlewares/forum");
 
 router.get("/", userControllers.getIndexPage);
 
-router.get("/forum", fetchForumCategories, userControllers.getForumPage);
+router.get("/forum", fetchForumCategories, loadForumDataInit, userControllers.getForumPage);
 
 
 module.exports = {

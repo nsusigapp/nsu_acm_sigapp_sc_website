@@ -40,48 +40,50 @@
                 <a class="narrow-solid-button narrow-solid-button-light-dark" href="/">Create Post +</a>
             </div>
 
-            <a href="/" class="forum-questions-box--card">
-                <div class="forum-questions-box--card-left">
-
-                    <div class="forum-questions-box--card-left-icon-box">
-
-                        <div class="forum-questions-box--card-left-icon-box--container">
-                            <img src="/images/star.svg" class="forum-questions-box--card-left-icon-box--container--icon">
-                            <img src="/images/question.svg" class="forum-questions-box--card-left-icon-box--container--icon">
+            <% forumPost.forEach(post => { %>
+                <a href="/forum-post/<%= post.f_post_id %>" class="forum-questions-box--card">
+                    <div class="forum-questions-box--card-left">
+    
+                        <div class="forum-questions-box--card-left-icon-box">
+    
+                            <div class="forum-questions-box--card-left-icon-box--container">
+                                <img src="/images/star.svg" class="forum-questions-box--card-left-icon-box--container--icon">
+                                <img src="/images/question.svg" class="forum-questions-box--card-left-icon-box--container--icon">
+                            </div>
+    
+                            <div class="forum-questions-box--card-left-icon-box-count-box">
+                                <span class="forum-questions-box--card-left-icon-box-count-box--count"><%= post.like_count %></span>
+                                <span class="forum-questions-box--card-left-icon-box-count-box--count"><%= post["forum_answers.ansCount"] %></span>
+                            </div>
+    
                         </div>
+    
+                        <div class="forum-questions-box--card-left-title-box">
+                            <h2 class="forum-questions-box--card-left-title-box--title">
+                                <%= post.f_post_title %>
+                            </h2>
+                            <div class="forum-questions-box--card-left-title-box--cat-pills">
+                                <% post.tags.forEach(tag => { %>
+                                    <span class="forum-questions-box--card-left-title-box--cat-pills--pills">
+                                        <%= tag %>
+                                    </span>
+                                <% }); %>
 
-                        <div class="forum-questions-box--card-left-icon-box-count-box">
-                            <span class="forum-questions-box--card-left-icon-box-count-box--count">12</span>
-                            <span class="forum-questions-box--card-left-icon-box-count-box--count">7</span>
+                            </div>
                         </div>
-
+    
                     </div>
-
-                    <div class="forum-questions-box--card-left-title-box">
-                        <h2 class="forum-questions-box--card-left-title-box--title">
-                            How to do functional programming with JavaScript?
-                        </h2>
-                        <div class="forum-questions-box--card-left-title-box--cat-pills">
-                            <span class="forum-questions-box--card-left-title-box--cat-pills--pills">
-                                Python
-                            </span>
-                            <span class="forum-questions-box--card-left-title-box--cat-pills--pills">
-                                JavaScript
-                            </span>
-                        </div>
+    
+                    <div class="forum-questions-box--card-author-box">
+                        <p class="forum-questions-box--card-author-box--author">
+                            By <span class="author-link"><%= post["user.user_name"] %></span>
+                        </p>
+                        <p class="forum-questions-box--card-author-box--publish">
+                            On, <%= dateFormat(post.createdAt) %>
+                        </p>
                     </div>
-
-                </div>
-
-                <div class="forum-questions-box--card-author-box">
-                    <p class="forum-questions-box--card-author-box--author">
-                        By <span class="author-link">MrScX</span>
-                    </p>
-                    <p class="forum-questions-box--card-author-box--publish">
-                        On, 12th January 2019
-                    </p>
-                </div>
-            </a>
+                </a>
+            <% }); %>
 
             <div class="common-paginate">
                 <ul class="common-paginate--list">
