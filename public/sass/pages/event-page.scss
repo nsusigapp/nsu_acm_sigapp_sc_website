@@ -1,0 +1,71 @@
+.main-content-event{
+    margin-top:3rem;
+    padding: 0 5rem;
+    @include displayFlex(space-between,flex-start);
+
+    &--status{
+        flex: 0.6;
+        padding: 1rem 2rem;
+        background: rgba(55, 67, 83, 0.1);
+
+        &--catagory{
+
+            &-item{
+
+                font-size: 2rem;
+                font-weight: 600;
+                margin: 2rem 0rem;
+                list-style-type: none;
+
+                &:hover{
+                    text-decoration: underline;
+                    cursor: pointer;
+                }
+            }
+
+            &--green-item{
+                color: #7EAF43;
+            }
+        }
+    }
+
+    &--box{
+
+        flex: 3.3;
+        @include displayFlex(flex-start,flex-start);
+        background: rgba(71, 128, 185, 0.24);
+        margin-left: 2.5rem;
+
+        &--img-box{
+
+            &--img{
+
+                height: 12rem;
+            }
+        }
+
+        &--info{
+            
+            padding: 1rem;
+
+            &--link{
+
+                text-decoration: none;
+                color: black;
+
+                &--title{
+                    font-size: 2.2rem;
+                }
+    
+                &--secondary-title{
+                    font-size: 1.5rem;
+                    color: #434C54;
+                }
+    
+                &--description{
+    
+                }
+            }
+        }
+    }
+}
