@@ -1,0 +1,47 @@
+.main-footer{
+
+    display: flex;
+    flex-direction: column;
+
+    &--primary{
+        background: #374353;
+        padding: 2rem;
+
+        &--img-box{
+            @include displayFlex(flex-start,center);
+            margin-left: 2rem;
+            
+            .acm-logo-img{
+                height: 6rem;
+            }
+
+            .sigapp-text-img{
+                height: 5rem;
+            }
+        }
+    }
+
+    &--secondary{
+        background: #D5DEEA;
+        padding: 1rem;
+        @include displayFlex(space-between,center);
+
+        &-box{
+            @include displayFlex(center,center);
+            margin-left: 1rem;
+            margin-right: 1rem;
+        }
+
+        .footer-logo{
+            color: #374353;
+            font-size: 2rem;
+            margin-right: 0.5rem;
+        }
+
+        .footer-dev-name{
+            @include textGradient(to top,rgba(7, 39, 32, 0.856),crimson);
+            font-weight: bold;
+        }
+    }
+
+}

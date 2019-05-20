@@ -144,12 +144,25 @@
     }
 
     .home-join-box{
+        text-align: center;
 
         &--link{
             text-decoration: none;
+            display: inline-block;
+
             &--text{
                 text-decoration: none;
-                font-size: 4rem;            }
+                font-size: 4rem;
+
+                .join-us-logo{
+                    transition: all 0.3s;
+                }
+
+                &:hover .join-us-logo{
+                    transform: rotate(45deg);
+                }
+            }
+
         }
     }
 
