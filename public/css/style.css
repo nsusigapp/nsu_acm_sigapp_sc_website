@@ -548,6 +548,9 @@ body {
 .post-user-card--author {
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
   padding: 2.5rem 1rem; }
+  @media only screen and (max-width: 750px) {
+    .post-user-card--author {
+      padding: 2.5rem 2rem; } }
   .post-user-card--author-info {
     display: flex;
     justify-content: flex-start;
@@ -675,10 +678,16 @@ body {
     .main-content .home-header--text-box--title--main {
       font-size: 3rem;
       color: white; }
+      @media only screen and (max-width: 750px) {
+        .main-content .home-header--text-box--title--main {
+          font-size: 2.4rem; } }
     .main-content .home-header--text-box--title--sub {
       font-size: 2.3rem;
       color: white;
       font-weight: 400; }
+      @media only screen and (max-width: 750px) {
+        .main-content .home-header--text-box--title--sub {
+          font-size: 1.8rem; } }
   .main-content .home-header--text-box--btn {
     display: flex;
     justify-content: center; }
@@ -969,6 +978,20 @@ body {
 .main-content-forum-view {
   padding: 4rem 2rem; }
 
+.answer-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start; }
+  @media only screen and (max-width: 750px) {
+    .answer-wrapper {
+      flex-direction: column; } }
+  .answer-wrapper .main-forum--answer-box {
+    margin-right: 7rem;
+    flex: 3.3; }
+    @media only screen and (max-width: 750px) {
+      .answer-wrapper .main-forum--answer-box {
+        width: 100%; } }
+
 .main-forum-content-wrapper {
   display: flex;
   justify-content: space-between;
@@ -981,7 +1004,6 @@ body {
     margin-right: 7rem; }
     @media only screen and (max-width: 750px) {
       .main-forum-content-wrapper .main-forum--left {
-        order: 2;
         width: 100%; } }
     .main-forum-content-wrapper .main-forum--left .main-forum--title {
       font-size: 2.5rem;
@@ -1002,12 +1024,14 @@ body {
           .main-forum-content-wrapper .main-forum--left .main-forum--content--paragraph {
             font-size: 1.6rem; } }
   .main-forum-content-wrapper .main-forum--right {
-    flex: 1; }
+    flex: 1;
+    position: sticky;
+    top: 20px; }
     @media only screen and (max-width: 750px) {
       .main-forum-content-wrapper .main-forum--right {
-        order: 1;
         width: 100%;
-        margin-bottom: 3rem; } }
+        margin-top: 3rem;
+        position: static; } }
 
 .main-content-event {
   margin-top: 3rem;

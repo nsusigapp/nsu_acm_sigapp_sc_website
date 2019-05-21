@@ -2,6 +2,23 @@
     padding: 4rem 2rem;
 }
 
+.answer-wrapper{
+    @include displayFlex(space-between, flex-start);
+
+    @media only screen and(max-width: 750px){
+        flex-direction: column;
+    }
+
+    .main-forum--answer-box{
+        margin-right: 7rem;
+        flex: 3.3;
+
+        @media only screen and(max-width: 750px){
+            width: 100%;
+        }
+    }
+}
+
 .main-forum-content-wrapper{
 
     @include displayFlex(space-between, flex-start);
@@ -15,7 +32,6 @@
         margin-right: 7rem;
 
         @media only screen and(max-width: 750px){
-            order: 2;
             width: 100%;
         }
 
@@ -48,11 +64,13 @@
 
     .main-forum--right{
         flex: 1;
+        position: sticky;
+        top: 20px;
 
         @media only screen and(max-width: 750px){
-            order: 1;
             width: 100%;
-            margin-bottom: 3rem;
+            margin-top: 3rem;
+            position: static;
         }
     }
 }
