@@ -25,7 +25,7 @@ const db = require("./models/index");
 // ^^ this file reads all of the models from models folder and imports them in this global db variable;
 
 // import all models for associations
-const { roles: Role, quotes: Quote, tags: Tag, forum: Forum, forum_answer: ForumAnswer, forum_tag: ForumTag } = require("./models/index");
+const { users: User, roles: Role, quotes: Quote, tags: Tag, forum: Forum, forum_answer: ForumAnswer, forum_tag: ForumTag } = require("./models/index");
 
 // All associations are defined here; Associations are foreignKeys joining tables;
 // Associations allows you to run JOIN queries [INNER JOIN/OUTER JOIN] the sequelize way;
@@ -46,6 +46,31 @@ db.sequelize.sync({
         Role.bulkCreate([
             { role_name: "USER" },
             { role_name: "ADMIN" }
+        ]);
+
+        User.bulkCreate([
+            {
+                nsu_id: "1711552642",
+                user_name: "MrScX",
+                first_name: "Mushfiqur",
+                last_name: "Rahman",
+                nsu_email: "mushi@northsouth.edu",
+                alt_email: "mushi@gmail.com",
+                password: "123456",
+                status: 1,
+                role_id: 1,
+            },
+            {
+                nsu_id: "1711552643",
+                user_name: "Lubba",
+                first_name: "Lubba",
+                last_name: "Saha",
+                nsu_email: "luba@northsouth.edu",
+                alt_email: "luba@gmail.com",
+                password: "123456",
+                status: 1,
+                role_id: 1,
+            }
         ]);
 
         Quote.bulkCreate([
