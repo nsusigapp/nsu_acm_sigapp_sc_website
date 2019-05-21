@@ -25,7 +25,7 @@ const db = require("./models/index");
 // ^^ this file reads all of the models from models folder and imports them in this global db variable;
 
 // import all models for associations
-const { roles: Role, quotes: Quote, tags: Tag } = require("./models/index");
+const { roles: Role, quotes: Quote, tags: Tag, forum: Forum, forum_answer: ForumAnswer, forum_tag: ForumTag } = require("./models/index");
 
 // All associations are defined here; Associations are foreignKeys joining tables;
 // Associations allows you to run JOIN queries [INNER JOIN/OUTER JOIN] the sequelize way;
@@ -59,7 +59,55 @@ db.sequelize.sync({
             { tag_name: "JavaScript" },
             { tag_name: "Database" },
             { tag_name: "MySQL" },
-        ])
+        ]);
+
+        Forum.bulkCreate([
+            {
+                f_post_title: "Learning JS through failing",
+                f_post_description: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laboriosam numquam ipsum saepe? Quo placeat ipsa, dignissimos, et eius nobis esse harum assumenda ullam quidem accusantium velit nemo cumque reiciendis exercitationem fuga necessitatibus! Neque doloribus sapiente cupiditate praesentium libero nihil iusto quae, quibusdam harum minima veritatis natus architecto qui dolores aspernatur laboriosam debitis. Sed ipsam voluptatibus sequi sunt autem praesentium ex blanditiis fuga, obcaecati fugiat hic odit exercitationem aperiam voluptatum tempora nobis dolore magni porro ab, ipsa molestias possimus necessitatibus nostrum? Harum corporis commodi molestias iste sunt, animi reiciendis rerum laboriosam corrupti sapiente exercitationem doloribus, quasi architecto dolor nemo, qui a.",
+                like_count: 3,
+                author_id: 1,
+            },
+            {
+                f_post_title: "Python? What's that about",
+                f_post_description: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laboriosam numquam ipsum saepe? Quo placeat ipsa, dignissimos, et eius nobis esse harum assumenda ullam quidem accusantium velit nemo cumque reiciendis exercitationem fuga necessitatibus! Neque doloribus sapiente cupiditate praesentium libero nihil iusto quae, quibusdam harum minima veritatis natus architecto qui dolores aspernatur laboriosam debitis. Sed ipsam voluptatibus sequi sunt autem praesentium ex blanditiis fuga, obcaecati fugiat hic odit exercitationem aperiam voluptatum tempora nobis dolore magni porro ab, ipsa molestias possimus necessitatibus nostrum? Harum corporis commodi molestias iste sunt, animi reiciendis rerum laboriosam corrupti sapiente exercitationem doloribus, quasi architecto dolor nemo, qui a.",
+                like_count: 10,
+                author_id: 2,
+            },
+        ]);
+
+        ForumAnswer.bulkCreate([
+            {
+                answer_content: "This is a vua answer from the BD",
+                forum_p_id: 1,
+                author_id: 1,
+            },
+            {
+                answer_content: "This is another vua answer from the BD",
+                forum_p_id: 1,
+                author_id: 2,
+            },
+            {
+                answer_content: "This is a vua answer from the BD",
+                forum_p_id: 2,
+                author_id: 1,
+            }
+        ]);
+
+        ForumTag.bulkCreate([
+            {
+                f_post_id: 1,
+                tag_id: 3
+            },
+            {
+                f_post_id: 1,
+                tag_id: 4
+            },
+            {
+                f_post_id: 2,
+                tag_id: 1
+            }
+        ]);
 
     })
     .catch(err => console.log(err));
