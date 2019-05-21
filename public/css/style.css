@@ -1031,20 +1031,22 @@ body {
       color: #7EAF43; }
   .main-content-event--box {
     flex: 3.3;
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
     background: rgba(71, 128, 185, 0.24);
-    margin-left: 2.5rem; }
-    .main-content-event--box--img-box--img {
-      height: 12rem; }
-    .main-content-event--box--info {
-      padding: 1rem; }
-      .main-content-event--box--info--link {
-        text-decoration: none;
-        color: black; }
-        .main-content-event--box--info--link--title {
-          font-size: 2.2rem; }
-        .main-content-event--box--info--link--secondary-title {
-          font-size: 1.5rem;
-          color: #434C54; }
+    margin-left: 2.7rem; }
+    .main-content-event--box--wrap {
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start; }
+      .main-content-event--box--wrap--img-box--img {
+        display: block;
+        height: 12rem; }
+      .main-content-event--box--wrap--info {
+        padding: 1rem; }
+        .main-content-event--box--wrap--info--link {
+          text-decoration: none;
+          color: black; }
+          .main-content-event--box--wrap--info--link--title {
+            font-size: 2.2rem; }
+          .main-content-event--box--wrap--info--link--secondary-title {
+            font-size: 1.5rem;
+            color: #434C54; }
