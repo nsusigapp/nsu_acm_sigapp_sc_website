@@ -78,7 +78,89 @@ const loadForumDataInit = (req, res, next) => {
 
 }
 
+const getForumById = (req, res, next) => {
+
+    const postId = req.params.id;
+
+    sequelize.transaction(function(t) {
+
+        return Forum.findOne({
+            attributes: ["f_post_title", "f_post_description", "like_count", "createdAt"],
+            subQuery: false,
+            raw: true,
+            where: {
+                f_post_id: postId
+            },
+        
+            include: [{
+                attributes: ["user_name","first_name","last_name"],
+                model: User,
+                required: true,
+            }]
+        }, { transaction: t })
+            .then(fetchedPost => {
+
+                res.locals.post = fetchedPost;
+                
+                return ForumTag.findAll({
+                    attributes: [],
+                    raw: true,
+
+                    where: {
+                        f_post_id: postId
+                    },
+
+                    include: [{
+                        attributes: ["tag_name"],
+                        model: Tag,
+                        required: true,
+                    }]
+                }, { transaction: t })
+                    .then(fetchedTags => {
+
+                        res.locals.tags = fetchedTags.map(fetchedTag => fetchedTag["tag.tag_name"]);
+
+                        next();
+                    })
+            })            
+    })
+    .catch(err => console.log(err));
+
+}
+
+const loadForumReplies = (req, res, next) => {
+    
+    const postId = req.params.id;
+
+    ForumAnswer.findAll({
+        attributes: ["answer_content", "createdAt"],
+        raw: true,
+
+        where: {
+            forum_p_id: postId
+        },
+
+        include: [{
+            attributes: ["user_name"],
+            model: User,
+            required: true,
+        }]
+    })
+        .then(fetchedAnswers => {
+            
+            res.locals.answers = fetchedAnswers;
+
+            console.log(fetchedAnswers)
+
+            next();
+        })
+        .catch(err => console.log(err));
+
+}
+
 module.exports = {
     fetchForumCategories,
-    loadForumDataInit
+    loadForumDataInit,
+    getForumById,
+    loadForumReplies
 }

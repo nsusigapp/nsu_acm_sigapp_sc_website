@@ -1,0 +1,13 @@
+.tag-pills-box{
+    @include displayFlex(flex-start, center);
+    flex-wrap: wrap;
+
+    &--pills{
+        background: #1F2833;
+        color: #fff;
+        padding: 0.5rem;
+        margin-right: 0.5rem;
+        margin-top: 1rem;
+        font-weight: 700;
+    }
+}

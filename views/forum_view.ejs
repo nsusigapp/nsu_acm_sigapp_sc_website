@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include includes/meta.ejs  %>
+    <title><%= pageTitle %></title>
+    <script src="https://cloud.tinymce.com/5/tinymce.min.js"></script>
+    <script>
+        tinymce.init({
+          selector: '#mytextarea',
+          plugins : 'advlist autolink link image lists charmap print preview'
+        });
+    </script>
+</head>
+<body>
+    <%- include includes/header.ejs  %>
+
+    <main class="main-content-forum-view">
+
+        <div class="main-forum-content-wrapper">
+
+            <div class="main-forum--left">
+                <h1 class="main-forum--title">
+                    # <%= post.f_post_title %>
+                </h1>
+
+                <div class="main-forum--content margin-top-small">
+                    <p class="main-forum--content--paragraph">
+                        <%= post.f_post_description %>
+                    </p>
+                </div>
+                <div class="main-forum--answer-box margin-top-medium margin-gutter-medium">
+                    <div class="post-reply-box">
+                        <h2 class="post-reply-box--title">
+                            Answers
+                        </h2>
+                        <div class="post-reply-box--editor margin-top-small margin-gutter-small">
+                            <textarea name="" id="mytextarea"></textarea>
+                        </div>
+                        <div class="post-reply-box--reply-container">
+
+                            <% answers.forEach(answer => { %>
+                                <div class="post-reply-box--reply-container--reply">
+                                    <div class="post-reply-box--reply-container--reply-username margin-gutter-small">
+                                        <a href="/" class="reply-author-link">
+                                            @<%= answer["user.user_name"]  %> - <%= dateFormat(answer.createdAt) %>
+                                        </a>
+                                        <span class="reply-link">Reply</span>
+                                    </div>
+                                    <p>
+                                        <%= answer.answer_content %>
+                                    </p>
+                                </div>
+                            <%  }); %>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="main-forum--right">
+                <div class="post-user-card">
+
+                    <div class="post-user-card--author">
+    
+                        <div class="post-user-card--author-info">
+    
+                            <img src="/images/abir.jpg" alt="profile-picture" class="post-user-card--author-info--img">
+                            <div class="post-user-card--author-info-name-box">
+                                <p class="post-user-card--author-info-name-box--name">
+                                    <%= post["user.first_name"] %> <%= post["user.last_name"] %>
+                                </p>
+                                <a href="/" class="post-user-card--author-info-name-box--user-name">
+                                    @<%= post["user.user_name"] %>
+                                </a>
+                            </div>
+
+                        </div>
+
+                        <p class="post-user-card--author-publish-date margin-top-small margin-gutter-small">
+                            Posted On, <%= dateFormat(post.createdAt) %>
+                        </p>
+
+                        <h4 class="secondary-small-title">Categories</h4>
+
+                        <div class="tag-pills-box margin-gutter-small">
+
+                            <% tags.forEach(tag => { %>
+                                <span class="tag-pills-box--pills">
+                                    <%= tag %>
+                                </span>
+                            <% }); %>
+                        </div>
+                    </div>
+    
+                    <div class="post-user-card-action-box margin-top-small">
+                        <div class="action-icon-box">
+                            <img class="action-icon-box--icon" src="/images/star.svg" alt="like-btn">
+                            <span class="action-icon-box--count"><%= post.like_count %></span>
+                        </div>
+
+                        <div class="action-icon-box">
+                            <img class="action-icon-box--icon" src="/images/question.svg" alt="comment-count">
+                            <span class="action-icon-box--count"><%= answers.length %></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <%- include includes/footer.ejs %>
+
+</body>
+
+</html>

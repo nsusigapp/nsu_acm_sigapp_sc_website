@@ -47,7 +47,7 @@ const postRegisterUser = (req, res, next) => {
                 status: userStatus.IN_ACTIVE,
             });
 
-            sequelize.transaction(function (t) {
+            sequelize.transaction(function(t) {
 
                 return User.create(userDbData, { transaction: t })
                     .then(resCreate => {

@@ -7,6 +7,7 @@ const pageTitle = {
     LOGIN: "Login" + baseTitle,
     FORGOT_PASSWORD: "Recover Password" + baseTitle,
     FORUM: "Forum" + baseTitle,
+    FORUM_VIEW: "Forum Post" + baseTitle,
     BLOG: "Blog" + baseTitle
 }
 

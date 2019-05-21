@@ -140,6 +140,12 @@
         &--box{
             @include displayFlex(space-around, center);
             flex-wrap: wrap;
+
+            @media only screen and(max-width: 600px){
+                flex-wrap: nowrap;
+                flex-direction: column;
+            }
+
         }
     }
 

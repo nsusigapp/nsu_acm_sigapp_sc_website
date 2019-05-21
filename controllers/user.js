@@ -20,7 +20,17 @@ const getForumPage = (req, res, next) => {
     });
 }
 
+const getForumViewPage = (req, res, next) => {
+
+    return res.render("forum_view", {
+        pageTitle: pageTitle.FORUM_VIEW,
+        dateFormat
+    });
+}
+
+
 module.exports = {
     getIndexPage,
-    getForumPage
+    getForumPage,
+    getForumViewPage
 }
