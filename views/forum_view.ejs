@@ -3,6 +3,13 @@
 <head>
     <%- include includes/meta.ejs  %>
     <title><%= pageTitle %></title>
+    <script src="https://cloud.tinymce.com/5/tinymce.min.js"></script>
+    <script>
+        tinymce.init({
+          selector: '#mytextarea',
+          plugins : 'advlist autolink link image lists charmap print preview'
+        });
+    </script>
 </head>
 <body>
     <%- include includes/header.ejs  %>
@@ -20,6 +27,33 @@
                     <p class="main-forum--content--paragraph">
                         <%= post.f_post_description %>
                     </p>
+                </div>
+                <div class="main-forum--answer-box margin-top-medium margin-gutter-medium">
+                    <div class="post-reply-box">
+                        <h2 class="post-reply-box--title">
+                            Answers
+                        </h2>
+                        <div class="post-reply-box--editor margin-top-small margin-gutter-small">
+                            <textarea name="" id="mytextarea"></textarea>
+                        </div>
+                        <div class="post-reply-box--reply-container">
+
+                            <% answers.forEach(answer => { %>
+                                <div class="post-reply-box--reply-container--reply">
+                                    <div class="post-reply-box--reply-container--reply-username margin-gutter-small">
+                                        <a href="/" class="reply-author-link">
+                                            @<%= answer["user.user_name"]  %> - <%= dateFormat(answer.createdAt) %>
+                                        </a>
+                                        <span class="reply-link">Reply</span>
+                                    </div>
+                                    <p>
+                                        <%= answer.answer_content %>
+                                    </p>
+                                </div>
+                            <%  }); %>
+
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -75,6 +109,8 @@
         </div>
 
     </main>
+
+    <%- include includes/footer.ejs %>
 
 </body>
 

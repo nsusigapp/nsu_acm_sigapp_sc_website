@@ -150,6 +150,8 @@ const loadForumReplies = (req, res, next) => {
             
             res.locals.answers = fetchedAnswers;
 
+            console.log(fetchedAnswers)
+
             next();
         })
         .catch(err => console.log(err));

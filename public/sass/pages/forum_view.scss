@@ -12,7 +12,7 @@
         margin-right: 7rem;
 
         @media only screen and(max-width: 750px){
-            // order: 2;
+            order: 2;
             width: 100%;
         }
 
@@ -47,7 +47,7 @@
         flex: 1;
 
         @media only screen and(max-width: 750px){
-            // order: 1;
+            order: 1;
             width: 100%;
             margin-bottom: 3rem;
         }
