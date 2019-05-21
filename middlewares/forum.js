@@ -128,8 +128,37 @@ const getForumById = (req, res, next) => {
 
 }
 
+const loadForumReplies = (req, res, next) => {
+    
+    const postId = req.params.id;
+
+    ForumAnswer.findAll({
+        attributes: ["answer_content", "createdAt"],
+        raw: true,
+
+        where: {
+            forum_p_id: postId
+        },
+
+        include: [{
+            attributes: ["user_name"],
+            model: User,
+            required: true,
+        }]
+    })
+        .then(fetchedAnswers => {
+            
+            res.locals.answers = fetchedAnswers;
+
+            next();
+        })
+        .catch(err => console.log(err));
+
+}
+
 module.exports = {
     fetchForumCategories,
     loadForumDataInit,
-    getForumById
+    getForumById,
+    loadForumReplies
 }
