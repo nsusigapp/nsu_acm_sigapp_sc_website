@@ -6,8 +6,12 @@
     <script src="https://cloud.tinymce.com/5/tinymce.min.js"></script>
     <script>
         tinymce.init({
-          selector: '#mytextarea',
-          plugins : 'advlist autolink link image lists charmap print preview'
+            oninit : "setPlainText",
+            selector: '#answereditor',
+            plugins : 'advlist paste autolink link image lists charmap print preview autoresize',
+            toolbar: 'undo redo | styleselect | bold italic | link image',
+            image_caption: true,
+            image_description: false
         });
     </script>
 </head>
@@ -34,19 +38,19 @@
                             Answers
                         </h2>
                         <div class="post-reply-box--editor margin-top-small margin-gutter-small">
-                            <textarea name="" id="mytextarea"></textarea>
+                            <textarea name="" id="answereditor"></textarea>
                         </div>
                         <div class="post-reply-box--reply-container">
 
                             <% answers.forEach(answer => { %>
                                 <div class="post-reply-box--reply-container--reply">
-                                    <div class="post-reply-box--reply-container--reply-username margin-gutter-small">
+                                    <div class="post-reply-box--reply-container--reply-username">
                                         <a href="/" class="reply-author-link">
                                             @<%= answer["user.user_name"]  %> - <%= dateFormat(answer.createdAt) %>
                                         </a>
                                         <span class="reply-link">Reply</span>
                                     </div>
-                                    <p>
+                                    <p class="post-content">
                                         <%= answer.answer_content %>
                                     </p>
                                 </div>

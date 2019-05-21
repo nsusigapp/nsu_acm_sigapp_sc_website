@@ -1,7 +1,10 @@
+.main-content-forum-view{
+    padding: 4rem 2rem;
+}
+
 .main-forum-content-wrapper{
 
     @include displayFlex(space-between, flex-start);
-    padding: 4rem 2rem;
 
     @media only screen and(max-width: 750px){
         flex-direction: column;
@@ -29,7 +32,7 @@
         }
 
         .main-forum--content{
-            background: #D5DEEA;
+            background: rgba($color: #D5DEEA, $alpha: 0.5);
             padding: 2rem;
 
             &--paragraph{
