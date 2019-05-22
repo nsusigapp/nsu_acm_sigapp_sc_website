@@ -9,6 +9,7 @@
             flex: 1;
             background: #D5DEEA;
             margin-top: 0.2rem;
+            padding: 1.8rem;
 
             &--profile{
                 color: #374353;
@@ -19,7 +20,8 @@
             }
 
             &--img-box{
-
+                margin-top: 1rem;
+                margin-bottom: 1rem;
                 &--img{
                     height: 18rem;
                     border-radius: 1rem;
@@ -34,12 +36,19 @@
 
                 &--list{
 
+                    list-style-type: none;
+                    font-size: 1.8rem;
+        
                     .user-color{
                         color: #5C83AA;
                     }
 
                     .github-link{
                         text-decoration: none;
+                    }
+
+                    li{
+                        margin-bottom: 0.5rem;
                     }
                 }
             }
@@ -53,7 +62,7 @@
             &--main-bar{
                 
                 &--title{
-
+                    padding: 0.6rem 0rem 0.6rem 3rem;
                     background: #374353;
                     font-size: 1.5rem;
 

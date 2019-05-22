@@ -1142,23 +1142,33 @@ body {
   .profile-page-wrapper--side-bar {
     flex: 1;
     background: #D5DEEA;
-    margin-top: 0.2rem; }
+    margin-top: 0.2rem;
+    padding: 1.8rem; }
     .profile-page-wrapper--side-bar--profile {
       color: #374353;
       font-size: 2rem; }
-    .profile-page-wrapper--side-bar--img-box--img {
-      height: 18rem;
-      border-radius: 1rem; }
-    .profile-page-wrapper--side-bar--img-box .pp-up-icon {
-      color: #374353; }
-    .profile-page-wrapper--side-bar--info--list .user-color {
-      color: #5C83AA; }
-    .profile-page-wrapper--side-bar--info--list .github-link {
-      text-decoration: none; }
+    .profile-page-wrapper--side-bar--img-box {
+      margin-top: 1rem;
+      margin-bottom: 1rem; }
+      .profile-page-wrapper--side-bar--img-box--img {
+        height: 18rem;
+        border-radius: 1rem; }
+      .profile-page-wrapper--side-bar--img-box .pp-up-icon {
+        color: #374353; }
+    .profile-page-wrapper--side-bar--info--list {
+      list-style-type: none;
+      font-size: 1.8rem; }
+      .profile-page-wrapper--side-bar--info--list .user-color {
+        color: #5C83AA; }
+      .profile-page-wrapper--side-bar--info--list .github-link {
+        text-decoration: none; }
+      .profile-page-wrapper--side-bar--info--list li {
+        margin-bottom: 0.5rem; }
   .profile-page-wrapper--profile-box {
     flex: 4;
     margin: 2rem 3rem; }
     .profile-page-wrapper--profile-box--main-bar--title {
+      padding: 0.6rem 0rem 0.6rem 3rem;
       background: #374353;
       font-size: 1.5rem; }
       .profile-page-wrapper--profile-box--main-bar--title .profile-title-text {
