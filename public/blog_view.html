@@ -11,18 +11,7 @@
     <link rel="icon" href="images/favicon.ico">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <title>Forum View</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.0.5/tinymce.min.js"></script>
-    <script>
-        tinymce.init({
-            oninit: "setPlainText",
-            selector: '#answereditor',
-            plugins: 'advlist paste autolink link image lists charmap print preview autoresize',
-            toolbar: 'undo redo | styleselect | bold italic | link image',
-            image_caption: true,
-            image_description: false
-        });
-    </script>
+    <title>Blog View</title>
 </head>
 
 <body>
@@ -107,12 +96,17 @@
         <div class="main-post-content-wrapper">
 
             <div class="main-post--left">
-                <h1 class="main-post--title">
-                    # Learn JS
+
+                <div class="main-blog-cover">
+                    <img class="main-blog-cover--img" src="./images/state.png" alt="">
+                </div>
+
+                <h1 class="main-blog--title">
+                    Setting Cache-Control header for all Amazon S3 objects
                 </h1>
 
-                <div class="main-post--content margin-top-small">
-                    <p class="main-post--content--paragraph">
+                <div class="main-blog--content margin-top-small">
+                    <p class="main-blog--content--paragraph">
                         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Commodi repellat excepturi officia ex
                         sed explicabo voluptates aliquid praesentium cupiditate reiciendis, suscipit voluptate et
                         doloremque unde? Hic doloribus distinctio tempora quod nisi sunt? Enim vel repellat error
@@ -180,13 +174,13 @@
             <div class="main-post--answer-box">
                 <div class="post-reply-box">
                     <h2 class="post-reply-box--title">
-                        Answers
+                        Comments
                     </h2>
                     <div class="post-reply-box--editor margin-top-small margin-gutter-small">
 
                         <form action="/" class="clearfix">
-                            <textarea name="" id="answereditor"></textarea>
-                            <input class="post-reply-btn" value="Post Answer" type="submit">
+                            <textarea class="comment-editor" name=""></textarea>
+                            <input class="post-reply-btn" value="Post Comment" type="submit">
                         </form>
 
                     </div>

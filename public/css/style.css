@@ -15,6 +15,11 @@ body {
   font-family: "Quicksand",sans-serif;
   font-size: 1.6rem; }
 
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table; }
+
 .page-title-box--heading-primary {
   font-weight: 700;
   font-size: 2.4rem;
@@ -288,6 +293,24 @@ body {
   border-radius: 3px;
   box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.25);
   font-weight: 700; }
+
+.post-reply-btn {
+  border: none;
+  outline: none;
+  color: #fff;
+  padding: 0.8rem 2rem;
+  border-radius: 5px;
+  float: right;
+  font-size: 1.5rem;
+  cursor: pointer;
+  background: #374353;
+  display: inline-block;
+  transition: all 0.3s;
+  margin-top: 1rem;
+  font-family: "Quicksand", sans-serif;
+  font-weight: bold; }
+  .post-reply-btn:hover {
+    background: #4a6886; }
 
 .narrow-solid-button-light-dark {
   background: #374353;
@@ -601,6 +624,10 @@ body {
 
 .post-reply-box--title {
   text-decoration: underline; }
+
+.post-reply-box--editor {
+  background: #D5DEEA;
+  padding: 1rem; }
 
 .post-reply-box--reply-container--reply {
   padding: 1.5rem;
@@ -975,7 +1002,7 @@ body {
   align-items: center;
   margin-bottom: 5rem; }
 
-.main-content-forum-view {
+.main-content-post-view {
   padding: 4rem 2rem; }
 
 .answer-wrapper {
@@ -985,53 +1012,83 @@ body {
   @media only screen and (max-width: 750px) {
     .answer-wrapper {
       flex-direction: column; } }
-  .answer-wrapper .main-forum--answer-box {
+  .answer-wrapper .main-post--answer-box {
     margin-right: 7rem;
     flex: 3.3; }
     @media only screen and (max-width: 750px) {
-      .answer-wrapper .main-forum--answer-box {
+      .answer-wrapper .main-post--answer-box {
         width: 100%; } }
 
-.main-forum-content-wrapper {
+.main-post-content-wrapper {
   display: flex;
   justify-content: space-between;
   align-items: flex-start; }
   @media only screen and (max-width: 750px) {
-    .main-forum-content-wrapper {
+    .main-post-content-wrapper {
       flex-direction: column; } }
-  .main-forum-content-wrapper .main-forum--left {
+  .main-post-content-wrapper .main-post--left {
     flex: 3.3;
     margin-right: 7rem; }
     @media only screen and (max-width: 750px) {
-      .main-forum-content-wrapper .main-forum--left {
+      .main-post-content-wrapper .main-post--left {
         width: 100%; } }
-    .main-forum-content-wrapper .main-forum--left .main-forum--title {
+    .main-post-content-wrapper .main-post--left .main-post--title {
       font-size: 2.5rem;
       text-align: justify;
       display: inline-block;
       border-bottom: 1px solid #000;
       padding-bottom: 0.5rem; }
       @media only screen and (max-width: 750px) {
-        .main-forum-content-wrapper .main-forum--left .main-forum--title {
+        .main-post-content-wrapper .main-post--left .main-post--title {
           font-size: 2rem; } }
-    .main-forum-content-wrapper .main-forum--left .main-forum--content {
+    .main-post-content-wrapper .main-post--left .main-post--content {
       background: rgba(213, 222, 234, 0.5);
       padding: 2rem; }
-      .main-forum-content-wrapper .main-forum--left .main-forum--content--paragraph {
+      .main-post-content-wrapper .main-post--left .main-post--content--paragraph {
         line-height: 1.7;
         font-size: 1.8rem; }
         @media only screen and (max-width: 750px) {
-          .main-forum-content-wrapper .main-forum--left .main-forum--content--paragraph {
+          .main-post-content-wrapper .main-post--left .main-post--content--paragraph {
             font-size: 1.6rem; } }
-  .main-forum-content-wrapper .main-forum--right {
+  .main-post-content-wrapper .main-post--right {
     flex: 1;
     position: sticky;
     top: 20px; }
     @media only screen and (max-width: 750px) {
-      .main-forum-content-wrapper .main-forum--right {
+      .main-post-content-wrapper .main-post--right {
         width: 100%;
         margin-top: 3rem;
         position: static; } }
+
+.main-blog--content--paragraph {
+  line-height: 1.7;
+  font-size: 1.8rem; }
+  @media only screen and (max-width: 750px) {
+    .main-blog--content--paragraph {
+      font-size: 1.6rem; } }
+
+.main-blog-cover {
+  border-bottom: 1px solid #000;
+  padding-bottom: 1rem;
+  margin-bottom: 2rem; }
+  .main-blog-cover--img {
+    width: 100%; }
+
+.main-blog--title {
+  font-size: 2.5rem;
+  text-align: justify;
+  display: inline-block; }
+  @media only screen and (max-width: 750px) {
+    .main-blog--title {
+      font-size: 2rem; } }
+
+.comment-editor {
+  width: 100%;
+  height: 20rem;
+  border: 2px solid #374353;
+  resize: none;
+  transition: all 0.3s;
+  padding: 0.5rem; }
 
 .main-content-event {
   margin-top: 3rem;

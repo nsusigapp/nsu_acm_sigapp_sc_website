@@ -15,7 +15,6 @@ const fetchForumCategories = (req, res, next) => {
         .then(fetchedTag => {
 
             res.locals.tags = fetchedTag;
-
             next();
         })
         .catch(err => console.log(err));
@@ -119,7 +118,6 @@ const getForumById = (req, res, next) => {
                     .then(fetchedTags => {
 
                         res.locals.tags = fetchedTags.map(fetchedTag => fetchedTag["tag.tag_name"]);
-
                         next();
                     })
             })            
@@ -150,13 +148,12 @@ const loadForumReplies = (req, res, next) => {
             
             res.locals.answers = fetchedAnswers;
 
-            console.log(fetchedAnswers)
-
             next();
         })
         .catch(err => console.log(err));
-
 }
+
+
 
 module.exports = {
     fetchForumCategories,
