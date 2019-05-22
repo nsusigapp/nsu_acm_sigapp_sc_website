@@ -1,5 +1,4 @@
 node_modules
 .env
+db_schema
 config/config.json
-controllers/auth.js
-routes/auth.js

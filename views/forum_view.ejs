@@ -18,23 +18,23 @@
 <body>
     <%- include includes/header.ejs  %>
 
-    <main class="main-content-forum-view">
+    <main class="main-content-post-view">
 
-        <div class="main-forum-content-wrapper">
+        <div class="main-post-content-wrapper">
 
-            <div class="main-forum--left">
-                <h1 class="main-forum--title">
+            <div class="main-post--left">
+                <h1 class="main-post--title">
                     # <%= post.f_post_title %>
                 </h1>
 
-                <div class="main-forum--content margin-top-small">
-                    <p class="main-forum--content--paragraph">
+                <div class="main-post--content margin-top-small">
+                    <p class="main-post--content--paragraph">
                         <%= post.f_post_description %>
                     </p>
                 </div>
             </div>
 
-            <div class="main-forum--right">
+            <div class="main-post--right">
                 <div class="post-user-card">
 
                     <div class="post-user-card--author">
@@ -71,7 +71,7 @@
     
                     <div class="post-user-card-action-box margin-top-small">
                         <div class="action-icon-box">
-                            <img class="action-icon-box--icon" src="/images/star.svg" alt="like-btn">
+                            <img onclick="likePost(<%= post.f_post_id  %>, action)" class="action-icon-box--icon like-icon" src="/images/star.svg" alt="like-btn">
                             <span class="action-icon-box--count"><%= post.like_count %></span>
                         </div>
 
@@ -85,14 +85,19 @@
 
         </div>
 
-        <div class="answer-wrapper  margin-top-medium">
-            <div class="main-forum--answer-box">
+        <div class="answer-wrapper margin-top-medium">
+            <div class="main-post--answer-box">
                 <div class="post-reply-box">
                     <h2 class="post-reply-box--title">
                         Answers
                     </h2>
                     <div class="post-reply-box--editor margin-top-small margin-gutter-small">
-                        <textarea name="" id="answereditor"></textarea>
+
+                        <form action="/" class="clearfix">
+                            <textarea name="" id="answereditor"></textarea>
+                            <input class="post-reply-btn" value="Post Answer" type="submit">
+                        </form>
+
                     </div>
                     <div class="post-reply-box--reply-container">
     

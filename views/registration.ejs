@@ -96,7 +96,7 @@
                                         <li>Email Exists!</li>
 
                                     <% }else if(error[0].nsuIdExists){  %>
-                                        <li>Email Exists!</li>
+                                        <li>NSU ID Exists!</li>
                                     <% } %>
                                 </ul>
                             </div>
@@ -108,34 +108,34 @@
                         <div class="common-form--input-paral">
                             <div class="icon-input-box">
                                 <i class="fas fa-user"></i>
-                                <input type="text" name="first_name" placeholder="First Name">
+                                <input value="<%= formData.length > 0 ? formData[0].first_name : '' %>" type="text" name="first_name" placeholder="First Name">
                             </div>
     
                             <div class="icon-input-box">
                                 <i class="fas fa-user"></i>
-                                <input type="text" name="last_name" placeholder="Last Name">
+                                <input value="<%= formData.length > 0 ? formData[0].last_name : '' %>" type="text" name="last_name" placeholder="Last Name">
                             </div>
                         </div>
     
                         <div id="uname_div" class="icon-input-box">
                             <i class="fas fa-hashtag"></i>
-                            <input autocomplete="off" id="username" type="text" name="user_name" placeholder="Username">
+                            <input value="<%= formData.length > 0 ? formData[0].user_name : '' %>" autocomplete="off" id="username" type="text" name="user_name" placeholder="Username">
                         </div>
 
                         <div class="icon-input-box">
                             <i class="fas fa-id-badge"></i>
-                            <input id="nsuID" type="text" name="nsu_id" placeholder="NSU ID" autocomplete="off">
+                            <input value="<%= formData.length > 0 ? formData[0].nsu_id : '' %>" id="nsuID" type="text" name="nsu_id" placeholder="NSU ID" autocomplete="off">
                         </div>
     
                         <div class="common-form--input-paral">
                             <div class="icon-input-box">
                                 <i class="fas fa-envelope"></i>
-                                <input id="nsuMail" type="email" name="nsu_email" placeholder="NSU Email">
+                                <input value="<%= formData.length > 0 ? formData[0].nsu_email : '' %>" id="nsuMail" type="email" name="nsu_email" placeholder="NSU Email">
                             </div>
     
                             <div class="icon-input-box">
                                 <i class="fas fa-envelope"></i>
-                                <input type="email" name="alt_email" placeholder="Alternate Email">
+                                <input value="<%= formData.length > 0 ? formData[0].alt_email : '' %>" type="email" name="alt_email" placeholder="Alternate Email">
                             </div>
                         </div>
 

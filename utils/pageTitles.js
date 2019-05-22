@@ -8,7 +8,8 @@ const pageTitle = {
     FORGOT_PASSWORD: "Recover Password" + baseTitle,
     FORUM: "Forum" + baseTitle,
     FORUM_VIEW: "Forum Post" + baseTitle,
-    BLOG: "Blog" + baseTitle
+    BLOG: "Blog" + baseTitle,
+    BLOG_VIEW: "Blog Post" + baseTitle
 }
 
 module.exports = pageTitle;
