@@ -603,6 +603,8 @@ body {
     display: flex;
     align-items: center;
     flex-direction: column; }
+    .post-user-card-action-box .action-icon-box .like-icon {
+      cursor: pointer; }
     .post-user-card-action-box .action-icon-box--icon {
       height: 4rem;
       margin-bottom: 1rem; }

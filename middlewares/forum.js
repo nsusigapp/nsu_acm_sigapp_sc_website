@@ -1,8 +1,8 @@
 const { sequelize, Sequelize, users: User,
         tags: Tag, forum_tag: ForumTag, forum: Forum, 
-        forum_answer: ForumAnswer } = require("../models/index");
+        forum_answer: ForumAnswer, forum_like_track: ForumLike  } = require("../models/index");
 
-const { limitPost } = require("../utils/constants");
+const { limitPost, forumLike } = require("../utils/constants");
 
 const fetchForumCategories = (req, res, next) => {
 
@@ -79,7 +79,7 @@ const loadForumDataInit = (req, res, next) => {
 
 const getForumById = (req, res, next) => {
 
-    const postId = req.params.id;
+    const postId = parseInt(req.params.id);
 
     sequelize.transaction(function(t) {
 
@@ -100,6 +100,9 @@ const getForumById = (req, res, next) => {
             .then(fetchedPost => {
 
                 res.locals.post = fetchedPost;
+                res.locals.post.f_post_id = postId;
+
+                console.log(res.locals.post);
                 
                 return ForumTag.findAll({
                     attributes: [],
@@ -118,7 +121,17 @@ const getForumById = (req, res, next) => {
                     .then(fetchedTags => {
 
                         res.locals.tags = fetchedTags.map(fetchedTag => fetchedTag["tag.tag_name"]);
-                        next();
+
+                        if (!(req.session.userData)) {
+
+                            res.locals.isLiked = false;
+                            next();
+
+                        } else{
+
+
+                        }
+
                     })
             })            
     })

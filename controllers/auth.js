@@ -18,12 +18,13 @@ const Op = require("sequelize").Op;
 
 // GET /register
 const getRegisterPage = (req, res, next) => {
-
+    
     return res.render("registration", {
         pageTitle: pageTitle.REGISTER,
         path: "/registration",
         error: req.flash("info"),
         regSuccess: req.flash("regInfo"),
+        formData: req.flash("formdata")
     });
 
 }
@@ -87,6 +88,8 @@ const postRegisterUser = (req, res, next) => {
                     }
 
                     const errorKey = err.errors[0].path;
+
+                    req.flash("formdata", userDbData);
 
                     if (errorKey === "nsu_id") {
 

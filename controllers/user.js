@@ -28,9 +28,29 @@ const getForumViewPage = (req, res, next) => {
     });
 }
 
+const getBlogPage = (req, res, next) => {
+
+    const selectedTag = req.query.tag_name;
+
+    return res.render("blog", {
+        pageTitle: pageTitle.BLOG,
+        active: selectedTag,
+        dateFormat
+    });
+}
+
+const getBlogViewPage = (req, res, next) => {
+
+    return res.render("blog_view", {
+        pageTitle: pageTitle.BLOG_VIEW,
+        dateFormat
+    });
+}
 
 module.exports = {
     getIndexPage,
     getForumPage,
-    getForumViewPage
+    getForumViewPage,
+    getBlogPage,
+    getBlogViewPage
 }

@@ -10,6 +10,10 @@ router.get("/forum", fetchForumCategories, loadForumDataInit, userControllers.ge
 
 router.get("/forum-post/:id", getForumById, loadForumReplies, userControllers.getForumViewPage);
 
+router.get("/blog", userControllers.getBlogPage);
+
+router.get("/blog-post/:id", userControllers.getBlogViewPage);
+
 module.exports = {
     router
 }

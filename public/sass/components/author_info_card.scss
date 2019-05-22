@@ -50,6 +50,10 @@
             align-items: center;
             flex-direction: column;
 
+            .like-icon{
+                cursor: pointer;
+            }
+
             &--icon{
                 height: 4rem;
                 margin-bottom: 1rem;
