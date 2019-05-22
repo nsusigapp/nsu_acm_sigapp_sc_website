@@ -1,4 +1,4 @@
-.main-content-forum-view{
+.main-content-post-view{
     padding: 4rem 2rem;
 }
 
@@ -9,7 +9,7 @@
         flex-direction: column;
     }
 
-    .main-forum--answer-box{
+    .main-post--answer-box{
         margin-right: 7rem;
         flex: 3.3;
 
@@ -19,7 +19,7 @@
     }
 }
 
-.main-forum-content-wrapper{
+.main-post-content-wrapper{
 
     @include displayFlex(space-between, flex-start);
 
@@ -27,7 +27,7 @@
         flex-direction: column;
     }
 
-    .main-forum--left{
+    .main-post--left{
         flex: 3.3; // this is 3.3 times larger than the right componenet
         margin-right: 7rem;
 
@@ -35,7 +35,7 @@
             width: 100%;
         }
 
-        .main-forum--title{
+        .main-post--title{
             font-size: 2.5rem;
             text-align: justify;
             display: inline-block;
@@ -47,7 +47,7 @@
             }
         }
 
-        .main-forum--content{
+        .main-post--content{
             background: rgba($color: #D5DEEA, $alpha: 0.5);
             padding: 2rem;
 
@@ -62,7 +62,7 @@
         }
     }
 
-    .main-forum--right{
+    .main-post--right{
         flex: 1;
         position: sticky;
         top: 20px;

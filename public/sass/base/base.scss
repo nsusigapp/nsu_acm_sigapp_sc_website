@@ -17,3 +17,9 @@ body{
     font-family: "Quicksand",sans-serif;
     font-size: 1.6rem;
 }
+
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+  }

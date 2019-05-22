@@ -4,6 +4,15 @@
         text-decoration: underline;
     }
 
+    &--editor{
+        background: #D5DEEA;
+        padding: 1rem;
+         
+        &-outer-box{
+
+        }
+    }
+
     &--reply-container{
 
         &--reply{

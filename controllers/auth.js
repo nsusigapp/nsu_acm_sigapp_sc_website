@@ -5,7 +5,7 @@ const { userStatus, roleID, sessStatus } = require("../utils/userConst");
 
 const pageTitle = require("../utils/pageTitles");
 
-const bcrypt = require('bcrypt');
+const bcrypt = require("bcrypt");
 
 const jwt = require("jsonwebtoken");
 
@@ -78,8 +78,6 @@ const postRegisterUser = (req, res, next) => {
                     })
             })
                 .catch(err => {
-
-                    console.log(err);
 
                     // roll back if error occurs
                     const dbFetchErrorObj = {
