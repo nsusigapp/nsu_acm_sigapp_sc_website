@@ -1,0 +1,84 @@
+.profile-page{
+
+    &-wrapper{
+
+        @include displayFlex(flex-start,flex-start);
+
+        &--side-bar{
+
+            flex: 1;
+            background: #D5DEEA;
+            margin-top: 0.2rem;
+
+            &--profile{
+                color: #374353;
+                font-size: 2rem;
+                .icon-profile{
+                    
+                }
+            }
+
+            &--img-box{
+
+                &--img{
+                    height: 18rem;
+                    border-radius: 1rem;
+                }
+
+                .pp-up-icon{
+                    color: #374353;
+                }
+            }
+
+            &--info{
+
+                &--list{
+
+                    .user-color{
+                        color: #5C83AA;
+                    }
+
+                    .github-link{
+                        text-decoration: none;
+                    }
+                }
+            }
+        }
+
+        &--profile-box{
+
+            flex: 4;
+            margin: 2rem 3rem;
+
+            &--main-bar{
+                
+                &--title{
+
+                    background: #374353;
+                    font-size: 1.5rem;
+
+                    .profile-title-text{
+
+                        color: white;
+                        font-weight: 500;
+                    }
+                    
+                    .user-cog-color{
+
+                        color: #5C83AA;
+                    }
+               }
+
+               &--tabs{
+
+               }
+
+            }
+
+        }
+
+
+    }
+
+
+}

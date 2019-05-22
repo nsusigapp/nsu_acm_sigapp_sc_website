@@ -1077,3 +1077,35 @@ body {
             color: #434C54; }
           .main-content-event--box--wrap--info--link--description {
             line-height: 1.7; }
+
+.profile-page-wrapper {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start; }
+  .profile-page-wrapper--side-bar {
+    flex: 1;
+    background: #D5DEEA;
+    margin-top: 0.2rem; }
+    .profile-page-wrapper--side-bar--profile {
+      color: #374353;
+      font-size: 2rem; }
+    .profile-page-wrapper--side-bar--img-box--img {
+      height: 18rem;
+      border-radius: 1rem; }
+    .profile-page-wrapper--side-bar--img-box .pp-up-icon {
+      color: #374353; }
+    .profile-page-wrapper--side-bar--info--list .user-color {
+      color: #5C83AA; }
+    .profile-page-wrapper--side-bar--info--list .github-link {
+      text-decoration: none; }
+  .profile-page-wrapper--profile-box {
+    flex: 4;
+    margin: 2rem 3rem; }
+    .profile-page-wrapper--profile-box--main-bar--title {
+      background: #374353;
+      font-size: 1.5rem; }
+      .profile-page-wrapper--profile-box--main-bar--title .profile-title-text {
+        color: white;
+        font-weight: 500; }
+      .profile-page-wrapper--profile-box--main-bar--title .user-cog-color {
+        color: #5C83AA; }
