@@ -124,6 +124,8 @@ const postRegisterUser = (req, res, next) => {
 // GET /login
 const getLoginPage = (req, res, next) => {
 
+    ignore this line
+
     return res.render("login", {
         pageTitle: pageTitle.LOGIN,
         path: "/login",
