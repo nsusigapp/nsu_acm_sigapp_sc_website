@@ -101,8 +101,6 @@ const getForumById = (req, res, next) => {
 
                 res.locals.post = fetchedPost;
                 res.locals.post.f_post_id = postId;
-
-                console.log(res.locals.post);
                 
                 return ForumTag.findAll({
                     attributes: [],
@@ -122,14 +120,42 @@ const getForumById = (req, res, next) => {
 
                         res.locals.tags = fetchedTags.map(fetchedTag => fetchedTag["tag.tag_name"]);
 
-                        if (!(req.session.userData)) {
+                        const { loggedIn } = res.locals.userInfo;
+                        const uid = loggedIn ? res.locals.userInfo.sessionData.uid : null;
 
-                            res.locals.isLiked = false;
+                        if (!loggedIn) {
+
+                            res.locals.likeAction = forumLike.NOT_LOGGED_IN;
                             next();
 
-                        } else{
+                        } else {
 
+                            return ForumLike.findOne({
+                                attributes: ["action"],
+                                raw: true,
+                                where: {
+                                    user_id: uid,
+                                    forum_id: postId
+                                }
+                            }, { transaction: t })
+                                .then(likeStatus => {
 
+                                    if (likeStatus === null) {
+
+                                        res.locals.likeAction = forumLike.LIKE;
+                                        next();
+
+                                    } else if (likeStatus.action === forumLike.LIKE) {
+                                        
+                                        res.locals.likeAction = forumLike.UNLIKE;
+                                        next();
+
+                                    } else if(likeStatus.action === forumLike.UNLIKE) {
+
+                                        res.locals.likeAction = forumLike.LIKE;
+                                        next();
+                                    }
+                                })
                         }
 
                     })
@@ -165,7 +191,6 @@ const loadForumReplies = (req, res, next) => {
         })
         .catch(err => console.log(err));
 }
-
 
 
 module.exports = {

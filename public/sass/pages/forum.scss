@@ -59,6 +59,7 @@
 
         @media only screen and(max-width: 600px){
             margin-left: 0rem;
+            width: 100%;
         }
 
         .title-create-box{
@@ -85,11 +86,11 @@
                     font-size: 1.4rem;
 
                     @media only screen and(max-width: 850px){
-                        font-size: 1.2rem;
+                        font-size: 1.4rem;
                     }
 
                     @media only screen and(max-width: 550px){
-                        font-size: 1rem;
+                        font-size: 1.2rem;
                     }
                 }
 

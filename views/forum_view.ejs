@@ -71,7 +71,7 @@
     
                     <div class="post-user-card-action-box margin-top-small">
                         <div class="action-icon-box">
-                            <img onclick="likePost(<%= post.f_post_id  %>, action)" class="action-icon-box--icon like-icon" src="/images/star.svg" alt="like-btn">
+                            <img onclick="likePost(<%= post.f_post_id  %>, <%= likeAction %>)" class="action-icon-box--icon like-icon" src="/images/star.svg" alt="like-btn">
                             <span class="action-icon-box--count"><%= post.like_count %></span>
                         </div>
 

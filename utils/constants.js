@@ -5,7 +5,8 @@ const limitPost = {
 
 const forumLike = {
     LIKE: 1,
-    UNLIKE: 0
+    UNLIKE: 0,
+    NOT_LOGGED_IN: -1
 }
 
 module.exports = {

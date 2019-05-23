@@ -675,6 +675,14 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center; }
+    @media only screen and (max-width: 550px) {
+      .main-footer--secondary {
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start; } }
+    @media only screen and (max-width: 550px) {
+      .main-footer--secondary-box:not(:last-child) {
+        margin-bottom: 1.8rem; } }
     .main-footer--secondary-box {
       display: flex;
       justify-content: center;
@@ -944,7 +952,8 @@ body {
     flex: 2; }
     @media only screen and (max-width: 600px) {
       .main-content-forum .forum-questions-box {
-        margin-left: 0rem; } }
+        margin-left: 0rem;
+        width: 100%; } }
     .main-content-forum .forum-questions-box .title-create-box {
       display: flex;
       justify-content: space-between;
@@ -969,10 +978,10 @@ body {
           font-size: 1.4rem; }
           @media only screen and (max-width: 850px) {
             .main-content-forum .forum-questions-box--card-left-title-box {
-              font-size: 1.2rem; } }
+              font-size: 1.4rem; } }
           @media only screen and (max-width: 550px) {
             .main-content-forum .forum-questions-box--card-left-title-box {
-              font-size: 1rem; } }
+              font-size: 1.2rem; } }
         .main-content-forum .forum-questions-box--card-left-icon-box {
           margin-left: 0.5rem; }
           .main-content-forum .forum-questions-box--card-left-icon-box--container {
