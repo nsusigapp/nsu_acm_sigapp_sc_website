@@ -139,9 +139,9 @@
 
                     <div class="profile-page-wrapper--profile-box--main-bar--tabs">
                         <ul class="profile-page-wrapper--profile-box--main-bar--tabs--list">
-                            <li>Your Post</li>
-                            <li>Your Question</li>
-                            <li>Settings</li>
+                            <li onclick="tabSwitch(event)" class="active tab-list--item">Your Post</li>
+                            <li onclick="tabSwitch(event)" class="tab-list--item hover-tab-item">Your Question</li>
+                            <li onclick="tabSwitch(event)" class="tab-list--item hover-tab-item">Settings</li>
                         </ul>
                     </div>
 
@@ -185,6 +185,29 @@
         </div>
 
     </footer>
+
+    <script>
+        
+        const tabList = Array.from(document.querySelectorAll(".profile-page-wrapper"
+                            + "--profile-box--main-bar--tabs--list li"));
+
+        function tabSwitch(event) {
+
+            tabList.forEach(tab => {
+                if (tab.classList.contains("active")) {
+                    tab.classList.remove("active");
+                    tab.classList.add("hover-tab-item");
+                }
+            });
+
+            if(!(event.target.classList.contains("active"))) {
+                event.target.classList.add("active");
+                event.target.classList.remove("hover-tab-item");
+            }
+        }
+
+    
+    </script>
 
 </body>
 

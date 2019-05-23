@@ -15,6 +15,9 @@
                 color: #374353;
                 font-size: 2rem;
                 border-bottom: 1px solid #374353;
+                display: inline-block;
+                padding-bottom: 0.5rem;
+
                 .icon-profile{
                     
                 }
@@ -80,13 +83,11 @@
                     font-size: 1.3rem;
 
                     .profile-title-text{
-
                         color: white;
                         font-weight: 500;
                     }
                     
                     .user-cog-color{
-
                         color: #5C83AA;
                     }
                }
@@ -94,26 +95,46 @@
                &--tabs{
                    
                    &--list{
-                    display: flex;
+                    @include displayFlex(space-around,center);
                     list-style-type: none;
 
-                    li{
-                        margin: 0.5rem 12rem;
-                        padding: 0.6rem;
-                        border-bottom: 1px solid #5C83AA;
-                        color: #5C83AA;
-                        cursor: pointer;
-                        transition: all .3s;
+                    .active{
+                        background: #D5DEEA;
+                        font-weight: 600;
+                        border-bottom: 2px solid #5C83AA;
                     }
 
-                    li:hover{
-                        border-bottom: 1px solid #5C83AA;
-                        color: #374353;
-                        font-weight: 500;
+                    .tab-list--item{
+
+                        flex: 1;
+                        @include displayFlex(space-around,center);
+                        padding: 0.8rem;
+                        color: #5C83AA;
+                        cursor: pointer;
+                        transition: all .1s;
+                        position: relative;
+                    }
+
+                    .hover-tab-item::before{
+                        content: "";
+                        position: absolute;
+                        width: 50%;
+                        height: 1px;
+                        bottom: 0;
+                        left: 25%;
+                        background: #5C83AA;
+                        transform: scaleX(0);
+                        transition: all .3s  ease-in-out 0s;
+                        padding-top: 1px;
+                    }
+                    
+                    .hover-tab-item:hover::before{
+                        transform: scaleX(1);
+                    }
+
                     }
 
                 }
-               }
 
             }
 
