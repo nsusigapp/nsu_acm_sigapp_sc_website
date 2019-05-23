@@ -13,7 +13,8 @@ const compression = require("compression");
 const bodyParser = require("body-parser");
 
 const userRoutes = require("./routes/user");
-const frontendValidationRoutes = require("./routes/frontendValidation"); 
+const frontendValidationRoutes = require("./routes/frontendValidation");
+const ajForumRoutes = require("./routes/ajforum"); 
 const authRoutes = require("./routes/auth");
 const errorRoutes = require("./routes/errors");
 
@@ -68,18 +69,9 @@ app.use(authMiddleWare.isLoggedIn);
 
 app.use(userDataMiddleware.fetchProfilePicture);
 
-app.get("/test", (req, res, next) => {
-
-    res.render("test");
-});
-
-app.post("/test", (req, res, next) => {
-
-    console.log(req.body);
-
-});
-
 app.use(userRoutes.router);
+
+app.use(ajForumRoutes.router);
 
 app.use(frontendValidationRoutes.router);
 

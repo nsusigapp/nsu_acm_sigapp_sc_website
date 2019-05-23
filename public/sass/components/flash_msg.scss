@@ -72,3 +72,14 @@
     border-radius: 1rem;
     box-shadow: 5px 5px 12px rgba($gray, 10%);
 }
+
+.toast{
+    background: #1F2833;
+    color: #fff;
+    position: absolute;
+    padding: 0.5rem 2rem;
+    top: 7.5rem;
+    left: 7rem;
+    display: none;
+    box-shadow: 1px 2px 2px rgba($color: #000000, $alpha: 0.25);
+}

@@ -123,41 +123,32 @@ const getForumById = (req, res, next) => {
                         const { loggedIn } = res.locals.userInfo;
                         const uid = loggedIn ? res.locals.userInfo.sessionData.uid : null;
 
-                        if (!loggedIn) {
+                        return ForumLike.findOne({
+                            attributes: ["action"],
+                            raw: true,
+                            where: {
+                                user_id: uid,
+                                forum_id: postId
+                            }
+                        }, { transaction: t })
+                            .then(likeStatus => {
 
-                            res.locals.likeAction = forumLike.NOT_LOGGED_IN;
-                            next();
+                                if (likeStatus === null) {
 
-                        } else {
+                                    res.locals.isLiked = false;
+                                    next();
 
-                            return ForumLike.findOne({
-                                attributes: ["action"],
-                                raw: true,
-                                where: {
-                                    user_id: uid,
-                                    forum_id: postId
+                                } else if (likeStatus.action === forumLike.LIKE) {
+
+                                    res.locals.isLiked = true;
+                                    next();
+
+                                } else if (likeStatus.action === forumLike.UNLIKE) {
+
+                                    res.locals.isLiked = false;
+                                    next();
                                 }
-                            }, { transaction: t })
-                                .then(likeStatus => {
-
-                                    if (likeStatus === null) {
-
-                                        res.locals.likeAction = forumLike.LIKE;
-                                        next();
-
-                                    } else if (likeStatus.action === forumLike.LIKE) {
-                                        
-                                        res.locals.likeAction = forumLike.UNLIKE;
-                                        next();
-
-                                    } else if(likeStatus.action === forumLike.UNLIKE) {
-
-                                        res.locals.likeAction = forumLike.LIKE;
-                                        next();
-                                    }
-                                })
-                        }
-
+                            })
                     })
             })            
     })

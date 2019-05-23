@@ -68,18 +68,24 @@
                             <% }); %>
                         </div>
                     </div>
-    
-                    <div class="post-user-card-action-box margin-top-small">
-                        <div class="action-icon-box">
-                            <img onclick="likePost(<%= post.f_post_id  %>, <%= likeAction %>)" class="action-icon-box--icon like-icon" src="/images/star.svg" alt="like-btn">
-                            <span class="action-icon-box--count"><%= post.like_count %></span>
-                        </div>
+                    
+                    <% if (userInfo.loggedIn) { %>
+                        <div class="post-user-card-action-box margin-top-small">
+                            <div class="action-icon-box">
+                                <img id="likeBtn" class="action-icon-box--icon like-icon" src="<%= isLiked ? '/images/star.svg' : '/images/star-unlike.svg' %>" alt="like-btn">
+                                <span id="likeCount" class="action-icon-box--count"><%= post.like_count %></span>
+                            </div>
 
-                        <div class="action-icon-box">
-                            <img class="action-icon-box--icon" src="/images/question.svg" alt="comment-count">
-                            <span class="action-icon-box--count"><%= answers.length %></span>
+                            <div class="action-icon-box">
+                                <img class="action-icon-box--icon" src="/images/question.svg" alt="comment-count">
+                                <span class="action-icon-box--count"><%= answers.length %></span>
+                            </div>
+
+                            <div id="toast" class="toast">
+                                <span id="toastText"></span>
+                            </div>
                         </div>
-                    </div>
+                    <% } %>
                 </div>
             </div>
 
@@ -125,6 +131,52 @@
 
     <%- include includes/footer.ejs %>
 
+    <script src="/js/axios.js"></script>
+    <script>
+
+        (function () {
+
+            function setToast(text) {
+
+                const toast = document.getElementById("toast");
+
+                toast.style.display = "block";
+                toast.firstElementChild.textContent = text;
+
+                setTimeout(() => {
+                    toast.style.display = "none";
+                }, 3000);
+            }
+
+            const likeBtn = document.getElementById("likeBtn");
+
+            likeBtn.addEventListener("click", function () {
+
+                axios.post("/like-forum-post", {
+                    postid: <%= post.f_post_id %>, // this is not an error, It's ejs in JS; That's why showing error
+                })
+                    .then(response => {
+
+                        if (!(response.data.loggedIn)) {
+
+                            setToast("Not Logged In");
+
+                        } else if (response.data.liked) {
+
+                            document.getElementById("likeCount").textContent = response.data.count;
+                            setToast("Post Liked!");
+
+                        } else {
+                            document.getElementById("likeCount").textContent = response.data.count;
+                            setToast("Post Unliked!");
+                        }
+                    })
+                    .catch(err => console.log(err));
+            });
+
+        })();
+
+    </script>
 </body>
 
 </html>

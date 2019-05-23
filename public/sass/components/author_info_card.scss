@@ -40,6 +40,7 @@
     
     &-action-box{
         @include displayFlex(center, center);
+        position: relative;
 
         .action-icon-box:not(:last-child){
             margin-right: 4rem;

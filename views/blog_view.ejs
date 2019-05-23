@@ -2,16 +2,8 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
-    <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,700" rel="stylesheet">
-
-    <link rel="icon" href="images/favicon.ico">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <title>Blog View</title>
+    <%- include includes/meta.ejs  %>
+    <title><%= pageTitle %></title>
 </head>
 
 <body>
@@ -24,7 +16,7 @@
             <div class="main-post--left">
 
                 <div class="main-blog-cover">
-                    <img class="main-blog-cover--img" src="./images/state.png" alt="">
+                    <img class="main-blog-cover--img" src="/images/state.png" alt="">
                 </div>
 
                 <h1 class="main-blog--title">
@@ -49,7 +41,7 @@
 
                         <div class="post-user-card--author-info">
 
-                            <img src="images/abir-pp.jpg" alt="profile-picture"
+                            <img src="/images/abir-pp.jpg" alt="profile-picture"
                                 class="post-user-card--author-info--img">
                             <div class="post-user-card--author-info-name-box">
                                 <p class="post-user-card--author-info-name-box--name">
@@ -82,12 +74,12 @@
 
                     <div class="post-user-card-action-box margin-top-small">
                         <div class="action-icon-box">
-                            <img class="action-icon-box--icon" src="images/star.svg" alt="like-btn">
+                            <img class="action-icon-box--icon like-icon" src="/images/star.svg" alt="like-btn">
                             <span class="action-icon-box--count">12</span>
                         </div>
 
                         <div class="action-icon-box">
-                            <img class="action-icon-box--icon" src="images/question.svg" alt="comment-count">
+                            <img class="action-icon-box--icon" src="/images/question.svg" alt="comment-count">
                             <span class="action-icon-box--count">3</span>
                         </div>
                     </div>
@@ -132,6 +124,7 @@
 
     <%- include includes/footer.ejs %>
 
+    <script src="/js/axios.js"></script>
 </body>
 
 </html>
