@@ -37,81 +37,89 @@
 
             <div class="title-create-box">
                 <h1 class="main-content-title">Latest Post</h1>
-                <a class="narrow-solid-button narrow-solid-button-light-dark" href="/">Create Post +</a>
+                <a class="narrow-solid-button narrow-solid-button-light-dark" href="/create-forum-post">Create Post +</a>
             </div>
 
-            <% forumPost.forEach(post => { %>
-                <a href="/forum-post/<%= post.f_post_id %>" class="forum-questions-box--card">
-                    <div class="forum-questions-box--card-left">
-    
-                        <div class="forum-questions-box--card-left-icon-box">
-    
-                            <div class="forum-questions-box--card-left-icon-box--container">
-                                <img src="/images/star.svg" class="forum-questions-box--card-left-icon-box--container--icon">
-                                <img src="/images/question.svg" class="forum-questions-box--card-left-icon-box--container--icon">
-                            </div>
-    
-                            <div class="forum-questions-box--card-left-icon-box-count-box">
-                                <span class="forum-questions-box--card-left-icon-box-count-box--count"><%= post.like_count %></span>
-                                <span class="forum-questions-box--card-left-icon-box-count-box--count"><%= post["forum_answers.ansCount"] %></span>
-                            </div>
-    
-                        </div>
-    
-                        <div class="forum-questions-box--card-left-title-box">
-                            <h2 class="forum-questions-box--card-left-title-box--title">
-                                <%= post.f_post_title %>
-                            </h2>
-                            
-                            <div class="tag-pills-box">
-                                <% post.tags.forEach(tag => { %>
-                                    <span class="tag-pills-box--pills">
-                                        <%= tag %>
-                                    </span>
-                                <% }); %>
+            <% if (forumPost.length === 0) { %>
+                <h1>No posts to show!</h1>
+            <% } else { %>
 
+                <% forumPost.forEach(post => { %>
+                    <a href="/forum-post/<%= post.f_post_id %>" class="forum-questions-box--card">
+                        <div class="forum-questions-box--card-left">
+        
+                            <div class="forum-questions-box--card-left-icon-box">
+        
+                                <div class="forum-questions-box--card-left-icon-box--container">
+                                    <img src="/images/star.svg" class="forum-questions-box--card-left-icon-box--container--icon">
+                                    <img src="/images/question.svg" class="forum-questions-box--card-left-icon-box--container--icon">
+                                </div>
+        
+                                <div class="forum-questions-box--card-left-icon-box-count-box">
+                                    <span class="forum-questions-box--card-left-icon-box-count-box--count"><%= post.like_count %></span>
+                                    <span class="forum-questions-box--card-left-icon-box-count-box--count"><%= post["forum_answers.ansCount"] %></span>
+                                </div>
+        
                             </div>
+        
+                            <div class="forum-questions-box--card-left-title-box">
+                                <h2 class="forum-questions-box--card-left-title-box--title">
+                                    <%= post.f_post_title %>
+                                </h2>
+                                
+                                <div class="tag-pills-box">
+                                    <% post.tags.forEach(tag => { %>
+                                        <span class="tag-pills-box--pills">
+                                            <%= tag %>
+                                        </span>
+                                    <% }); %>
+    
+                                </div>
+                            </div>
+        
                         </div>
-    
-                    </div>
-    
-                    <div class="forum-questions-box--card-author-box">
-                        <p class="forum-questions-box--card-author-box--author">
-                            By <span class="author-link"><%= post["user.user_name"] %></span>
-                        </p>
-                        <p class="forum-questions-box--card-author-box--publish">
-                            On, <%= dateFormat(post.createdAt) %>
-                        </p>
-                    </div>
-                </a>
-            <% }); %>
+        
+                        <div class="forum-questions-box--card-author-box">
+                            <p class="forum-questions-box--card-author-box--author">
+                                By <span class="author-link"><%= post["user.user_name"] %></span>
+                            </p>
+                            <p class="forum-questions-box--card-author-box--publish">
+                                On, <%= dateFormat(post.createdAt) %>
+                            </p>
+                        </div>
+                    </a>
+                <% }); %>
 
-            <div class="common-paginate">
-                <ul class="common-paginate--list">
-                    <li class="common-paginate--list-item active">
-                        <a href="" class="common-paginate--list-item--link active">1</a>
-                    </li>
-                    <li class="common-paginate--list-item">
-                        <a href="" class="common-paginate--list-item--link">2</a>
-                    </li>
-                    <li class="common-paginate--list-item">
-                        <a href="" class="common-paginate--list-item--link">3</a>
-                    </li>
-                    <li class="common-paginate--list-item">
-                        <a href="" class="common-paginate--list-item--link">4</a>
-                    </li>
-                    <li class="common-paginate--list-item">
-                        <a href="" class="common-paginate--list-item--link">
-                            <i class="fas fa-angle-right step-icon"></i>
-                        </a>
-                    </li>
-                    <li class="common-paginate--list-item">
-                        <a href="" class="common-paginate--list-item--link">
-                            Last
-                        </a>
-                    </li>
-                </ul>
-            </div>
+            <% } %>
+
+            <% if (postCount > 20) { %>
+                <div class="common-paginate">
+                    <ul class="common-paginate--list">
+                        <li class="common-paginate--list-item active">
+                            <a href="" class="common-paginate--list-item--link active">1</a>
+                        </li>
+                        <li class="common-paginate--list-item">
+                            <a href="" class="common-paginate--list-item--link">2</a>
+                        </li>
+                        <li class="common-paginate--list-item">
+                            <a href="" class="common-paginate--list-item--link">3</a>
+                        </li>
+                        <li class="common-paginate--list-item">
+                            <a href="" class="common-paginate--list-item--link">4</a>
+                        </li>
+                        <li class="common-paginate--list-item">
+                            <a href="" class="common-paginate--list-item--link">
+                                <i class="fas fa-angle-right step-icon"></i>
+                            </a>
+                        </li>
+                        <li class="common-paginate--list-item">
+                            <a href="" class="common-paginate--list-item--link">
+                                Last
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            <% } %>
 
         </div>
     </main>

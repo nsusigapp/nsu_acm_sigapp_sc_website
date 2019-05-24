@@ -9,7 +9,8 @@ const pageTitle = {
     FORUM: "Forum" + baseTitle,
     FORUM_VIEW: "Forum Post" + baseTitle,
     BLOG: "Blog" + baseTitle,
-    BLOG_VIEW: "Blog Post" + baseTitle
+    BLOG_VIEW: "Blog Post" + baseTitle,
+    CREATE_FORUM: "Create Forum Post" + baseTitle
 }
 
 module.exports = pageTitle;

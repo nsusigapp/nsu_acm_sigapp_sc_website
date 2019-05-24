@@ -13,6 +13,7 @@ const compression = require("compression");
 const bodyParser = require("body-parser");
 
 const userRoutes = require("./routes/user");
+const searchRoutes = require("./routes/search");
 const frontendValidationRoutes = require("./routes/frontendValidation");
 const ajForumRoutes = require("./routes/ajforum"); 
 const authRoutes = require("./routes/auth");
@@ -72,6 +73,8 @@ app.use(userDataMiddleware.fetchProfilePicture);
 app.use(userRoutes.router);
 
 app.use(ajForumRoutes.router);
+
+app.use(searchRoutes.router);
 
 app.use(frontendValidationRoutes.router);
 

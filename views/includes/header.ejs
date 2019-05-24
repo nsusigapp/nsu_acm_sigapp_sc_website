@@ -51,10 +51,11 @@
     <div class="main-nav-bar--btn-box">
 
         <div class="main-nav-bar--btn-box--search-box">
-            <form class="main-nav-bar--btn-box--search-box--form">
-                <input class="main-nav-bar--btn-box--search-box--form-search" placeholder="Search..." />
+            <form action="/search" method="GET" class="main-nav-bar--btn-box--search-box--form">
+                <input class="main-nav-bar--btn-box--search-box--form-search" name="searchKey" placeholder="Search..." />
                 <button type="submit" class="searchButton">
-                    <i class="fa fa-search"></i></button>
+                    <i class="fa fa-search"></i>
+                </button>
             </form>
         </div>
 
@@ -63,7 +64,7 @@
             <div class="main-nav-bar--btn-box--profile-info">
 
                 <a href="#" class="main-nav-bar--btn-box--profile-info--dropdown-link">
-                    <img src="./images/abir-pp.jpg" alt="" 
+                    <img src="/images/abir-pp.jpg" alt="" 
                     class="main-nav-bar--btn-box--profile-info--img">
                     <span class="main-nav-bar--btn-box--profile-info--name"> Hi, Abir!</span>
 

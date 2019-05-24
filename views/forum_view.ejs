@@ -164,10 +164,14 @@
                         } else if (response.data.liked) {
 
                             document.getElementById("likeCount").textContent = response.data.count;
+                            this.src = "/images/star.svg";
+
                             setToast("Post Liked!");
 
                         } else {
                             document.getElementById("likeCount").textContent = response.data.count;
+                            this.src = "/images/star-unlike.svg";
+
                             setToast("Post Unliked!");
                         }
                     })

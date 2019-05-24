@@ -1,6 +1,6 @@
 const { sequelize, Sequelize, users: User,
         tags: Tag, forum_tag: ForumTag, forum: Forum, 
-        forum_answer: ForumAnswer, forum_like_track: ForumLike  } = require("../models/index");
+        forum_answer: ForumAnswer, forum_like_track: ForumLike } = require("../models/index");
 
 const { limitPost, forumLike } = require("../utils/constants");
 
@@ -21,6 +21,8 @@ const fetchForumCategories = (req, res, next) => {
 }
 
 const loadForumDataInit = (req, res, next) => {
+
+    const filter = req.query.tag_name;
 
     Forum.findAll({
         attributes: ["f_post_id", "f_post_title", "like_count", "createdAt"],
@@ -66,15 +68,44 @@ const loadForumDataInit = (req, res, next) => {
             }))
                 .then(mergedPost => {
                     
-                    res.locals.forumPost = mergedPost;
-                    next();
+                    if (!filter) {
+
+                        res.locals.forumPost = mergedPost;
+                        next();
+
+                    } else {
+
+                        const filteredPost = mergedPost.filter(post => {
+
+                            for (let i = 0; i < post.tags.length; i++) {
+
+                                if (post.tags[i] === filter) {
+                                    return post;
+                                }
+                            }
+                        });
+
+                        res.locals.forumPost = filteredPost;
+                        next();
+                    }
 
                 })
                 .catch(err => console.log(err));
     
         })
         .catch(err => console.log(err));
+}
 
+const setupPagintion = (req, res, next) => {
+
+    Forum.count()
+        .then(postCount => {
+
+            res.locals.postCount = postCount;
+            next();
+            
+        })
+        .catch(err => console.log(err));
 }
 
 const getForumById = (req, res, next) => {
@@ -187,6 +218,7 @@ const loadForumReplies = (req, res, next) => {
 module.exports = {
     fetchForumCategories,
     loadForumDataInit,
+    setupPagintion,
     getForumById,
     loadForumReplies
 }
