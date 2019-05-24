@@ -47,12 +47,6 @@ const getBlogViewPage = (req, res, next) => {
     });
 }
 
-const getForumCreate = (req, res, next) => {
-
-    return res.render("create_forum" ,{
-        pageTitle: pageTitle.CREATE_FORUM
-    });
-}
 
 module.exports = {
     getIndexPage,
@@ -60,5 +54,4 @@ module.exports = {
     getForumViewPage,
     getBlogPage,
     getBlogViewPage,
-    getForumCreate
 }

@@ -70,6 +70,11 @@ body {
   font-weight: bold;
   display: inline-block; }
 
+.secondary-title {
+  border-bottom: 1px solid #000;
+  display: inline-block;
+  padding: 0.5rem; }
+
 .margin-gutter-small {
   margin-bottom: 2rem; }
 
@@ -1024,6 +1029,34 @@ body {
   align-items: center;
   margin-bottom: 5rem; }
 
+.create-forum-wrapper {
+  padding: 5rem 20rem; }
+  .create-forum-wrapper input {
+    font-family: "Quicksand", sans-serif; }
+  .create-forum-wrapper--form {
+    margin-top: 3rem; }
+    .create-forum-wrapper--form--label {
+      display: inline-block;
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem; }
+    .create-forum-wrapper--form .input-container-paral {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center; }
+      .create-forum-wrapper--form .input-container-paral--icon {
+        font-size: 2rem;
+        font-weight: 600;
+        padding: 1.07rem;
+        border: 1px solid #B0DB7D; }
+      .create-forum-wrapper--form .input-container-paral--input {
+        background: rgba(153, 153, 153, 0.274);
+        width: 100%;
+        padding: 1.5rem;
+        border: 1px solid #1e90ff;
+        border-left: none;
+        outline: none; }
+
 .main-content-post-view {
   padding: 4rem 2rem; }
 
@@ -1242,3 +1275,31 @@ body {
         padding-top: 1px; }
       .profile-page-wrapper--profile-box--main-bar--tabs--list .hover-tab-item:hover::before {
         transform: scaleX(1); }
+
+.create-forum-wrapper {
+  padding: 5rem 20rem; }
+  .create-forum-wrapper input {
+    font-family: "Quicksand", sans-serif; }
+  .create-forum-wrapper--form {
+    margin-top: 3rem; }
+    .create-forum-wrapper--form--label {
+      display: inline-block;
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem; }
+    .create-forum-wrapper--form .input-container-paral {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center; }
+      .create-forum-wrapper--form .input-container-paral--icon {
+        font-size: 2rem;
+        font-weight: 600;
+        padding: 1.07rem;
+        border: 1px solid #B0DB7D; }
+      .create-forum-wrapper--form .input-container-paral--input {
+        background: rgba(153, 153, 153, 0.274);
+        width: 100%;
+        padding: 1.5rem;
+        border: 1px solid #1e90ff;
+        border-left: none;
+        outline: none; }

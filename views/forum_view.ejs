@@ -98,11 +98,15 @@
                         Answers
                     </h2>
                     <div class="post-reply-box--editor margin-top-small margin-gutter-small">
-
-                        <form action="/" class="clearfix">
-                            <textarea name="" id="answereditor"></textarea>
-                            <input class="post-reply-btn" value="Post Answer" type="submit">
-                        </form>
+                        <% if (userInfo.loggedIn) { %>
+                            <form action="/post-answer" method="POST" class="clearfix">
+                                <textarea name="answer_content" id="answereditor"></textarea>
+                                <input type="hidden" name="postId" value="<%= post.f_post_id %>">
+                                <input class="post-reply-btn" value="Post Answer" type="submit">
+                            </form>
+                        <% } else { %>
+                            <h2 style="color: #374353;">Please Log In To Answer Questions </h2>
+                        <% } %>
 
                     </div>
                     <div class="post-reply-box--reply-container">
@@ -116,7 +120,7 @@
                                     <span class="reply-link">Reply</span>
                                 </div>
                                 <p class="post-content">
-                                    <%= answer.answer_content %>
+                                    <%- answer.answer_content %>
                                 </p>
                             </div>
                         <%  }); %>
