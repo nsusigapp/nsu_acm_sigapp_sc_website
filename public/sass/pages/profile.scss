@@ -77,6 +77,7 @@
 
             &--main-bar{
                 
+                margin-bottom: 1.8rem;
                 &--title{
                     padding: 0.6rem 0rem 0.6rem 3rem;
                     background: #374353;
@@ -124,7 +125,7 @@
                         left: 25%;
                         background: #5C83AA;
                         transform: scaleX(0);
-                        transition: all .3s  ease-in-out 0s;
+                        transition: all .15s  ease-in-out 0s;
                         padding-top: 1px;
                     }
                     
@@ -138,7 +139,48 @@
 
             }
 
+            .profile-page-wrapper--blog-wrapper{
+
+                &--blog{
+                    @include displayFlex(space-between,center);
+                    border-bottom: 1px solid #999;
+                    padding: 1.4rem;
+
+                    &--title{
+
+                        &--link{
+                            text-decoration: none;
+                            color: rgb(34, 33, 33);
+                            font-size: 1.4rem;
+                            font-weight: 400;
+
+                            &:hover{
+                                color: #5C83AA;
+                            }
+                        }
+                    }
+
+                    &--logos{
+                        &--update{
+                            text-decoration: none;
+                            color: #374353;
+                        }
+    
+                        &--delete{
+    
+                        }
+                    }
+
+                }
+            }
+
+            .tabSection{
+                display: none;
+            }
+
         }
+
+
 
 
     }

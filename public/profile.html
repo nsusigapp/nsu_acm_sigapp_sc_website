@@ -139,19 +139,98 @@
 
                     <div class="profile-page-wrapper--profile-box--main-bar--tabs">
                         <ul class="profile-page-wrapper--profile-box--main-bar--tabs--list">
-                            <li onclick="tabSwitch(event)" class="active tab-list--item">Your Post</li>
-                            <li onclick="tabSwitch(event)" class="tab-list--item hover-tab-item">Your Question</li>
-                            <li onclick="tabSwitch(event)" class="tab-list--item hover-tab-item">Settings</li>
+                            <li onclick="tabSwitch(event, 'blogTabSection')" class="active tab-list--item">Your Blogs
+                            </li>
+                            <li onclick="tabSwitch(event, 'quesTabSection')" class="tab-list--item hover-tab-item">Your
+                                Question</li>
+                            <li onclick="tabSwitch(event, 'settingsTabSection')" class="tab-list--item hover-tab-item">
+                                Settings</li>
                         </ul>
                     </div>
 
                 </div>
 
-                <div class="profile-page-wrapper--profile-box--">
+                <div id="blogTabSection" class="profile-page-wrapper--blog-wrapper tabSection">
+                    <div class="profile-page-wrapper--blog-wrapper--blog">
+                        <div class="profile-page-wrapper--blog-wrapper--blog--title">
+                            <a href="/" class="profile-page-wrapper--blog-wrapper--blog--title--link">
+                                <h2>#The state of JavaScript</h2>
+                            </a>
+
+                        </div>
+
+                        <div class="profile-page-wrapper--blog-wrapper--blog--logos">
+
+                            <a href="" class="profile-page-wrapper--blog-wrapper--blog--logos--update">
+                                <i class="fas fa-edit pp-up-icon"></i>
+                            </a>
+
+                            <a href="" class="profile-page-wrapper--blog-wrapper--blog--logos--delete">
+
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div id="quesTabSection" class="profile-page-wrapper--blog-wrapper tabSection">
+                    <div class="profile-page-wrapper--blog-wrapper--blog">
+                        <div class="profile-page-wrapper--blog-wrapper--blog--title">
+                            <a href="/" class="profile-page-wrapper--blog-wrapper--blog--title--link">
+                                <h2>#The state of JavaScript?</h2>
+                            </a>
+
+                        </div>
+
+                        <div class="profile-page-wrapper--blog-wrapper--blog--logos">
+
+                            <a href="" class="profile-page-wrapper--blog-wrapper--blog--logos--update">
+                                <i class="fas fa-edit pp-up-icon"></i>
+                            </a>
+
+                            <a href="" class="profile-page-wrapper--blog-wrapper--blog--logos--delete">
+
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div id="settingsTabSection" class="profile-page-wrapper--setting tabSection">
+
+                    <div class="setting-container">
+                        <div class="setting-card-wrapper">
+                            <h2 class="setting-card-wrapper--title">Change Password</h2>
+    
+                            <form action="" class="setting-card-wrapper--form">
+                                <input class="setting-card-wrapper--form--input" type="text" name="" id=""
+                                    placeholder="Old password">
+                                <input class="setting-card-wrapper--form--input" type="text" placeholder="New Password">
+                                <input class="setting-card-wrapper--form--input" type="text" placeholder="Re-password">
+                                <input class="setting-card-wrapper--form--submit" type="submit" name="" id="">
+                            </form>
+                        </div>
+    
+                        <div class="setting-card-wrapper">
+                            <h2 class="setting-card-wrapper--title">Other Settings</h2>
+    
+                            <form action="" class="setting-card-wrapper--form">
+                                <input class="setting-card-wrapper--form--input" type="text" name="" id=""
+                                    placeholder="Change NSU Email">
+                                <input class="setting-card-wrapper--form--input" type="text" placeholder="Change Alt email">
+                                <input class="setting-card-wrapper--form--input" type="text" placeholder="GitHub Link">
+                                <input class="setting-card-wrapper--form--submit" type="submit" name="" id="">
+                            </form>
+                        </div>
+
+                    </div>
 
                 </div>
 
             </div>
+
+
+
 
         </div>
 
@@ -171,7 +250,7 @@
             <div class="main-footer--secondary-box">
                 <i class="fas fa-server footer-logo"></i>
                 <p>
-                    ~ Developed and Designed by <span class="footer-dev-name">{ Mushfiqur Ranhman Chowdhury }</span>
+                    ~ Developed and Designed by <span class="footer-dev-name">{ Mushfiqur Rahman }</span>
                 </p>
 
             </div>
@@ -179,7 +258,7 @@
             <div class="main-footer--secondary-box">
                 <i class="fas fa-lightbulb footer-logo"></i>
                 <p>
-                     ~ Designed by <span class="footer-dev-name">{ Lubba Saha }</span>
+                    ~ Designed by <span class="footer-dev-name">{ Lubba Saha }</span>
                 </p>
             </div>
         </div>
@@ -187,11 +266,22 @@
     </footer>
 
     <script>
-        
-        const tabList = Array.from(document.querySelectorAll(".profile-page-wrapper"
-                            + "--profile-box--main-bar--tabs--list li"));
 
-        function tabSwitch(event) {
+        document.getElementById("blogTabSection").style.display = "block";
+
+        const tabList = Array.from(document.querySelectorAll(".profile-page-wrapper"
+            + "--profile-box--main-bar--tabs--list li"));
+        const tabSection = Array.from(document.querySelectorAll(".tabSection"));
+
+        function tabSwitch(event, sectionName) {
+
+            tabSection.forEach(tab => {
+                if (tab.style.display === "block") {
+                    tab.style.display = "none";
+                }
+            });
+
+            document.getElementById(sectionName).style.display = "block";
 
             tabList.forEach(tab => {
                 if (tab.classList.contains("active")) {
@@ -200,13 +290,13 @@
                 }
             });
 
-            if(!(event.target.classList.contains("active"))) {
+            if (!(event.target.classList.contains("active"))) {
                 event.target.classList.add("active");
                 event.target.classList.remove("hover-tab-item");
             }
         }
 
-    
+
     </script>
 
 </body>
