@@ -1,0 +1,60 @@
+.profile-page-wrapper--setting{
+
+    .setting-container{
+        @include displayFlex(space-between,flex-start);
+        margin-top: 5rem;
+
+        .setting-card-wrapper:not(:last-child){
+            margin-right: 1.5rem;
+        }
+
+        .setting-card-wrapper{
+
+            flex: 1;
+            box-shadow: 0px 4px 10px rgba($color: #000000, $alpha: 0.25);
+    
+            &--title{
+
+                background: #374353;
+                color: #fff;
+                padding: 0.7rem;
+                font-weight: 400;
+                text-align: center;
+                margin-bottom: 1rem;
+            }
+    
+            &--form{
+                display: flex;
+                flex-direction: column;
+                padding: 1rem;
+
+        
+                &--input{
+                    padding: 1rem;
+                    outline: none;
+                    border: none;
+                    border-bottom: 1px solid #999;
+                    margin-bottom: 1rem;
+                    transition: all 0.1s;
+    
+                    &:focus{
+                        border-bottom: 1px solid #000;
+                    }
+                }
+    
+                &--submit{
+                    padding: 0.6rem;
+                    background: #374353;
+                    color: #fff;
+                    font-size: 2rem;
+                    cursor: pointer;
+                }
+            }
+    
+    
+        }
+    }
+
+
+
+}
