@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include includes/meta.ejs  %>
+    <title><%= pageTitle %></title>
+</head>
+<body>
+    <%- include includes/header.ejs  %>
+
+    <% if (!userExists) { %>
+        <h1 style="color: red;text-align: center; margin: 20rem 0rem;">The user you're looking for does not exists</h1>
+    <% } else { %>
+
+        <main class="profile-page">
+    
+            <div class="profile-page-wrapper">
+    
+                <div class="profile-page-wrapper--side-bar">
+    
+                    <h1 class="profile-page-wrapper--side-bar--profile">
+                        <i class="fas fa-user-circle icon-profile"></i>
+                        Profile
+                    </h1>
+    
+                    <div class="profile-page-wrapper--side-bar--img-box">
+                        <img data-src="<%= user.avatar_url %>" class="profile-page-wrapper--side-bar--img-box--img">
+                        <i class="fas fa-edit pp-up-icon"></i>
+                    </div>
+    
+                    <div class="profile-page-wrapper--side-bar--info">
+                        <ul class="profile-page-wrapper--side-bar--info--list">
+                            <li>Name: <%= user.first_name %> <%= user.last_name %></li>
+                            <li>Username: <span class="user-color"><%= user.user_name %></span></li>
+                            <li>Join Date: <%= dateFormat(user.createdAt) %></li>
+                            <li>Posts: <%= userBlogs.length %></li>
+                            <li>Question Asked: <%= userQues.length %></li>
+                            <li>Forum Reply: <%= ansCount %></li>
+                            <li>Contribution: 02</li>
+                            <li>GitHub: <a href="/" class="github-link">SpaceKnight</a></li>
+                        </ul>
+                    </div>
+    
+    
+                </div>
+    
+                <div class="profile-page-wrapper--profile-box">
+    
+                    <div class="profile-page-wrapper--profile-box--main-bar">
+    
+                        <div class="profile-page-wrapper--profile-box--main-bar--title">
+                            <h1 class="profile-title-text">
+                                <i class="fas fa-user-cog user-cog-color"></i>
+                                <% if (userInfo.loggedIn && userInfo.sessionData.uid === user.u_id) { %>
+                                    Your Profile
+                                <% } else { %>
+                                    <%= user.first_name + 's' %> Profile
+                                <% } %>
+                            </h1>
+                        </div>
+    
+                        <div class="profile-page-wrapper--profile-box--main-bar--tabs">
+                            <ul class="profile-page-wrapper--profile-box--main-bar--tabs--list">
+
+                                <% if (userInfo.loggedIn && userInfo.sessionData.uid === user.u_id) { %>
+                                    <li onclick="tabSwitch(event, 'blogTabSection')" class="active tab-list--item">Your Blogs
+                                    </li>
+                                <% } else { %>
+                                    <li onclick="tabSwitch(event, 'blogTabSection')" class="active tab-list--item"><%= user.first_name + 's' %> Blogs
+                                    </li>
+                                <% } %>
+
+                                <% if (userInfo.loggedIn && userInfo.sessionData.uid === user.u_id) { %>
+                                <li onclick="tabSwitch(event, 'quesTabSection')" class="tab-list--item hover-tab-item">Your
+                                    Question</li>
+                                <% } else { %>
+                                    <li onclick="tabSwitch(event, 'quesTabSection')" class="tab-list--item hover-tab-item"><%= user.first_name + 's' %>
+                                        Question</li>
+                                <% } %>
+
+                                <% if (userInfo.loggedIn && userInfo.sessionData.uid === user.u_id) { %>
+                                    <li onclick="tabSwitch(event, 'settingsTabSection')" class="tab-list--item hover-tab-item">
+                                        Settings</li>
+                                <% } %>
+                            </ul>
+                        </div>
+    
+                    </div>
+    
+                    <div id="blogTabSection" class="profile-page-wrapper--blog-wrapper tabSection">
+                        <% if (userBlogs.length > 0) { %>
+                            <% userBlogs.forEach(blog => { %>
+
+                                <div class="profile-page-wrapper--blog-wrapper--blog">
+                                    <div class="profile-page-wrapper--blog-wrapper--blog--title">
+        
+                                        
+                                        <a href="/blog-post/<%= blog.blog_id %>" class="profile-page-wrapper--blog-wrapper--blog--title--link">
+                                            <h2><%= blog.blog_title %></h2>
+                                        </a>
+            
+                                    </div>
+            
+                                    <div class="profile-page-wrapper--blog-wrapper--blog--logos">
+                                        <a href="" class="profile-page-wrapper--blog-wrapper--blog--logos--update">
+                                            <i class="fas fa-edit pp-up-icon"></i>
+                                        </a>
+            
+                                        <a href="" class="profile-page-wrapper--blog-wrapper--blog--logos--update">
+                                            <i class="fas fa-trash pp-up-icon"></i>
+                                        </a>
+                                    </div>
+                
+                                </div>
+
+                            <% }); %>
+                        <% } %>
+                        
+                    </div>
+    
+                    <div id="quesTabSection" class="profile-page-wrapper--blog-wrapper tabSection">
+                        <% if (userQues.length > 0) { %>
+                            <% userQues.forEach(ques => { %>
+
+                                <div class="profile-page-wrapper--blog-wrapper--blog">
+                                    <div class="profile-page-wrapper--blog-wrapper--blog--title">
+        
+                                        <a href="/forum-post/<%= ques.f_post_id %>" class="profile-page-wrapper--blog-wrapper--blog--title--link">
+                                            <h2><%= ques.f_post_title %></h2>
+                                        </a>
+            
+                                    </div>
+            
+                                    <div class="profile-page-wrapper--blog-wrapper--blog--logos">
+                                        <a href="" class="profile-page-wrapper--blog-wrapper--blog--logos--update">
+                                            <i class="fas fa-edit pp-up-icon"></i>
+                                        </a>
+            
+                                        <a href="" class="profile-page-wrapper--blog-wrapper--blog--logos--update">
+                                            <i class="fas fa-trash pp-up-icon"></i>
+                                        </a>
+                                    </div>
+                
+                                </div>
+
+                            <% }); %>
+                        <% } %>
+                    </div>
+    
+                    <% if (userInfo.loggedIn && userInfo.sessionData.uid === user.u_id) { %>
+                        <div id="settingsTabSection" class="profile-page-wrapper--setting tabSection">
+    
+                        <div class="setting-container">
+                            <div class="setting-card-wrapper">
+                                <h2 class="setting-card-wrapper--title">Change Password</h2>
+        
+                                <form action="" class="setting-card-wrapper--form">
+                                    <input class="setting-card-wrapper--form--input" type="text" name="" id=""
+                                        placeholder="Old password">
+                                    <input class="setting-card-wrapper--form--input" type="text" placeholder="New Password">
+                                    <input class="setting-card-wrapper--form--input" type="text" placeholder="Re-password">
+                                    <input class="setting-card-wrapper--form--submit" type="submit" name="" id="">
+                                </form>
+                            </div>
+        
+                            <div class="setting-card-wrapper">
+                                <h2 class="setting-card-wrapper--title">Other Settings</h2>
+        
+                                <form action="" class="setting-card-wrapper--form">
+                                    <input value="<%= user.avatar_url %>" class="setting-card-wrapper--form--input" type="text" name="avatar_url"
+                                        placeholder="Paste Profile Picture Link">
+                                    <input value="<%= user.alt_email %>" class="setting-card-wrapper--form--input" type="text" placeholder="Change Alt email">
+                                    <input class="setting-card-wrapper--form--input" type="text" placeholder="GitHub Link">
+                                    <input class="setting-card-wrapper--form--submit" type="submit" name="">
+                                </form>
+                            </div>
+    
+                        </div>
+    
+                        </div>
+                    <% } %>
+    
+                </div>
+    
+    
+    
+    
+            </div>
+    
+        </main>
+    <% } %>
+
+    <%- include includes/footer.ejs %>
+    <%- include includes/lazy.ejs %>
+    <script>
+
+        document.getElementById("blogTabSection").style.display = "block";
+
+        const tabList = Array.from(document.querySelectorAll(".profile-page-wrapper"
+            + "--profile-box--main-bar--tabs--list li"));
+        const tabSection = Array.from(document.querySelectorAll(".tabSection"));
+
+        function tabSwitch(event, sectionName) {
+
+            tabSection.forEach(tab => {
+                if (tab.style.display === "block") {
+                    tab.style.display = "none";
+                }
+            });
+
+            document.getElementById(sectionName).style.display = "block";
+
+            tabList.forEach(tab => {
+                if (tab.classList.contains("active")) {
+                    tab.classList.remove("active");
+                    tab.classList.add("hover-tab-item");
+                }
+            });
+
+            if (!(event.target.classList.contains("active"))) {
+                event.target.classList.add("active");
+                event.target.classList.remove("hover-tab-item");
+            }
+        }
+
+
+    </script>
+</body>
+
+</html>

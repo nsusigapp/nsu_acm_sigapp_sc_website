@@ -60,21 +60,32 @@
         </div>
 
         
-        <% if(userInfo.loggedIn){ %>
+        <% if (userInfo.loggedIn) { %>
+
             <div class="main-nav-bar--btn-box--profile-info">
 
-                <a href="#" class="main-nav-bar--btn-box--profile-info--dropdown-link">
+                <a href="#" onclick="openDropdown(event)" class="main-nav-bar--btn-box--profile-info--dropdown-link">
                     <img src="/images/abir-pp.jpg" alt="" 
                     class="main-nav-bar--btn-box--profile-info--img">
                     <span class="main-nav-bar--btn-box--profile-info--name"> Hi, Abir!</span>
 
                     <div class="arrow-down"></div>
 
-                    <div class="main-nav-bar--btn-box--profile-info--dropdown-content">
-                        
+                    <div id="headerDropdownContent" class="main-nav-bar--btn-box--profile-info--dropdown-content">
+                        <ul class="header-dropdown--list">
+                            <li class="header-dropdown--list-item">
+                                <a href="/profile/<%= userInfo.sessionData.uid %>">Profile</a>
+                            </li>
+                            <li class="header-dropdown--list-item">
+                                <form action="/logout" method="POST">
+                                    <input class="dropdown-logout-btn" type="submit" value="LOGOUT">
+                                </form>
+                            </li>
+                        </ul>
                     </div>
                 </a>
             </div>
+
         <% } else { %>
 
             <div class="main-nav-bar--btn-box--btn">
@@ -86,3 +97,24 @@
 
     </div>
 </nav>
+
+<script>
+    
+    let isDrpOpen = false;
+    const dropdownContent = document.getElementById("headerDropdownContent");
+    
+    function openDropdown(event) {
+        event.preventDefault();
+
+        if (!isDrpOpen) {
+            dropdownContent.classList.add("showDropdown");
+            isDrpOpen = true;
+
+        } else {
+            dropdownContent.classList.remove("showDropdown");
+            isDrpOpen = false;
+        }
+    }
+
+
+</script>

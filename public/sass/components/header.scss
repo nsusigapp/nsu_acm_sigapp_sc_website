@@ -155,9 +155,37 @@
                 position: relative;
             }
 
+            .showDropdown{
+                display: block;
+            }
 
             &--dropdown-content{
                 position: absolute;
+                top: 12%;
+                right: 5%;
+                background: #374353;
+                display: none;
+
+                .header-dropdown--list{
+                    list-style-type: none;
+                    
+                    &-item{
+                        padding: 1rem 3rem;
+
+                        a{
+                            color: #fff;
+                        }
+                    }
+                }
+                
+                .dropdown-logout-btn{
+                    font-family: "Quicksand", sans-serif;
+                    font-size: 1.6rem;
+                    color: #fff;
+                    background: transparent;
+                    outline: none;
+                    border: none;
+                }
             }
         }
     }

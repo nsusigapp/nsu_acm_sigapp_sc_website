@@ -220,8 +220,27 @@ body {
         margin-right: 4rem; }
       .main-nav-bar--btn-box--profile-info--dropdown-link {
         position: relative; }
+      .main-nav-bar--btn-box--profile-info .showDropdown {
+        display: block; }
       .main-nav-bar--btn-box--profile-info--dropdown-content {
-        position: absolute; }
+        position: absolute;
+        top: 12%;
+        right: 5%;
+        background: #374353;
+        display: none; }
+        .main-nav-bar--btn-box--profile-info--dropdown-content .header-dropdown--list {
+          list-style-type: none; }
+          .main-nav-bar--btn-box--profile-info--dropdown-content .header-dropdown--list-item {
+            padding: 1rem 3rem; }
+            .main-nav-bar--btn-box--profile-info--dropdown-content .header-dropdown--list-item a {
+              color: #fff; }
+        .main-nav-bar--btn-box--profile-info--dropdown-content .dropdown-logout-btn {
+          font-family: "Quicksand", sans-serif;
+          font-size: 1.6rem;
+          color: #fff;
+          background: transparent;
+          outline: none;
+          border: none; }
 
 .event-header--blue {
   color: #5C83AA;

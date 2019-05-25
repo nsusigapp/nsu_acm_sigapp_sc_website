@@ -45,7 +45,7 @@ const forumPostAnswer = (req, res, next) => {
         })
             .then(response => {
     
-                return res.redirect("/forum-post/1");
+                return res.redirect(`/forum-post/${formData.postId}`);
             })
             .catch(err => console.log(err));
     }

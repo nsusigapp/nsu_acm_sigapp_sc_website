@@ -7,6 +7,9 @@ const getTags = (req, res, next) => {
 
     Tag.findAll({
         attributes: ["tag_name"],
+        order: [
+            ["tag_name", "ASC"]
+        ],
         raw: true
     })
         .then(fetchedTags => {
