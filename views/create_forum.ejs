@@ -3,14 +3,116 @@
 <head>
     <%- include includes/meta.ejs  %>
     <title><%= pageTitle %></title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.0.5/tinymce.min.js"></script>
+    <script>
+        tinymce.init({
+            oninit : "setPlainText",
+            selector: '#queseditor',
+            plugins : 'advlist paste autolink link image lists charmap print preview autoresize codesample',
+            toolbar: 'undo redo | styleselect | bold italic | link image | codesample',
+            image_caption: true,
+            image_description: false,
+            codesample_languages: [
+                {text: 'HTML/XML', value: 'markup'},
+                {text: 'JavaScript', value: 'javascript'},
+                {text: 'CSS', value: 'css'},
+                {text: 'PHP', value: 'php'},
+                {text: 'Ruby', value: 'ruby'},
+                {text: 'Python', value: 'python'},
+                {text: 'Java', value: 'java'},
+                {text: 'C', value: 'c'},
+                {text: 'C#', value: 'csharp'},
+                {text: 'C++', value: 'cpp'}
+            ]
+        });
+    </script>
 </head>
 <body>
     <%- include includes/header.ejs  %>
 
-    
+    <main class="main-content-forum-create">
+
+        <div class="create-forum-wrapper">
+
+            <h2 class="secondary-title">
+                Create New Question
+            </h2>
+
+            <form class="create-forum-wrapper--form" action="">
+                <span class="create-forum-wrapper--form--label">Title</span>
+                <div class="input-container-paral margin-gutter-small">
+                    <img src="./images//icon.svg" class="input-container-paral--icon">
+                    <input placeholder="Question Title" type="text" class="input-container-paral--input">
+                </div>
+
+                <span class="create-forum-wrapper--form--label">Tags</span>
+                <div class="create-forum-wrapper--form-tag-box">
+                    <div class="input-container-paral tag-input">
+                        <img class="input-container-paral--icon" src="./images/icon.svg">
+                        <input placeholder="Question Tags" type="text" class="input-container-paral--input">
+                    </div>
+                    <a id="fetchTags" href="#">Show Available Tags</a>
+                </div>
+
+                <div id="tagsContainer">
+
+                </div>
+
+                <span class="create-forum-wrapper--form--label margin-top-small">Description</span>
+                <div class="question-editor-container">
+                    <textarea name="" id="queseditor"></textarea>
+                </div>
+            </form>
+        </div>
+
+    </main>
 
     <%- include includes/footer.ejs %>
 
+    <script src="/js/axios.js"></script>
+    <script src="/js/prism.js"></script>
+    <script>
+
+        (function() {
+
+            const fetchTagsBtn = document.getElementById("fetchTags");
+            let isTagsShown = false;
+
+            fetchTagsBtn.addEventListener("click", function(event) {
+
+                event.preventDefault();
+
+                const tagsContainer = document.getElementById("tagsContainer");
+
+                if (isTagsShown) {
+
+                    tagsContainer.innerHTML = "";
+                    tagsContainer.classList.remove("margin-top-small");
+                    this.textContent = "Show Available Tags";
+                    isTagsShown = false;
+
+                } else {
+
+                    axios.get("/get-tags")
+                        .then(res => {
+
+                            tagsContainer.innerHTML = "";
+                            isTagsShown = true;
+                            tagsContainer.classList.add("margin-top-small");
+                            this.textContent = "Hide Available Tags";
+
+                            res.data.tagNames.forEach(tag => {
+                                tagsContainer.innerHTML += `<span class="tag-pills-box--pills">${tag}</span>`
+                            });
+
+                        })
+                        .catch(err => console.log(err));
+                }
+            });
+
+        })();
+
+    </script>
 </body>
 
 </html>

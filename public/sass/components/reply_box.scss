@@ -22,6 +22,11 @@
             border-radius: 0.5rem;
             margin-bottom: 3rem;
 
+            img{
+                width: 100%;
+                object-fit: contain;
+            }
+
             .post-content{
                 line-height: 1.5;
             }

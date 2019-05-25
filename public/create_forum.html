@@ -10,17 +10,30 @@
 
     <link rel="icon" href="images/favicon.ico">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/prism.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <title>Forum View</title>
+    <title>Create</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.0.5/tinymce.min.js"></script>
     <script>
         tinymce.init({
-            oninit: "setPlainText",
-            selector: '#answereditor',
-            plugins: 'advlist paste autolink link image lists charmap print preview autoresize',
-            toolbar: 'undo redo | styleselect | bold italic | link image',
+            oninit : "setPlainText",
+            selector: '#queseditor',
+            plugins : 'advlist paste autolink link image lists charmap print preview autoresize codesample',
+            toolbar: 'undo redo | styleselect | bold italic | link image | codesample',
             image_caption: true,
-            image_description: false
+            image_description: false,
+            codesample_languages: [
+                {text: 'HTML/XML', value: 'markup'},
+                {text: 'JavaScript', value: 'javascript'},
+                {text: 'CSS', value: 'css'},
+                {text: 'PHP', value: 'php'},
+                {text: 'Ruby', value: 'ruby'},
+                {text: 'Python', value: 'python'},
+                {text: 'Java', value: 'java'},
+                {text: 'C', value: 'c'},
+                {text: 'C#', value: 'csharp'},
+                {text: 'C++', value: 'cpp'}
+            ]
         });
     </script>
 </head>
@@ -113,14 +126,21 @@
             <form class="create-forum-wrapper--form" action="">
                 <span class="create-forum-wrapper--form--label">Title</span>
                 <div class="input-container-paral margin-gutter-small">
-                    <span class="input-container-paral--icon">T</span>
+                    <img src="./images//icon.svg" class="input-container-paral--icon">
                     <input placeholder="Question Title" type="text" class="input-container-paral--input">
                 </div>
 
                 <span class="create-forum-wrapper--form--label">Tags</span>
-                <div class="input-container-paral">
-                    <span class="input-container-paral--icon">T</span>
-                    <input placeholder="Question Title" type="text" class="input-container-paral--input">
+                <div class="create-forum-wrapper--form-tag-box">
+                    <div class="input-container-paral tag-input">
+                        <img class="input-container-paral--icon" src="./images/icon.svg">
+                        <input placeholder="Question Tags" type="text" class="input-container-paral--input">
+                    </div>
+                    <a href="#">Show All Tags</a>
+                </div>
+                <span class="create-forum-wrapper--form--label margin-top-small">Description</span>
+                <div class="question-editor-container">
+                    <textarea name="" id="queseditor"></textarea>
                 </div>
             </form>
         </div>
@@ -156,6 +176,7 @@
 
     </footer>
 
+    <script src="./js/prism.js"></script>
 </body>
 
 </html>

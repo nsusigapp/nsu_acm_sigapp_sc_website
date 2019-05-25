@@ -9,6 +9,27 @@
     &--form{
         margin-top: 3rem;
 
+        &-tag-box{
+            display: flex;
+            align-items: center;
+
+            .tag-input{
+                flex: 2;
+            }
+
+            a{
+                flex: 1.5;
+                text-decoration: none;
+                margin-left: 1rem;
+                color: black;
+
+                &:hover{
+                    text-decoration: underline;
+                }
+
+            }
+        }
+        
         &--label{
             display: inline-block;
             font-size: 1.8rem;
@@ -20,17 +41,16 @@
             @include displayFlex(flex-start, center);
 
             &--icon{
-                font-size: 2rem;
-                font-weight: 600;
-                padding: 1.07rem;
-                border: 1px solid #B0DB7D;
+                height: 4rem;
+                padding: 1rem 0.5rem;
+                border: 1px solid #00CDB3;
             }
             
             &--input{
                 background: rgba(153, 153, 153, 0.274);
-                width: 100%;
-                padding: 1.5rem;
-                border: 1px solid #1e90ff;
+                flex: 1;
+                padding: 1.1rem;
+                border: 1px solid #57BAE5;
                 border-left: none;
                 outline: none;
             }

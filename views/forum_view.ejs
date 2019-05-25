@@ -8,10 +8,22 @@
         tinymce.init({
             oninit : "setPlainText",
             selector: '#answereditor',
-            plugins : 'advlist paste autolink link image lists charmap print preview autoresize',
-            toolbar: 'undo redo | styleselect | bold italic | link image',
+            plugins : 'advlist paste autolink link image lists charmap print preview autoresize codesample',
+            toolbar: 'undo redo | styleselect | bold italic | link image | codesample',
             image_caption: true,
-            image_description: false
+            image_description: false,
+            codesample_languages: [
+                {text: 'HTML/XML', value: 'markup'},
+                {text: 'JavaScript', value: 'javascript'},
+                {text: 'CSS', value: 'css'},
+                {text: 'PHP', value: 'php'},
+                {text: 'Ruby', value: 'ruby'},
+                {text: 'Python', value: 'python'},
+                {text: 'Java', value: 'java'},
+                {text: 'C', value: 'c'},
+                {text: 'C#', value: 'csharp'},
+                {text: 'C++', value: 'cpp'}
+            ]
         });
     </script>
 </head>
@@ -136,9 +148,25 @@
     <%- include includes/footer.ejs %>
 
     <script src="/js/axios.js"></script>
+    <script src="/js/prism.js"></script>
     <script>
 
         (function () {
+
+            function init() {
+
+                const imgDefer = document.getElementsByTagName("img");
+                for (let i =  0; i < imgDefer.length; i++) {
+                    if (imgDefer[i].getAttribute("data-src")) {
+                        imgDefer[i].setAttribute("src",imgDefer[i].getAttribute("data-src"));
+                    } 
+                }
+            }
+
+            window.addEventListener("DOMContentLoaded", function(event) {
+                init();
+            });
+
 
             function setToast(text) {
 

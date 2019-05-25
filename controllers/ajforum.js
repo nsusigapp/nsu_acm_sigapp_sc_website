@@ -1,7 +1,24 @@
 
 const { forumLike } = require("../utils/constants");
 
-const { forum: Forum, forum_like_track: ForumLike, sequelize } = require("../models/index");
+const { tags: Tag, forum: Forum, forum_like_track: ForumLike, sequelize } = require("../models/index");
+
+const getTags = (req, res, next) => {
+
+    Tag.findAll({
+        attributes: ["tag_name"],
+        raw: true
+    })
+        .then(fetchedTags => {
+            
+            const tagNames = fetchedTags.map(tag => tag.tag_name);
+            return res.json({
+                tagNames
+            });
+        })
+        .catch(err => console.log(err));
+
+}
 
 const postForumLike = (req, res, next) => {
 
@@ -123,5 +140,6 @@ const postForumLike = (req, res, next) => {
 }
 
 module.exports = {
-    postForumLike
+    postForumLike,
+    getTags
 }

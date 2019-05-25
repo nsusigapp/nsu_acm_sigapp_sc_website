@@ -1,6 +1,8 @@
 
 const { forum_answer: ForumAnswer } = require("../models/index");
 
+const pageTitle = require("../utils/pageTitles");
+
 const getForumCreate = (req, res, next) => {
 
     return res.render("create_forum" ,{
@@ -30,6 +32,11 @@ const forumPostAnswer = (req, res, next) => {
         });
 
     } else {
+
+        // setup lazy loading tags
+        if (formData.answer_content.includes("<img src=")) {
+            formData.answer_content = formData.answer_content.replace("<img src=", "<img data-src=");
+        }
 
         ForumAnswer.create({
             forum_p_id: formData.postId,
