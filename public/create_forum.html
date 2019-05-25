@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
+    <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,700" rel="stylesheet">
+
+    <link rel="icon" href="images/favicon.ico">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/prism.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Create</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.0.5/tinymce.min.js"></script>
+    <script>
+        tinymce.init({
+            oninit : "setPlainText",
+            selector: '#queseditor',
+            plugins : 'advlist paste autolink link image lists charmap print preview autoresize codesample',
+            toolbar: 'undo redo | styleselect | bold italic | link image | codesample',
+            image_caption: true,
+            image_description: false,
+            codesample_languages: [
+                {text: 'HTML/XML', value: 'markup'},
+                {text: 'JavaScript', value: 'javascript'},
+                {text: 'CSS', value: 'css'},
+                {text: 'PHP', value: 'php'},
+                {text: 'Ruby', value: 'ruby'},
+                {text: 'Python', value: 'python'},
+                {text: 'Java', value: 'java'},
+                {text: 'C', value: 'c'},
+                {text: 'C#', value: 'csharp'},
+                {text: 'C++', value: 'cpp'}
+            ]
+        });
+    </script>
+</head>
+
+<body>
+    <nav class="main-nav-bar">
+        <div class="main-nav-bar--link-box">
+
+            <div class="main-nav-bar--link-box--logo-box">
+                <a href="/">
+                    <img src="images/hero-logo.png" alt="main-logo" class="main-nav-bar--link-box--logo-box--logo">
+                </a>
+
+            </div>
+
+            <div class="main-nav-bar--link-box--links">
+                <ul class="main-nav-bar--link-box--links-list">
+                    <li class="main-nav-bar--link-box--links-list--item">
+                        <a href="">
+                            <img src="images/house.svg" alt="" class="main-nav-bar--link-box--links-list--item-icon">
+                            <span class="main-nav-bar--link-box--links-list--item-icon-text">
+                                Home
+                            </span>
+                        </a>
+                    </li>
+                    <li class="main-nav-bar--link-box--links-list--item">
+                        <a href="">
+                            <img src="images/content.svg" alt="" class="main-nav-bar--link-box--links-list--item-icon">
+                            <span class="main-nav-bar--link-box--links-list--item-icon-text">
+                                Forum
+                            </span>
+                        </a>
+                    </li>
+                    <li class="main-nav-bar--link-box--links-list--item">
+                        <a href="">
+                            <img src="images/blogger-botton.svg" alt=""
+                                class="main-nav-bar--link-box--links-list--item-icon">
+                            <span class="main-nav-bar--link-box--links-list--item-icon-text">
+                                Blog
+                            </span>
+                        </a>
+                    </li>
+                    <li class="main-nav-bar--link-box--links-list--item">
+                        <a href="">
+                            <img src="images/planning.svg" alt="" class="main-nav-bar--link-box--links-list--item-icon">
+                            <span class="main-nav-bar--link-box--links-list--item-icon-text">
+                                Event
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="main-nav-bar--btn-box">
+
+            <div class="main-nav-bar--btn-box--search-box">
+                <form class="main-nav-bar--btn-box--search-box--form">
+                    <input class="main-nav-bar--btn-box--search-box--form-search" placeholder="Search..." />
+                    <button type="submit" class="searchButton">
+                        <i class="fa fa-search"></i></button>
+                </form>
+
+            </div>
+
+            <div class="main-nav-bar--btn-box--profile-info">
+
+                <a href="" class="main-nav-bar--btn-box--profile-info--box">
+                    <img src="images/abir.jpg" alt="" class="main-nav-bar--btn-box--profile-info--img">
+                    <span class="main-nav-bar--btn-box--profile-info--name"> Hi, Abir!</span>
+                </a>
+
+                <a href="">
+                    <div class="arrow-down"></div>
+                </a>
+            </div>
+
+        </div>
+    </nav>
+
+    <main class="main-content-forum-create">
+
+        <div class="create-forum-wrapper">
+
+            <h2 class="secondary-title">
+                Create New Question
+            </h2>
+
+            <form class="create-forum-wrapper--form" action="">
+                <span class="create-forum-wrapper--form--label">Title</span>
+                <div class="input-container-paral margin-gutter-small">
+                    <img src="./images//icon.svg" class="input-container-paral--icon">
+                    <input placeholder="Question Title" type="text" class="input-container-paral--input">
+                </div>
+
+                <span class="create-forum-wrapper--form--label">Tags</span>
+                <div class="create-forum-wrapper--form-tag-box">
+                    <div class="input-container-paral tag-input">
+                        <img class="input-container-paral--icon" src="./images/icon.svg">
+                        <input placeholder="Question Tags" type="text" class="input-container-paral--input">
+                    </div>
+                    <a href="#">Show All Tags</a>
+                </div>
+                <span class="create-forum-wrapper--form--label margin-top-small">Description</span>
+                <div class="question-editor-container">
+                    <textarea name="" id="queseditor"></textarea>
+                </div>
+            </form>
+        </div>
+
+    </main>
+
+    <footer class="main-footer">
+
+        <div class="main-footer--primary">
+            <div class="main-footer--primary--img-box">
+                <img src="images/acm-logoo.png" alt="" class="acm-logo-img">
+                <img src="images/sigapp.png" alt="" class="sigapp-text-img">
+            </div>
+        </div>
+
+        <div class="main-footer--secondary">
+
+            <div class="main-footer--secondary-box">
+                <i class="fas fa-server footer-logo"></i>
+                <p>
+                    ~ Developed and Designed by <span class="footer-dev-name">{ Mushfiqur Ranhman Chowdhury }</span>
+                </p>
+
+            </div>
+
+            <div class="main-footer--secondary-box">
+                <i class="fas fa-lightbulb footer-logo"></i>
+                <p>
+                    ~ Designed by <span class="footer-dev-name">{ Lubba Saha }</span>
+                </p>
+            </div>
+        </div>
+
+    </footer>
+
+    <script src="./js/prism.js"></script>
+</body>
+
+</html>

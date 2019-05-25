@@ -15,8 +15,6 @@ router.get("/blog", userControllers.getBlogPage);
 
 router.get("/blog-post/:id", userControllers.getBlogViewPage);
 
-router.get("/create-forum-post", userControllers.getForumCreate);
-
 module.exports = {
     router
 }

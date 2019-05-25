@@ -1,0 +1,59 @@
+
+.create-forum-wrapper{
+    padding: 5rem 20rem;
+
+    input{
+        font-family: "Quicksand", sans-serif;
+    }
+
+    &--form{
+        margin-top: 3rem;
+
+        &-tag-box{
+            display: flex;
+            align-items: center;
+
+            .tag-input{
+                flex: 2;
+            }
+
+            a{
+                flex: 1.5;
+                text-decoration: none;
+                margin-left: 1rem;
+                color: black;
+
+                &:hover{
+                    text-decoration: underline;
+                }
+
+            }
+        }
+        
+        &--label{
+            display: inline-block;
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .input-container-paral{
+            @include displayFlex(flex-start, center);
+
+            &--icon{
+                height: 4rem;
+                padding: 1rem 0.5rem;
+                border: 1px solid #00CDB3;
+            }
+            
+            &--input{
+                background: rgba(153, 153, 153, 0.274);
+                flex: 1;
+                padding: 1.1rem;
+                border: 1px solid #57BAE5;
+                border-left: none;
+                outline: none;
+            }
+        }
+    }
+}

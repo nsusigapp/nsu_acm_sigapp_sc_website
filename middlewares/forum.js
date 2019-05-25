@@ -194,6 +194,9 @@ const loadForumReplies = (req, res, next) => {
     ForumAnswer.findAll({
         attributes: ["answer_content", "createdAt"],
         raw: true,
+        order: [
+            ["createdAt", "DESC"]
+        ],
 
         where: {
             forum_p_id: postId
