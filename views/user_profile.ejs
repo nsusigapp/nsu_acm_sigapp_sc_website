@@ -23,8 +23,7 @@
                     </h1>
     
                     <div class="profile-page-wrapper--side-bar--img-box">
-                        <img data-src="<%= user.avatar_url %>" class="profile-page-wrapper--side-bar--img-box--img">
-                        <i class="fas fa-edit pp-up-icon"></i>
+                        <img id="pp-img" data-src="<%= user.avatar_url %>" class="profile-page-wrapper--side-bar--img-box--img">
                     </div>
     
                     <div class="profile-page-wrapper--side-bar--info">
@@ -170,10 +169,10 @@
                                 <h2 class="setting-card-wrapper--title">Other Settings</h2>
         
                                 <form class="setting-card-wrapper--form">
-                                    <input value="<%= user.avatar_url %>" class="setting-card-wrapper--form--input" type="text" name="avatar_url"
+                                    <input id="avatar_url" value="<%= user.avatar_url %>" class="setting-card-wrapper--form--input" type="text" name="avatar_url"
                                         placeholder="Paste Profile Picture Link">
                                     <input id="alt_email" value="<%= user.alt_email %>" class="setting-card-wrapper--form--input" type="text" placeholder="Change Alt email">
-                                    <input name="github_link" class="setting-card-wrapper--form--input" type="text" placeholder="GitHub Link">
+                                    <input id="github_link" value="<%= user.github_link %>" class="setting-card-wrapper--form--input" type="text" placeholder="GitHub Link">
                                     <input id="otherSBtn" class="setting-card-wrapper--form--submit" type="submit" name="">
                                 </form>
                             </div>
@@ -184,9 +183,6 @@
                     <% } %>
     
                 </div>
-    
-    
-    
     
             </div>
     
@@ -234,17 +230,68 @@
         
         (function() {
 
+            const defaultImgLink = "https://images2.imgbox.com/e3/15/J5Vb9HrN_o.jpg";
+
             const otherSBtn = document.getElementById("otherSBtn");
+            const altEmailField = document.getElementById("alt_email");
+            const avatarField = document.getElementById("avatar_url");
+            const ppImg = document.getElementById("pp-img");
+            const githubField = document.getElementById("github_link");
+
+            const checkImageValidity = (url, callback) => {
+    
+                let img = new Image();
+                img.onload = () => callback(true);
+                img.onerror = () => callback(false);
+                img.src = url;
+
+                img = null; // cleanup memory
+            }
+
+            avatarField.addEventListener("input", function (evt) {
+    
+                let imgUrl = this.value;
+
+                checkImageValidity(imgUrl, (exists) => {
+
+                    if (exists) {
+
+                        ppImg.src = imgUrl;
+                        this.style.borderColor = "green";
+                        this.style.boxShadow = "0 0 0 0.2rem rgba(88,214,141,.5)";
+
+                    } else {
+
+                        ppImg.src = defaultImgLink;
+                        this.style.borderColor = "crimson";
+                        this.style.boxShadow = "0 0 0 0.2rem rgba(220,20,60,.5)";
+
+                    }
+                });
+            });
 
             otherSBtn.addEventListener("click", function(event) {
 
                 event.preventDefault();
-
+                
                 axios.post("/other-settings", {
-                    alt_email: document.getElementById("alt_email")
+                    alt_email: altEmailField.value,
+                    avatar_url: avatarField.value,
+                    github_link: githubField.value
                 })
                     .then(res => {
-                        console.log(res.data);
+
+                        if (res.data.notLoggedIn) {
+
+                            console.log("Unauthorized action! Admins will be notified");
+
+                        } else if (res.data.invalidEmail) {
+
+                            altEmailField.value = "Invalid Email";
+
+                        } else if (res.data.success) {
+
+                        }
                     })
                     .catch(err => console.log(err));
             });

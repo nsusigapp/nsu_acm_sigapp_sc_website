@@ -60,6 +60,7 @@ db.sequelize.sync({
                 password: "123456",
                 status: 1,
                 role_id: 1,
+                token: "asdasd2738917289312938123"
             },
             {
                 nsu_id: "1711552643",
@@ -71,6 +72,7 @@ db.sequelize.sync({
                 password: "123456",
                 status: 1,
                 role_id: 1,
+                token: "asdkjh12319283yasdasd"
             }
         ]);
 

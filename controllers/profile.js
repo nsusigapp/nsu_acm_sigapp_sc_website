@@ -9,14 +9,48 @@ const updateSettings = (req, res, next) => {
         alt_email: joi.string().email().required(),
     });
 
-    const isValid = joi.valid(req.body.alt_email, emailVerify);
+    const { alt_email, avatar_url, github_link } = req.body;
+    const { loggedIn } = res.locals.userInfo;
+    const uid = loggedIn ? res.locals.userInfo.sessionData.uid : null;
 
-    if (isValid.error !== null) {
+    if (!loggedIn) {
 
         return res.json({
-            email: false,
+            notLoggedIn: true,
         });
+
+    } else {
+
+        const isValid = joi.validate({ alt_email }, emailVerify);
+
+        if (isValid.error !== null) {
+    
+            return res.json({
+                invalidEmail: true,
+            });
+    
+        } else {
+    
+            User.update({
+                alt_email,
+                avatar_url,
+                github_link
+            }, {
+                where: {
+                    u_id: uid
+                }
+            })
+                .then(updateRes => {
+
+                    return res.json({
+                        success: true
+                    });
+
+                })
+                .catch(err => console.log(err));
+        }
     }
+
 }
 
 module.exports = {

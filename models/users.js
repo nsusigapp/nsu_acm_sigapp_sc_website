@@ -58,6 +58,10 @@ module.exports = function(sequelize, DataTypes) {
 			type: DataTypes.TEXT,
 			allowNull: false
 		},
+		github_link: {
+			type: DataTypes.STRING(255),
+			allowNull: true
+		}
 	}, {
 		tableName: 'users'
 	});
