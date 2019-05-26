@@ -169,12 +169,12 @@
                             <div class="setting-card-wrapper">
                                 <h2 class="setting-card-wrapper--title">Other Settings</h2>
         
-                                <form action="" class="setting-card-wrapper--form">
+                                <form class="setting-card-wrapper--form">
                                     <input value="<%= user.avatar_url %>" class="setting-card-wrapper--form--input" type="text" name="avatar_url"
                                         placeholder="Paste Profile Picture Link">
-                                    <input value="<%= user.alt_email %>" class="setting-card-wrapper--form--input" type="text" placeholder="Change Alt email">
-                                    <input class="setting-card-wrapper--form--input" type="text" placeholder="GitHub Link">
-                                    <input class="setting-card-wrapper--form--submit" type="submit" name="">
+                                    <input id="alt_email" value="<%= user.alt_email %>" class="setting-card-wrapper--form--input" type="text" placeholder="Change Alt email">
+                                    <input name="github_link" class="setting-card-wrapper--form--input" type="text" placeholder="GitHub Link">
+                                    <input id="otherSBtn" class="setting-card-wrapper--form--submit" type="submit" name="">
                                 </form>
                             </div>
     
@@ -229,6 +229,28 @@
 
         </script>
     <% } %>
+    <script src="/js/axios.js"></script>
+    <script>
+        
+        (function() {
+
+            const otherSBtn = document.getElementById("otherSBtn");
+
+            otherSBtn.addEventListener("click", function(event) {
+
+                event.preventDefault();
+
+                axios.post("/other-settings", {
+                    alt_email: document.getElementById("alt_email")
+                })
+                    .then(res => {
+                        console.log(res.data);
+                    })
+                    .catch(err => console.log(err));
+            });
+
+        })();
+    </script>
 </body>
 
 </html>

@@ -15,6 +15,7 @@ const bodyParser = require("body-parser");
 const userRoutes = require("./routes/user");
 const searchRoutes = require("./routes/search");
 const forumPostRoutes = require("./routes/fpost");
+const profileRoutes = require("./routes/profile");
 const frontendValidationRoutes = require("./routes/frontendValidation");
 const ajForumRoutes = require("./routes/ajforum"); 
 const authRoutes = require("./routes/auth");
@@ -72,6 +73,8 @@ app.use(authMiddleWare.isLoggedIn);
 app.use(userDataMiddleware.fetchProfilePicture);
 
 app.use(userRoutes.router);
+
+app.use(profileRoutes.router);
 
 app.use(forumPostRoutes.router);
 

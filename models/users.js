@@ -57,7 +57,7 @@ module.exports = function(sequelize, DataTypes) {
 		token: {
 			type: DataTypes.TEXT,
 			allowNull: false
-		}
+		},
 	}, {
 		tableName: 'users'
 	});

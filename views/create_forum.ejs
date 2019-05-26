@@ -42,7 +42,7 @@
                 <span class="create-forum-wrapper--form--label">Title</span>
                 <div class="input-container-paral margin-gutter-small">
                     <img src="./images//icon.svg" class="input-container-paral--icon">
-                    <input placeholder="Question Title" type="text" class="input-container-paral--input">
+                    <input name="forum_title"laceholder="Question Title" type="text" class="input-container-paral--input">
                 </div>
 
                 <span class="create-forum-wrapper--form--label">Tags</span>
@@ -75,8 +75,22 @@
 
         (function() {
 
+            let fetchedTags = [];
+
             const fetchTagsBtn = document.getElementById("fetchTags");
             let isTagsShown = false;
+
+            function displayTags() {
+
+                tagsContainer.innerHTML = "";
+                isTagsShown = true;
+                tagsContainer.classList.add("margin-top-small");
+                this.textContent = "Hide Available Tags";
+
+                fetchedTags.forEach(tag => {
+                    tagsContainer.innerHTML += `<span class="tag-pills-box--pills">${tag}</span>`
+                });
+            }
 
             fetchTagsBtn.addEventListener("click", function(event) {
 
@@ -93,20 +107,21 @@
 
                 } else {
 
-                    axios.get("/get-tags")
-                        .then(res => {
+                    if (fetchedTags.length === 0) {
 
-                            tagsContainer.innerHTML = "";
-                            isTagsShown = true;
-                            tagsContainer.classList.add("margin-top-small");
-                            this.textContent = "Hide Available Tags";
+                        axios.get("/get-tags")
+                            .then(res => {
+    
+                                fetchedTags = res.data.tagNames;
+    
+                                displayTags();
+                            })
+                            .catch(err => console.log(err));
 
-                            res.data.tagNames.forEach(tag => {
-                                tagsContainer.innerHTML += `<span class="tag-pills-box--pills">${tag}</span>`
-                            });
+                    } else {
+                        displayTags();
+                    }
 
-                        })
-                        .catch(err => console.log(err));
                 }
             });
 
