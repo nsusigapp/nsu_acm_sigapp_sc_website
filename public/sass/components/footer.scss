@@ -32,8 +32,15 @@
             align-items: flex-start;
         }
 
-        &-box:not(:last-child){
+        .dev-one{
             @media only screen and(max-width: 550px){
+                order: 2;
+            }
+        }
+
+        .dev-two{
+            @media only screen and(max-width: 550px){
+                order: 1;
                 margin-bottom: 1.8rem;
             }
         }

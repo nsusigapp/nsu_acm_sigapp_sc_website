@@ -156,12 +156,13 @@
                             <div class="setting-card-wrapper">
                                 <h2 class="setting-card-wrapper--title">Change Password</h2>
         
-                                <form action="" class="setting-card-wrapper--form">
-                                    <input class="setting-card-wrapper--form--input" type="password" name=""
-                                        placeholder="Old password">
-                                    <input class="setting-card-wrapper--form--input" type="password" placeholder="New Password">
-                                    <input class="setting-card-wrapper--form--input" type="password" placeholder="Re-password">
-                                    <input class="setting-card-wrapper--form--submit" type="submit" name="" id="">
+                                <form class="setting-card-wrapper--form">
+                                    <input id="oldPasswdField" class="setting-card-wrapper--form--input" type="password" placeholder="Old password">
+                                    <input id="passwdField" class="setting-card-wrapper--form--input" type="password" placeholder="New Password">
+                                    <input id="rePasswdField" class="setting-card-wrapper--form--input" type="password" placeholder="Re-password">
+                                    <button id="passwdBtn" class="setting-card-wrapper--form--submit" type="submit">
+                                        Submit
+                                    </button>
                                 </form>
                             </div>
         
@@ -173,7 +174,9 @@
                                         placeholder="Paste Profile Picture Link">
                                     <input id="alt_email" value="<%= user.alt_email %>" class="setting-card-wrapper--form--input" type="text" placeholder="Change Alt email">
                                     <input id="github_link" value="<%= user.github_link %>" class="setting-card-wrapper--form--input" type="text" placeholder="GitHub Link">
-                                    <input id="otherSBtn" class="setting-card-wrapper--form--submit" type="submit" name="">
+                                    <button id="otherSBtn" class="setting-card-wrapper--form--submit" type="submit" name="">
+                                        Submit
+                                    </button>
                                 </form>
                             </div>
     
@@ -238,6 +241,11 @@
             const ppImg = document.getElementById("pp-img");
             const githubField = document.getElementById("github_link");
 
+            const oldPasswdField = document.getElementById("oldPasswdField");
+            const passwdField = document.getElementById("passwdField");
+            const rePasswdField = document.getElementById("rePasswdField");
+            const passwdBtn = document.getElementById("passwdBtn");
+
             const checkImageValidity = (url, callback) => {
     
                 let img = new Image();
@@ -248,7 +256,7 @@
                 img = null; // cleanup memory
             }
 
-            avatarField.addEventListener("input", function (evt) {
+            avatarField.addEventListener("input", function(event) {
     
                 let imgUrl = this.value;
 
@@ -274,12 +282,22 @@
 
                 event.preventDefault();
                 
+                this.innerHTML = '<img class="spinner" src="/images/spinner.svg">';
+
                 axios.post("/other-settings", {
                     alt_email: altEmailField.value,
                     avatar_url: avatarField.value,
                     github_link: githubField.value
                 })
                     .then(res => {
+
+                        this.innerHTML = "<span style='color: #B0DB7D;'>Saved! "
+                        + "<i class='fas fa-check-double'></span>";
+                        
+                        // change save msg after 3 seconds
+                        setTimeout(() => {
+                            this.innerHTML = "Submit";
+                        }, 3000);
 
                         if (res.data.notLoggedIn) {
 
@@ -294,6 +312,33 @@
                         }
                     })
                     .catch(err => console.log(err));
+            });
+
+            passwdBtn.addEventListener("click", function(event) {
+
+                event.preventDefault();
+
+                this.innerHTML = '<img class="spinner" src="/images/spinner.svg">';
+
+                axios.post("/change-password", {
+                    old_password: oldPasswdField.value,
+                    new_password: passwdField.value,
+                    re_password: rePasswdField.value
+                })
+                    .then(res => {
+
+                        this.innerHTML = "<span style='color: #B0DB7D;'>Password Changed! "
+                        + "<i class='fas fa-check-double'></span>";
+                        
+                        // change save msg after 3 seconds
+                        setTimeout(() => {
+                            this.innerHTML = "Submit";
+                        }, 3000);
+
+                        console.log(res.data)
+                    })
+                    .catch(err => console.log(err));
+
             });
 
         })();

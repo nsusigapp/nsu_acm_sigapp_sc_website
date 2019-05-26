@@ -747,6 +747,8 @@ body {
         .profile-page-wrapper--setting .setting-container .setting-card-wrapper--form--input:focus {
           border-bottom: 1px solid #000; }
       .profile-page-wrapper--setting .setting-container .setting-card-wrapper--form--submit {
+        font-family: "Quicksand", sans-serif;
+        cursor: pointer;
         box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
         padding: 0.6rem;
         background: #374353;
@@ -756,6 +758,9 @@ body {
         border: none;
         cursor: pointer;
         margin-bottom: 1rem; }
+
+.spinner {
+  height: 2rem; }
 
 .main-footer {
   display: flex;
@@ -784,7 +789,11 @@ body {
         justify-content: flex-start;
         align-items: flex-start; } }
     @media only screen and (max-width: 550px) {
-      .main-footer--secondary-box:not(:last-child) {
+      .main-footer--secondary .dev-one {
+        order: 2; } }
+    @media only screen and (max-width: 550px) {
+      .main-footer--secondary .dev-two {
+        order: 1;
         margin-bottom: 1.8rem; } }
     .main-footer--secondary-box {
       display: flex;
@@ -1128,7 +1137,6 @@ body {
       .create-forum-wrapper--form-tag-box .tag-input {
         flex: 2; }
       .create-forum-wrapper--form-tag-box a {
-        flex: 1.5;
         text-decoration: none;
         margin-left: 1rem;
         color: black; }
@@ -1419,7 +1427,6 @@ body {
       .create-forum-wrapper--form-tag-box .tag-input {
         flex: 2; }
       .create-forum-wrapper--form-tag-box a {
-        flex: 1.5;
         text-decoration: none;
         margin-left: 1rem;
         color: black; }
