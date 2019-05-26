@@ -41,9 +41,8 @@
             &--img-box{
     
                 &--img{
-                    
                     display: block;
-                    height: 12rem;
+                    height: 15rem;
                 }
             }
     
@@ -52,7 +51,7 @@
                 padding: 1rem;
     
                 &--link{
-    
+                    display: block;
                     text-decoration: none;
                     color: black;
     
@@ -71,19 +70,27 @@
                     }
                 }
 
-                .btn-status{
+                .btn-wrapper{
+
                     display: flex;
                     justify-content: flex-end;
-                    background: #434C54;
-                    padding: 0.3rem 0.8rem;
-                    border-radius: 20px;
-                    &--text{
-                        
-                        color: #fff;
-                        &-color{
+
+                    .btn-status{
+
+                        display: inline-block;
+                        background: #434C54;
+                        padding: 0.5rem 0.8rem;
+                        border-radius: 20px;
+
+                        &--text{
+                                            
+                            color: #fff;
+                            &-color{
                             color: #7EAF43;
+                            }
                         }
                     }
+
                 }
             }
         }
