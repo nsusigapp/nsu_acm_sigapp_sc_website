@@ -37,7 +37,9 @@
 
             <div class="title-create-box">
                 <h1 class="main-content-title">Latest Post</h1>
-                <a class="narrow-solid-button narrow-solid-button-light-dark" href="/create-forum-post">Create Post +</a>
+                <% if (userInfo.loggedIn) { %>
+                    <a class="narrow-solid-button narrow-solid-button-light-dark" href="/create-forum-post">Create Post +</a>
+                <% } %>
             </div>
 
             <% if (forumPost.length === 0) { %>

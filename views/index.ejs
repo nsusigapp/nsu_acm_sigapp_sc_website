@@ -64,7 +64,7 @@
                     <div class="event-box margin-gutter-small">
 
                         <div class="event-box-img-container">
-                            <img src="images/event1.png" alt="" class="event-box-img-container--img">
+                            <img data-src="images/event1.png" alt="" class="event-box-img-container--img">
                         </div>
 
                         <div class="event-box--content">
@@ -85,7 +85,7 @@
                     <div class="event-box margin-gutter-small">
 
                         <div class="event-box-img-container">
-                            <img src="images/event2.png" alt="" class="event-box-img-container--img">
+                            <img data-src="images/event2.png" alt="" class="event-box-img-container--img">
                         </div>
 
                         <div class="event-box--content">
@@ -104,7 +104,7 @@
                     <div class="event-box margin-gutter-small">
 
                         <div class="event-box-img-container">
-                            <img src="images/event33.png" alt="" class="event-box-img-container--img">
+                            <img data-src="images/event33.png" alt="" class="event-box-img-container--img">
                         </div>
 
                         <div class="event-box--content">
@@ -131,7 +131,7 @@
 
             <div class="faculty-advisor-box">
                 <a href="" class="faculty-advisor-box--card floating-rounded--card">
-                    <img src="images/presentation.svg" alt="" class="floating-rounded--card--img">
+                    <img data-src="images/presentation.svg" alt="" class="floating-rounded--card--img">
                     <h2 class="margin-top-small">Message From Advisor</h2>
                 </a>
             </div>
@@ -146,7 +146,7 @@
             <div class="home-officer--box">
                 
                 <div class="home-officer--box--img-box">
-                    <img src="images/abir.jpg" alt="" class="home-officer--box--img-box--img">
+                    <img data-src="images/abir.jpg" alt="" class="home-officer--box--img-box--img">
                 </div>
 
                 <div class="home-officer--box--info">
@@ -182,7 +182,7 @@
                 </div>
 
                 <div class="home-officer--box--img-box">
-                    <img src="images/abir.jpg" alt="" class="home-officer--box--img-box--img">
+                    <img data-src="images/abir.jpg" alt="" class="home-officer--box--img-box--img">
                 </div>
 
 
@@ -190,7 +190,7 @@
 
             <div class="home-officer--box">
                 <div class="home-officer--box--img-box">
-                    <img src="images/abir.jpg" alt="" class="home-officer--box--img-box--img">
+                    <img data-src="images/abir.jpg" alt="" class="home-officer--box--img-box--img">
                 </div>
 
                 <div class="home-officer--box--info">
@@ -226,7 +226,7 @@
                 </div>
 
                 <div class="home-officer--box--img-box">
-                    <img src="images/abir.jpg" alt="" class="home-officer--box--img-box--img">
+                    <img data-src="images/abir.jpg" alt="" class="home-officer--box--img-box--img">
                 </div>
 
 
@@ -244,15 +244,15 @@
             <div class="neighbourhood--box">
 
                 <a href="" class="floating-rounded--card">
-                    <img src="images/acm-logo.jpg" alt="" class="floating-rounded--card--img">
+                    <img data-src="images/acm-logo.jpg" alt="" class="floating-rounded--card--img">
                 </a>
 
                 <a href="" class="floating-rounded--card">
-                    <img src="images/acm-w-logo.png" alt="" class="floating-rounded--card--img">
+                    <img data-src="images/acm-w-logo.png" alt="" class="floating-rounded--card--img">
                 </a>
 
                 <a href="" class="floating-rounded--card">
-                    <img src="images/sigbed-logo.png" alt="" class="floating-rounded--card--img">
+                    <img data-src="images/sigbed-logo.png" alt="" class="floating-rounded--card--img">
                 </a>
             </div>
         </div>
@@ -269,13 +269,7 @@
     </main>
 
     <%- include includes/footer.ejs %>
-
-
-    <% if(userInfo.loggedIn){ %>
-        <form action="/logout" method="POST">
-            <button type="submit">LogOut</button>
-        </form>
-    <% } %>
+    <%- include includes/lazy.ejs %>
 
 </body>
 </html>

@@ -53,12 +53,12 @@
     
                         <div class="post-user-card--author-info">
     
-                            <img src="/images/abir.jpg" alt="profile-picture" class="post-user-card--author-info--img">
+                            <img data-src="<%= post['user.avatar_url'] %>" alt="profile-picture" class="post-user-card--author-info--img">
                             <div class="post-user-card--author-info-name-box">
                                 <p class="post-user-card--author-info-name-box--name">
                                     <%= post["user.first_name"] %> <%= post["user.last_name"] %>
                                 </p>
-                                <a href="/" class="post-user-card--author-info-name-box--user-name">
+                                <a href="/profile/<%= post['user.u_id'] %>" class="post-user-card--author-info-name-box--user-name">
                                     @<%= post["user.user_name"] %>
                                 </a>
                             </div>
@@ -84,12 +84,12 @@
                     <% if (userInfo.loggedIn) { %>
                         <div class="post-user-card-action-box margin-top-small">
                             <div class="action-icon-box">
-                                <img id="likeBtn" class="action-icon-box--icon like-icon" src="<%= isLiked ? '/images/star.svg' : '/images/star-unlike.svg' %>" alt="like-btn">
+                                <img id="likeBtn" class="action-icon-box--icon like-icon" data-src="<%= isLiked ? '/images/star.svg' : '/images/star-unlike.svg' %>" alt="like-btn">
                                 <span id="likeCount" class="action-icon-box--count"><%= post.like_count %></span>
                             </div>
 
                             <div class="action-icon-box">
-                                <img class="action-icon-box--icon" src="/images/question.svg" alt="comment-count">
+                                <img class="action-icon-box--icon" data-src="/images/question.svg" alt="comment-count">
                                 <span class="action-icon-box--count"><%= answers.length %></span>
                             </div>
 
@@ -149,24 +149,10 @@
 
     <script src="/js/axios.js"></script>
     <script src="/js/prism.js"></script>
+    <%- include includes/lazy.ejs %>
     <script>
 
         (function () {
-
-            function init() {
-
-                const imgDefer = document.getElementsByTagName("img");
-                for (let i =  0; i < imgDefer.length; i++) {
-                    if (imgDefer[i].getAttribute("data-src")) {
-                        imgDefer[i].setAttribute("src",imgDefer[i].getAttribute("data-src"));
-                    } 
-                }
-            }
-
-            window.addEventListener("DOMContentLoaded", function(event) {
-                init();
-            });
-
 
             function setToast(text) {
 

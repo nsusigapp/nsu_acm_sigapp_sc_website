@@ -47,6 +47,13 @@ const getBlogViewPage = (req, res, next) => {
     });
 }
 
+const getUserProfilePage = (req, res, next) => {
+
+    return res.render("user_profile", {
+        pageTitle: pageTitle.PROFILE,
+        dateFormat
+    });
+}
 
 module.exports = {
     getIndexPage,
@@ -54,4 +61,5 @@ module.exports = {
     getForumViewPage,
     getBlogPage,
     getBlogViewPage,
+    getUserProfilePage
 }

@@ -30,6 +30,9 @@ const loadForumDataInit = (req, res, next) => {
         subQuery: false,
         raw: true,
         group: ['forum.f_post_title'],
+        order: [
+            ["createdAt", "DESC"]
+        ],
     
         include: [{
             attributes: ["user_name"],
@@ -39,7 +42,7 @@ const loadForumDataInit = (req, res, next) => {
         }, {
             attributes: [[Sequelize.fn("COUNT", Sequelize.col("forum_answers.answer_id")), "ansCount"]],
             model: ForumAnswer,
-            required: true,
+            // required: true,
         }]
     })
         .then(fetchedPost => {
@@ -71,6 +74,7 @@ const loadForumDataInit = (req, res, next) => {
                     if (!filter) {
 
                         res.locals.forumPost = mergedPost;
+                        console.log(mergedPost);
                         next();
 
                     } else {
@@ -123,7 +127,7 @@ const getForumById = (req, res, next) => {
             },
         
             include: [{
-                attributes: ["user_name","first_name","last_name"],
+                attributes: ["u_id", "user_name","first_name","last_name","avatar_url"],
                 model: User,
                 required: true,
             }]
