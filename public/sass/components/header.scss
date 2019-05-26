@@ -53,6 +53,13 @@
                         font-size: 1.8rem;
                     }
 
+                    .link-icon{
+                        margin-left: 1.4rem;
+                        color: #374353;
+                        font-size: 2rem;
+
+                    }
+
                 }
 
             }
@@ -191,3 +198,37 @@
     }
 
 }
+
+.extra-drpdown-btn{
+    position: relative;
+
+    .extra-drpdown-content{
+        display: none;
+        position: absolute;
+
+        &-list{
+            list-style-type: none;
+            background: #D5DEEA;
+            
+            a:not(:last-child){
+                border-bottom: 0.8px solid #fff;
+            }
+
+            a{
+                padding: 1rem 3rem;
+                
+                &:hover{
+                    background: #647994;
+                    color: #fff;
+                }
+
+               
+            }
+        }
+    }
+
+    &:hover .extra-drpdown-content{
+        display: block;
+    }
+}
+
