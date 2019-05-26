@@ -8,7 +8,7 @@
 
             flex: 1;
             background: #D5DEEA;
-            margin-top: 0.2rem;
+            margin-top: 0.4rem;
             padding: 1.8rem;
 
             &--profile{
@@ -99,39 +99,39 @@
                     @include displayFlex(space-around,center);
                     list-style-type: none;
 
-                    .active{
-                        background: #D5DEEA;
-                        font-weight: 600;
-                        border-bottom: 2px solid #5C83AA;
-                    }
+                        .active{
+                            background: #D5DEEA;
+                            font-weight: 600;
+                            border-bottom: 2px solid #5C83AA;
+                        }
 
-                    .tab-list--item{
+                        .tab-list--item{
 
-                        flex: 1;
-                        @include displayFlex(space-around,center);
-                        padding: 0.8rem;
-                        color: #5C83AA;
-                        cursor: pointer;
-                        transition: all .1s;
-                        position: relative;
-                    }
+                            flex: 1;
+                            @include displayFlex(space-around,center);
+                            padding: 0.8rem;
+                            color: #5C83AA;
+                            cursor: pointer;
+                            transition: all .1s;
+                            position: relative;
+                        }
 
-                    .hover-tab-item::before{
-                        content: "";
-                        position: absolute;
-                        width: 50%;
-                        height: 1px;
-                        bottom: 0;
-                        left: 25%;
-                        background: #5C83AA;
-                        transform: scaleX(0);
-                        transition: all .15s  ease-in-out 0s;
-                        padding-top: 1px;
-                    }
+                        .hover-tab-item::before{
+                            content: "";
+                            position: absolute;
+                            width: 50%;
+                            height: 1px;
+                            bottom: 0;
+                            left: 25%;
+                            background: #5C83AA;
+                            transform: scaleX(0);
+                            transition: all .15s  ease-in-out 0s;
+                            padding-top: 1px;
+                        }
                     
-                    .hover-tab-item:hover::before{
-                        transform: scaleX(1);
-                    }
+                        .hover-tab-item:hover::before{
+                            transform: scaleX(1);
+                        }
 
                     }
 
@@ -177,13 +177,6 @@
             .tabSection{
                 display: none;
             }
-
         }
-
-
-
-
     }
-
-
 }

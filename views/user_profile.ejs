@@ -8,7 +8,7 @@
     <%- include includes/header.ejs  %>
 
     <% if (!userExists) { %>
-        <h1 style="color: red;text-align: center; margin: 20rem 0rem;">The user you're looking for does not exists</h1>
+        <h1 style="color: crimson;text-align: center; margin: 20rem 0rem;">The user you're looking for does not exists</h1>
     <% } else { %>
 
         <main class="profile-page">
@@ -113,6 +113,8 @@
                                 </div>
 
                             <% }); %>
+                        <% } else { %>
+                            <h3 style="text-align: center;">Nothing to see here</h3>
                         <% } %>
                         
                     </div>
@@ -143,6 +145,8 @@
                                 </div>
 
                             <% }); %>
+                        <% } else { %>
+                            <h3 style="text-align: center;">Nothing to see here</h3>
                         <% } %>
                     </div>
     
@@ -154,10 +158,10 @@
                                 <h2 class="setting-card-wrapper--title">Change Password</h2>
         
                                 <form action="" class="setting-card-wrapper--form">
-                                    <input class="setting-card-wrapper--form--input" type="text" name="" id=""
+                                    <input class="setting-card-wrapper--form--input" type="password" name=""
                                         placeholder="Old password">
-                                    <input class="setting-card-wrapper--form--input" type="text" placeholder="New Password">
-                                    <input class="setting-card-wrapper--form--input" type="text" placeholder="Re-password">
+                                    <input class="setting-card-wrapper--form--input" type="password" placeholder="New Password">
+                                    <input class="setting-card-wrapper--form--input" type="password" placeholder="Re-password">
                                     <input class="setting-card-wrapper--form--submit" type="submit" name="" id="">
                                 </form>
                             </div>
@@ -191,39 +195,40 @@
 
     <%- include includes/footer.ejs %>
     <%- include includes/lazy.ejs %>
-    <script>
+    <% if (userExists) { %>
+        <script>
 
-        document.getElementById("blogTabSection").style.display = "block";
+            document.getElementById("blogTabSection").style.display = "block";
 
-        const tabList = Array.from(document.querySelectorAll(".profile-page-wrapper"
-            + "--profile-box--main-bar--tabs--list li"));
-        const tabSection = Array.from(document.querySelectorAll(".tabSection"));
+            const tabList = Array.from(document.querySelectorAll(".profile-page-wrapper"
+                + "--profile-box--main-bar--tabs--list li"));
+            const tabSection = Array.from(document.querySelectorAll(".tabSection"));
 
-        function tabSwitch(event, sectionName) {
+            function tabSwitch(event, sectionName) {
 
-            tabSection.forEach(tab => {
-                if (tab.style.display === "block") {
-                    tab.style.display = "none";
+                tabSection.forEach(tab => {
+                    if (tab.style.display === "block") {
+                        tab.style.display = "none";
+                    }
+                });
+
+                document.getElementById(sectionName).style.display = "block";
+
+                tabList.forEach(tab => {
+                    if (tab.classList.contains("active")) {
+                        tab.classList.remove("active");
+                        tab.classList.add("hover-tab-item");
+                    }
+                });
+
+                if (!(event.target.classList.contains("active"))) {
+                    event.target.classList.add("active");
+                    event.target.classList.remove("hover-tab-item");
                 }
-            });
-
-            document.getElementById(sectionName).style.display = "block";
-
-            tabList.forEach(tab => {
-                if (tab.classList.contains("active")) {
-                    tab.classList.remove("active");
-                    tab.classList.add("hover-tab-item");
-                }
-            });
-
-            if (!(event.target.classList.contains("active"))) {
-                event.target.classList.add("active");
-                event.target.classList.remove("hover-tab-item");
             }
-        }
 
-
-    </script>
+        </script>
+    <% } %>
 </body>
 
 </html>

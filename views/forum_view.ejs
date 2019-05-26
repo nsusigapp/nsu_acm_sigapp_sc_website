@@ -32,116 +32,122 @@
 
     <main class="main-content-post-view">
 
-        <div class="main-post-content-wrapper">
+        <% if (!postExists) { %>
+            <h1 style="color: crimson;text-align: center; margin: 20rem 0rem;">The post you're looking for does not exist!</h1>
+        <% } else { %>
 
-            <div class="main-post--left">
-                <h1 class="main-post--title">
-                    # <%= post.f_post_title %>
-                </h1>
-
-                <div class="main-post--content margin-top-small">
-                    <p class="main-post--content--paragraph">
-                        <%= post.f_post_description %>
-                    </p>
-                </div>
-            </div>
-
-            <div class="main-post--right">
-                <div class="post-user-card">
-
-                    <div class="post-user-card--author">
+            <div class="main-post-content-wrapper">
     
-                        <div class="post-user-card--author-info">
+                <div class="main-post--left">
+                    <h1 class="main-post--title">
+                        # <%= post.f_post_title %>
+                    </h1>
     
-                            <img data-src="<%= post['user.avatar_url'] %>" alt="profile-picture" class="post-user-card--author-info--img">
-                            <div class="post-user-card--author-info-name-box">
-                                <p class="post-user-card--author-info-name-box--name">
-                                    <%= post["user.first_name"] %> <%= post["user.last_name"] %>
-                                </p>
-                                <a href="/profile/<%= post['user.u_id'] %>" class="post-user-card--author-info-name-box--user-name">
-                                    @<%= post["user.user_name"] %>
-                                </a>
-                            </div>
-
-                        </div>
-
-                        <p class="post-user-card--author-publish-date margin-top-small margin-gutter-small">
-                            Posted On, <%= dateFormat(post.createdAt) %>
+                    <div class="main-post--content margin-top-small">
+                        <p class="main-post--content--paragraph">
+                            <%= post.f_post_description %>
                         </p>
-
-                        <h4 class="secondary-small-title">Categories</h4>
-
-                        <div class="tag-pills-box margin-gutter-small">
-
-                            <% tags.forEach(tag => { %>
-                                <span class="tag-pills-box--pills">
-                                    <%= tag %>
-                                </span>
-                            <% }); %>
-                        </div>
                     </div>
-                    
-                    <% if (userInfo.loggedIn) { %>
-                        <div class="post-user-card-action-box margin-top-small">
-                            <div class="action-icon-box">
-                                <img id="likeBtn" class="action-icon-box--icon like-icon" data-src="<%= isLiked ? '/images/star.svg' : '/images/star-unlike.svg' %>" alt="like-btn">
-                                <span id="likeCount" class="action-icon-box--count"><%= post.like_count %></span>
-                            </div>
-
-                            <div class="action-icon-box">
-                                <img class="action-icon-box--icon" data-src="/images/question.svg" alt="comment-count">
-                                <span class="action-icon-box--count"><%= answers.length %></span>
-                            </div>
-
-                            <div id="toast" class="toast">
-                                <span id="toastText"></span>
-                            </div>
-                        </div>
-                    <% } %>
                 </div>
-            </div>
-
-        </div>
-
-        <div class="answer-wrapper margin-top-medium">
-            <div class="main-post--answer-box">
-                <div class="post-reply-box">
-                    <h2 class="post-reply-box--title">
-                        Answers
-                    </h2>
-                    <div class="post-reply-box--editor margin-top-small margin-gutter-small">
-                        <% if (userInfo.loggedIn) { %>
-                            <form action="/post-answer" method="POST" class="clearfix">
-                                <textarea name="answer_content" id="answereditor"></textarea>
-                                <input type="hidden" name="postId" value="<%= post.f_post_id %>">
-                                <input class="post-reply-btn" value="Post Answer" type="submit">
-                            </form>
-                        <% } else { %>
-                            <h2 style="color: #374353;">Please Log In To Answer Questions </h2>
-                        <% } %>
-
-                    </div>
-                    <div class="post-reply-box--reply-container">
     
-                        <% answers.forEach(answer => { %>
-                            <div class="post-reply-box--reply-container--reply">
-                                <div class="post-reply-box--reply-container--reply-username">
-                                    <a href="/" class="reply-author-link">
-                                        @<%= answer["user.user_name"]  %> - <%= dateFormat(answer.createdAt) %>
+                <div class="main-post--right">
+                    <div class="post-user-card">
+    
+                        <div class="post-user-card--author">
+        
+                            <div class="post-user-card--author-info">
+        
+                                <img data-src="<%= post['user.avatar_url'] %>" alt="profile-picture" class="post-user-card--author-info--img">
+                                <div class="post-user-card--author-info-name-box">
+                                    <p class="post-user-card--author-info-name-box--name">
+                                        <%= post["user.first_name"] %> <%= post["user.last_name"] %>
+                                    </p>
+                                    <a href="/profile/<%= post['user.u_id'] %>" class="post-user-card--author-info-name-box--user-name">
+                                        @<%= post["user.user_name"] %>
                                     </a>
-                                    <span class="reply-link">Reply</span>
                                 </div>
-                                <p class="post-content">
-                                    <%- answer.answer_content %>
-                                </p>
-                            </div>
-                        <%  }); %>
     
+                            </div>
+    
+                            <p class="post-user-card--author-publish-date margin-top-small margin-gutter-small">
+                                Posted On, <%= dateFormat(post.createdAt) %>
+                            </p>
+    
+                            <h4 class="secondary-small-title">Categories</h4>
+    
+                            <div class="tag-pills-box margin-gutter-small">
+    
+                                <% tags.forEach(tag => { %>
+                                    <span class="tag-pills-box--pills">
+                                        <%= tag %>
+                                    </span>
+                                <% }); %>
+                            </div>
+                        </div>
+                        
+                        <% if (userInfo.loggedIn) { %>
+                            <div class="post-user-card-action-box margin-top-small">
+                                <div class="action-icon-box">
+                                    <img id="likeBtn" class="action-icon-box--icon like-icon" data-src="<%= isLiked ? '/images/star.svg' : '/images/star-unlike.svg' %>" alt="like-btn">
+                                    <span id="likeCount" class="action-icon-box--count"><%= post.like_count %></span>
+                                </div>
+    
+                                <div class="action-icon-box">
+                                    <img class="action-icon-box--icon" data-src="/images/question.svg" alt="comment-count">
+                                    <span class="action-icon-box--count"><%= answers.length %></span>
+                                </div>
+    
+                                <div id="toast" class="toast">
+                                    <span id="toastText"></span>
+                                </div>
+                            </div>
+                        <% } %>
                     </div>
                 </div>
+    
             </div>
-            <div style="flex: 1;"></div>
-        </div>
+    
+            <div class="answer-wrapper margin-top-medium">
+                <div class="main-post--answer-box">
+                    <div class="post-reply-box">
+                        <h2 class="post-reply-box--title">
+                            Answers
+                        </h2>
+                        <div class="post-reply-box--editor margin-top-small margin-gutter-small">
+                            <% if (userInfo.loggedIn) { %>
+                                <form action="/post-answer" method="POST" class="clearfix">
+                                    <textarea name="answer_content" id="answereditor"></textarea>
+                                    <input type="hidden" name="postId" value="<%= post.f_post_id %>">
+                                    <input class="post-reply-btn" value="Post Answer" type="submit">
+                                </form>
+                            <% } else { %>
+                                <h2 style="color: #374353;">Please Log In To Answer Questions </h2>
+                            <% } %>
+    
+                        </div>
+                        <div class="post-reply-box--reply-container">
+        
+                            <% answers.forEach(answer => { %>
+                                <div class="post-reply-box--reply-container--reply">
+                                    <div class="post-reply-box--reply-container--reply-username">
+                                        <a href="/" class="reply-author-link">
+                                            @<%= answer["user.user_name"]  %> - <%= dateFormat(answer.createdAt) %>
+                                        </a>
+                                        <span class="reply-link">Reply</span>
+                                    </div>
+                                    <p class="post-content">
+                                        <%- answer.answer_content %>
+                                    </p>
+                                </div>
+                            <%  }); %>
+        
+                        </div>
+                    </div>
+                </div>
+                <div style="flex: 1;"></div>
+            </div>
+
+        <% } %>
 
     </main>
 
@@ -150,55 +156,57 @@
     <script src="/js/axios.js"></script>
     <script src="/js/prism.js"></script>
     <%- include includes/lazy.ejs %>
-    <script>
+    <% if (postExists) { %>
+        <script>
 
-        (function () {
+            (function () {
 
-            function setToast(text) {
+                function setToast(text) {
 
-                const toast = document.getElementById("toast");
+                    const toast = document.getElementById("toast");
 
-                toast.style.display = "block";
-                toast.firstElementChild.textContent = text;
+                    toast.style.display = "block";
+                    toast.firstElementChild.textContent = text;
 
-                setTimeout(() => {
-                    toast.style.display = "none";
-                }, 3000);
-            }
+                    setTimeout(() => {
+                        toast.style.display = "none";
+                    }, 3000);
+                }
 
-            const likeBtn = document.getElementById("likeBtn");
+                const likeBtn = document.getElementById("likeBtn");
 
-            likeBtn.addEventListener("click", function () {
+                likeBtn.addEventListener("click", function () {
 
-                axios.post("/like-forum-post", {
-                    postid: <%= post.f_post_id %>, // this is not an error, It's ejs in JS; That's why showing error
-                })
-                    .then(response => {
-
-                        if (!(response.data.loggedIn)) {
-
-                            setToast("Not Logged In");
-
-                        } else if (response.data.liked) {
-
-                            document.getElementById("likeCount").textContent = response.data.count;
-                            this.src = "/images/star.svg";
-
-                            setToast("Post Liked!");
-
-                        } else {
-                            document.getElementById("likeCount").textContent = response.data.count;
-                            this.src = "/images/star-unlike.svg";
-
-                            setToast("Post Unliked!");
-                        }
+                    axios.post("/like-forum-post", {
+                        postid: <%= post.f_post_id %>, // this is not an error, It's ejs in JS; That's why showing error
                     })
-                    .catch(err => console.log(err));
-            });
+                        .then(response => {
 
-        })();
+                            if (!(response.data.loggedIn)) {
 
-    </script>
+                                setToast("Not Logged In");
+
+                            } else if (response.data.liked) {
+
+                                document.getElementById("likeCount").textContent = response.data.count;
+                                this.src = "/images/star.svg";
+
+                                setToast("Post Liked!");
+
+                            } else {
+                                document.getElementById("likeCount").textContent = response.data.count;
+                                this.src = "/images/star-unlike.svg";
+
+                                setToast("Post Unliked!");
+                            }
+                        })
+                        .catch(err => console.log(err));
+                });
+
+            })();
+
+        </script>
+    <% } %>
 </body>
 
 </html>

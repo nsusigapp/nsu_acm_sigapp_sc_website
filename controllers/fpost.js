@@ -52,7 +52,6 @@ const forumPostAnswer = (req, res, next) => {
 
 }
 
-
 module.exports = {
     createPost,
     deletePostById,

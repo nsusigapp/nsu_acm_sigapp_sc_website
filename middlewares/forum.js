@@ -114,7 +114,7 @@ const setupPagintion = (req, res, next) => {
 
 const getForumById = (req, res, next) => {
 
-    const postId = parseInt(req.params.id);
+    const postId = req.params.id;
 
     sequelize.transaction(function(t) {
 
@@ -134,57 +134,67 @@ const getForumById = (req, res, next) => {
         }, { transaction: t })
             .then(fetchedPost => {
 
-                res.locals.post = fetchedPost;
-                res.locals.post.f_post_id = postId;
-                
-                return ForumTag.findAll({
-                    attributes: [],
-                    raw: true,
+                if (fetchedPost === null) {
 
-                    where: {
-                        f_post_id: postId
-                    },
+                    res.locals.postExists = false;
+                    next();
 
-                    include: [{
-                        attributes: ["tag_name"],
-                        model: Tag,
-                        required: true,
-                    }]
-                }, { transaction: t })
-                    .then(fetchedTags => {
+                } else {
 
-                        res.locals.tags = fetchedTags.map(fetchedTag => fetchedTag["tag.tag_name"]);
-
-                        const { loggedIn } = res.locals.userInfo;
-                        const uid = loggedIn ? res.locals.userInfo.sessionData.uid : null;
-
-                        return ForumLike.findOne({
-                            attributes: ["action"],
-                            raw: true,
-                            where: {
-                                user_id: uid,
-                                forum_id: postId
-                            }
-                        }, { transaction: t })
-                            .then(likeStatus => {
-
-                                if (likeStatus === null) {
-
-                                    res.locals.isLiked = false;
-                                    next();
-
-                                } else if (likeStatus.action === forumLike.LIKE) {
-
-                                    res.locals.isLiked = true;
-                                    next();
-
-                                } else if (likeStatus.action === forumLike.UNLIKE) {
-
-                                    res.locals.isLiked = false;
-                                    next();
+                    res.locals.post = fetchedPost;
+                    res.locals.post.f_post_id = postId;
+                    res.locals.postExists = true;
+                    
+                    return ForumTag.findAll({
+                        attributes: [],
+                        raw: true,
+    
+                        where: {
+                            f_post_id: postId
+                        },
+    
+                        include: [{
+                            attributes: ["tag_name"],
+                            model: Tag,
+                            required: true,
+                        }]
+                    }, { transaction: t })
+                        .then(fetchedTags => {
+    
+                            res.locals.tags = fetchedTags.map(fetchedTag => fetchedTag["tag.tag_name"]);
+    
+                            const { loggedIn } = res.locals.userInfo;
+                            const uid = loggedIn ? res.locals.userInfo.sessionData.uid : null;
+    
+                            return ForumLike.findOne({
+                                attributes: ["action"],
+                                raw: true,
+                                where: {
+                                    user_id: uid,
+                                    forum_id: postId
                                 }
-                            })
-                    })
+                            }, { transaction: t })
+                                .then(likeStatus => {
+    
+                                    if (likeStatus === null) {
+    
+                                        res.locals.isLiked = false;
+                                        next();
+    
+                                    } else if (likeStatus.action === forumLike.LIKE) {
+    
+                                        res.locals.isLiked = true;
+                                        next();
+    
+                                    } else if (likeStatus.action === forumLike.UNLIKE) {
+    
+                                        res.locals.isLiked = false;
+                                        next();
+                                    }
+                                })
+                        })
+                }
+
             })            
     })
     .catch(err => console.log(err));
