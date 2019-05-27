@@ -7,14 +7,14 @@ const fetchProfilePicture = (req, res, next) => {
     if (res.locals.userInfo && res.locals.userInfo.loggedIn) {
 
         User.findOne({
-            attributes: ["avatar_url"],
+            attributes: ["avatar_url","first_name"],
             where: {
                 u_id: res.locals.userInfo.sessionData.uid,
             }
         })
             .then(fetchedResponse => {
 
-                req.app.locals.avatar_url = fetchedResponse.avatar_url;
+                req.app.locals.headerInfo = fetchedResponse;
 
                 next();
             })

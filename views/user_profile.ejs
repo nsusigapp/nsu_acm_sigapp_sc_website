@@ -291,14 +291,6 @@
                 })
                     .then(res => {
 
-                        this.innerHTML = "<span style='color: #B0DB7D;'>Saved! "
-                        + "<i class='fas fa-check-double'></span>";
-                        
-                        // change save msg after 3 seconds
-                        setTimeout(() => {
-                            this.innerHTML = "Submit";
-                        }, 3000);
-
                         if (res.data.notLoggedIn) {
 
                             console.log("Unauthorized action! Admins will be notified");
@@ -307,7 +299,23 @@
 
                             altEmailField.value = "Invalid Email";
 
+                            this.innerHTML = "<span style='color: #EF8D9C;'>Error Updating! "
+                                + "<i class='fas fa-check-double'></span>";
+                        
+                            // change save msg after 3 seconds
+                            setTimeout(() => {
+                                this.innerHTML = "Submit";
+                            }, 3000);
+
                         } else if (res.data.success) {
+
+                            this.innerHTML = "<span style='color: #B0DB7D;'>Saved! "
+                                + "<i class='fas fa-check-double'></span>";
+                        
+                            // change save msg after 3 seconds
+                            setTimeout(() => {
+                                this.innerHTML = "Submit";
+                            }, 3000);
 
                         }
                     })

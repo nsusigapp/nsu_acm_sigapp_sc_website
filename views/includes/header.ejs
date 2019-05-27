@@ -65,9 +65,9 @@
             <div class="main-nav-bar--btn-box--profile-info">
 
                 <a href="#" onclick="openDropdown(event)" class="main-nav-bar--btn-box--profile-info--dropdown-link">
-                    <img src="/images/abir-pp.jpg" alt="" 
+                    <img data-src="<%= headerInfo.avatar_url %>" 
                     class="main-nav-bar--btn-box--profile-info--img">
-                    <span class="main-nav-bar--btn-box--profile-info--name"> Hi, Abir!</span>
+                    <span class="main-nav-bar--btn-box--profile-info--name"> Hi, <%= headerInfo.first_name %></span>
 
                     <div class="arrow-down"></div>
 
