@@ -250,142 +250,145 @@
         </script>
     <% } %>
     <script src="/js/axios.js"></script>
-    <script>
+
+    <% if (userInfo.isAdmin || userInfo.loggedIn && userInfo.sessionData.uid === user.u_id) { %>
+        <script>
+            
+            (function() {
+
+                const defaultImgLink = "https://images2.imgbox.com/e3/15/J5Vb9HrN_o.jpg";
+
+                const otherSBtn = document.getElementById("otherSBtn");
+                const altEmailField = document.getElementById("alt_email");
+                const avatarField = document.getElementById("avatar_url");
+                const ppImg = document.getElementById("pp-img");
+                const githubField = document.getElementById("github_link");
+                const otherUId = document.getElementById("otherUId");
+
+                const oldPasswdField = document.getElementById("oldPasswdField");
+                const passwdField = document.getElementById("passwdField");
+                const rePasswdField = document.getElementById("rePasswdField");
+                const passwdUId = document.getElementById("passwdUId");
+                const passwdBtn = document.getElementById("passwdBtn");
+
+                const checkImageValidity = (url, callback) => {
         
-        (function() {
+                    let img = new Image();
+                    img.onload = () => callback(true);
+                    img.onerror = () => callback(false);
+                    img.src = url;
 
-            const defaultImgLink = "https://images2.imgbox.com/e3/15/J5Vb9HrN_o.jpg";
+                    img = null; // cleanup memory
+                }
 
-            const otherSBtn = document.getElementById("otherSBtn");
-            const altEmailField = document.getElementById("alt_email");
-            const avatarField = document.getElementById("avatar_url");
-            const ppImg = document.getElementById("pp-img");
-            const githubField = document.getElementById("github_link");
-            const otherUId = document.getElementById("otherUId");
+                avatarField.addEventListener("input", function(event) {
+        
+                    let imgUrl = this.value;
 
-            const oldPasswdField = document.getElementById("oldPasswdField");
-            const passwdField = document.getElementById("passwdField");
-            const rePasswdField = document.getElementById("rePasswdField");
-            const passwdUId = document.getElementById("passwdUId");
-            const passwdBtn = document.getElementById("passwdBtn");
+                    checkImageValidity(imgUrl, (exists) => {
 
-            const checkImageValidity = (url, callback) => {
-    
-                let img = new Image();
-                img.onload = () => callback(true);
-                img.onerror = () => callback(false);
-                img.src = url;
+                        if (exists) {
 
-                img = null; // cleanup memory
-            }
+                            ppImg.src = imgUrl;
+                            this.style.borderColor = "green";
+                            this.style.boxShadow = "0 0 0 0.2rem rgba(88,214,141,.5)";
 
-            avatarField.addEventListener("input", function(event) {
-    
-                let imgUrl = this.value;
+                        } else {
 
-                checkImageValidity(imgUrl, (exists) => {
-
-                    if (exists) {
-
-                        ppImg.src = imgUrl;
-                        this.style.borderColor = "green";
-                        this.style.boxShadow = "0 0 0 0.2rem rgba(88,214,141,.5)";
-
-                    } else {
-
-                        ppImg.src = defaultImgLink;
-                        this.style.borderColor = "crimson";
-                        this.style.boxShadow = "0 0 0 0.2rem rgba(220,20,60,.5)";
-
-                    }
-                });
-            });
-
-            otherSBtn.addEventListener("click", function(event) {
-
-                event.preventDefault();
-                
-                this.innerHTML = '<img class="spinner" src="/images/spinner.svg">';
-
-                axios.post("/other-settings", {
-                    u_id: otherUId.value,
-                    alt_email: altEmailField.value,
-                    avatar_url: avatarField.value,
-                    github_link: githubField.value
-                })
-                    .then(res => {
-
-                        if (res.data.notLoggedIn) {
-
-                            console.log("Unauthorized action! Admins will be notified");
-
-                        } else if (res.data.invalidEmail) {
-
-                            altEmailField.value = "Invalid Email";
-
-                            this.innerHTML = "<span style='color: #EF8D9C;'>Error Updating! "
-                                + "<i class='fas fa-times'></span>";
-                        
-                            // change save msg after 3 seconds
-                            setTimeout(() => {
-                                this.innerHTML = "Submit";
-                            }, 3000);
-
-                        } else if (res.data.unauthorized) {
-
-                            this.innerHTML = "<span style='color: #EF8D9C;'>Unaothorized Action! "
-                                + "<i class='fas fa-times'></span>";
-                        
-                            // change save msg after 3 seconds
-                            setTimeout(() => {
-                                this.innerHTML = "Submit";
-                            }, 3000);
-
-                        } else if (res.data.success) {
-
-                            this.innerHTML = "<span style='color: #B0DB7D;'>Saved! "
-                                + "<i class='fas fa-check-double'></span>";
-                        
-                            // change save msg after 3 seconds
-                            setTimeout(() => {
-                                this.innerHTML = "Submit";
-                            }, 3000);
+                            ppImg.src = defaultImgLink;
+                            this.style.borderColor = "crimson";
+                            this.style.boxShadow = "0 0 0 0.2rem rgba(220,20,60,.5)";
 
                         }
+                    });
+                });
+
+                otherSBtn.addEventListener("click", function(event) {
+
+                    event.preventDefault();
+                    
+                    this.innerHTML = '<img class="spinner" src="/images/spinner.svg">';
+
+                    axios.post("/other-settings", {
+                        u_id: otherUId.value,
+                        alt_email: altEmailField.value,
+                        avatar_url: avatarField.value,
+                        github_link: githubField.value
                     })
-                    .catch(err => console.log(err));
-            });
+                        .then(res => {
 
-            passwdBtn.addEventListener("click", function(event) {
+                            if (res.data.notLoggedIn) {
 
-                event.preventDefault();
+                                console.log("Unauthorized action! Admins will be notified");
 
-                this.innerHTML = '<img class="spinner" src="/images/spinner.svg">';
+                            } else if (res.data.invalidEmail) {
 
-                axios.post("/change-password", {
-                    u_id: passwdUId.value,
-                    old_password: oldPasswdField.value,
-                    new_password: passwdField.value,
-                    re_password: rePasswdField.value
-                })
-                    .then(res => {
+                                altEmailField.value = "Invalid Email";
 
-                        this.innerHTML = "<span style='color: #B0DB7D;'>Password Changed! "
-                        + "<i class='fas fa-check-double'></span>";
-                        
-                        // change save msg after 3 seconds
-                        setTimeout(() => {
-                            this.innerHTML = "Submit";
-                        }, 3000);
+                                this.innerHTML = "<span style='color: #EF8D9C;'>Error Updating! "
+                                    + "<i class='fas fa-times'></span>";
+                            
+                                // change save msg after 3 seconds
+                                setTimeout(() => {
+                                    this.innerHTML = "Submit";
+                                }, 3000);
 
-                        console.log(res.data)
+                            } else if (res.data.unauthorized) {
+
+                                this.innerHTML = "<span style='color: #EF8D9C;'>Unaothorized Action! "
+                                    + "<i class='fas fa-times'></span>";
+                            
+                                // change save msg after 3 seconds
+                                setTimeout(() => {
+                                    this.innerHTML = "Submit";
+                                }, 3000);
+
+                            } else if (res.data.success) {
+
+                                this.innerHTML = "<span style='color: #B0DB7D;'>Saved! "
+                                    + "<i class='fas fa-check-double'></span>";
+                            
+                                // change save msg after 3 seconds
+                                setTimeout(() => {
+                                    this.innerHTML = "Submit";
+                                }, 3000);
+
+                            }
+                        })
+                        .catch(err => console.log(err));
+                });
+
+                passwdBtn.addEventListener("click", function(event) {
+
+                    event.preventDefault();
+
+                    this.innerHTML = '<img class="spinner" src="/images/spinner.svg">';
+
+                    axios.post("/change-password", {
+                        u_id: passwdUId.value,
+                        old_password: oldPasswdField.value,
+                        new_password: passwdField.value,
+                        re_password: rePasswdField.value
                     })
-                    .catch(err => console.log(err));
+                        .then(res => {
 
-            });
+                            this.innerHTML = "<span style='color: #B0DB7D;'>Password Changed! "
+                            + "<i class='fas fa-check-double'></span>";
+                            
+                            // change save msg after 3 seconds
+                            setTimeout(() => {
+                                this.innerHTML = "Submit";
+                            }, 3000);
 
-        })();
-    </script>
+                            console.log(res.data)
+                        })
+                        .catch(err => console.log(err));
+                });
+
+            })();
+        </script>
+    <% } %>
+
 </body>
 
 </html>

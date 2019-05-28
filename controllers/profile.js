@@ -5,7 +5,6 @@ const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
 const { cookieOpt } = require("../utils/constants");
-const { roleID } = require("../utils/userConst");
 
 const { users: User, sequelize } = require("../models/index");
 
@@ -111,6 +110,38 @@ const changePassword = (req, res, next) => {
 
                     } else {
                         
+                        bcrypt.hash(new_password, saltRounds)
+                            .then(hash => {
+
+                                const token = User.generateAuthToken({
+                                    nsu_id: fetchedUser.nsu_id,
+                                    role_id: fetchedUser.role_id,
+                                    status: fetchedUser.status,
+                                });
+                                
+                                sequelize.transaction(function(t) {
+                                    
+                                    fetchedUser.password = hash;
+                                    fetchedUser.token = token;
+                                    
+                                    return fetchedUser.save({
+                                        transaction:  t,
+                                        lock: t.LOCK.UPDATE
+                                    })
+                                        .then(saved => {
+
+                                            // res.cookie("_pass", token, cookieOpt);
+
+                                            return res.json({
+                                                success: true,
+                                            });
+                                        })
+                                })
+                                .catch(err => console.log(err));
+
+                        })
+                        .catch(err => console.log(err));
+
                     }
 
                 } else {
