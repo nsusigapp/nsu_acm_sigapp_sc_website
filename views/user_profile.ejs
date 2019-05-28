@@ -35,10 +35,9 @@
                             <li>Question Asked: <%= userQues.length %></li>
                             <li>Forum Reply: <%= ansCount %></li>
                             <li>Contribution: 02</li>
-                            <li>GitHub: <a href="/" class="github-link">SpaceKnight</a></li>
+                            <li>GitHub: <a target="_blank" id="githubUserName"href="<%= user.github_link %>" class="github-link"></a></li>
                         </ul>
                     </div>
-    
     
                 </div>
     
@@ -52,7 +51,7 @@
                                 <% if (userInfo.loggedIn && userInfo.sessionData.uid === user.u_id) { %>
                                     Your Profile
                                 <% } else { %>
-                                    <%= user.first_name + 's' %> Profile
+                                    <%= user.first_name + "'s" %> Profile
                                 <% } %>
                             </h1>
                         </div>
@@ -64,7 +63,7 @@
                                     <li onclick="tabSwitch(event, 'blogTabSection')" class="active tab-list--item">Your Blogs
                                     </li>
                                 <% } else { %>
-                                    <li onclick="tabSwitch(event, 'blogTabSection')" class="active tab-list--item"><%= user.first_name + 's' %> Blogs
+                                    <li onclick="tabSwitch(event, 'blogTabSection')" class="active tab-list--item"><%= user.first_name + "'s" %> Blogs
                                     </li>
                                 <% } %>
 
@@ -72,11 +71,11 @@
                                 <li onclick="tabSwitch(event, 'quesTabSection')" class="tab-list--item hover-tab-item">Your
                                     Question</li>
                                 <% } else { %>
-                                    <li onclick="tabSwitch(event, 'quesTabSection')" class="tab-list--item hover-tab-item"><%= user.first_name + 's' %>
+                                    <li onclick="tabSwitch(event, 'quesTabSection')" class="tab-list--item hover-tab-item"><%= user.first_name + "'s" %>
                                         Question</li>
                                 <% } %>
 
-                                <% if (userInfo.loggedIn && userInfo.sessionData.uid === user.u_id) { %>
+                                <% if (userInfo.isAdmin || userInfo.loggedIn && userInfo.sessionData.uid === user.u_id) { %>
                                     <li onclick="tabSwitch(event, 'settingsTabSection')" class="tab-list--item hover-tab-item">
                                         Settings</li>
                                 <% } %>
@@ -149,7 +148,7 @@
                         <% } %>
                     </div>
     
-                    <% if (userInfo.loggedIn && userInfo.sessionData.uid === user.u_id) { %>
+                    <% if (userInfo.isAdmin || userInfo.loggedIn && userInfo.sessionData.uid === user.u_id) { %>
                         <div id="settingsTabSection" class="profile-page-wrapper--setting tabSection">
     
                         <div class="setting-container">
@@ -157,6 +156,7 @@
                                 <h2 class="setting-card-wrapper--title">Change Password</h2>
         
                                 <form class="setting-card-wrapper--form">
+                                    <input id="passwdUId" type="hidden" value="<%= user.u_id %>">
                                     <input id="oldPasswdField" class="setting-card-wrapper--form--input" type="password" placeholder="Old password">
                                     <input id="passwdField" class="setting-card-wrapper--form--input" type="password" placeholder="New Password">
                                     <input id="rePasswdField" class="setting-card-wrapper--form--input" type="password" placeholder="Re-password">
@@ -170,6 +170,7 @@
                                 <h2 class="setting-card-wrapper--title">Other Settings</h2>
         
                                 <form class="setting-card-wrapper--form">
+                                    <input id="otherUId" type="hidden" value="<%= user.u_id %>">
                                     <input id="avatar_url" value="<%= user.avatar_url %>" class="setting-card-wrapper--form--input" type="text" name="avatar_url"
                                         placeholder="Paste Profile Picture Link">
                                     <input id="alt_email" value="<%= user.alt_email %>" class="setting-card-wrapper--form--input" type="text" placeholder="Change Alt email">
@@ -197,7 +198,27 @@
     <% if (userExists) { %>
         <script>
 
-            document.getElementById("blogTabSection").style.display = "block";
+            function init() {
+
+                try {
+
+                    const parseUrl = new URL("<%= user.github_link %>");
+                    document.getElementById("githubUserName").textContent = parseUrl.pathname.slice(1);
+
+                } catch (err) {
+
+                    document.getElementById("githubUserName").textContent = "Not Set";
+                }
+
+                    
+                
+                // starting tab
+                document.getElementById("blogTabSection").style.display = "block";
+            }
+
+            window.addEventListener("DOMContentLoaded", function() {
+                init();
+            });
 
             const tabList = Array.from(document.querySelectorAll(".profile-page-wrapper"
                 + "--profile-box--main-bar--tabs--list li"));
@@ -240,10 +261,12 @@
             const avatarField = document.getElementById("avatar_url");
             const ppImg = document.getElementById("pp-img");
             const githubField = document.getElementById("github_link");
+            const otherUId = document.getElementById("otherUId");
 
             const oldPasswdField = document.getElementById("oldPasswdField");
             const passwdField = document.getElementById("passwdField");
             const rePasswdField = document.getElementById("rePasswdField");
+            const passwdUId = document.getElementById("passwdUId");
             const passwdBtn = document.getElementById("passwdBtn");
 
             const checkImageValidity = (url, callback) => {
@@ -285,6 +308,7 @@
                 this.innerHTML = '<img class="spinner" src="/images/spinner.svg">';
 
                 axios.post("/other-settings", {
+                    u_id: otherUId.value,
                     alt_email: altEmailField.value,
                     avatar_url: avatarField.value,
                     github_link: githubField.value
@@ -300,7 +324,17 @@
                             altEmailField.value = "Invalid Email";
 
                             this.innerHTML = "<span style='color: #EF8D9C;'>Error Updating! "
-                                + "<i class='fas fa-check-double'></span>";
+                                + "<i class='fas fa-times'></span>";
+                        
+                            // change save msg after 3 seconds
+                            setTimeout(() => {
+                                this.innerHTML = "Submit";
+                            }, 3000);
+
+                        } else if (res.data.unauthorized) {
+
+                            this.innerHTML = "<span style='color: #EF8D9C;'>Unaothorized Action! "
+                                + "<i class='fas fa-times'></span>";
                         
                             // change save msg after 3 seconds
                             setTimeout(() => {
@@ -329,6 +363,7 @@
                 this.innerHTML = '<img class="spinner" src="/images/spinner.svg">';
 
                 axios.post("/change-password", {
+                    u_id: passwdUId.value,
                     old_password: oldPasswdField.value,
                     new_password: passwdField.value,
                     re_password: rePasswdField.value

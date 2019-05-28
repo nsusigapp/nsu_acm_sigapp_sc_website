@@ -2,7 +2,7 @@ const { sequelize, Sequelize, users: User, quotes: Quote,
         forum: Forum, blog: Blog, forum_answer: ForumAnswer } = require("../models/index");
 
 // fetch profile picture from DB;
-const fetchProfilePicture = (req, res, next) => {
+const fetchNavBarInfo = (req, res, next) => {
 
     if (res.locals.userInfo && res.locals.userInfo.loggedIn) {
 
@@ -118,7 +118,7 @@ const fetchUserById = (req, res, next) => {
 }
 
 module.exports = {
-    fetchProfilePicture,
+    fetchNavBarInfo,
     fetchRandomQuote,
     fetchUserById
 }

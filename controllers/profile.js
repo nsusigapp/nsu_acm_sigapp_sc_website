@@ -4,6 +4,9 @@ const bcrypt = require("bcrypt");
 
 const saltRounds = 10;
 
+const { cookieOpt } = require("../utils/constants");
+const { roleID } = require("../utils/userConst");
+
 const { users: User, sequelize } = require("../models/index");
 
 const updateSettings = (req, res, next) => {
@@ -12,9 +15,10 @@ const updateSettings = (req, res, next) => {
         alt_email: joi.string().email().required(),
     });
 
-    const { alt_email, avatar_url, github_link } = req.body;
-    const { loggedIn } = res.locals.userInfo;
-    const uid = loggedIn ? res.locals.userInfo.sessionData.uid : null;
+    const { alt_email, avatar_url, github_link, u_id } = req.body;
+    const { loggedIn, sessionData, isAdmin } = res.locals.userInfo;
+    const uid = loggedIn ? parseInt(u_id) : null;
+    const actionAllowed = uid === sessionData.uid || isAdmin ? true : false;
 
     if (!loggedIn) {
 
@@ -22,6 +26,12 @@ const updateSettings = (req, res, next) => {
             notLoggedIn: true,
         });
 
+    } else if (!actionAllowed) {
+
+        return res.json({
+            unauthorized: true,
+        });
+        
     } else {
 
         const isValid = joi.validate({ alt_email }, emailVerify);
@@ -33,7 +43,7 @@ const updateSettings = (req, res, next) => {
             });
     
         } else {
-    
+            
             User.update({
                 alt_email,
                 avatar_url,
@@ -58,83 +68,114 @@ const updateSettings = (req, res, next) => {
 
 const changePassword = (req, res, next) => {
 
-    const { loggedIn } = res.locals.userInfo;
-    const uid = loggedIn ? res.locals.userInfo.sessionData.uid : null;
+    const { loggedIn, sessionData } = res.locals.userInfo;
+    const uid = loggedIn ? parseInt(u_id) : null;
+    const actionAllowed = uid === sessionData.uid || isAdmin ? true : false;
 
-    const { old_password, new_password, re_password } = req.body;
+    const { old_password, new_password, re_password, u_id } = req.body;
+
+    if (!loggedIn) {
+
+        return res.json({
+            notLoggedIn: true,
+        });
+
+    } else if (!actionAllowed) {
+
+        return res.json({
+            unauthorized: true,
+        });
+        
+    } else {
+
+        User.findOne({
+            where: {
+                u_id: uid
+            }
+        })
+            .then(fetchedUser => {
     
-    User.findOne({
-        where: {
-            u_id: uid
-        }
-    })
-        .then(fetchedUser => {
+                if (!fetchedUser) {
+    
+                    return res.json({
+                        userExists: false
+                    });
+    
+                } else if (isAdmin) {
 
-            if (!fetchedUser) {
+                    if (new_password !== re_password) {
+                                    
+                        return res.json({
+                            passMatch: false
+                        });
 
-                return res.json({
-                    userExists: false
-                });
+                    } else {
+                        
+                    }
 
-            } else {
-
-                bcrypt.compare(old_password, fetchedUser.password)
-                    .then(checkPass => {
-
-                        if (!checkPass) {
-
-                            return res.json({
-                                oldPass: false
-                            });
-
-                        } else {
-
-                            if (new_password !== re_password) {
-                                
+                } else {
+    
+                    bcrypt.compare(old_password, fetchedUser.password)
+                        .then(checkPass => {
+    
+                            if (!checkPass) {
+    
                                 return res.json({
-                                    passMatch: false
+                                    oldPass: false
                                 });
-
-                            } else {
-
-                                bcrypt.hash(new_password, saltRounds)
-                                    .then(hash => {
-
-                                        const token = User.generateAuthToken({
-                                            nsu_id: fetchedUser.nsu_id,
-                                            role_id: fetchedUser.role_id,
-                                            status: fetchedUser.status,
-                                        });
-                                        
-                                        sequelize.transaction(function(t) {
-                                            
-                                            fetchedUser.password = hash;
-                                            fetchedUser.token = token;
-                                            
-                                            return fetchedUser.save({
-                                                transaction:  t,
-                                                lock: t.LOCK.UPDATE
-                                            })
-                                                .then(saved => {
     
-                                                    return res.json({
-                                                        success: true
-                                                    });
+                            } else {
+    
+                                if (new_password !== re_password) {
+                                    
+                                    return res.json({
+                                        passMatch: false
+                                    });
+    
+                                } else {
+    
+                                    bcrypt.hash(new_password, saltRounds)
+                                        .then(hash => {
+    
+                                            const token = User.generateAuthToken({
+                                                nsu_id: fetchedUser.nsu_id,
+                                                role_id: fetchedUser.role_id,
+                                                status: fetchedUser.status,
+                                            });
+                                            
+                                            sequelize.transaction(function(t) {
+                                                
+                                                fetchedUser.password = hash;
+                                                fetchedUser.token = token;
+                                                
+                                                return fetchedUser.save({
+                                                    transaction:  t,
+                                                    lock: t.LOCK.UPDATE
                                                 })
+                                                    .then(saved => {
+    
+                                                        res.cookie("_pass", token, cookieOpt);
+        
+                                                        return res.json({
+                                                            success: true,
+                                                        });
+                                                    })
+                                            })
+                                            .catch(err => console.log(err));
+    
                                         })
                                         .catch(err => console.log(err));
-
-                                    })
-                                    .catch(err => console.log(err));
+                                }
                             }
-                        }
-
-                    })
-                    .catch(err => console.log(err));
-            }
-
-        })
-        .catch(err => console.log(err));
+    
+                        })
+                        .catch(err => console.log(err));
+                }
+    
+            })
+            .catch(err => console.log(err));
+    }
+    
 }
 
 module.exports = {

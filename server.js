@@ -70,7 +70,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // check if user is logged in
 app.use(authMiddleWare.isLoggedIn);
 
-app.use(userDataMiddleware.fetchProfilePicture);
+app.use(userDataMiddleware.fetchNavBarInfo);
 
 app.use(userRoutes.router);
 

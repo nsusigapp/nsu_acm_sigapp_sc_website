@@ -1,6 +1,8 @@
 
 const jwt = require("jsonwebtoken");
 
+const { roleID } = require("../utils/userConst");
+
 const isLoggedIn = (req, res, next) => {
 
     if (req.session.userData && req.cookies["_pass"]) {
@@ -12,7 +14,8 @@ const isLoggedIn = (req, res, next) => {
             res.locals.userInfo = {
                 sessionData: req.session.userData,
                 loggedIn: true,
-                roleId: decodeToken.role_id,
+                role_id: decodeToken.role_id,
+                isAdmin: decodeToken.role_id ===  roleID.ADMIN ? true : false,
             }
 
             next();
