@@ -1452,3 +1452,47 @@ body {
         border: 1px solid #57BAE5;
         border-left: none;
         outline: none; }
+
+.event-info-text {
+  margin-bottom: 1rem;
+  font-size: 1.8rem; }
+  .event-info-text--red {
+    color: crimson; }
+
+.event-info-text-link {
+  text-decoration: none;
+  color: black;
+  margin-top: 2rem;
+  font-size: 1.8rem;
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center; }
+  .event-info-text-link i {
+    color: #475993;
+    font-size: 3rem;
+    margin-right: 1rem; }
+
+.event-reg-status-pill {
+  display: inline-block;
+  background: #374353;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
+  color: #fff;
+  padding: 0.5rem 1.5rem; }
+  .event-reg-status-pill--status {
+    color: #3FC600; }
+
+.event-view-status--card {
+  padding: 0rem 1.5rem; }
+
+.event-photo-box--title {
+  font-size: 2.4rem;
+  text-decoration: underline;
+  margin: 2rem 0rem; }
+
+.event-photo-box--img-box--img {
+  height: 15rem;
+  width: 20rem;
+  object-fit: cover;
+  margin: 0.8rem 1.5rem;
+  cursor: pointer; }
