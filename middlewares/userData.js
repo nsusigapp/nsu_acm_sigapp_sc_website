@@ -69,8 +69,6 @@ const fetchUserById = (req, res, next) => {
             }
         }, { transaction: t })
             .then(fetchedUser => {
-
-                console.log(fetchedUser.role_id)
                 
                 if (fetchedUser === null) {
                     

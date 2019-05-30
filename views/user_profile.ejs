@@ -35,7 +35,7 @@
                             <li>Question Asked: <%= userQues.length %></li>
                             <li>Forum Reply: <%= ansCount %></li>
                             <li>Contribution: 02</li>
-                            <li>GitHub: <a target="_blank" id="githubUserName"href="<%= user.github_link %>" class="github-link"></a></li>
+                            <li>GitHub: <a target="_blank" id="githubUserName" href="<%= user.github_link !== null ? user.github_link : '' %>" class="github-link"></a></li>
                         </ul>
                     </div>
     
@@ -75,7 +75,7 @@
                                         Question</li>
                                 <% } %>
 
-                                <% if (userInfo.isAdmin || userInfo.loggedIn && userInfo.sessionData.uid === user.u_id) { %>
+                                <% if (userInfo.isAdmin || (userInfo.loggedIn && userInfo.sessionData.uid === user.u_id)) { %>
                                     <li onclick="tabSwitch(event, 'settingsTabSection')" class="tab-list--item hover-tab-item">
                                         Settings</li>
                                 <% } %>
@@ -107,7 +107,6 @@
                                             <i class="fas fa-trash pp-up-icon"></i>
                                         </a>
                                     </div>
-                
                                 </div>
 
                             <% }); %>
@@ -148,7 +147,7 @@
                         <% } %>
                     </div>
     
-                    <% if (userInfo.isAdmin || userInfo.loggedIn && userInfo.sessionData.uid === user.u_id) { %>
+                    <% if (userInfo.isAdmin || (userInfo.loggedIn && userInfo.sessionData.uid === user.u_id)) { %>
                         <div id="settingsTabSection" class="profile-page-wrapper--setting tabSection">
     
                         <div class="setting-container">
@@ -251,12 +250,12 @@
     <% } %>
     <script src="/js/axios.js"></script>
 
-    <% if (userInfo.isAdmin || userInfo.loggedIn && userInfo.sessionData.uid === user.u_id) { %>
+    <% if (userInfo.isAdmin || (userInfo.loggedIn && userInfo.sessionData.uid === user.u_id)) { %>
         <script>
             
             (function() {
 
-                const defaultImgLink = "https://images2.imgbox.com/e3/15/J5Vb9HrN_o.jpg";
+                const defaultImgLink = "/images/identity.svg";
 
                 const otherSBtn = document.getElementById("otherSBtn");
                 const altEmailField = document.getElementById("alt_email");
@@ -317,7 +316,7 @@
                     })
                         .then(res => {
 
-                            if (res.data.notLoggedIn) {
+                            if (res.data.unauthorized) {
 
                                 console.log("Unauthorized action! Admins will be notified");
 
@@ -326,16 +325,6 @@
                                 altEmailField.value = "Invalid Email";
 
                                 this.innerHTML = "<span style='color: #EF8D9C;'>Error Updating! "
-                                    + "<i class='fas fa-times'></span>";
-                            
-                                // change save msg after 3 seconds
-                                setTimeout(() => {
-                                    this.innerHTML = "Submit";
-                                }, 3000);
-
-                            } else if (res.data.unauthorized) {
-
-                                this.innerHTML = "<span style='color: #EF8D9C;'>Unaothorized Action! "
                                     + "<i class='fas fa-times'></span>";
                             
                                 // change save msg after 3 seconds
@@ -361,6 +350,14 @@
                 passwdBtn.addEventListener("click", function(event) {
 
                     event.preventDefault();
+
+                    if (res.data.unauthorized) {
+
+                        console.log("Unauthorized action! Admins will be notified");
+
+                    } else if () {
+
+                    }
 
                     this.innerHTML = '<img class="spinner" src="/images/spinner.svg">';
 

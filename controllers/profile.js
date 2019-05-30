@@ -18,14 +18,8 @@ const updateSettings = (req, res, next) => {
     const { loggedIn, sessionData, isAdmin } = res.locals.userInfo;
     const uid = loggedIn ? parseInt(u_id) : null;
     const actionAllowed = uid === sessionData.uid || isAdmin ? true : false;
-
-    if (!loggedIn) {
-
-        return res.json({
-            notLoggedIn: true,
-        });
-
-    } else if (!actionAllowed) {
+    
+    if (!actionAllowed) {
 
         return res.json({
             unauthorized: true,
@@ -67,19 +61,13 @@ const updateSettings = (req, res, next) => {
 
 const changePassword = (req, res, next) => {
 
-    const { loggedIn, sessionData } = res.locals.userInfo;
-    const uid = loggedIn ? parseInt(u_id) : null;
-    const actionAllowed = uid === sessionData.uid || isAdmin ? true : false;
-
     const { old_password, new_password, re_password, u_id } = req.body;
 
-    if (!loggedIn) {
-
-        return res.json({
-            notLoggedIn: true,
-        });
-
-    } else if (!actionAllowed) {
+    const { loggedIn, sessionData, isAdmin } = res.locals.userInfo;
+    const uid = loggedIn ? parseInt(u_id) : null;
+    const actionAllowed = uid === sessionData.uid || isAdmin ? true : false;
+    
+    if (!actionAllowed) {
 
         return res.json({
             unauthorized: true,

@@ -10,7 +10,7 @@ const getForumCreate = (req, res, next) => {
     });
 }
 
-const createPost = (req, res, next) => {
+const createForumPost = (req, res, next) => {
 
 }
 
@@ -53,7 +53,7 @@ const forumPostAnswer = (req, res, next) => {
 }
 
 module.exports = {
-    createPost,
+    createForumPost,
     deletePostById,
     getForumCreate,
     forumPostAnswer

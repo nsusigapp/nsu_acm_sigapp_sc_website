@@ -11,11 +11,13 @@ const isLoggedIn = (req, res, next) => {
             
             const decodeToken = jwt.verify(req.cookies["_pass"], process.env.JWT_SECRET);
 
+            const isAdmin = decodeToken.role_id === roleID.ADMIN && req.session.userData.role_id === decodeToken.role_id;
+
             res.locals.userInfo = {
                 sessionData: req.session.userData,
                 loggedIn: true,
                 role_id: decodeToken.role_id,
-                isAdmin: decodeToken.role_id ===  roleID.ADMIN ? true : false,
+                isAdmin: isAdmin
             }
 
             next();

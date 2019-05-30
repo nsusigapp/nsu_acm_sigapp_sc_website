@@ -76,6 +76,10 @@ app.use(userRoutes.router);
 
 app.use(profileRoutes.router);
 
+app.get("/make-admin", function(req, res, next) {
+
+});
+
 app.use(forumPostRoutes.router);
 
 app.use(ajForumRoutes.router);
