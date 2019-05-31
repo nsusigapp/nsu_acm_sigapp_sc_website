@@ -159,7 +159,7 @@
                                     <input id="oldPasswdField" class="setting-card-wrapper--form--input" type="password" placeholder="Old password">
                                     <input id="passwdField" class="setting-card-wrapper--form--input" type="password" placeholder="New Password">
                                     <input id="rePasswdField" class="setting-card-wrapper--form--input" type="password" placeholder="Re-password">
-                                    <button id="passwdBtn" class="setting-card-wrapper--form--submit" type="submit">
+                                    <button id="passwdBtn" class="setting-card-wrapper--form--submit">
                                         Submit
                                     </button>
                                 </form>
@@ -174,7 +174,7 @@
                                         placeholder="Paste Profile Picture Link">
                                     <input id="alt_email" value="<%= user.alt_email %>" class="setting-card-wrapper--form--input" type="text" placeholder="Change Alt email">
                                     <input id="github_link" value="<%= user.github_link %>" class="setting-card-wrapper--form--input" type="text" placeholder="GitHub Link">
-                                    <button id="otherSBtn" class="setting-card-wrapper--form--submit" type="submit" name="">
+                                    <button id="otherSBtn" class="setting-card-wrapper--form--submit">
                                         Submit
                                     </button>
                                 </form>
@@ -354,8 +354,6 @@
                     if (res.data.unauthorized) {
 
                         console.log("Unauthorized action! Admins will be notified");
-
-                    } else if () {
 
                     }
 

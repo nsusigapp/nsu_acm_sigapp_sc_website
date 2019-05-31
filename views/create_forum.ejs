@@ -38,21 +38,25 @@
                 Create New Question
             </h2>
 
-            <form class="create-forum-wrapper--form" action="/create-forum-post">
+            <form id="forumForm" class="create-forum-wrapper--form" action="/create-forum-post" method="POST">
                 <span class="create-forum-wrapper--form--label">Title</span>
                 <div class="input-container-paral margin-gutter-small">
                     <img src="./images//icon.svg" class="input-container-paral--icon">
-                    <input name="forum_title"laceholder="Question Title" type="text" class="input-container-paral--input">
+                    <input name="f_post_title" placeholder="Question Title" 
+                        type="text" class="input-container-paral--input">
                 </div>
 
-                <span class="create-forum-wrapper--form--label">Tags</span>
+                <span id="tagsMsg" class="create-forum-wrapper--form--label">Tags</span>
                 <div class="create-forum-wrapper--form-tag-box">
                     <div class="input-container-paral tag-input">
                         <img class="input-container-paral--icon" src="./images/icon.svg">
-                        <input placeholder="Question Tags" type="text" class="input-container-paral--input">
+                        <input id="tagsField" placeholder="Question Tags" 
+                            type="text" class="input-container-paral--input">
                     </div>
-                    <a id="fetchTags" href="#">Show Available Tags</a>
+                    <a id="fetchTags" href="#">Load Available Tags</a>
                 </div>
+                
+                <div class="" id="tagSuggest"></div>
 
                 <div id="selectTagsContainer"></div>
 
@@ -60,10 +64,11 @@
 
                 <span class="create-forum-wrapper--form--label margin-top-small">Description</span>
                 <div class="question-editor-container">
-                    <textarea name="" id="queseditor"></textarea>
+                    <textarea name="f_post_description" id="queseditor"></textarea>
                 </div>
-                <div class="">
-                    <input type="submit" class="">
+                <div class="post-submit-btn-container">
+                    <input type="submit" 
+                        class="full-width-btn full-width-btn--black post-submit-btn-container--btn margin-top-small">
                 </div>
             </form>
         </div>
@@ -77,59 +82,118 @@
     <script src="/js/prism.js"></script>
     <script>
 
-        (function() {
+        let fetchedTags = [];
+        let tagsCount = 0;
 
-            let fetchedTags = [];
+        const fetchTagsBtn = document.getElementById("fetchTags");
+        const tagsContainer = document.getElementById("tagsContainer");
+        const tagsField = document.getElementById("tagsField");
+        const tagsMsg = document.getElementById("tagsMsg");
+        const tagSuggest = document.getElementById("tagSuggest");
+        const forumForm = document.getElementById("forumForm");
+        const selectTagsContainer = document.getElementById("selectTagsContainer");
 
-            const fetchTagsBtn = document.getElementById("fetchTags");
-            let isTagsShown = false;
+        let isTagsShown = false;
 
-            function displayTags() {
+        function displayTags(context) {
+
+            if (isTagsShown) {
 
                 tagsContainer.innerHTML = "";
-                isTagsShown = true;
+                tagsContainer.classList.remove("margin-top-small");
+                context.textContent = "Show Available Tags";
+                isTagsShown = false;
+
+            } else {
+
                 tagsContainer.classList.add("margin-top-small");
-                this.textContent = "Hide Available Tags";
+                context.textContent = "Hide Available Tags";
 
                 fetchedTags.forEach(tag => {
-                    tagsContainer.innerHTML += `<span class="tag-pills-box--pills">${tag}</span>`
+                    tagsContainer.innerHTML += `<span class="tag-pills-box--pills">${tag.tag_name}</span>`
                 });
+
+                isTagsShown = true;
             }
+        }
 
-            fetchTagsBtn.addEventListener("click", function(event) {
+        function selectTag(event, id, name) {
 
-                event.preventDefault();
+            const selectedTag = document.getElementById(name);
+            const removeTag = document.getElementById("select" + name);
 
-                const tagsContainer = document.getElementById("tagsContainer");
+            if (!selectedTag) {
 
-                if (isTagsShown) {
+                let input = document.createElement("input");
+                input.setAttribute("type", "hidden");
+                input.setAttribute("id", name);
+                input.setAttribute("name", `tag[${tagsCount}]`);
+                
+                input.value = id;
 
-                    tagsContainer.innerHTML = "";
-                    tagsContainer.classList.remove("margin-top-small");
-                    this.textContent = "Show Available Tags";
-                    isTagsShown = false;
+                forumForm.appendChild(input);
 
-                } else {
+                input = null;
 
-                    if (fetchedTags.length === 0) {
+                let span = document.createElement("span");
+                span.setAttribute("id", "select" + name);
+                selectTagsContainer.appendChild(span);
+                span.innerText = name;
+                span.setAttribute("onclick", `selectTag(event, ${id}, '${name}')`);
 
-                        axios.get("/get-tags")
-                            .then(res => {
-    
-                                fetchedTags = res.data.tagNames;
-    
-                                displayTags();
-                            })
-                            .catch(err => console.log(err));
+                span = null;
+                tagsCount++;
 
-                    } else {
-                        displayTags();
-                    }
+            } else {
 
+                selectedTag.parentNode.removeChild(selectedTag);
+                removeTag.parentNode.removeChild(removeTag);
+                tagsCount--;
+            }
+        }
+
+        fetchTagsBtn.addEventListener("click", function (event) {
+
+            event.preventDefault();
+
+            if (fetchedTags.length === 0) {
+
+                axios.get("/get-tags")
+                    .then(res => {
+
+                        fetchedTags = res.data.fetchedTags;
+                        displayTags(this);
+                    })
+                    .catch(err => console.log(err));
+
+            } else {
+
+                displayTags(this);
+            }
+        });
+
+        tagsField.addEventListener("keyup", function (event) {
+
+            tagSuggest.innerHTML = "";
+
+            if (fetchedTags.length === 0) {
+
+                tagsMsg.style.color = "crimson";
+                tagsMsg.textContent = "Load tags first!";
+
+            } else {
+
+                if (this.value.length > 0) {
+
+                    const filterTags = fetchedTags.filter(tag => tag.tag_name.toLowerCase().includes(this.value.toLowerCase()));
+
+                    filterTags.forEach(tag => {
+
+                        tagSuggest.innerHTML += `<a href='#' onclick='selectTag(event, ${tag.tag_id}, "${tag.tag_name}")'>${tag.tag_name}</a>`;
+                    });
                 }
-            });
-
-        })();
+            }
+        });
 
     </script>
 </body>

@@ -60,6 +60,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // app.use((req, res, next)=>{
+
 //     if(req.sessionID)
 //         console.log(req.sessionID);
 //         console.log(req.session.id);

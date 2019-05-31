@@ -51,9 +51,16 @@
             background: rgba($color: #D5DEEA, $alpha: 0.5);
             padding: 2rem;
 
+            img{
+                width: 100%;
+                object-fit: cover;
+            }
+
             &--paragraph{
                 line-height: 1.7;
                 font-size: 1.8rem;
+
+
 
                 @media only screen and(max-width: 750px){
                     font-size: 1.6rem;

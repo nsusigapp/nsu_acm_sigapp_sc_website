@@ -6,9 +6,9 @@ const { redirectIfNotLoggedIn } = require("../middlewares/accessControl");
 
 router.get("/create-forum-post", redirectIfNotLoggedIn, postController.getForumCreate);
 
-// router.post("/create-forum-post", postController.createForumPost);
+router.post("/create-forum-post", redirectIfNotLoggedIn, postController.createForumPost);
 
-router.post("/post-answer", postController.forumPostAnswer);
+router.post("/post-answer", redirectIfNotLoggedIn, postController.forumPostAnswer);
 
 router.post("/delete-post:id", postController.deletePostById);
 

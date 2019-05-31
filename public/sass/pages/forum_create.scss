@@ -56,3 +56,12 @@
         }
     }
 }
+
+.post-submit-btn-container{
+    @include displayFlex(flex-end, center);
+
+    &--btn{
+        font-size: 1.8rem;
+        font-weight: bold;
+    }
+}
