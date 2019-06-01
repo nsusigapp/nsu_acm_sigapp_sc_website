@@ -18,9 +18,14 @@ const createForumPost = (req, res, next) => {
     const { tag, ...formData } = req.body;
     formData.author_id = uid;
 
-    // setup lazy loading tags
-    if (formData.f_post_description.includes("<img src=")) {
+    if (formData.f_post_description.length === 0) {
+
+        return res.redirect("/create-forum-post");
+
+    } else if (formData.f_post_description.includes("<img src=")) {
+
         formData.f_post_description = formData.f_post_description.replace("<img src=", "<img data-src=");
+        // setup lazy loading tags
     }
 
     sequelize.transaction(function(t) {
@@ -30,7 +35,7 @@ const createForumPost = (req, res, next) => {
                 
                 const { f_post_id } = resCreate;
 
-                if (bulkTag.length > 0) {
+                if (tag.length > 0) {
 
                     const bulkTag = tag.map(et => {
                         return {
@@ -39,14 +44,16 @@ const createForumPost = (req, res, next) => {
                         }
                     });
     
-                    return ForumTag.bulkCreate(bulkTag, { transaction: t });
+                    return ForumTag.bulkCreate(bulkTag, { transaction: t })
+                        .then(resBulk => {
+
+                            return res.redirect("/forum");
+                        })
                 }
 
             })
     })
     .catch(err => console.log(err));
-
-
 
 }
 
@@ -63,9 +70,14 @@ const forumPostAnswer = (req, res, next) => {
     const { loggedIn } = res.locals.userInfo;
     const uid = loggedIn ? res.locals.userInfo.sessionData.uid : null;
 
-    // setup lazy loading tags
-    if (formData.answer_content.includes("<img src=")) {
+    if (formData.answer_content.length === 0) {
+        
+        return res.redirect(`/forum-post/${formData.postId}`);
+
+    } else if (formData.answer_content.includes("<img src=")) {
+
         formData.answer_content = formData.answer_content.replace("<img src=", "<img data-src=");
+        // setup lazy loading tags
     }
 
     ForumAnswer.create({

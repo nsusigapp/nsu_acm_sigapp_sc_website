@@ -65,6 +65,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //         console.log(req.sessionID);
 //         console.log(req.session.id);
 //         console.log(req.session);
+//         console.log(req.headers["x-forwarded-for"] || req.connection.remoteAddress);
+//         console.log(req.ip);
+//         console.log(req.ips);
+
 //     next();
 // });
 

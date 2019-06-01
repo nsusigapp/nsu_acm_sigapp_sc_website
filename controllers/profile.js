@@ -5,8 +5,16 @@ const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
 const { cookieOpt } = require("../utils/constants");
+const { sessStatus } = require("../utils/userConst");
 
-const { users: User, sequelize } = require("../models/index");
+
+const { users: User, session: Session, sequelize } = require("../models/index");
+
+const Op = sequelize.Op;
+
+const session = require("express-session");
+const RedisStore = require("connect-redis")(session);
+const store = new RedisStore();
 
 const updateSettings = (req, res, next) => {
 
@@ -118,18 +126,44 @@ const changePassword = (req, res, next) => {
                                     })
                                         .then(saved => {
 
-                                            // res.cookie("_pass", token, cookieOpt);
+                                            Session.findAll({
+                                                where: {
+                                                    u_id: uid,
+                                                    sess_status: sessStatus.ACTIVE
+                                                }
+                                            })
+                                                .then(fetchedSess => {
 
-                                            return res.json({
-                                                success: true,
-                                            });
+                                                    return Promise.all(fetchedSess.map(sess => {
+
+                                                        store.destroy(sess.sess_id, err => {
+
+                                                            if (err) {
+                                                                
+                                                                console.log(err);
+    
+                                                            } else {
+
+                                                                sess.sess_status = sessStatus.EXPIRED;
+                                                                return sess.save();
+                                                            }
+                                                        });
+                                                    }))
+                                                        .then(allSess => {
+                                                                                             
+                                                            return res.json({
+                                                                success: true,
+                                                            });
+                                                        })
+                                                        .catch(err => console.log(err));
+                                                })
+                                                .catch(err => console.log(err));
                                         })
                                 })
                                 .catch(err => console.log(err));
 
                         })
                         .catch(err => console.log(err));
-
                     }
 
                 } else {
