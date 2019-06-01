@@ -1,19 +1,19 @@
+
 const { sequelize, Sequelize, users: User,
-        tags: Tag, forum_tag: ForumTag, forum: Forum, 
-        forum_answer: ForumAnswer, forum_like_track: ForumLike } = require("../models/index");
+    tags: Tag, blog_tag: BlogTag, blog: Blog, 
+    blog_comments: BlogComm, blog_like_track: BlogLike } = require("../models/index");
 
 const { limitPost, postLike } = require("../utils/constants");
 
-const loadForumDataInit = (req, res, next) => {
+const loadBlogDataInit = (req, res, next) => {
 
     const filter = req.query.tag_name;
 
-    Forum.findAll({
-        attributes: ["f_post_id", "f_post_title", "like_count", "createdAt"],
-        limit: limitPost.FORUM,
+    Blog.findAll({
+        attributes: ["blog_id", "blog_title", "like_count", "img_url", "createdAt"],
+        limit: limitPost.BLOG,
         subQuery: false,
         raw: true,
-        group: ['forum.f_post_title'],
         order: [
             ["createdAt", "DESC"]
         ],
@@ -23,22 +23,18 @@ const loadForumDataInit = (req, res, next) => {
             model: User,
             required: true, // returns everything in a clean single object format
                             // setting it to false, results in nested arrays
-        }, {
-            attributes: [[Sequelize.fn("COUNT", Sequelize.col("forum_answers.answer_id")), "ansCount"]],
-            model: ForumAnswer,
-            // required: true,
         }]
     })
-        .then(fetchedPost => {
+        .then(fetchedBlog => {
     
-            return Promise.all(fetchedPost.map(post => {
+            return Promise.all(fetchedBlog.map(post => {
     
-                return ForumTag.findAll({
+                return BlogTag.findAll({
                     attributes: [],
                     raw: true,
     
                     where: {
-                        f_post_id: post.f_post_id,
+                        blog_id: post.blog_id,
                     },
                     include: [{
                         attributes: ["tag_name"],
@@ -57,7 +53,8 @@ const loadForumDataInit = (req, res, next) => {
                     
                     if (!filter) {
 
-                        res.locals.forumPost = mergedPost;
+                        res.locals.blogPost = mergedPost;
+                        console.log(mergedPost);
                         next();
 
                     } else {
@@ -72,7 +69,7 @@ const loadForumDataInit = (req, res, next) => {
                             }
                         });
 
-                        res.locals.forumPost = filteredPost;
+                        res.locals.blogPost = filteredPost;
                         next();
                     }
 
@@ -83,30 +80,18 @@ const loadForumDataInit = (req, res, next) => {
         .catch(err => console.log(err));
 }
 
-const setupPagintion = (req, res, next) => {
+const getBlogById = (req, res, next) => {
 
-    Forum.count()
-        .then(postCount => {
-
-            res.locals.postCount = postCount;
-            next();
-            
-        })
-        .catch(err => console.log(err));
-}
-
-const getForumById = (req, res, next) => {
-
-    const postId = req.params.id;
+    const blogId = req.params.id;
 
     sequelize.transaction(function(t) {
 
-        return Forum.findOne({
-            attributes: ["f_post_title", "f_post_description", "like_count", "createdAt"],
+        return Blog.findOne({
+            attributes: ["blog_title", "blog_description", "like_count", "createdAt"],
             subQuery: false,
             raw: true,
             where: {
-                f_post_id: postId
+                blog_id: blogId
             },
         
             include: [{
@@ -115,25 +100,25 @@ const getForumById = (req, res, next) => {
                 required: true,
             }]
         }, { transaction: t })
-            .then(fetchedPost => {
+            .then(fetchedBlog => {
 
-                if (fetchedPost === null) {
+                if (fetchedBlog === null) {
 
-                    res.locals.postExists = false;
+                    res.locals.blogExists = false;
                     next();
 
                 } else {
 
-                    res.locals.post = fetchedPost;
-                    res.locals.post.f_post_id = postId;
-                    res.locals.postExists = true;
+                    res.locals.blog = fetchedBlog;
+                    res.locals.blog.blog_id = blogId;
+                    res.locals.blogExists = true;
                     
-                    return ForumTag.findAll({
+                    return BlogTag.findAll({
                         attributes: [],
                         raw: true,
     
                         where: {
-                            f_post_id: postId
+                            blog_id: blogId
                         },
     
                         include: [{
@@ -155,12 +140,12 @@ const getForumById = (req, res, next) => {
                                 next();
                             }
     
-                            return ForumLike.findOne({
+                            return BlogLike.findOne({
                                 attributes: ["action"],
                                 raw: true,
                                 where: {
                                     user_id: uid,
-                                    forum_id: postId
+                                    blog_id: blogId
                                 }
                             }, { transaction: t })
                                 .then(likeStatus => {
@@ -187,43 +172,13 @@ const getForumById = (req, res, next) => {
             })            
     })
     .catch(err => console.log(err));
-
 }
 
-const loadForumReplies = (req, res, next) => {
-    
-    const postId = req.params.id;
+const loadBlogComments = (req, res, next) => {
 
-    ForumAnswer.findAll({
-        attributes: ["answer_content", "createdAt"],
-        raw: true,
-        order: [
-            ["createdAt", "DESC"]
-        ],
-
-        where: {
-            forum_p_id: postId
-        },
-
-        include: [{
-            attributes: ["user_name"],
-            model: User,
-            required: true,
-        }]
-    })
-        .then(fetchedAnswers => {
-            
-            res.locals.answers = fetchedAnswers;
-
-            next();
-        })
-        .catch(err => console.log(err));
 }
-
 
 module.exports = {
-    loadForumDataInit,
-    setupPagintion,
-    getForumById,
-    loadForumReplies
+    loadBlogDataInit,
+    getBlogById
 }

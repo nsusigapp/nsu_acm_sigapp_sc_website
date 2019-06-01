@@ -2,11 +2,13 @@
 const router = require("express").Router();
 
 const profileControllers = require("../controllers/profile");
-const { redirectIfNotLoggedIn } = require("../middlewares/accessControl");
+const { redirectIfNotLoggedIn, isAuthorized } = require("../middlewares/accessControl");
 
-router.post("/other-settings", redirectIfNotLoggedIn, profileControllers.updateSettings);
+router.post("/other-settings", redirectIfNotLoggedIn, isAuthorized, profileControllers.updateSettings);
 
-router.post("/change-password", redirectIfNotLoggedIn, profileControllers.changePassword);
+router.post("/change-password", redirectIfNotLoggedIn, isAuthorized, 
+        profileControllers.matchPassword, profileControllers.adminChangePassword, 
+        profileControllers.userChangePassword);
 
 module.exports = {
     router

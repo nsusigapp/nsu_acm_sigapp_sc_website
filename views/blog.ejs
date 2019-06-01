@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include includes/meta.ejs  %>
+    <title><%= pageTitle %></title>
+</head>
+
+<body>
+    <%- include includes/header.ejs  %>
+
+    <main class="main-content-forum-wrapper">
+
+        <div class="main-content-forum">
+
+            <div class="forum-sidebar-categories">
+                <h2 class="forum-sidebar-categories--title">
+                    Categories
+                </h2>
+        
+                <ul class="forum-sidebar-categories--category">
+                    <% tags.forEach(tag => { %>
+                        <li class="forum-sidebar-categories--category-item">
+                            <!-- check with ternary condition, if tag_name equals to the tag selected -->
+                            <!-- Will add active class, if tag is selected -->
+                            <a class="<%= active === tag.tag_name ? ' active' : '' %>" href="/blog/?tag_name=<%= tag.tag_name %>">
+                                # <%= tag.tag_name %>
+                            </a>
+                        </li>
+                    <% }); %>
+                </ul>
+            </div>
+        
+            <div class="blog-container">
+        
+                <a href="" class="blog-container--box">
+                    <img src="images/event33.png" alt="" class="blog-container--box--img">
+                    <h2 class="blog-container--box--title">hello Css. we should learn scss.</h2>
+                </a>
+                <a href="" class="blog-container--box">
+                    <img src="images/event33.png" alt="" class="blog-container--box--img">
+                    <h2 class="blog-container--box--title">hello Css. we should learn scss.</h2>
+                </a>
+        
+                <a href="" class="blog-container--box">
+                    <img src="images/event2.png" alt="" class="blog-container--box--img">
+                    <h2 class="blog-container--box--title">hello Css. we should learn scss.</h2>
+                </a>
+        
+                <a href="" class="blog-container--box">
+                    <img src="images/event1.png" alt="" class="blog-container--box--img">
+                    <h2 class="blog-container--box--title">hello Css. we should learn scss.</h2>
+                </a>
+            </div>
+
+        </div>
+    
+    </main>
+
+    <%- include includes/footer.ejs %>
+    <%- include includes/lazy.ejs %>
+</body>
+</html>

@@ -23,7 +23,30 @@ const redirectIfNotLoggedIn = (req, res, next) => {
     }
 }
 
+const isAuthorized = (req, res, next) => {
+
+    const { u_id } = req.body;
+    
+    const { loggedIn, sessionData, isAdmin } = res.locals.userInfo;
+    
+    const uid = loggedIn ? parseInt(u_id) : null;
+
+    const actionAllowed = uid === sessionData.uid || isAdmin ? true : false;
+
+    if (actionAllowed) {
+        
+        next();
+
+    } else {
+
+        return res.json({
+            unauthorized: true,
+        });
+    }
+}
+
 module.exports = {
     redirectIfLoggedIn,
-    redirectIfNotLoggedIn
+    redirectIfNotLoggedIn,
+    isAuthorized
 }
