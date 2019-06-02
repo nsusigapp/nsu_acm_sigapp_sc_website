@@ -161,6 +161,8 @@
 
             (function () {
 
+                const likeBtn = document.getElementById("likeBtn");
+
                 function setToast(text) {
 
                     const toast = document.getElementById("toast");
@@ -172,8 +174,6 @@
                         toast.style.display = "none";
                     }, 3000);
                 }
-
-                const likeBtn = document.getElementById("likeBtn");
 
                 likeBtn.addEventListener("click", function () {
 

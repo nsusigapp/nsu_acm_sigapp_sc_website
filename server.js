@@ -18,7 +18,8 @@ const forumPostRoutes = require("./routes/fpost");
 const blogPostRoutes = require("./routes/blog");
 const profileRoutes = require("./routes/profile");
 const frontendValidationRoutes = require("./routes/frontendValidation");
-const ajForumRoutes = require("./routes/ajforum"); 
+const ajForumRoutes = require("./routes/ajforum");
+const ajBlogRoutes = require("./routes/ajblog");
 const ajCommonRoutes = require("./routes/ajcommon");
 const authRoutes = require("./routes/auth");
 const errorRoutes = require("./routes/errors");
@@ -92,6 +93,8 @@ app.use(forumPostRoutes.router);
 app.use(blogPostRoutes.router);
 
 app.use(ajForumRoutes.router);
+
+app.use(ajBlogRoutes.router);
 
 app.use(ajCommonRoutes.router);
 

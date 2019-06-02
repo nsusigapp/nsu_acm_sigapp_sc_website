@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include includes/meta.ejs  %>
+    <title><%= pageTitle %></title>
+</head>
+
+<body>
+    <%- include includes/header.ejs  %>
+
+    <main class="main-content-post-view">
+        <div class="main-post-content-wrapper">
+            <div class="main-post--left">
+
+                <div class="main-blog-cover">
+                    <img class="main-blog-cover--img" src="./images/event33.png" alt="">
+                </div>
+
+                <h1 class="main-blog--title">
+                    Setting Cache-Control header for all Amazon S3 objects
+                </h1>
+
+                <div class="main-blog--content margin-top-small">
+                    <p class="main-blog--content--paragraph">
+                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Commodi repellat excepturi officia ex
+                        sed explicabo voluptates aliquid praesentium cupiditate reiciendis, suscipit voluptate et
+                        doloremque unde? Hic doloribus distinctio tempora quod nisi sunt? Enim vel repellat error
+                        aliquid? Sed, debitis voluptas aliquid commodi sunt, facere, cupiditate dolorem officiis iste
+                        est suscipit.
+                    </p>
+                </div>
+            </div>
+
+            <div class="main-post--right">
+                <div class="post-user-card">
+
+                    <div class="post-user-card--author">
+
+                        <div class="event-view-status--card">
+                                <p class="event-info-text">
+                                    Start date: 10 May, 2019
+                                </p>
+
+                                <p class="event-info-text">
+                                    End Date: 20 May, 2019
+                                </p>
+
+                                <p class="event-info-text">
+                                    Registered: 17 (<span class="event-info-text--red">40</span>)
+                                </p>
+
+                                <a href="/" class="event-info-text-link">
+                                    <i class="fab fa-facebook-square"></i>
+                                    <span>Facebook Event</span>
+                                </a>   
+                                
+                                <div class="event-reg-status-pill">
+                                    Registration:  <span class="event-reg-status-pill--status">Ongoing</span>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="event-photo-box">
+            <h1 class="event-photo-box--title">
+                Photo Gallery
+            </h1>
+
+            <div class="event-photo-box--img-box">
+                <img src="images/event1.png" alt="" class="event-photo-box--img-box--img">
+                <img src="images/event2.png" alt="" class="event-photo-box--img-box--img">
+                <img src="images/event33.png" alt="" class="event-photo-box--img-box--img">
+                <img src="images/state.png" alt="" class="event-photo-box--img-box--img">
+            </div>
+        </div>
+
+        <div class="answer-wrapper margin-top-medium">
+            <div class="main-post--answer-box">
+                <div class="post-reply-box">
+                    <h2 class="post-reply-box--title">
+                        Comments
+                    </h2>
+                    <div class="post-reply-box--editor margin-top-small margin-gutter-small">
+
+                        <form action="/" class="clearfix">
+                            <textarea class="comment-editor" name=""></textarea>
+                            <input class="post-reply-btn" value="Post Comment" type="submit">
+                        </form>
+
+                    </div>
+                    <div class="post-reply-box--reply-container">
+                        <div class="post-reply-box--reply-container--reply">
+                            <div class="post-reply-box--reply-container--reply-username">
+                                <a href="/" class="reply-author-link">
+                                    @mrscx
+                                </a>
+                                <span class="reply-link">Reply</span>
+                            </div>
+                            <p class="post-content">
+                                Hello this is vua answer by me
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="flex: 1;"></div>
+        </div>
+
+    </main>
+
+    <%- include includes/footer.ejs %>
+    <%- include includes/lazy.ejs %>
+
+</body>
+
+</html>

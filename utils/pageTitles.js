@@ -12,7 +12,9 @@ const pageTitle = {
     BLOG_VIEW: "Blog Post" + baseTitle,
     CREATE_FORUM: "Create Forum Post" + baseTitle,
     CREATE_BLOG: "Create Blog Post" + baseTitle,
-    PROFILE: "User Profile" + baseTitle
+    PROFILE: "User Profile" + baseTitle,
+    EVENT: "Events" + baseTitle,
+    EVENT_VIEW: "Event Details" + baseTitle
 }
 
 module.exports = pageTitle;

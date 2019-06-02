@@ -8,8 +8,6 @@ router.get("/create-blog-post", redirectIfNotLoggedIn, blogController.getBlogCre
 
 router.post("/create-blog-post", redirectIfNotLoggedIn, blogController.createBlogPost);
 
-router.post("/post-comment", redirectIfNotLoggedIn, blogController.blogPostComment);
-
 router.post("/delete-blog:id", blogController.deleteBlogById);
 
 module.exports = {

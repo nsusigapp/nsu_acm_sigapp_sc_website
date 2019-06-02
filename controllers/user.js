@@ -47,6 +47,21 @@ const getBlogViewPage = (req, res, next) => {
     });
 }
 
+const getEventPage = (req, res, next) => {
+
+    return res.render("event", {
+        pageTitle: pageTitle.EVENT
+    });
+}
+
+const getEventViewPage = (req, res, next) => {
+
+    return res.render("event_view", {
+        pageTitle: pageTitle.EVENT_VIEW,
+        dateFormat
+    });
+}
+
 const getUserProfilePage = (req, res, next) => {
 
     return res.render("user_profile", {
@@ -61,5 +76,7 @@ module.exports = {
     getForumViewPage,
     getBlogPage,
     getBlogViewPage,
+    getEventPage,
+    getEventViewPage,
     getUserProfilePage
 }

@@ -1,5 +1,5 @@
 
-const { forum_answer: ForumAnswer, blog: Blog, blog_tag: BlogTag, sequelize } = require("../models/index");
+const { blog: Blog, blog_tag: BlogTag, sequelize } = require("../models/index");
 
 const pageTitle = require("../utils/pageTitles");
 
@@ -64,37 +64,8 @@ const deleteBlogById = (req, res, next) => {
 
 }
 
-const blogPostComment = (req, res, next) => {
-
-    const formData = req.body;
-    const { loggedIn } = res.locals.userInfo;
-    const uid = loggedIn ? res.locals.userInfo.sessionData.uid : null;
-
-    if (formData.answer_content.length === 0) {
-        
-        return res.redirect(`/forum-post/${formData.postId}`);
-
-    } else if (formData.answer_content.includes("<img src=")) {
-
-        formData.answer_content = formData.answer_content.replace("<img src=", "<img data-src=");
-        // setup lazy loading tags
-    }
-
-    ForumAnswer.create({
-        forum_p_id: formData.postId,
-        author_id: uid,
-        answer_content: formData.answer_content
-    })
-        .then(response => {
-
-            return res.redirect(`/forum-post/${formData.postId}`);
-        })
-        .catch(err => console.log(err));
-}
-
 module.exports = {
     getBlogCreate,
     createBlogPost,
-    blogPostComment,
     deleteBlogById,
 }

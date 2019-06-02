@@ -21,6 +21,10 @@ router.get("/blog", fetchCategories, loadBlogDataInit, userControllers.getBlogPa
 
 router.get("/blog-post/:id", getBlogById, loadBlogComments, userControllers.getBlogViewPage);
 
+router.get("/event", userControllers.getEventPage);
+
+router.get("/event-details/:id", userControllers.getEventViewPage);
+
 router.get("/profile/:id", fetchUserById, userControllers.getUserProfilePage);
 
 module.exports = {

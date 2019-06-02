@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <%- include includes/meta.ejs  %>
     <title><%= pageTitle %></title>
@@ -47,7 +46,7 @@
                                     <p class="post-user-card--author-info-name-box--name">
                                         <%= blog["user.first_name"] %> <%= blog["user.last_name"] %>
                                     </p>
-                                    <a href="/" class="post-user-card--author-info-name-box--user-name">
+                                    <a href="/profile/<%= blog['user.u_id'] %>" class="post-user-card--author-info-name-box--user-name">
                                         @<%= blog["user.user_name"] %>
                                     </a>
                                 </div>
@@ -78,7 +77,7 @@
 
                                 <div class="action-icon-box">
                                     <img class="action-icon-box--icon" data-src="/images/comment-bubble.svg" alt="comment-count">
-                                    <span class="action-icon-box--count"><%= comments.length %></span>
+                                    <span id="comCount" class="action-icon-box--count"><%= comments.length %></span>
                                 </div>
                             </div>
                         <% } %>
@@ -96,17 +95,19 @@
                         <div class="post-reply-box--editor margin-top-small margin-gutter-small">
 
                             <% if (userInfo.loggedIn) { %>
-                                <form action="/post-comment" method="POST" class="clearfix">
-                                    <textarea name="com_content" class="comment-editor"></textarea>
-                                    <input type="hidden" name="postId" value="<%= blog.blog_id %>">
-                                    <input class="post-reply-btn" value="Post Comment" type="submit">
+                                <form class="clearfix">
+                                    <textarea id="comField" class="comment-editor"></textarea>
+                                    <input type="hidden" id="blogId" value="<%= blog.blog_id %>">
+                                    <button id="comBtn" class="post-reply-btn">
+                                        Post Comment
+                                    </button>
                                 </form>
                             <% } else { %>
                                 <h2 style="color: #374353;">Please Log In To Answer Questions </h2>
                             <% } %>
 
                         </div>
-                        <div class="post-reply-box--reply-container">
+                        <div id="comContainer" class="post-reply-box--reply-container">
                             <% comments.forEach(comment => { %>
                                 <div class="post-reply-box--reply-container--reply">
                                     <div class="post-reply-box--reply-container--reply-username">
@@ -120,7 +121,6 @@
                                     </p>
                                 </div>
                             <%  }); %>
-            
                         </div>
                     </div>
                 </div>
@@ -135,6 +135,75 @@
     <script src="/js/axios.js"></script>
     <script src="/js/prism.js"></script>
     <%- include includes/lazy.ejs %>
+    <% if (blogExists) { %>
+        <script>
+            (function() {
+
+                const comBtn = document.getElementById("comBtn");
+
+                comBtn.addEventListener("click", function(event) {
+
+                    event.preventDefault();
+
+                    this.innerHTML = '<img class="spinner" src="/images/spinner.svg">';
+
+                    const comField = document.getElementById("comField");
+
+                    if (comField.value.length === 0) {
+
+                        this.innerHTML = "Empty Body!";
+
+                        setTimeout(function() {
+                            this.innerHTML = "Post Comment";
+
+                        }, 3000);
+
+                    } else {
+
+                        const comContainer = document.getElementById("comContainer");
+                        const blogId = document.getElementById("blogId").value;
+
+                        axios.post("/post-comment", {
+                            blog_id: blogId,
+                            com_content: comField.value,
+                        })
+                            .then(res => {
+                                
+                                if (res.data.success !== undefined && res.data.success) {
+                                    const html = `<div class="post-reply-box--reply-container--reply">
+                                        <div class="post-reply-box--reply-container--reply-username">
+                                            <a href="/" class="reply-author-link">
+                                                ${res.data.user_name} - ${res.data.createdAt}
+                                            </a>
+                                            <span class="reply-link">Reply</span>
+                                        </div>
+                                            <p class="post-content">
+                                                ${res.data.com_content}
+                                            </p>
+                                        </div>`;
+
+
+                                    const savedData = comContainer.innerHTML;
+
+                                    comContainer.innerHTML = html;
+                                    comContainer.innerHTML += savedData;
+
+                                    document.getElementById("comCount").textContent = res.data.comCount;
+
+                                    this.innerHTML = "Post Comment";
+                                    comField.value = "";
+                                }
+
+                            })
+                            .catch(err => console.log(err));
+                    }
+
+                });
+
+
+            })();
+        </script>
+    <% } %>
 </body>
 
 </html>
