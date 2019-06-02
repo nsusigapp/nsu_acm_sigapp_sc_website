@@ -11,3 +11,8 @@
     margin-top: -1rem;
     margin-bottom: 0.5rem;
 }
+
+.title-create-box{
+    @include displayFlex(space-between, center);
+    margin-bottom: 3rem;
+}

@@ -20,20 +20,16 @@
                 <div class="main-post--left">
 
                     <div class="main-blog-cover">
-                        <img class="main-blog-cover--img" src="/images/state.png" alt="">
+                        <img class="main-blog-cover--img" data-src="<%= blog.img_url %>">
                     </div>
 
                     <h1 class="main-blog--title">
-                        Setting Cache-Control header for all Amazon S3 objects
+                        <%= blog.blog_title %>
                     </h1>
 
                     <div class="main-blog--content margin-top-small">
                         <p class="main-blog--content--paragraph">
-                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Commodi repellat excepturi officia ex
-                            sed explicabo voluptates aliquid praesentium cupiditate reiciendis, suscipit voluptate et
-                            doloremque unde? Hic doloribus distinctio tempora quod nisi sunt? Enim vel repellat error
-                            aliquid? Sed, debitis voluptas aliquid commodi sunt, facere, cupiditate dolorem officiis iste
-                            est suscipit.
+                            <%- blog.blog_description %>
                         </p>
                     </div>
                 </div>
@@ -45,21 +41,21 @@
 
                             <div class="post-user-card--author-info">
 
-                                <img src="/images/abir-pp.jpg" alt="profile-picture"
+                                <img src="<%= blog['user.avatar_url'] %>" alt="profile-picture"
                                     class="post-user-card--author-info--img">
                                 <div class="post-user-card--author-info-name-box">
                                     <p class="post-user-card--author-info-name-box--name">
-                                        Abir Rahman
+                                        <%= blog["user.first_name"] %> <%= blog["user.last_name"] %>
                                     </p>
                                     <a href="/" class="post-user-card--author-info-name-box--user-name">
-                                        @SpaceKnight69
+                                        @<%= blog["user.user_name"] %>
                                     </a>
                                 </div>
 
                             </div>
 
                             <p class="post-user-card--author-publish-date margin-top-small margin-gutter-small">
-                                Posted On, 21st Feb, 2019
+                                Posted On, <%= dateFormat(blog.createdAt) %>
                             </p>
 
                             <h4 class="secondary-small-title">Categories</h4>
@@ -76,13 +72,13 @@
                         <% if (userInfo.loggedIn) { %>
                             <div class="post-user-card-action-box margin-top-small">
                                 <div class="action-icon-box">
-                                    <img class="action-icon-box--icon like-icon" src="/images/star.svg" alt="like-btn">
-                                    <span class="action-icon-box--count">12</span>
+                                    <img class="action-icon-box--icon like-icon" data-src="/images/star.svg" alt="like-btn">
+                                    <span class="action-icon-box--count"><%= blog.like_count %></span>
                                 </div>
 
                                 <div class="action-icon-box">
-                                    <img class="action-icon-box--icon" src="/images/question.svg" alt="comment-count">
-                                    <span class="action-icon-box--count">3</span>
+                                    <img class="action-icon-box--icon" data-src="/images/comment-bubble.svg" alt="comment-count">
+                                    <span class="action-icon-box--count"><%= comments.length %></span>
                                 </div>
                             </div>
                         <% } %>
@@ -100,10 +96,10 @@
                         <div class="post-reply-box--editor margin-top-small margin-gutter-small">
 
                             <% if (userInfo.loggedIn) { %>
-                                <form action="/post-answer" method="POST" class="clearfix">
-                                    <textarea name="answer_content" id="answereditor"></textarea>
-                                    <input type="hidden" name="postId" value="<%= post.f_post_id %>">
-                                    <input class="post-reply-btn" value="Post Answer" type="submit">
+                                <form action="/post-comment" method="POST" class="clearfix">
+                                    <textarea name="com_content" class="comment-editor"></textarea>
+                                    <input type="hidden" name="postId" value="<%= blog.blog_id %>">
+                                    <input class="post-reply-btn" value="Post Comment" type="submit">
                                 </form>
                             <% } else { %>
                                 <h2 style="color: #374353;">Please Log In To Answer Questions </h2>
@@ -137,6 +133,8 @@
     <%- include includes/footer.ejs %>
 
     <script src="/js/axios.js"></script>
+    <script src="/js/prism.js"></script>
+    <%- include includes/lazy.ejs %>
 </body>
 
 </html>

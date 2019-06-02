@@ -31,25 +31,33 @@
             </div>
         
             <div class="blog-container">
+
+                <div class="title-create-box">
+                    <h1 class="main-content-title">Latest Post</h1>
+                    <% if (userInfo.loggedIn) { %>
+                        <a class="narrow-solid-button narrow-solid-button-light-dark" href="/create-blog-post">Create Post +</a>
+                    <% } %>
+                </div>
+
+                <% if (blogPost.length === 0) { %>
+                    <h1>No posts to show!</h1>
+                <% } else { %>
+
+                    <div class="blog-container-wrapper">
+
+                        <% blogPost.forEach(blog => { %>
+
+                            <a href="/blog-post/<%= blog.blog_id %>" class="blog-container-wrapper--box">
+                                <img data-src="<%= blog.img_url %>" class="blog-container-wrapper--box--img">
+                                <h2 class="blog-container-wrapper--box--title"><%= blog.blog_title %></h2>
+                            </a>
+
+                        <% }); %>
+
+                    </div>
+
+                <% } %>
         
-                <a href="" class="blog-container--box">
-                    <img src="images/event33.png" alt="" class="blog-container--box--img">
-                    <h2 class="blog-container--box--title">hello Css. we should learn scss.</h2>
-                </a>
-                <a href="" class="blog-container--box">
-                    <img src="images/event33.png" alt="" class="blog-container--box--img">
-                    <h2 class="blog-container--box--title">hello Css. we should learn scss.</h2>
-                </a>
-        
-                <a href="" class="blog-container--box">
-                    <img src="images/event2.png" alt="" class="blog-container--box--img">
-                    <h2 class="blog-container--box--title">hello Css. we should learn scss.</h2>
-                </a>
-        
-                <a href="" class="blog-container--box">
-                    <img src="images/event1.png" alt="" class="blog-container--box--img">
-                    <h2 class="blog-container--box--title">hello Css. we should learn scss.</h2>
-                </a>
             </div>
 
         </div>

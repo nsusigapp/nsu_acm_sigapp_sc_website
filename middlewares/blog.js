@@ -87,7 +87,7 @@ const getBlogById = (req, res, next) => {
     sequelize.transaction(function(t) {
 
         return Blog.findOne({
-            attributes: ["blog_title", "blog_description", "like_count", "createdAt"],
+            attributes: ["blog_title", "blog_description", "like_count", "img_url", "createdAt"],
             subQuery: false,
             raw: true,
             where: {
@@ -176,9 +176,36 @@ const getBlogById = (req, res, next) => {
 
 const loadBlogComments = (req, res, next) => {
 
+    const blogId = req.params.id;
+
+    BlogComm.findAll({
+        attributes: ["com_content", "createdAt"],
+        raw: true,
+        order: [
+            ["createdAt", "DESC"]
+        ],
+
+        where: {
+            blog_id: blogId
+        },
+
+        include: [{
+            attributes: ["user_name"],
+            model: User,
+            required: true,
+        }]
+    })
+        .then(fetchedCom => {
+            
+            res.locals.comments = fetchedCom;
+
+            next();
+        })
+        .catch(err => console.log(err));
 }
 
 module.exports = {
     loadBlogDataInit,
-    getBlogById
+    getBlogById,
+    loadBlogComments
 }

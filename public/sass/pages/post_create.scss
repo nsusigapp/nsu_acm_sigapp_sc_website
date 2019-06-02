@@ -1,6 +1,11 @@
 
-.create-forum-wrapper{
+.create-post-wrapper{
     padding: 5rem 20rem;
+
+    @media only screen and(max-width: 825px){
+        padding: 1rem 2rem;
+        margin-bottom: 5rem;
+    }
 
     input{
         font-family: "Quicksand", sans-serif;
@@ -19,11 +24,20 @@
 
             a{
                 text-decoration: none;
-                margin-left: 1rem;
-                color: black;
+                color: #fff;
+                background: #1F2833;
+                padding: 1rem;
+                transition: all 0.3s;
+                font-weight: bold;
+
+                @media only screen and(max-width: 825px){
+                    flex: 1;
+                    font-size: 1.2rem;
+                    padding: 1.25rem;
+                }
 
                 &:hover{
-                    text-decoration: underline;
+                    background: #2C3E50;
                 }
 
             }
@@ -65,3 +79,8 @@
         font-weight: bold;
     }
 }
+
+// #fetchTags{
+//     background: #333;
+//     color: #fff;
+// }

@@ -1,8 +1,13 @@
+
 .blog-container{
+    margin-left: 5rem;
+    flex: 3;
+}
+
+.blog-container-wrapper{
 
     @include displayFlex(space-around, center);
     flex-wrap: wrap;
-    flex: 3;
 
     @media only screen and(max-width: 600px){
         flex-direction: column;

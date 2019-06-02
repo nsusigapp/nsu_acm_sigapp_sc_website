@@ -15,9 +15,11 @@ const bodyParser = require("body-parser");
 const userRoutes = require("./routes/user");
 const searchRoutes = require("./routes/search");
 const forumPostRoutes = require("./routes/fpost");
+const blogPostRoutes = require("./routes/blog");
 const profileRoutes = require("./routes/profile");
 const frontendValidationRoutes = require("./routes/frontendValidation");
 const ajForumRoutes = require("./routes/ajforum"); 
+const ajCommonRoutes = require("./routes/ajcommon");
 const authRoutes = require("./routes/auth");
 const errorRoutes = require("./routes/errors");
 
@@ -87,7 +89,11 @@ app.get("/make-admin", function(req, res, next) {
 
 app.use(forumPostRoutes.router);
 
+app.use(blogPostRoutes.router);
+
 app.use(ajForumRoutes.router);
+
+app.use(ajCommonRoutes.router);
 
 app.use(searchRoutes.router);
 

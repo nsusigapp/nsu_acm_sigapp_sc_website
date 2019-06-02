@@ -114,6 +114,12 @@ body {
   margin-top: -1rem;
   margin-bottom: 0.5rem; }
 
+.title-create-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 3rem; }
+
 .main-nav-bar {
   display: flex;
   justify-content: space-between;
@@ -1069,11 +1075,6 @@ body {
       .main-content-forum .forum-questions-box {
         margin-left: 0rem;
         width: 100%; } }
-    .main-content-forum .forum-questions-box .title-create-box {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 3rem; }
     .main-content-forum .forum-questions-box--card {
       display: flex;
       justify-content: space-between;
@@ -1128,37 +1129,49 @@ body {
   align-items: center;
   margin-bottom: 5rem; }
 
-.create-forum-wrapper {
+.create-post-wrapper {
   padding: 5rem 20rem; }
-  .create-forum-wrapper input {
+  @media only screen and (max-width: 825px) {
+    .create-post-wrapper {
+      padding: 1rem 2rem;
+      margin-bottom: 5rem; } }
+  .create-post-wrapper input {
     font-family: "Quicksand", sans-serif; }
-  .create-forum-wrapper--form {
+  .create-post-wrapper--form {
     margin-top: 3rem; }
-    .create-forum-wrapper--form-tag-box {
+    .create-post-wrapper--form-tag-box {
       display: flex;
       align-items: center; }
-      .create-forum-wrapper--form-tag-box .tag-input {
+      .create-post-wrapper--form-tag-box .tag-input {
         flex: 2; }
-      .create-forum-wrapper--form-tag-box a {
+      .create-post-wrapper--form-tag-box a {
         text-decoration: none;
-        margin-left: 1rem;
-        color: black; }
-        .create-forum-wrapper--form-tag-box a:hover {
-          text-decoration: underline; }
-    .create-forum-wrapper--form--label {
+        color: #fff;
+        background: #1F2833;
+        padding: 1rem;
+        transition: all 0.3s;
+        font-weight: bold; }
+        @media only screen and (max-width: 825px) {
+          .create-post-wrapper--form-tag-box a {
+            flex: 1;
+            font-size: 1.2rem;
+            padding: 1.25rem; } }
+        .create-post-wrapper--form-tag-box a:hover {
+          background: #2C3E50; }
+    .create-post-wrapper--form--label {
       display: inline-block;
       font-size: 1.8rem;
       font-weight: 600;
       margin-bottom: 0.5rem; }
-    .create-forum-wrapper--form .input-container-paral {
+    .create-post-wrapper--form .input-container-paral {
       display: flex;
       justify-content: flex-start;
       align-items: center; }
-      .create-forum-wrapper--form .input-container-paral--icon {
+      .create-post-wrapper--form .input-container-paral--icon {
         height: 4rem;
         padding: 1rem 0.5rem;
         border: 1px solid #00CDB3; }
-      .create-forum-wrapper--form .input-container-paral--input {
+      .create-post-wrapper--form .input-container-paral--input {
         background: rgba(153, 153, 153, 0.274);
         flex: 1;
         padding: 1.1rem;
@@ -1429,52 +1442,6 @@ body {
     .profile-page-wrapper--profile-box .tabSection {
       display: none; }
 
-.create-forum-wrapper {
-  padding: 5rem 20rem; }
-  .create-forum-wrapper input {
-    font-family: "Quicksand", sans-serif; }
-  .create-forum-wrapper--form {
-    margin-top: 3rem; }
-    .create-forum-wrapper--form-tag-box {
-      display: flex;
-      align-items: center; }
-      .create-forum-wrapper--form-tag-box .tag-input {
-        flex: 2; }
-      .create-forum-wrapper--form-tag-box a {
-        text-decoration: none;
-        margin-left: 1rem;
-        color: black; }
-        .create-forum-wrapper--form-tag-box a:hover {
-          text-decoration: underline; }
-    .create-forum-wrapper--form--label {
-      display: inline-block;
-      font-size: 1.8rem;
-      font-weight: 600;
-      margin-bottom: 0.5rem; }
-    .create-forum-wrapper--form .input-container-paral {
-      display: flex;
-      justify-content: flex-start;
-      align-items: center; }
-      .create-forum-wrapper--form .input-container-paral--icon {
-        height: 4rem;
-        padding: 1rem 0.5rem;
-        border: 1px solid #00CDB3; }
-      .create-forum-wrapper--form .input-container-paral--input {
-        background: rgba(153, 153, 153, 0.274);
-        flex: 1;
-        padding: 1.1rem;
-        border: 1px solid #57BAE5;
-        border-left: none;
-        outline: none; }
-
-.post-submit-btn-container {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center; }
-  .post-submit-btn-container--btn {
-    font-size: 1.8rem;
-    font-weight: bold; }
-
 .event-info-text {
   margin-bottom: 1rem;
   font-size: 1.8rem; }
@@ -1520,28 +1487,31 @@ body {
   cursor: pointer; }
 
 .blog-container {
+  margin-left: 5rem;
+  flex: 3; }
+
+.blog-container-wrapper {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  flex-wrap: wrap;
-  flex: 3; }
+  flex-wrap: wrap; }
   @media only screen and (max-width: 600px) {
-    .blog-container {
+    .blog-container-wrapper {
       flex-direction: column;
       padding: 1rem; } }
-  .blog-container--box {
+  .blog-container-wrapper--box {
     width: 40%;
     text-decoration: none;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
     margin-bottom: 3rem; }
     @media only screen and (max-width: 600px) {
-      .blog-container--box {
+      .blog-container-wrapper--box {
         width: 100%; } }
-    .blog-container--box--img {
+    .blog-container-wrapper--box--img {
       height: 20rem;
       width: 100%;
       object-fit: cover; }
-    .blog-container--box--title {
+    .blog-container-wrapper--box--title {
       color: black;
       padding: 1.5rem;
       font-size: 2rem; }

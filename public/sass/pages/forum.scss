@@ -62,11 +62,6 @@
             width: 100%;
         }
 
-        .title-create-box{
-            @include displayFlex(space-between,center);
-            margin-bottom: 3rem;
-        }
-
         &--card{
 
             @include displayFlex(space-between, center);
@@ -147,3 +142,4 @@
     @include displayFlex(space-between, center);
     margin-bottom: 5rem;
 }
+

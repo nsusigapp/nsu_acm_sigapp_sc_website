@@ -11,6 +11,7 @@ const pageTitle = {
     BLOG: "Blog" + baseTitle,
     BLOG_VIEW: "Blog Post" + baseTitle,
     CREATE_FORUM: "Create Forum Post" + baseTitle,
+    CREATE_BLOG: "Create Blog Post" + baseTitle,
     PROFILE: "User Profile" + baseTitle
 }
 
