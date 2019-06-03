@@ -54,7 +54,7 @@ const loadBlogDataInit = (req, res, next) => {
                     if (!filter) {
 
                         res.locals.blogPost = mergedPost;
-                        next();
+                        return next();
 
                     } else {
 
@@ -69,7 +69,7 @@ const loadBlogDataInit = (req, res, next) => {
                         });
 
                         res.locals.blogPost = filteredPost;
-                        next();
+                        return next();
                     }
 
                 })
@@ -104,7 +104,7 @@ const getBlogById = (req, res, next) => {
                 if (fetchedBlog === null) {
 
                     res.locals.blogExists = false;
-                    next();
+                    return next();
 
                 } else {
 
@@ -136,7 +136,7 @@ const getBlogById = (req, res, next) => {
                             if (!loggedIn) {
                                 
                                 res.locals.isLiked = false;
-                                next();
+                                return next();
 
                             } else {
 
@@ -153,17 +153,17 @@ const getBlogById = (req, res, next) => {
                                         if (likeStatus === null) {
         
                                             res.locals.isLiked = false;
-                                            next();
+                                            return next();
         
                                         } else if (likeStatus.action === postLike.LIKE) {
         
                                             res.locals.isLiked = true;
-                                            next();
+                                            return next();
         
                                         } else if (likeStatus.action === postLike.UNLIKE) {
         
                                             res.locals.isLiked = false;
-                                            next();
+                                            return next();
                                         }
                                     })
                             }
@@ -200,7 +200,7 @@ const loadBlogComments = (req, res, next) => {
             
             res.locals.comments = fetchedCom;
 
-            next();
+            return next();
         })
         .catch(err => console.log(err));
 }

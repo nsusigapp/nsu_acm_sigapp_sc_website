@@ -7,6 +7,7 @@
     <script>
         tinymce.init({
             oninit : "setPlainText",
+            paste_as_text: true,
             selector: '#answereditor',
             plugins : 'advlist paste autolink link image lists charmap print preview autoresize codesample',
             toolbar: 'undo redo | styleselect | bold italic | link image | codesample',
@@ -44,9 +45,9 @@
                     </h1>
     
                     <div class="main-post--content margin-top-small">
-                        <p class="main-post--content--paragraph">
+                        <div class="main-post--content--paragraph">
                             <%- post.f_post_description %>
-                        </p>
+                        </div>
                     </div>
                 </div>
     

@@ -16,12 +16,12 @@ const fetchNavBarInfo = (req, res, next) => {
 
                 req.app.locals.headerInfo = fetchedResponse;
 
-                next();
+                return next();
             })
             .catch(err => console.log(err));
     } else {
 
-        next();
+        return next();
     }
 
 }
@@ -42,7 +42,7 @@ const fetchRandomQuote = (req, res, next) => {
 
             req.randomQuote = randomQuote.quote_text;
 
-            next();
+            return next();
         })
         .catch(err => {
 
@@ -50,7 +50,7 @@ const fetchRandomQuote = (req, res, next) => {
 
             req.randomQuote = failedToFetchQuote;
 
-            next();
+            return next();
             
         });
 }
@@ -73,7 +73,7 @@ const fetchUserById = (req, res, next) => {
                 if (fetchedUser === null) {
                     
                     res.locals.userExists = false;
-                    next();
+                    return next();
                     
                 } else {
             
@@ -106,7 +106,7 @@ const fetchUserById = (req, res, next) => {
                                     }, { transaction: t })
                                         .then(countAns => {
                                             res.locals.ansCount = countAns;
-                                            next();
+                                            return next();
                                         })
                                 })
                         })

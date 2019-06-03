@@ -12,7 +12,7 @@ const fetchCategories = (req, res, next) => {
         .then(fetchedTag => {
 
             res.locals.tags = fetchedTag;
-            next();
+            return next();
         })
         .catch(err => console.log(err));
 }

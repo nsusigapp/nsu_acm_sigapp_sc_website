@@ -20,7 +20,7 @@ const isLoggedIn = (req, res, next) => {
                 isAdmin: isAdmin
             }
 
-            next();
+            return next();
 
         } catch (err) {
 
@@ -30,7 +30,7 @@ const isLoggedIn = (req, res, next) => {
                 loggedIn: false,
             }
 
-            next();
+            return next();
         }
 
     } else {
@@ -39,7 +39,7 @@ const isLoggedIn = (req, res, next) => {
             loggedIn: false,
         }
 
-        next();
+        return next();
     }
 
 }

@@ -7,7 +7,7 @@ const redirectIfLoggedIn = (req, res, next) => {
 
     } else {
 
-        next();
+        return next();
     }
 }
 
@@ -19,7 +19,7 @@ const redirectIfNotLoggedIn = (req, res, next) => {
 
     } else {
 
-        next();
+        return next();
     }
 }
 
@@ -35,7 +35,7 @@ const isAuthorized = (req, res, next) => {
 
     if (actionAllowed) {
         
-        next();
+        return next();
 
     } else {
 

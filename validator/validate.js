@@ -13,8 +13,8 @@ const userSchema = joi.object().keys({
     nsu_id: joi.string().regex(/^[01][0-9][0-3]\d{4}(\d{3})?$/).required(),
     nsu_email: joi.string().email({ tldWhitelist: ["edu"] }).regex(/northsouth/).required(),
     alt_email: joi.string().email().required(),
-    password: joi.string().alphanum().min(6).required(),
-    re_password: joi.string().alphanum().min(6).required(),
+    password: joi.string().regex(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/).required(),
+    re_password: joi.string().regex(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/).required(),
 });
 
 const loginSchema = joi.object().keys({
@@ -50,10 +50,14 @@ const validateRegForm = (req, res, next) => {
 
         errorKey = isValid.error.details[0].context.key;
 
-    } else {
+    } else if (isValid.error === null) {
 
-        next();
+        return next();
     }
+
+    const { password, re_password, ...formData } = req.body;
+
+    req.flash("formdata", formData);
 
     if (errorKey === "first_name" || errorKey === "last_name") {
 
@@ -117,7 +121,7 @@ const validateLogInForm = (req, res, next) => {
 
     } else {
 
-        next();
+        return next();
     }
 
     if (errorKey === "nsu_id") {
@@ -127,7 +131,6 @@ const validateLogInForm = (req, res, next) => {
         req.flash("loginErr", loginInputError);
 
         return res.redirect("/login");
-
     }
 }
 

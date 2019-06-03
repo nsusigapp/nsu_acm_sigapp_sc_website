@@ -58,7 +58,7 @@ const loadForumDataInit = (req, res, next) => {
                     if (!filter) {
 
                         res.locals.forumPost = mergedPost;
-                        next();
+                        return next();
 
                     } else {
 
@@ -73,7 +73,7 @@ const loadForumDataInit = (req, res, next) => {
                         });
 
                         res.locals.forumPost = filteredPost;
-                        next();
+                        return next();
                     }
 
                 })
@@ -89,7 +89,7 @@ const setupPagintion = (req, res, next) => {
         .then(postCount => {
 
             res.locals.postCount = postCount;
-            next();
+            return next();
             
         })
         .catch(err => console.log(err));
@@ -120,7 +120,7 @@ const getForumById = (req, res, next) => {
                 if (fetchedPost === null) {
 
                     res.locals.postExists = false;
-                    next();
+                    return next();
 
                 } else {
 
@@ -152,7 +152,7 @@ const getForumById = (req, res, next) => {
                             if (!loggedIn) {
                                 
                                 res.locals.isLiked = false;
-                                next();
+                                return next();
 
                             } else {
 
@@ -169,17 +169,17 @@ const getForumById = (req, res, next) => {
                                         if (likeStatus === null) {
         
                                             res.locals.isLiked = false;
-                                            next();
+                                            return next();
         
                                         } else if (likeStatus.action === postLike.LIKE) {
         
                                             res.locals.isLiked = true;
-                                            next();
+                                            return next();
         
                                         } else if (likeStatus.action === postLike.UNLIKE) {
         
                                             res.locals.isLiked = false;
-                                            next();
+                                            return next();
                                         }
                                     })
                             }
@@ -218,7 +218,7 @@ const loadForumReplies = (req, res, next) => {
             
             res.locals.answers = fetchedAnswers;
 
-            next();
+            return next();
         })
         .catch(err => console.log(err));
 }
