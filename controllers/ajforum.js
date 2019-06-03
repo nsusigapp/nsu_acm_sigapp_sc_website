@@ -1,8 +1,7 @@
 
-const { forumLike } = require("../utils/constants");
+const { postLike } = require("../utils/constants");
 
 const { forum: Forum, forum_like_track: ForumLike, sequelize } = require("../models/index");
-
 
 const postForumLike = (req, res, next) => {
 
@@ -10,31 +9,23 @@ const postForumLike = (req, res, next) => {
     const { loggedIn } = res.locals.userInfo;
     const uid = loggedIn ? res.locals.userInfo.sessionData.uid : null;
 
-    if (!loggedIn) {
+    sequelize.transaction(function (t) {
 
-        return res.json({
-            loggedIn: false
-        });
+        return ForumLike.findOne({
+            attributes: ["action"],
+            raw: true,
+            where: {
+                user_id: uid,
+                forum_id: postId
+            }
+        }, { transaction: t })
+            .then(likeStatus => {
 
-    } else {
-        
-        sequelize.transaction(function(t) {
+                if (likeStatus !== null && likeStatus.action === postLike.LIKE) {
 
-            return ForumLike.findOne({
-                attributes: ["action"],
-                raw: true,
-                where: {
-                    user_id: uid,
-                    forum_id: postId
-                }
-            }, { transaction: t })
-                .then(likeStatus => {
-    
-                    if (likeStatus !== null && likeStatus.action === forumLike.LIKE) {
-                        
-                        return ForumLike.update({
-                            action: forumLike.UNLIKE,
-                        }, {
+                    return ForumLike.update({
+                        action: postLike.UNLIKE,
+                    }, {
                             where: {
                                 user_id: uid,
                                 forum_id: postId
@@ -59,12 +50,12 @@ const postForumLike = (req, res, next) => {
                                     });
                                 })
                         })
-                        
-                    } else if (likeStatus !== null && likeStatus.action === forumLike.UNLIKE) {
 
-                        return ForumLike.update({
-                            action: forumLike.LIKE,
-                        }, {
+                } else if (likeStatus !== null && likeStatus.action === postLike.UNLIKE) {
+
+                    return ForumLike.update({
+                        action: postLike.LIKE,
+                    }, {
                             where: {
                                 user_id: uid,
                                 forum_id: postId
@@ -89,38 +80,36 @@ const postForumLike = (req, res, next) => {
                                     });
                                 })
                         })
-                    } else if (likeStatus === null) {
+                } else if (likeStatus === null) {
 
-                        return ForumLike.create({
-                            user_id: uid,
-                            forum_id: postId,
-                            action: forumLike.LIKE
-                        }, { transaction: t })
-                            .then(likeCreate => {
+                    return ForumLike.create({
+                        user_id: uid,
+                        forum_id: postId,
+                        action: postLike.LIKE
+                    }, { transaction: t })
+                        .then(likeCreate => {
 
-                                return Forum.findOne({
-                                    where: {
-                                        f_post_id: postId,
-                                    }
-                                }, { transaction: t })
-                                    .then(post => {
-    
-                                        post.like_count += 1;
-                                        post.save();
-    
-                                        return res.json({
-                                            loggedIn: true,
-                                            count: post.like_count,
-                                            liked: true,
-                                        });
-                                    })
-                            })
-                    }
-                })
-        })
-        .catch(err => console.log(err));
-        
-    }
+                            return Forum.findOne({
+                                where: {
+                                    f_post_id: postId,
+                                }
+                            }, { transaction: t })
+                                .then(post => {
+
+                                    post.like_count += 1;
+                                    post.save();
+
+                                    return res.json({
+                                        loggedIn: true,
+                                        count: post.like_count,
+                                        liked: true,
+                                    });
+                                })
+                        })
+                }
+            })
+    })
+    .catch(err => console.log(err));
 }
 
 module.exports = {

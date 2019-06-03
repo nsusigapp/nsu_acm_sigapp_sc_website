@@ -153,34 +153,37 @@ const getForumById = (req, res, next) => {
                                 
                                 res.locals.isLiked = false;
                                 next();
+
+                            } else {
+
+                                return ForumLike.findOne({
+                                    attributes: ["action"],
+                                    raw: true,
+                                    where: {
+                                        user_id: uid,
+                                        forum_id: postId
+                                    }
+                                }, { transaction: t })
+                                    .then(likeStatus => {
+        
+                                        if (likeStatus === null) {
+        
+                                            res.locals.isLiked = false;
+                                            next();
+        
+                                        } else if (likeStatus.action === postLike.LIKE) {
+        
+                                            res.locals.isLiked = true;
+                                            next();
+        
+                                        } else if (likeStatus.action === postLike.UNLIKE) {
+        
+                                            res.locals.isLiked = false;
+                                            next();
+                                        }
+                                    })
                             }
     
-                            return ForumLike.findOne({
-                                attributes: ["action"],
-                                raw: true,
-                                where: {
-                                    user_id: uid,
-                                    forum_id: postId
-                                }
-                            }, { transaction: t })
-                                .then(likeStatus => {
-    
-                                    if (likeStatus === null) {
-    
-                                        res.locals.isLiked = false;
-                                        next();
-    
-                                    } else if (likeStatus.action === postLike.LIKE) {
-    
-                                        res.locals.isLiked = true;
-                                        next();
-    
-                                    } else if (likeStatus.action === postLike.UNLIKE) {
-    
-                                        res.locals.isLiked = false;
-                                        next();
-                                    }
-                                })
                         })
                 }
 

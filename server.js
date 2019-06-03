@@ -76,6 +76,23 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // });
 
 // check if user is logged in
+
+// app.use(function(req, res, next) {
+    
+//     const start = process.hrtime();
+
+//     res.on("finish", () => {
+
+//         const elapsed = process.hrtime(start);
+//         const elapsedTimeInMs = elapsed[0] * 1000 + elapsed[1] / 1e6;
+//         console.log("%s : %fms", req.path, elapsedTimeInMs);
+
+//     });
+
+//     next();
+
+// });
+
 app.use(authMiddleWare.isLoggedIn);
 
 app.use(userDataMiddleware.fetchNavBarInfo);
@@ -83,10 +100,6 @@ app.use(userDataMiddleware.fetchNavBarInfo);
 app.use(userRoutes.router);
 
 app.use(profileRoutes.router);
-
-app.get("/make-admin", function(req, res, next) {
-
-});
 
 app.use(forumPostRoutes.router);
 

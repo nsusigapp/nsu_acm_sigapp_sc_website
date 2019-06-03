@@ -54,7 +54,6 @@ const loadBlogDataInit = (req, res, next) => {
                     if (!filter) {
 
                         res.locals.blogPost = mergedPost;
-                        console.log(mergedPost);
                         next();
 
                     } else {
@@ -138,34 +137,36 @@ const getBlogById = (req, res, next) => {
                                 
                                 res.locals.isLiked = false;
                                 next();
-                            }
-    
-                            return BlogLike.findOne({
-                                attributes: ["action"],
-                                raw: true,
-                                where: {
-                                    user_id: uid,
-                                    blog_id: blogId
-                                }
-                            }, { transaction: t })
-                                .then(likeStatus => {
-    
-                                    if (likeStatus === null) {
-    
-                                        res.locals.isLiked = false;
-                                        next();
-    
-                                    } else if (likeStatus.action === postLike.LIKE) {
-    
-                                        res.locals.isLiked = true;
-                                        next();
-    
-                                    } else if (likeStatus.action === postLike.UNLIKE) {
-    
-                                        res.locals.isLiked = false;
-                                        next();
+
+                            } else {
+
+                                return BlogLike.findOne({
+                                    attributes: ["action"],
+                                    raw: true,
+                                    where: {
+                                        user_id: uid,
+                                        blog_id: blogId
                                     }
-                                })
+                                }, { transaction: t })
+                                    .then(likeStatus => {
+        
+                                        if (likeStatus === null) {
+        
+                                            res.locals.isLiked = false;
+                                            next();
+        
+                                        } else if (likeStatus.action === postLike.LIKE) {
+        
+                                            res.locals.isLiked = true;
+                                            next();
+        
+                                        } else if (likeStatus.action === postLike.UNLIKE) {
+        
+                                            res.locals.isLiked = false;
+                                            next();
+                                        }
+                                    })
+                            }
                         })
                 }
 

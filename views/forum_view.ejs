@@ -175,18 +175,14 @@
                     }, 3000);
                 }
 
-                likeBtn.addEventListener("click", function () {
+                likeBtn.addEventListener("click", function() {
 
                     axios.post("/like-forum-post", {
                         postid: <%= post.f_post_id %>, // this is not an error, It's ejs in JS; That's why showing error
                     })
                         .then(response => {
 
-                            if (!(response.data.loggedIn)) {
-
-                                setToast("Not Logged In");
-
-                            } else if (response.data.liked) {
+                            if (response.data.liked) {
 
                                 document.getElementById("likeCount").textContent = response.data.count;
                                 this.src = "/images/star.svg";
@@ -194,6 +190,7 @@
                                 setToast("Post Liked!");
 
                             } else {
+                                
                                 document.getElementById("likeCount").textContent = response.data.count;
                                 this.src = "/images/star-unlike.svg";
 
