@@ -120,9 +120,9 @@
                                         </a>
                                         <span class="reply-link">Reply</span>
                                     </div>
-                                    <p class="post-content">
+                                    <div class="post-content">
                                         <%- comment.com_content %>
-                                    </p>
+                                    </div>
                                 </div>
                             <%  }); %>
                         </div>
@@ -139,7 +139,7 @@
     <script src="/js/axios.js"></script>
     <script src="/js/prism.js"></script>
     <%- include includes/lazy.ejs %>
-    <% if (blogExists) { %>
+    <% if (blogExists && userInfo.loggedIn) { %>
         <script>
             (function() {
 

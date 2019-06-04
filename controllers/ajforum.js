@@ -1,7 +1,8 @@
 
 const { postLike } = require("../utils/constants");
 
-const { forum: Forum, forum_like_track: ForumLike, sequelize } = require("../models/index");
+const { forum: Forum, forum_like_track: ForumLike, 
+    forum_answer: ForumAnswer, users: User, sequelize } = require("../models/index");
 
 const postForumLike = (req, res, next) => {
 
@@ -112,6 +113,58 @@ const postForumLike = (req, res, next) => {
     .catch(err => console.log(err));
 }
 
+const forumPostAnswer = (req, res, next) => {
+
+    const formData = req.body;
+    const { loggedIn } = res.locals.userInfo;
+    const uid = loggedIn ? res.locals.userInfo.sessionData.uid : null;
+
+    if (formData.answer_content.length === 0) {
+        
+        return res.redirect(`/forum-post/${formData.postId}`);
+
+    } else if (formData.answer_content.includes("<img src=")) {
+
+        formData.answer_content = formData.answer_content.replace("<img src=", "<img data-src=");
+        // setup lazy loading tags
+    }
+
+    ForumAnswer.create({
+        forum_p_id: formData.postId,
+        author_id: uid,
+        answer_content: formData.answer_content
+    })
+        .then(answer => {
+
+            ForumAnswer.count()
+                .then(ansCount => {
+
+                    User.findOne({
+                        attributes: ["user_name"],
+                        where: {
+                            u_id: uid,
+                        }
+                    })
+                        .then(author => {
+
+                            return res.json({
+                                ansCount,
+                                u_id: uid,
+                                success: true,
+                                user_name: author.user_name,
+                                answer_content: answer.answer_content,
+                                createdAt: answer.createdAt
+                            });
+                        })
+                        .catch(err => console.log(err));
+                })
+                .catch(err => console.log(err));
+
+        })
+        .catch(err => console.log(err));
+}
+
 module.exports = {
     postForumLike,
+    forumPostAnswer
 }

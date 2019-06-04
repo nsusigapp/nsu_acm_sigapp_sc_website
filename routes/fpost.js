@@ -8,8 +8,6 @@ router.get("/create-forum-post", redirectIfNotLoggedIn, postController.getForumC
 
 router.post("/create-forum-post", redirectIfNotLoggedIn, postController.createForumPost);
 
-router.post("/post-answer", redirectIfNotLoggedIn, postController.forumPostAnswer);
-
 router.post("/delete-post:id", postController.deletePostById);
 
 module.exports = {

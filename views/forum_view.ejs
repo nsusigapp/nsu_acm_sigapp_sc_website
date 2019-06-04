@@ -95,7 +95,7 @@
     
                                 <div class="action-icon-box">
                                     <img class="action-icon-box--icon" data-src="/images/question.svg" alt="comment-count">
-                                    <span class="action-icon-box--count"><%= answers.length %></span>
+                                    <span id="ansCount" class="action-icon-box--count"><%= answers.length %></span>
                                 </div>
     
                                 <div id="toast" class="toast">
@@ -116,17 +116,17 @@
                         </h2>
                         <div class="post-reply-box--editor margin-top-small margin-gutter-small">
                             <% if (userInfo.loggedIn) { %>
-                                <form action="/post-answer" method="POST" class="clearfix">
-                                    <textarea name="answer_content" id="answereditor"></textarea>
-                                    <input type="hidden" name="postId" value="<%= post.f_post_id %>">
-                                    <input class="post-reply-btn" value="Post Answer" type="submit">
+                                <form class="clearfix">
+                                    <textarea id="answereditor"></textarea>
+                                    <input type="hidden" id="postId" value="<%= post.f_post_id %>">
+                                    <input id="ansBtn" class="post-reply-btn" value="Post Answer" type="submit">
                                 </form>
                             <% } else { %>
                                 <h2 style="color: #374353;">Please Log In To Answer Questions </h2>
                             <% } %>
     
                         </div>
-                        <div class="post-reply-box--reply-container">
+                        <div id="ansContainer" class="post-reply-box--reply-container">
         
                             <% answers.forEach(answer => { %>
                                 <div class="post-reply-box--reply-container--reply">
@@ -136,9 +136,9 @@
                                         </a>
                                         <span class="reply-link">Reply</span>
                                     </div>
-                                    <p class="post-content">
+                                    <div class="post-content">
                                         <%- answer.answer_content %>
-                                    </p>
+                                    </div>
                                 </div>
                             <%  }); %>
         
@@ -157,7 +157,7 @@
     <script src="/js/axios.js"></script>
     <script src="/js/prism.js"></script>
     <%- include includes/lazy.ejs %>
-    <% if (postExists) { %>
+    <% if (postExists && userInfo.loggedIn) { %>
         <script>
 
             (function () {
@@ -201,6 +201,63 @@
                         .catch(err => console.log(err));
                 });
 
+                ansBtn.addEventListener("click", function(event) {
+
+                    event.preventDefault();
+
+                    this.innerHTML = '<img class="spinner" src="/images/spinner.svg">';
+
+                    const answerContent = tinyMCE.get("answereditor").getContent();
+
+                    if (answerContent.length === 0) {
+
+                        this.innerHTML = "Empty Body!";
+
+                        setTimeout(function() {
+                            this.innerHTML = "Post Comment";
+
+                        }, 3000);
+
+                    } else {
+
+                        const ansContainer = document.getElementById("ansContainer");
+                        const postId = document.getElementById("postId").value;
+
+                        axios.post("/post-answer", {
+                            postId: postId,
+                            answer_content: answerContent,
+                        })
+                            .then(res => {
+                                
+                                if (res.data.success !== undefined && res.data.success) {
+                                    const html = `<div class="post-reply-box--reply-container--reply">
+                                        <div class="post-reply-box--reply-container--reply-username">
+                                            <a href="/profile/${res.data.u_id}" class="reply-author-link">
+                                                ${res.data.user_name} - ${res.data.createdAt}
+                                            </a>
+                                            <span class="reply-link">Reply</span>
+                                        </div>
+                                            <p class="post-content">
+                                                ${res.data.answer_content}
+                                            </p>
+                                        </div>`;
+
+                                    const savedData = ansContainer.innerHTML;
+
+                                    ansContainer.innerHTML = html;
+                                    ansContainer.innerHTML += savedData;
+
+                                    document.getElementById("ansCount").textContent = res.data.ansCount;
+
+                                    this.innerHTML = "Post Answer";
+                                    tinyMCE.get("answereditor").setContent("");
+                                }
+
+                            })
+                            .catch(err => console.log(err));
+                    }
+
+                });
             })();
 
         </script>

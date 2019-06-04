@@ -35,6 +35,7 @@ const blogPostComment = (req, res, next) => {
 
                             return res.json({
                                 success: true,
+                                user_id: uid,
                                 user_name: userName.user_name,
                                 com_content: response.com_content,
                                 createdAt: response.createdAt,

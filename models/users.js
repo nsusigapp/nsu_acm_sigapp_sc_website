@@ -2,8 +2,6 @@
 
 const jwt= require("jsonwebtoken");
 
-const { blog: Blog, forum: Forum } = require("./index");
-
 module.exports = function(sequelize, DataTypes) {
 
 	const User = sequelize.define('users', {
@@ -47,7 +45,7 @@ module.exports = function(sequelize, DataTypes) {
 		avatar_url: {
 			type: DataTypes.STRING(255),
 			allowNull: true,
-			defaultValue: 'img/sunglasses.png'
+			defaultValue: '/images/identity.svg'
 		},
 		status: {
 			type: DataTypes.INTEGER(4),
@@ -127,7 +125,6 @@ module.exports = function(sequelize, DataTypes) {
 		User.hasMany(models.session, {
 			foreignKey: "u_id",
 		});
-
 	};
 
 	User.generateAuthToken= payload => {
