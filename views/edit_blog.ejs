@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include includes/meta.ejs  %>
+    <title><%= pageTitle %></title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.0.5/tinymce.min.js"></script>
+    <script>
+        tinymce.init({
+            oninit : "setPlainText",
+            selector: '#queseditor',
+            plugins : 'advlist paste autolink link image lists charmap print preview autoresize codesample',
+            toolbar: 'undo redo | styleselect | bold italic | link image | codesample',
+            image_caption: true,
+            image_description: false,
+            codesample_languages: [
+                {text: 'HTML/XML', value: 'markup'},
+                {text: 'JavaScript', value: 'javascript'},
+                {text: 'CSS', value: 'css'},
+                {text: 'PHP', value: 'php'},
+                {text: 'Ruby', value: 'ruby'},
+                {text: 'Python', value: 'python'},
+                {text: 'Java', value: 'java'},
+                {text: 'C', value: 'c'},
+                {text: 'C#', value: 'csharp'},
+                {text: 'C++', value: 'cpp'}
+            ]
+        });
+    </script>
+</head>
+<body>
+    <%- include includes/header.ejs  %>
+
+    <main class="main-content-post-create">
+
+
+        <% if (unauthorized !== undefined && unauthorized) { %>
+            
+            <h1>What were you trying to do :/</h1>
+
+        <% } else { %>
+
+        <div class="create-post-wrapper">
+
+            <h2 class="secondary-title">
+                Create New Blog Post
+            </h2>
+
+            <form id="blogForm" class="create-post-wrapper--form" action="/edit-blog/<%= blog.blog_id %>" method="POST">
+                <span class="create-post-wrapper--form--label">Title</span>
+                <div class="input-container-paral margin-gutter-small">
+                    <img src="/images/icon.svg" class="input-container-paral--icon">
+                    <input name="blog_title" placeholder="Blog Title" 
+                        type="text" class="input-container-paral--input" value="<%= blog.blog_title %>">
+                </div>
+
+                <span class="create-post-wrapper--form--label">Cover Image</span>
+                <div class="input-container-paral margin-gutter-small">
+                    <img src="/images/photos.svg" class="input-container-paral--icon">
+                    <input name="img_url" placeholder="Paste direct image link here" 
+                        type="text" class="input-container-paral--input" value="<%= blog.img_url %>">
+                </div>
+
+                <span id="tagsMsg" class="create-post-wrapper--form--label">Tags</span>
+                <div class="create-post-wrapper--form-tag-box">
+                    <div class="input-container-paral tag-input">
+                        <img class="input-container-paral--icon" src="/images/icon.svg">
+                        <input id="tagsField" placeholder="Question Tags" 
+                            type="text" class="input-container-paral--input">
+                    </div>
+                    <a id="fetchTags" href="#">Load Available Tags</a>
+                </div>
+                
+                <div class="" id="tagSuggest"></div>
+
+                <div id="selectTagsContainer"></div>
+
+                <div id="tagsContainer"></div>
+
+                <span class="create-post-wrapper--form--label margin-top-small">Description</span>
+                <div class="question-editor-container">
+                    <textarea name="blog_description" id="queseditor">
+                        <%- blog.blog_description %>
+                    </textarea>
+                </div>
+                <div class="post-submit-btn-container">
+                    <input type="submit" 
+                        class="full-width-btn full-width-btn--black post-submit-btn-container--btn margin-top-small">
+                </div>
+            </form>
+        </div>
+
+        <% } %>
+
+    </main>
+
+    <%- include includes/footer.ejs %>
+    <%- include includes/lazy.ejs %>
+
+    <script src="/js/axios.js"></script>
+    <script src="/js/prism.js"></script>
+    <script>
+
+        let fetchedTags = [];
+        let tagsCount = 0;
+
+        const fetchTagsBtn = document.getElementById("fetchTags");
+        const tagsContainer = document.getElementById("tagsContainer");
+        const tagsField = document.getElementById("tagsField");
+        const tagsMsg = document.getElementById("tagsMsg");
+        const tagSuggest = document.getElementById("tagSuggest");
+        const blogForm = document.getElementById("blogForm");
+        const selectTagsContainer = document.getElementById("selectTagsContainer");
+
+        let isTagsShown = false;
+
+        function displayTags(context) {
+
+            if (isTagsShown) {
+
+                tagsContainer.innerHTML = "";
+                tagsContainer.classList.remove("margin-top-small");
+                context.textContent = "Show Available Tags";
+                isTagsShown = false;
+
+            } else {
+
+                tagsContainer.classList.add("margin-top-small");
+                context.textContent = "Hide Available Tags";
+
+                fetchedTags.forEach(tag => {
+                    tagsContainer.innerHTML += `<span class="tag-pills-box--pills">${tag.tag_name}</span>`
+                });
+
+                isTagsShown = true;
+            }
+        }
+
+        function selectTag(event, id, name) {
+
+            const selectedTag = document.getElementById(name);
+            const removeTag = document.getElementById("select" + name);
+
+            if (!selectedTag) {
+
+                let input = document.createElement("input");
+                input.setAttribute("type", "hidden");
+                input.setAttribute("id", name);
+                input.setAttribute("name", `tag[${tagsCount}]`);
+                
+                input.value = id;
+
+                blogForm.appendChild(input);
+
+                input = null;
+
+                let span = document.createElement("span");
+                span.setAttribute("id", "select" + name);
+                selectTagsContainer.appendChild(span);
+                span.innerText = name;
+                span.setAttribute("onclick", `selectTag(event, ${id}, '${name}')`);
+
+                span = null;
+                tagsCount++;
+
+            } else {
+
+                selectedTag.parentNode.removeChild(selectedTag);
+                removeTag.parentNode.removeChild(removeTag);
+                tagsCount--;
+            }
+        }
+
+        fetchTagsBtn.addEventListener("click", function (event) {
+
+            event.preventDefault();
+
+            if (fetchedTags.length === 0) {
+
+                axios.get("/get-tags")
+                    .then(res => {
+
+                        fetchedTags = res.data.fetchedTags;
+                        displayTags(this);
+                    })
+                    .catch(err => console.log(err));
+
+            } else {
+
+                displayTags(this);
+            }
+        });
+
+        tagsField.addEventListener("keyup", function (event) {
+
+            tagSuggest.innerHTML = "";
+
+            if (fetchedTags.length === 0) {
+
+                tagsMsg.style.color = "crimson";
+                tagsMsg.textContent = "Load tags first!";
+
+            } else {
+
+                if (this.value.length > 0) {
+
+                    const filterTags = fetchedTags.filter(tag => tag.tag_name.toLowerCase().includes(this.value.toLowerCase()));
+
+                    filterTags.forEach(tag => {
+
+                        tagSuggest.innerHTML += `<a href='#' onclick='selectTag(event, ${tag.tag_id}, "${tag.tag_name}")'>${tag.tag_name}</a>`;
+                    });
+                }
+            }
+        });
+
+    </script>
+</body>
+
+</html>

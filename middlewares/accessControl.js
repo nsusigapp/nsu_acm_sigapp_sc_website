@@ -1,4 +1,6 @@
 
+const { forum: Forum, blog: Blog } = require("../models/index");
+
 const redirectIfLoggedIn = (req, res, next) => {
 
     if (res.locals.userInfo.loggedIn) {
@@ -45,8 +47,58 @@ const isAuthorized = (req, res, next) => {
     }
 }
 
+const canEditBlog = (req, res, next) => {
+
+    const blogId = req.params.id;
+
+    Blog.findOne({
+        where: {
+            blog_id: blogId
+        }
+    })
+        .then(fetchedBlog => {
+
+            if (fetchedBlog === null) {
+
+                console.log("baal")
+
+                res.locals.blogExists = false;
+                return next();
+
+            } else {
+                
+                console.log("how is this shit being executed")
+                const { author_id } = fetchedBlog;
+
+                const { sessionData, isAdmin } = res.locals.userInfo;
+
+                const actionAllowed = author_id === sessionData.uid || isAdmin ? true : false;
+
+                if (!actionAllowed) {
+
+                    console.log("does run")
+
+                    res.locals.unauthorized = true;
+                    return next();
+
+                } else {
+
+                    req.fetchedBlog = fetchedBlog;
+                    return next();
+                }
+            }
+        })
+        .catch(err => console.log(err));
+}
+
+const canEditForum = (req, res, next) => {
+
+}
+
 module.exports = {
     redirectIfLoggedIn,
     redirectIfNotLoggedIn,
-    isAuthorized
+    isAuthorized,
+    canEditBlog,
+    canEditForum
 }

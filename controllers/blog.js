@@ -57,6 +57,14 @@ const createBlogPost = (req, res, next) => {
 
 }
 
+const getBlogEditPage = (req, res, next) => {
+    
+    return res.render("edit_blog", {
+        pageTitle: pageTitle.EDIT_BLOG,
+        blog: req.preparedBlog
+    });
+}
+
 const deleteBlogById = (req, res, next) => {
 
     const postId = req.params.id;
@@ -67,5 +75,6 @@ const deleteBlogById = (req, res, next) => {
 module.exports = {
     getBlogCreate,
     createBlogPost,
+    getBlogEditPage,
     deleteBlogById,
 }

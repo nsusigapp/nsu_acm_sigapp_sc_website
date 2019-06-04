@@ -205,8 +205,28 @@ const loadBlogComments = (req, res, next) => {
         .catch(err => console.log(err));
 }
 
+const prepareBlogEditData = (req, res, next) => {
+
+    const { fetchedBlog } = req;
+
+    if (res.locals.unauthorized) {
+        req.preparedBlog = null;
+        return next();
+    }
+
+    if (fetchedBlog.blog_description.includes("<img data-src=")) {
+
+        fetchedBlog.blog_description = fetchedBlog.blog_description.replace("<img src=", "<img data-src=");
+        // remove lazy loading tags
+    }
+
+    req.preparedBlog = fetchedBlog;
+    return next();
+}
+
 module.exports = {
     loadBlogDataInit,
     getBlogById,
-    loadBlogComments
+    loadBlogComments,
+    prepareBlogEditData
 }
