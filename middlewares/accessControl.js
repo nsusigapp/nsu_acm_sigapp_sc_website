@@ -25,6 +25,18 @@ const redirectIfNotLoggedIn = (req, res, next) => {
     }
 }
 
+const isAdmin = (req, res, next) => {
+
+    if (res.locals.userInfo.isAdmin) {
+
+        return next();
+    
+    } else {
+    
+        return res.redirect("/");
+    }
+}
+
 const isAuthorized = (req, res, next) => {
 
     const { u_id } = req.body;
@@ -100,5 +112,6 @@ module.exports = {
     redirectIfNotLoggedIn,
     isAuthorized,
     canEditBlog,
-    canEditForum
+    canEditForum,
+    isAdmin
 }

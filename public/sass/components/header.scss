@@ -72,6 +72,10 @@
 
         @include displayFlex(space-between, center);
 
+        @media only screen and(max-width: 1150px){
+            display: none;
+        }
+
         &--search-box{
           
             margin: 0;
@@ -197,6 +201,21 @@
         }
     }
 
+}
+
+.mob-nav-btn{
+    display: none;
+    position: relative;
+
+    @media only screen and(max-width: 1150px){
+        display: block;
+    }
+}
+
+
+.mob-nav-drpdown{
+    display: none;
+    position: absolute;
 }
 
 .extra-drpdown-btn{

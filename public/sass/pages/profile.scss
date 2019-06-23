@@ -2,7 +2,13 @@
 
     &-wrapper{
 
-        @include displayFlex(flex-start,flex-start);
+        @include displayFlex(flex-start, flex-start);
+
+        @media only screen and(max-width: 550px){
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
 
         &--side-bar{
 
@@ -10,6 +16,11 @@
             background: #D5DEEA;
             margin-top: 0.4rem;
             padding: 1.8rem;
+
+            @media only screen and(max-width: 550px){
+                width: 80%;
+                margin-top: 2rem;
+            }
 
             &--profile{
                 color: #374353;
@@ -26,6 +37,7 @@
             &--img-box{
                 margin-top: 2rem;
                 margin-bottom: 2rem;
+
                 &--img{
                     height: 18rem;
                     border-radius: 1rem;
@@ -41,6 +53,11 @@
             &--info{
 
                 margin-bottom: 10rem;
+
+                @media only screen and(max-width: 550px){
+                    margin-bottom: 2rem;
+                }
+
                 &--list{
 
                     list-style-type: none;
@@ -63,9 +80,7 @@
 
                     li{
                         margin-bottom: 0.7rem;
-                    }
-
-                    
+                    }                    
                 }
             }
         }
@@ -74,6 +89,10 @@
 
             flex: 4;
             margin: 2rem 3rem;
+
+            @media only screen and(max-width: 550px){
+                width: 90%;
+            }
 
             &--main-bar{
                 

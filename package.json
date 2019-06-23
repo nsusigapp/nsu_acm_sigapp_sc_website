@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "nodemon ./server.js",
-    "sass:compile": "node-sass public/sass/main.scss public/css/style.css -w"
+    "sass:compile": "node-sass public/sass/main.scss public/css/style.css -w",
+    "sass-admin:compile": "node-sass public/sass/admin-style.scss public/css/admin-style.css -w"
   },
   "repository": {
     "type": "git",

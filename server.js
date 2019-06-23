@@ -22,6 +22,7 @@ const ajForumRoutes = require("./routes/ajforum");
 const ajBlogRoutes = require("./routes/ajblog");
 const ajCommonRoutes = require("./routes/ajcommon");
 const authRoutes = require("./routes/auth");
+const adminRoutes = require("./routes/admin");
 const errorRoutes = require("./routes/errors");
 
 const userDataMiddleware = require("./middlewares/userData");
@@ -116,6 +117,8 @@ app.use(searchRoutes.router);
 app.use(frontendValidationRoutes.router);
 
 app.use(authRoutes.router);
+
+app.use(adminRoutes.router);
 
 app.use(errorRoutes.router);
 

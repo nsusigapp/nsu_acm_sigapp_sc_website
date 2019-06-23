@@ -55,7 +55,7 @@
 
             @media only screen and(max-width: 600px){
                 flex-direction: column;
-                padding: 1rem;
+                padding: 3rem;
                 justify-content: center;
             }
             
@@ -63,6 +63,11 @@
 
                 flex: 1;
                 margin-right: 5rem;
+
+                @media only screen and(max-width: 600px){
+                    margin-right: 0rem;
+                    margin-bottom: 2rem;
+                }
                 
             }
 
@@ -76,12 +81,17 @@
     .faculty-advisor{
 
         &-box{
-            @include displayFlex(center,center);
+            @include displayFlex(center, center);
+
+            @media only screen and(max-width: 600px){
+                width: 80%;
+                margin-left: 4.5rem;
+            }
             
             &--card{
                 color: #374353;
                 text-decoration: none;
-                @include displayFlex(center,center);
+                @include displayFlex(center, center);
                 flex-direction: column;
             }
         }
@@ -91,9 +101,13 @@
 
         padding: 5rem;
 
+        @media only screen and(max-width: 600px){
+            padding: 2rem;
+        }
+
         &--box{
 
-            @include displayFlex(space-around,center);
+            @include displayFlex(space-around, center);
             background: rgba(213,222,234,0.63);
             padding: 2rem;
             margin-bottom: 2rem;
@@ -106,6 +120,10 @@
             &--img-box{
 
                 flex: 1;
+
+                @media only screen and(max-width: 600px){
+                    margin-bottom: 2rem;
+                }
 
                 &--img{
                     height: 20rem;
