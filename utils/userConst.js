@@ -8,7 +8,8 @@ const roleID = {
 // user status as saved in DB;
 const userStatus = {
     ACTIVE: 1,
-    IN_ACTIVE: 0
+    IN_ACTIVE: -1,
+    PENDING: 0
 }
 
 const sessStatus = {

@@ -52,7 +52,6 @@ const updateSettings = (req, res, next) => {
             })
             .catch(err => console.log(err));
     }
-
 }
 
 const matchPassword = (req, res, next) => {

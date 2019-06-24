@@ -35,26 +35,28 @@
                             <h3 class="flash-box--title">Error</h3>
             
                             <ul class="flash-box--req flash-box--req-error">
-                                <% if(error[0].invalidNsuId){ %>
+                                <% if (error[0].invalidNsuId) { %>
 
                                     <li>Invalid NSU ID!</li>
 
-                                <% }else if(error[0].userDoesNotExist){ %>
+                                <% }else if (error[0].userDoesNotExist) { %>
 
                                     <li>User does not exists!</li>
 
-                                <% }else if(error[0].invalidPasswd){ %>
+                                <% }else if (error[0].invalidPasswd) { %>
 
                                     <li>Invalid Password!</li>
 
-                                <% }else if(error[0].passwordMisMatch){ %>
+                                <% }else if (error[0].passwordMisMatch) { %>
 
                                     <li>Password Doesn't Match!</li>
 
-                                <% }else if(error[0].bannedUser){ %>
+                                <% }else if (error[0].bannedUser) { %>
 
                                     <li>User Status: Deactivated!</li>
 
+                                <% } else if (error[0].pendingUser) { %>
+                                    <li>User Status: Pending!</li>
                                 <% } %>
                             </ul>
                         </div>

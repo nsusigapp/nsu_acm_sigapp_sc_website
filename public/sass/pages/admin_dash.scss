@@ -76,6 +76,19 @@
                 padding: 1rem 5rem;
             }
         }
+
+        .admin-search-users{
+            width: 100%;
+            border: none;
+            border-bottom: 1.5px solid rgba($color: #1f2833, $alpha: 0.50);
+            outline: none;
+            padding: 1.5rem 1rem;
+            transition: all 0.1s cubic-bezier(0.445, 0.05, 0.55, 0.95);
+
+            &:focus{
+                border-bottom: 1.5px solid #1e90ff;
+            }
+        }
     }
 
 }
@@ -89,6 +102,20 @@
     border-bottom: 1px solid #000;
     font-weight: 400;
     margin-bottom: 1.5rem;
+}
+
+.dark-btn{
+    color: #fff;
+    outline: none;
+    border: none;
+    border-radius: 0.4rem;
+    background: #1f2833;
+    padding: 0.5rem 1rem;
+
+    &:hover{
+        text-decoration: none;
+        background: #2C3E50;
+    }
 }
 
 table {
