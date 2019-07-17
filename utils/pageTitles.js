@@ -16,7 +16,8 @@ const pageTitle = {
     CREATE_BLOG: "Create Blog Post" + baseTitle,
     PROFILE: "User Profile" + baseTitle,
     EVENT: "Events" + baseTitle,
-    EVENT_VIEW: "Event Details" + baseTitle
+    EVENT_VIEW: "Event Details" + baseTitle,
+    SEARCH_RES: "Search" + baseTitle
 }
 
 module.exports = pageTitle;

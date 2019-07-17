@@ -9,6 +9,8 @@
 
     <% if (!userExists) { %>
         <h1 style="color: crimson;text-align: center; margin: 20rem 0rem;">The user you're looking for does not exists</h1>
+    <% } else if (userError) { %>
+        <h1 style="color: crimson;text-align: center; margin: 20rem 0rem;">The user you're looking for does not exists</h1>
     <% } else { %>
 
         <main class="profile-page">

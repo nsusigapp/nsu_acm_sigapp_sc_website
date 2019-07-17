@@ -10,6 +10,7 @@ const { loadBlogDataInit, getBlogById, loadBlogComments } = require("../middlewa
         
 const { fetchUserById } = require("../middlewares/userData");
 const { fetchCategories } = require("../middlewares/common");
+const { isDisabled } = require("../middlewares/accessControl");
 
 router.get("/", userControllers.getIndexPage);
 
@@ -25,7 +26,7 @@ router.get("/event", userControllers.getEventPage);
 
 router.get("/event-details/:id", userControllers.getEventViewPage);
 
-router.get("/profile/:id", fetchUserById, userControllers.getUserProfilePage);
+router.get("/profile/:id", isDisabled, fetchUserById, userControllers.getUserProfilePage);
 
 module.exports = {
     router

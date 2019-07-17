@@ -258,16 +258,28 @@ body {
           outline: none;
           border: none; }
 
-.mob-nav-btn {
-  display: none;
-  position: relative; }
+.mob-nav-container {
+  display: none; }
   @media only screen and (max-width: 1150px) {
-    .mob-nav-btn {
+    .mob-nav-container {
       display: block; } }
 
 .mob-nav-drpdown {
-  display: none;
-  position: absolute; }
+  top: 12%;
+  left: 0;
+  position: absolute;
+  background: #647994;
+  width: 100%; }
+  .mob-nav-drpdown--list {
+    list-style-type: none;
+    text-align: center; }
+    .mob-nav-drpdown--list a {
+      display: block;
+      text-decoration: none;
+      color: #fff;
+      padding: 1rem; }
+      .mob-nav-drpdown--list a:hover {
+        background: #374353; }
 
 .extra-drpdown-btn {
   position: relative; }
@@ -1578,3 +1590,20 @@ body {
       color: black;
       padding: 1.5rem;
       font-size: 2rem; }
+
+.search-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 2.5rem; }
+  .search-container--sidebar {
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25); }
+    .search-container--sidebar a {
+      padding: 1.5rem 5rem 1.5rem 2.5rem;
+      display: block;
+      color: #000;
+      text-decoration: none;
+      transition: all 0.3s; }
+      .search-container--sidebar a:hover {
+        background: #333;
+        color: #fff; }

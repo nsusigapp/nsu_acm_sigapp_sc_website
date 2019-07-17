@@ -203,10 +203,9 @@
 
 }
 
-.mob-nav-btn{
+.mob-nav-container{
     display: none;
-    position: relative;
-
+    
     @media only screen and(max-width: 1150px){
         display: block;
     }
@@ -214,8 +213,28 @@
 
 
 .mob-nav-drpdown{
-    display: none;
+    // display: none;
+    top: 12%;
+    left: 0;
     position: absolute;
+    background: #647994;
+    width: 100%;
+
+    &--list{
+        list-style-type: none;
+        text-align: center;
+
+        a{
+            display: block;
+            text-decoration: none;
+            color: #fff;
+            padding: 1rem;
+
+            &:hover{
+                background: #374353;
+            }
+        }
+    }
 }
 
 .extra-drpdown-btn{
@@ -240,8 +259,6 @@
                     background: #647994;
                     color: #fff;
                 }
-
-               
             }
         }
     }

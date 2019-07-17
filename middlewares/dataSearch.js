@@ -1,10 +1,6 @@
+
 const { sequelize, users: Users, forum: Forum, blog: Blog, events: Event } = require("../models/index");
 
-
-const searchUser = (req, res, next) => {
-    
-    const searchKey = req.query.searchKey;
-}
 
 const searchBlog = (req, res, next) => {
 

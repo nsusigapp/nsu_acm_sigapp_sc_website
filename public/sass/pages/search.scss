@@ -1,0 +1,24 @@
+
+.search-container{
+    @include displayFlex(flex-start, flex-start);
+    padding: 2.5rem;
+
+    &--sidebar{
+
+        box-shadow: 0px 4px 10px rgba($color: #000000, $alpha: 0.25);
+        
+        a{
+            padding: 1.5rem 5rem 1.5rem 2.5rem;;
+            display: block;
+            color: #000;
+            text-decoration: none;
+            transition: all 0.3s;
+
+            &:hover{
+                background: #333;
+                color: #fff;
+            }
+
+        }
+    }
+}

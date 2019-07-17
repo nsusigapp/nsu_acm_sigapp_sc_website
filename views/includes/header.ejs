@@ -52,7 +52,7 @@
         <div class="main-nav-bar--btn-box--search-box">
             <form action="/search" method="GET" class="main-nav-bar--btn-box--search-box--form">
                 <input class="main-nav-bar--btn-box--search-box--form-search" name="searchKey" placeholder="Search..." />
-                <button type="submit" class="searchButton">
+                <button id="searchBtn"type="submit" class="searchButton">
                     <i class="fa fa-search"></i>
                 </button>
             </form>
@@ -96,11 +96,17 @@
 
     </div>
 
-    <div class="mob-nav-btn">
-        <a href="#">Menu</a>
+    <div class="mob-nav-container">
+        <a href="#" id="mobNavBtn" class="mob-nav-btn">Menu</a>
 
         <nav class="mob-nav-drpdown">
-    
+            <div class="mob-nav-drpdown--list">
+                <a href="/">Home</a>
+                <a href="/forum">Forum</a>
+                <a href="/blog">Blog</a>
+                <a href="/event">Event</a>
+            </div>
+
         </nav>
     </div>
 

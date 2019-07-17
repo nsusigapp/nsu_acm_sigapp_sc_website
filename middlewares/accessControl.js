@@ -1,5 +1,7 @@
 
-const { forum: Forum, blog: Blog } = require("../models/index");
+const { forum: Forum, blog: Blog, users: User } = require("../models/index");
+
+const { userStatus } = require("../utils/userConst");
 
 const redirectIfLoggedIn = (req, res, next) => {
 
@@ -103,6 +105,39 @@ const canEditBlog = (req, res, next) => {
         .catch(err => console.log(err));
 }
 
+const isDisabled = (req, res, next) => {
+
+    if (res.locals.userInfo.isAdmin) {
+
+        res.locals.userError = false;
+        return next();
+        
+    } else {
+
+        User.findOne({
+            attributes: ["status"],
+            where: {
+                u_id: req.params.id
+            }
+        })
+            .then(fetchedUser => {
+
+                if (fetchedUser === null || fetchedUser.status === userStatus.PENDING || fetchedUser.status === userStatus.IN_ACTIVE) {
+                    
+                    res.locals.userError = true;
+                    return next();
+
+                } else {
+
+                    res.locals.userError = false;
+                    return next();
+                }
+
+            })
+            .catch(err => console.log(err));
+    }
+}
+
 const canEditForum = (req, res, next) => {
 
 }
@@ -113,5 +148,6 @@ module.exports = {
     isAuthorized,
     canEditBlog,
     canEditForum,
-    isAdmin
+    isAdmin,
+    isDisabled
 }

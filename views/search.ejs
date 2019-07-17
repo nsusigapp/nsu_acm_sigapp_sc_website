@@ -7,9 +7,26 @@
 <body>
     <%- include includes/header.ejs  %>
 
-    
+    <main>
+
+        <div class="search-container">
+
+            <div class="search-container--sidebar">
+                <a href="#" onclick="getSrchResult(event, 'blog')">Blogs</a>
+                <a href="#" onclick="getSrchResult(event, 'forum')">Forums</a>
+                <a href="#" onclick="getSrchResult(event, 'event')">Events</a>
+            </div>
+
+            <div class="search-container--result">
+
+            </div>
+
+        </div>
+
+    </main>
 
     <%- include includes/footer.ejs %>
+    <%- include includes/lazy.ejs %>
 
 </body>
 

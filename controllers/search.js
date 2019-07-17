@@ -1,10 +1,12 @@
 
+const pageTitle =  require("../utils/pageTitles");
+
 const getSearchPage = (req, res, next) => {
 
     console.log(req.query.searchKey);
 
-    res.json({
-        error: "none",
+    return res.render("search", {
+        pageTitle: pageTitle.SEARCH_RES
     })
 }
 
