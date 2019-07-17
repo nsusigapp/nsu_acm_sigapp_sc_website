@@ -12,12 +12,34 @@
         <div class="search-container">
 
             <div class="search-container--sidebar">
-                <a href="#" onclick="getSrchResult(event, 'blog')">Blogs</a>
-                <a href="#" onclick="getSrchResult(event, 'forum')">Forums</a>
-                <a href="#" onclick="getSrchResult(event, 'event')">Events</a>
+                <a href="/search?searchKey=<%= searchKey %>&active=blog">Blogs</a>
+                <a href="/search?searchKey=<%= searchKey %>&active=forum")">Forums</a>
+                <a href="/search?searchKey=<%= searchKey %>&active=event">Events</a>
             </div>
 
             <div class="search-container--result">
+
+                <h2 class="search-container--result-title"><%= active %> Results:</h2>
+
+                <% posts.forEach(post => { %>
+
+                    <a class="search-container--result-post" href="/">
+                        <% if (active.toLowerCase() === "blog") { %>
+
+                            # <%= post.blog_title %>
+
+                        <% } else if (active.toLowerCase() === "forum") { %>
+
+                            # <%= post.f_post_title %>
+
+                        <% } else if (active.toLowerCase() === "event") { %>
+                            
+                            # <%= post.event_name %>
+
+                        <% } %>
+                    </a>
+
+                <% }); %>
 
             </div>
 
@@ -27,6 +49,14 @@
 
     <%- include includes/footer.ejs %>
     <%- include includes/lazy.ejs %>
+
+    <script>
+    
+        function getSrchResult(event, searchKey, active) {
+            console.log(searchKey);
+        }
+
+    </script>
 
 </body>
 

@@ -1607,3 +1607,17 @@ body {
       .search-container--sidebar a:hover {
         background: #333;
         color: #fff; }
+  .search-container--result {
+    margin-left: 5rem; }
+    .search-container--result-title {
+      margin-bottom: 2rem; }
+    .search-container--result-post {
+      display: block;
+      text-decoration: none;
+      color: #000;
+      font-size: 2.5rem;
+      border-bottom: 1px solid #333;
+      padding-bottom: 1rem;
+      margin-bottom: 2rem; }
+      .search-container--result-post:hover {
+        color: #333; }

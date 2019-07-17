@@ -3,11 +3,11 @@ const pageTitle =  require("../utils/pageTitles");
 
 const getSearchPage = (req, res, next) => {
 
-    console.log(req.query.searchKey);
-
     return res.render("search", {
-        pageTitle: pageTitle.SEARCH_RES
-    })
+        pageTitle: pageTitle.SEARCH_RES,
+        searchKey: req.query.searchKey,
+        active: req.query.active.toUpperCase()
+    });
 }
 
 module.exports = {
