@@ -12,34 +12,43 @@
         <div class="search-container">
 
             <div class="search-container--sidebar">
-                <a href="/search?searchKey=<%= searchKey %>&active=blog">Blogs</a>
-                <a href="/search?searchKey=<%= searchKey %>&active=forum")">Forums</a>
-                <a href="/search?searchKey=<%= searchKey %>&active=event">Events</a>
+                <a class="<%= active === 'blog' ? 'search-tab-active' : '' %>" href="/search?searchKey=<%= searchKey %>&active=blog">Blogs</a>
+                <a class="<%= active === 'forum' ? 'search-tab-active' : '' %>" href="/search?searchKey=<%= searchKey %>&active=forum")">Forums</a>
+                <a class="<%= active === 'event' ? 'search-tab-active' : '' %>" href="/search?searchKey=<%= searchKey %>&active=event">Events</a>
             </div>
 
             <div class="search-container--result">
 
-                <h2 class="search-container--result-title"><%= active %> Results:</h2>
+                <h2 class="search-container--result-title"><%= active.toUpperCase() %> Results:</h2>
 
-                <% posts.forEach(post => { %>
+                <% if (posts.length > 0) { %>
 
-                    <a class="search-container--result-post" href="/">
-                        <% if (active.toLowerCase() === "blog") { %>
+                    <% posts.forEach(post => { %>
+    
+                        <a class="search-container--result-post" href="/">
+                            <% if (active.toLowerCase() === "blog") { %>
+    
+                                # <%= post.blog_title %>
+    
+                            <% } else if (active.toLowerCase() === "forum") { %>
+    
+                                # <%= post.f_post_title %>
+    
+                            <% } else if (active.toLowerCase() === "event") { %>
+                                
+                                # <%= post.event_name %>
+    
+                            <% } %>
+                        </a>
+    
+                    <% }); %>
 
-                            # <%= post.blog_title %>
+                <% } else { %>
 
-                        <% } else if (active.toLowerCase() === "forum") { %>
+                    <h2>No posts to show :(</h2>
 
-                            # <%= post.f_post_title %>
+                <% } %>
 
-                        <% } else if (active.toLowerCase() === "event") { %>
-                            
-                            # <%= post.event_name %>
-
-                        <% } %>
-                    </a>
-
-                <% }); %>
 
             </div>
 

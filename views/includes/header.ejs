@@ -73,6 +73,13 @@
 
                     <div id="headerDropdownContent" class="main-nav-bar--btn-box--profile-info--dropdown-content">
                         <ul class="header-dropdown--list">
+
+                            <% if (userInfo.isAdmin) { %>
+                                <li class="header-dropdown--list-item">
+                                    <a href="/admin-dashboard">Admin Dashboard</a>
+                                </li>
+                            <% } %>
+
                             <li class="header-dropdown--list-item">
                                 <a href="/profile/<%= userInfo.sessionData.uid %>">Profile</a>
                             </li>

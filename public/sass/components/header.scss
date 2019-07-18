@@ -182,6 +182,11 @@
                     
                     &-item{
                         padding: 1rem 3rem;
+                        cursor: pointer;
+
+                        &:hover{
+                            background: #647994;
+                        }
 
                         a{
                             color: #fff;
@@ -196,6 +201,7 @@
                     background: transparent;
                     outline: none;
                     border: none;
+                    cursor: pointer;
                 }
             }
         }
