@@ -25,21 +25,19 @@
 
                     <% posts.forEach(post => { %>
     
-                        <a class="search-container--result-post" href="/">
-                            <% if (active.toLowerCase() === "blog") { %>
-    
+                        <% if (active.toLowerCase() === "blog") { %>
+                            <a class="search-container--result-post" href="/blog-post/<%= post.blog_id %>">
                                 # <%= post.blog_title %>
-    
-                            <% } else if (active.toLowerCase() === "forum") { %>
-    
+                            </a>
+                        <% } else if (active.toLowerCase() === "forum") { %>
+                            <a class="search-container--result-post" href="/forum-post/<%= post.f_post_id %>">
                                 # <%= post.f_post_title %>
-    
-                            <% } else if (active.toLowerCase() === "event") { %>
-                                
+                            </a>
+                        <% } else if (active.toLowerCase() === "event") { %>
+                            <a class="search-container--result-post" href="/forum-post/<%= post.event_id %>">
                                 # <%= post.event_name %>
-    
-                            <% } %>
-                        </a>
+                            </a>
+                        <% } %>
     
                     <% }); %>
 

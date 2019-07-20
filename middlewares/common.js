@@ -1,20 +1,25 @@
 
-const { sequelize, Sequelize, tags: Tag } = require("../models/index");
+const { tags: Tag } = require("../models/index");
 
-const fetchCategories = (req, res, next) => {
+const fetchCategories = async (req, res, next) => {
 
-    Tag.findAll({
-        attributes: ["tag_name"],
-        order: [
-            ["tag_name", "ASC"]
-        ]
-    })
-        .then(fetchedTag => {
+    try {
+        
+        const fetchedTag = await Tag.findAll({
+            attributes: ["tag_name"],
+            order: [
+                ["tag_name", "ASC"]
+            ]
+        });
+           
+    
+        res.locals.tags = fetchedTag;
+        return next();
 
-            res.locals.tags = fetchedTag;
-            return next();
-        })
-        .catch(err => console.log(err));
+    } catch (err) {
+
+        console.log(err);
+    }
 }
 
 module.exports = {

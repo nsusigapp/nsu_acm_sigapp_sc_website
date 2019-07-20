@@ -3,60 +3,68 @@ const { sequelize, forum: Forum, blog: Blog, events: Event, Sequelize } = requir
 
 const Op = Sequelize.Op;
 
-const searchBlog = (req, res, next) => {
+const searchBlog = async (req, res, next) => {
 
     const searchKey = req.query.searchKey;
 
     if (req.query.active === "blog") {
 
-        return Blog.findAll({
-            attributes: ["blog_title"],
-            raw: true,
-            where: {
-                blog_title: {
-                    [Op.like]: `%${searchKey}%`
-                } 
-            }
-        })
-            .then(blogs => {
-    
-                res.locals.posts = blogs;
-                res.locals.title = "blog_title";
-    
-                return next();
-            })
-            .catch(err => console.log(err));
+        try {
+            
+            const blogs = await Blog.findAll({
+                attributes: ["blog_title", "blog_id"],
+                raw: true,
+                where: {
+                    blog_title: {
+                        [Op.like]: `%${searchKey}%`
+                    } 
+                }
+            });
+        
+            res.locals.posts = blogs;
+            res.locals.title = "blog_title";
+        
+            return next();
+
+        } catch (err) {
+            
+            console.log(err);
+        }
+
 
     } else {
 
         return next();
     }
-
 }
 
-const searchForum = (req, res, next) => {
+const searchForum = async (req, res, next) => {
 
     const searchKey = req.query.searchKey;
 
     if (req.query.active === "forum") {
 
-        return Forum.findAll({
-            attributes: ["f_post_title"],
-            raw: true,
-            where: {
-                f_post_title: {
-                    [Op.like]: `%${searchKey}%`
-                } 
-            }
-        })
-            .then(forums => {
-    
-                res.locals.posts = forums;
-                res.locals.title = "f_post_title";
-    
-                return next();
-            })
-            .catch(err => console.log(err));
+        try {
+            
+            const forums = await Forum.findAll({
+                attributes: ["f_post_title", "f_post_id"],
+                raw: true,
+                where: {
+                    f_post_title: {
+                        [Op.like]: `%${searchKey}%`
+                    } 
+                }
+            });
+        
+            res.locals.posts = forums;
+            res.locals.title = "f_post_title";
+        
+            return next();
+
+        } catch (err) {
+
+            console.log(err);
+        }
 
     } else {
         
@@ -65,29 +73,33 @@ const searchForum = (req, res, next) => {
 
 }
 
-const searchEvent = (req, res, next) => {
+const searchEvent = async (req, res, next) => {
     
     const searchKey = req.query.searchKey;
 
     if (req.query.active === "event") {
 
-        return Event.findAll({
-            attributes: ["event_name"],
-            raw: true,
-            where: {
-                event_name: {
-                    [Op.like]: `%${searchKey}%`
-                } 
-            }
-        })
-            .then(events => {
-    
-                res.locals.posts = events;
-                res.locals.title = "event_name";
-    
-                return next();
-            })
-            .catch(err => console.log(err));
+        try {
+            
+            const events = await Event.findAll({
+                attributes: ["event_name", "event_id"],
+                raw: true,
+                where: {
+                    event_name: {
+                        [Op.like]: `%${searchKey}%`
+                    } 
+                }
+            });
+        
+            res.locals.posts = events;
+            res.locals.title = "event_name";
+        
+            return next();
+
+        } catch (err) {
+
+            console.log(err);
+        }
 
     } else {
         

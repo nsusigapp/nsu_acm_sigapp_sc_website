@@ -193,36 +193,39 @@ const getForumById = (req, res, next) => {
 
 }
 
-const loadForumReplies = (req, res, next) => {
+const loadForumReplies = async (req, res, next) => {
     
     const postId = req.params.id;
 
-    ForumAnswer.findAll({
-        attributes: ["answer_content", "createdAt"],
-        raw: true,
-        order: [
-            ["createdAt", "DESC"]
-        ],
+    try {
 
-        where: {
-            forum_p_id: postId
-        },
-
-        include: [{
-            attributes: ["user_name"],
-            model: User,
-            required: true,
-        }]
-    })
-        .then(fetchedAnswers => {
+        const fetchedAnswers = await ForumAnswer.findAll({
+            attributes: ["answer_content", "createdAt"],
+            raw: true,
+            order: [
+                ["createdAt", "DESC"]
+            ],
+    
+            where: {
+                forum_p_id: postId
+            },
+    
+            include: [{
+                attributes: ["user_name"],
+                model: User,
+                required: true,
+            }]
+        });
             
-            res.locals.answers = fetchedAnswers;
+        res.locals.answers = fetchedAnswers;
+    
+        return next();
+        
+    } catch (err) {
 
-            return next();
-        })
-        .catch(err => console.log(err));
+        console.log(err);
+    }
 }
-
 
 module.exports = {
     loadForumDataInit,

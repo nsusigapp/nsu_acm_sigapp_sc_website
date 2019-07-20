@@ -175,34 +175,37 @@ const getBlogById = (req, res, next) => {
     .catch(err => console.log(err));
 }
 
-const loadBlogComments = (req, res, next) => {
+const loadBlogComments = async (req, res, next) => {
 
     const blogId = req.params.id;
 
-    BlogComm.findAll({
-        attributes: ["com_content", "createdAt"],
-        raw: true,
-        order: [
-            ["createdAt", "DESC"]
-        ],
-
-        where: {
-            blog_id: blogId
-        },
-
-        include: [{
-            attributes: ["user_name"],
-            model: User,
-            required: true,
-        }]
-    })
-        .then(fetchedCom => {
-            
-            res.locals.comments = fetchedCom;
-
-            return next();
+    try {
+        
+        const fetchedCom = await BlogComm.findAll({
+            attributes: ["com_content", "createdAt"],
+            raw: true,
+            order: [
+                ["createdAt", "DESC"]
+            ],
+    
+            where: {
+                blog_id: blogId
+            },
+    
+            include: [{
+                attributes: ["user_name"],
+                model: User,
+                required: true,
+            }]
         })
-        .catch(err => console.log(err));
+                
+        res.locals.comments = fetchedCom;
+        return next();
+
+    } catch (err) {
+
+        console.log(err);
+    }
 }
 
 const prepareBlogEditData = (req, res, next) => {
@@ -210,6 +213,7 @@ const prepareBlogEditData = (req, res, next) => {
     const { fetchedBlog } = req;
 
     if (res.locals.unauthorized) {
+        
         req.preparedBlog = null;
         return next();
     }

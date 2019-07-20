@@ -2,23 +2,28 @@ const { sequelize, Sequelize, users: User, quotes: Quote,
         forum: Forum, blog: Blog, forum_answer: ForumAnswer } = require("../models/index");
 
 // fetch profile picture from DB;
-const fetchNavBarInfo = (req, res, next) => {
+const fetchNavBarInfo = async (req, res, next) => {
 
     if (res.locals.userInfo && res.locals.userInfo.loggedIn) {
 
-        User.findOne({
-            attributes: ["avatar_url","first_name"],
-            where: {
-                u_id: res.locals.userInfo.sessionData.uid,
-            }
-        })
-            .then(fetchedResponse => {
+        try {
+            
+            const fetchedResponse = await User.findOne({
+                attributes: ["avatar_url","first_name"],
+                where: {
+                    u_id: res.locals.userInfo.sessionData.uid,
+                }
+            });
+    
+            req.app.locals.headerInfo = fetchedResponse;
+            return next();
 
-                req.app.locals.headerInfo = fetchedResponse;
+        } catch (err) {
 
-                return next();
-            })
-            .catch(err => console.log(err));
+            console.log(err);
+        }
+
+
     } else {
 
         return next();
@@ -26,33 +31,32 @@ const fetchNavBarInfo = (req, res, next) => {
 
 }
 
-const fetchRandomQuote = (req, res, next) => {
+const fetchRandomQuote = async (req, res, next) => {
 
     const failedToFetchQuote = "Error 404, Quote not found :')";
 
-    Quote.findAll({
-        attributes: ["quote_text"]
-    })
-        .then(fetchedQuotes => {
-
-            const min = 0;
-            const max = fetchedQuotes.length - 1;
-
-            const randomQuote = fetchedQuotes[Math.floor(Math.random() * (max - min + 1) + min)];
-
-            req.randomQuote = randomQuote.quote_text;
-
-            return next();
-        })
-        .catch(err => {
-
-            console.log(err);
-
-            req.randomQuote = failedToFetchQuote;
-
-            return next();
-            
+    try {
+        
+        const fetchedQuotes = await Quote.findAll({
+            attributes: ["quote_text"]
         });
+            
+        const min = 0;
+        const max = fetchedQuotes.length - 1;
+        const randomQuote = fetchedQuotes[Math.floor(Math.random() * (max - min + 1) + min)];
+        
+        req.randomQuote = randomQuote.quote_text;
+        
+        return next();
+
+    } catch (err) {
+
+        console.log(err);
+
+        req.randomQuote = failedToFetchQuote;
+
+        return next();
+    }
 }
 
 const fetchUserById = (req, res, next) => {
