@@ -113,7 +113,7 @@ const postForumLike = (req, res, next) => {
     .catch(err => console.log(err));
 }
 
-const forumPostAnswer = (req, res, next) => {
+const forumPostAnswer = async (req, res, next) => {
 
     const formData = req.body;
     const { loggedIn } = res.locals.userInfo;
@@ -129,39 +129,36 @@ const forumPostAnswer = (req, res, next) => {
         // setup lazy loading tags
     }
 
-    ForumAnswer.create({
-        forum_p_id: formData.postId,
-        author_id: uid,
-        answer_content: formData.answer_content
-    })
-        .then(answer => {
+    try {
+        
+        const answer = await ForumAnswer.create({
+            forum_p_id: formData.postId,
+            author_id: uid,
+            answer_content: formData.answer_content
+        });
+            
+        const ansCount = await ForumAnswer.count();
+    
+        const author = await User.findOne({
+            attributes: ["user_name"],
+            where: {
+                u_id: uid,
+            }
+        });      
+    
+        return res.json({
+            ansCount,
+            u_id: uid,
+            success: true,
+            user_name: author.user_name,
+            answer_content: answer.answer_content,
+            createdAt: answer.createdAt
+        });
 
-            ForumAnswer.count()
-                .then(ansCount => {
-
-                    User.findOne({
-                        attributes: ["user_name"],
-                        where: {
-                            u_id: uid,
-                        }
-                    })
-                        .then(author => {
-
-                            return res.json({
-                                ansCount,
-                                u_id: uid,
-                                success: true,
-                                user_name: author.user_name,
-                                answer_content: answer.answer_content,
-                                createdAt: answer.createdAt
-                            });
-                        })
-                        .catch(err => console.log(err));
-                })
-                .catch(err => console.log(err));
-
-        })
-        .catch(err => console.log(err));
+    } catch (err) {
+        
+        console.log(err);
+    }
 }
 
 module.exports = {
