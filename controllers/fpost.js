@@ -10,7 +10,7 @@ const getForumCreate = (req, res, next) => {
     });
 }
 
-const createForumPost = (req, res, next) => {
+const createForumPost = async (req, res, next) => {
 
     const { loggedIn } = res.locals.userInfo;
     const uid = loggedIn ? res.locals.userInfo.sessionData.uid : null;
@@ -28,33 +28,33 @@ const createForumPost = (req, res, next) => {
         // setup lazy loading tags
     }
 
-    sequelize.transaction(function(t) {
-
-        return Forum.create(formData, { transaction: t })
-            .then(resCreate => {
-                
-                const { f_post_id } = resCreate;
-
-                if (tag.length > 0) {
-
-                    const bulkTag = tag.map(et => {
-                        return {
-                            f_post_id,
-                            tag_id: parseInt(et)
-                        }
-                    });
+    try {
+        
+        await sequelize.transaction(async function(t) {
     
-                    return ForumTag.bulkCreate(bulkTag, { transaction: t })
-                        .then(resBulk => {
+            const resCreate = await Forum.create(formData, { transaction: t });
+            
+            const { f_post_id } = resCreate;
+    
+            if (tag.length > 0) {
+    
+                const bulkTag = tag.map(et => {
+                    return {
+                        f_post_id,
+                        tag_id: parseInt(et)
+                    }
+                });
+        
+                await ForumTag.bulkCreate(bulkTag, { transaction: t })       
+    
+                return res.redirect("/forum");               
+            }
+        });
 
-                            return res.redirect("/forum");
-                        })
-                }
-
-            })
-    })
-    .catch(err => console.log(err));
-
+    } catch (err) {
+        
+        console.log(err);
+    }
 }
 
 const deletePostById = (req, res, next) => {

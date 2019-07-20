@@ -10,7 +10,7 @@ const getBlogCreate = (req, res, next) => {
     });
 }
 
-const createBlogPost = (req, res, next) => {
+const createBlogPost = async (req, res, next) => {
 
     const { loggedIn } = res.locals.userInfo;
     const uid = loggedIn ? res.locals.userInfo.sessionData.uid : null;
@@ -28,33 +28,35 @@ const createBlogPost = (req, res, next) => {
         // setup lazy loading tags
     }
 
-    sequelize.transaction(function(t) {
-
-        return Blog.create(formData, { transaction: t })
-            .then(resCreate => {
-                
-                const { blog_id } = resCreate;
-
-                if (tag.length > 0) {
-
-                    const bulkTag = tag.map(et => {
-                        return {
-                            blog_id,
-                            tag_id: parseInt(et)
-                        }
-                    });
+    try {
+        
+        await sequelize.transaction(async function(t) {
     
-                    return BlogTag.bulkCreate(bulkTag, { transaction: t })
-                        .then(resBulk => {
+            const resCreate = await Blog.create(formData, { transaction: t });
+                    
+            const { blog_id } = resCreate;
+    
+            if (tag.length > 0) {
+    
+                const bulkTag = tag.map(et => {
+                    return {
+                        blog_id,
+                        tag_id: parseInt(et)
+                    }
+                });
+        
+                await BlogTag.bulkCreate(bulkTag, { transaction: t });
+                            
+    
+                return res.redirect("/blog");
+                            
+            }
+        });
 
-                            return res.redirect("/blog");
-                        })
-                }
-
-            })
-    })
-    .catch(err => console.log(err));
-
+    } catch (err) {
+        
+        console.log(err);
+    }
 }
 
 const getBlogEditPage = (req, res, next) => {

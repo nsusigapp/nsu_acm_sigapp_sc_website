@@ -9,8 +9,6 @@ const { sessStatus } = require("../utils/userConst");
 
 const { users: User, session: Session, sequelize } = require("../models/index");
 
-const Op = sequelize.Op;
-
 const session = require("express-session");
 const RedisStore = require("connect-redis")(session);
 const store = new RedisStore();
@@ -68,13 +66,12 @@ const matchPassword = (req, res, next) => {
             passMatch: false
         });
 
-    } else {
-        
-        next();
     }
+        
+    return next();
 }
 
-const adminChangePassword = (req, res, next) => {
+const adminChangePassword = async (req, res, next) => {
 
     const { new_password, u_id } = req.body;
 
@@ -83,84 +80,77 @@ const adminChangePassword = (req, res, next) => {
 
     if (!isAdmin) {
 
-        next();
-    
-    } else {
+        return next();
+    }
+
+    try {
         
-        User.findOne({
+        const fetchedUser = await User.findOne({
             where: {
                 u_id: uid
             }
-        })
-            .then(fetchedUser => {
-    
-                if (!fetchedUser) {
-    
-                    return res.json({
-                        userExists: false
-                    });
-                }
+        });
                 
-                bcrypt.hash(new_password, saltRounds)
-                    .then(hash => {
+        if (!fetchedUser) {
+        
+            return res.json({
+                userExists: false
+            });
+        }
+                    
+        const hash = await bcrypt.hash(new_password, saltRounds);
+        
+        const token = User.generateAuthToken({
+            nsu_id: fetchedUser.nsu_id,
+            role_id: fetchedUser.role_id,
+            status: fetchedUser.status,
+        });
+        
+        await sequelize.transaction(async function(t) {
+        
+            fetchedUser.password = hash;
+            fetchedUser.token = token;
     
-                        const token = User.generateAuthToken({
-                            nsu_id: fetchedUser.nsu_id,
-                            role_id: fetchedUser.role_id,
-                            status: fetchedUser.status,
-                        });
+            await fetchedUser.save({
+                transaction: t,
+                lock: t.LOCK.UPDATE
+            });
+        
+            const fetchedSess = await Session.findAll({
+                where: {
+                    u_id: uid,
+                    sess_status: sessStatus.ACTIVE
+                }
+            }, { transaction: t });
+        
+            await Promise.all(fetchedSess.map(sess => {
+        
+                store.destroy(sess.sess_id, err => {
+        
+                    if (err) {
+        
+                        console.log(err);
+        
+                    } else {
+                                                            
+                        sess.sess_status = sessStatus.EXPIRED;
+                        return sess.save();
+                    }
+                });
     
-                        sequelize.transaction(function (t) {
-    
-                            fetchedUser.password = hash;
-                            fetchedUser.token = token;
+            }));
+                                                    
+            return res.json({
+                success: true,
+            });
+        });
+        
+    } catch (err) {
 
-                            return fetchedUser.save({
-                                transaction: t,
-                                lock: t.LOCK.UPDATE
-                            })
-                                .then(saved => {
+        console.log(err);
+    }
+        
     
-                                    return Session.findAll({
-                                        where: {
-                                            u_id: uid,
-                                            sess_status: sessStatus.ACTIVE
-                                        }
-                                    }, { transaction: t })
-                                        .then(fetchedSess => {
-    
-                                            return Promise.all(fetchedSess.map(sess => {
-    
-                                                store.destroy(sess.sess_id, err => {
-    
-                                                    if (err) {
-    
-                                                        console.log(err);
-    
-                                                    } else {
-                                                        
-                                                        sess.sess_status = sessStatus.EXPIRED;
-                                                        return sess.save();
-                                                    }
-                                                });
-
-                                            }))
-                                                .then(allSess => {
-    
-                                                    return res.json({
-                                                        success: true,
-                                                    });
-                                                })
-                                                .catch(err => console.log(err));
-                                        })
-                                        .catch(err => console.log(err));
-                                })
-                        })
-                        .catch(err => console.log(err));
-                    })
-                    .catch(err => console.log(err));
-            })
-    }          
 }
 
 const userChangePassword = async (req, res, next) => {
@@ -200,7 +190,7 @@ const userChangePassword = async (req, res, next) => {
             status: fetchedUser.status,
         });
     
-        await sequelize.transaction(async function (t) {
+        await sequelize.transaction(async function(t) {
     
             fetchedUser.password = hash;
             fetchedUser.token = token;
@@ -228,7 +218,7 @@ const userChangePassword = async (req, res, next) => {
                     } else {
                                                                 
                         sess.sess_status = sessStatus.EXPIRED;
-                        sess.save();
+                        return sess.save();
                     }
                 });
         

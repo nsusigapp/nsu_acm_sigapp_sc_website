@@ -1,22 +1,26 @@
 
 const { tags: Tag } = require("../models/index");
 
-const getTags = (req, res, next) => {
+const getTags = async (req, res, next) => {
 
-    Tag.findAll({
-        attributes: ["tag_name", "tag_id"],
-        order: [
-            ["tag_name", "ASC"]
-        ],
-        raw: true,
-    })
-        .then(fetchedTags => {
+    try {
+        
+        const fetchedTags = await Tag.findAll({
+            attributes: ["tag_name", "tag_id"],
+            order: [
+                ["tag_name", "ASC"]
+            ],
+            raw: true,
+        });
+        
+        return res.json({
+            fetchedTags
+        });
 
-            return res.json({
-                fetchedTags
-            });
-        })
-        .catch(err => console.log(err));
+    } catch (err) {
+        
+        console.log(err);
+    }
 }
 
 module.exports = {

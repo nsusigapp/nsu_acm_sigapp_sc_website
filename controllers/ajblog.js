@@ -48,113 +48,111 @@ const blogPostComment = async (req, res, next) => {
 
 }
 
-const postBlogLike = (req, res, next) => {
+const postBlogLike = async (req, res, next) => {
 
     const blogId = req.body.blogId;
     const { loggedIn } = res.locals.userInfo;
     const uid = loggedIn ? res.locals.userInfo.sessionData.uid : null;
 
-    sequelize.transaction(function (t) {
+    try {
 
-        return BlogLike.findOne({
-            attributes: ["action"],
-            raw: true,
-            where: {
-                user_id: uid,
-                blog_id: blogId
-            }
-        }, { transaction: t })
-            .then(likeStatus => {
+        await sequelize.transaction(async function (t) {
 
-                if (likeStatus !== null && likeStatus.action === postLike.LIKE) {
-
-                    return BlogLike.update({
-                        action: postLike.UNLIKE,
-                    }, {
-                            where: {
-                                user_id: uid,
-                                blog_id: blogId
-                            }
-                        }, { transaction: t })
-                        .then(likeResponse => {
-
-                            return Blog.findOne({
-                                where: {
-                                    blog_id: blogId,
-                                }
-                            }, { transaction: t })
-                                .then(post => {
-
-                                    post.like_count -= 1;
-                                    post.save();
-
-                                    return res.json({
-                                        loggedIn: true,
-                                        count: post.like_count,
-                                        liked: false
-                                    });
-                                })
-                        })
-
-                } else if (likeStatus !== null && likeStatus.action === postLike.UNLIKE) {
-
-                    return BlogLike.update({
-                        action: postLike.LIKE,
-                    }, {
-                            where: {
-                                user_id: uid,
-                                blog_id: blogId
-                            }
-                        }, { transaction: t })
-                        .then(likeResponse => {
-
-                            return Blog.findOne({
-                                where: {
-                                    blog_id: blogId,
-                                }
-                            }, { transaction: t })
-                                .then(post => {
-
-                                    post.like_count += 1;
-                                    post.save();
-
-                                    return res.json({
-                                        loggedIn: true,
-                                        count: post.like_count,
-                                        liked: true,
-                                    });
-                                })
-                        })
-                } else if (likeStatus === null) {
-
-                    return BlogLike.create({
-                        user_id: uid,
-                        blog_id: blogId,
-                        action: postLike.LIKE
-                    }, { transaction: t })
-                        .then(likeCreate => {
-
-                            return Blog.findOne({
-                                where: {
-                                    blog_id: blogId,
-                                }
-                            }, { transaction: t })
-                                .then(post => {
-
-                                    post.like_count += 1;
-                                    post.save();
-
-                                    return res.json({
-                                        loggedIn: true,
-                                        count: post.like_count,
-                                        liked: true,
-                                    });
-                                })
-                        })
+            const likeStatus = await BlogLike.findOne({
+                attributes: ["action"],
+                raw: true,
+                where: {
+                    user_id: uid,
+                    blog_id: blogId
                 }
-            })
-    })
-    .catch(err => console.log(err));
+            }, { transaction: t });
+    
+            if (likeStatus !== null && likeStatus.action === postLike.LIKE) {
+    
+                await BlogLike.update({
+                    action: postLike.UNLIKE,
+                }, {
+                        where: {
+                            user_id: uid,
+                            blog_id: blogId
+                        }
+                    }, { transaction: t })
+        
+    
+                const post = await Blog.findOne({
+                    where: {
+                        blog_id: blogId,
+                    }
+                }, { transaction: t });
+    
+    
+                post.like_count -= 1;
+                await post.save({ transaction: t });
+    
+                return res.json({
+                    loggedIn: true,
+                    count: post.like_count,
+                    liked: false
+                });
+    
+            } else if (likeStatus !== null && likeStatus.action === postLike.UNLIKE) {
+    
+                await BlogLike.update({
+                    action: postLike.LIKE,
+                }, {
+                        where: {
+                            user_id: uid,
+                            blog_id: blogId
+                        }
+                    }, { transaction: t })
+    
+                const post = await Blog.findOne({
+                    where: {
+                        blog_id: blogId,
+                    }
+                }, { transaction: t });
+    
+                post.like_count += 1;
+                await post.save({ transaction: t });
+    
+                return res.json({
+                    loggedIn: true,
+                    count: post.like_count,
+                    liked: true,
+                });
+    
+            } else if (likeStatus === null) {
+    
+                await BlogLike.create({
+                    user_id: uid,
+                    blog_id: blogId,
+                    action: postLike.LIKE
+                }, { transaction: t })
+                            
+    
+                const post = await Blog.findOne({
+                    where: {
+                        blog_id: blogId,
+                    }
+                }, { transaction: t });
+                                    
+    
+                post.like_count += 1;
+                await post.save({ transaction: t });
+    
+                return res.json({
+                    loggedIn: true,
+                    count: post.like_count,
+                    liked: true,
+                });
+            }
+        });
+
+    } catch (err) {
+
+        console.log(err);
+    }
+
 }
 
 module.exports = {

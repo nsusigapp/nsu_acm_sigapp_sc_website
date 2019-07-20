@@ -1,4 +1,4 @@
-const { sequelize, Sequelize, users: User, quotes: Quote, 
+const { sequelize, users: User, quotes: Quote, 
         forum: Forum, blog: Blog, forum_answer: ForumAnswer } = require("../models/index");
 
 // fetch profile picture from DB;
@@ -22,7 +22,6 @@ const fetchNavBarInfo = async (req, res, next) => {
 
             console.log(err);
         }
-
 
     } else {
 
@@ -59,66 +58,66 @@ const fetchRandomQuote = async (req, res, next) => {
     }
 }
 
-const fetchUserById = (req, res, next) => {
+const fetchUserById = async (req, res, next) => {
 
     const uid = req.params.id;
 
-    sequelize.transaction(function(t) {
+    try {
+
+        await sequelize.transaction(async function(t) {
         
-        return User.findOne({
-            subQuery: false,
-            raw: true,
-            where: {
-                u_id: uid
-            }
-        }, { transaction: t })
-            .then(fetchedUser => {
-                
-                if (fetchedUser === null) {
-                    
-                    res.locals.userExists = false;
-                    return next();
-                    
-                } else {
-            
-                    res.locals.userExists = true;
-                    res.locals.user = fetchedUser;
-
-                    return Forum.findAll({
-                        raw: true,
-                        where: {
-                            author_id: uid
-                        }
-                    }, { transaction: t })
-                        .then(userQues => {
-                            res.locals.userQues = userQues;
-
-                            return Blog.findAll({
-                                raw: true,
-                                where: {
-                                    author_id: uid
-                                }
-                            }, { transaction: t })
-                                .then(userBlogs => {
-                                    
-                                    res.locals.userBlogs = userBlogs;
-
-                                    return ForumAnswer.count({
-                                        where: {
-                                            author_id: uid,
-                                        }
-                                    }, { transaction: t })
-                                        .then(countAns => {
-                                            res.locals.ansCount = countAns;
-                                            return next();
-                                        })
-                                })
-                        })
+            const fetchedUser = await User.findOne({
+                subQuery: false,
+                raw: true,
+                where: {
+                    u_id: uid
                 }
-            })
-            .catch(err => console.log(err));
-    })
-    .catch(err => console.log(err));
+            }, { transaction: t });
+    
+            if (fetchedUser === null) {
+                        
+                res.locals.userExists = false;
+                return next();
+                        
+            } else {
+                
+                res.locals.userExists = true;
+                res.locals.user = fetchedUser;
+    
+                const userQues = await Forum.findAll({
+                    raw: true,
+                    where: {
+                        author_id: uid
+                    }
+                }, { transaction: t });
+                
+                res.locals.userQues = userQues;
+    
+                const userBlogs = await Blog.findAll({
+                    raw: true,
+                    where: {
+                        author_id: uid
+                    }
+                }, { transaction: t });
+                                                            
+                res.locals.userBlogs = userBlogs;
+    
+                const countAns = await ForumAnswer.count({
+                    where: {
+                        author_id: uid,
+                    }
+                }, { transaction: t });
+                                            
+                res.locals.ansCount = countAns;
+                return next();
+    
+            }
+        });
+        
+    } catch (err) {
+        
+        console.log(err);
+    }
 }
 
 module.exports = {
