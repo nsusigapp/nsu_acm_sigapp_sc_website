@@ -1,5 +1,5 @@
 
-const { sequelize, Sequelize, users: User,
+const { sequelize, users: User,
     tags: Tag, blog_tag: BlogTag, blog: Blog, 
     blog_comments: BlogComm, blog_like_track: BlogLike } = require("../models/index");
 
@@ -79,100 +79,96 @@ const loadBlogDataInit = (req, res, next) => {
         .catch(err => console.log(err));
 }
 
-const getBlogById = (req, res, next) => {
+const getBlogById = async (req, res, next) => {
 
     const blogId = req.params.id;
 
-    sequelize.transaction(function(t) {
+    try {
 
-        return Blog.findOne({
-            attributes: ["blog_title", "blog_description", "like_count", "img_url", "createdAt"],
-            subQuery: false,
-            raw: true,
-            where: {
-                blog_id: blogId
-            },
-        
-            include: [{
-                attributes: ["u_id", "user_name","first_name","last_name","avatar_url"],
-                model: User,
-                required: true,
-            }]
-        }, { transaction: t })
-            .then(fetchedBlog => {
+        await sequelize.transaction(async function(t) {
 
-                if (fetchedBlog === null) {
-
-                    res.locals.blogExists = false;
-                    return next();
-
-                } else {
-
-                    res.locals.blog = fetchedBlog;
-                    res.locals.blog.blog_id = blogId;
-                    res.locals.blogExists = true;
-                    
-                    return BlogTag.findAll({
-                        attributes: [],
-                        raw: true,
+            const fetchedBlog = await Blog.findOne({
+                attributes: ["blog_title", "blog_description", "like_count", "img_url", "createdAt"],
+                subQuery: false,
+                raw: true,
+                where: {
+                    blog_id: blogId
+                },
+            
+                include: [{
+                    attributes: ["u_id", "user_name","first_name","last_name","avatar_url"],
+                    model: User,
+                    required: true,
+                }]
+            }, { transaction: t });
+                
     
-                        where: {
-                            blog_id: blogId
-                        },
+            if (fetchedBlog === null) {
     
-                        include: [{
-                            attributes: ["tag_name"],
-                            model: Tag,
-                            required: true,
-                        }]
-                    }, { transaction: t })
-                        .then(fetchedTags => {
+                res.locals.blogExists = false;
+                return next();
     
-                            res.locals.tags = fetchedTags.map(fetchedTag => fetchedTag["tag.tag_name"]);
+            }
     
-                            const { loggedIn } = res.locals.userInfo;
-                            const uid = loggedIn ? res.locals.userInfo.sessionData.uid : null;
-
-                            if (!loggedIn) {
-                                
-                                res.locals.isLiked = false;
-                                return next();
-
-                            } else {
-
-                                return BlogLike.findOne({
-                                    attributes: ["action"],
-                                    raw: true,
-                                    where: {
-                                        user_id: uid,
-                                        blog_id: blogId
-                                    }
-                                }, { transaction: t })
-                                    .then(likeStatus => {
+            res.locals.blog = fetchedBlog;
+            res.locals.blog.blog_id = blogId;
+            res.locals.blogExists = true;
+                        
+            const fetchedTags = await BlogTag.findAll({
+                attributes: [],
+                raw: true,
+                where: {
+                    blog_id: blogId
+                },
+                include: [{
+                    attributes: ["tag_name"],
+                    model: Tag,
+                    required: true,
+                }]
+            }, { transaction: t });
         
-                                        if (likeStatus === null) {
+            res.locals.tags = fetchedTags.map(fetchedTag => fetchedTag["tag.tag_name"]);
         
-                                            res.locals.isLiked = false;
-                                            return next();
-        
-                                        } else if (likeStatus.action === postLike.LIKE) {
-        
-                                            res.locals.isLiked = true;
-                                            return next();
-        
-                                        } else if (likeStatus.action === postLike.UNLIKE) {
-        
-                                            res.locals.isLiked = false;
-                                            return next();
-                                        }
-                                    })
-                            }
-                        })
+            const { loggedIn } = res.locals.userInfo;
+            const uid = loggedIn ? res.locals.userInfo.sessionData.uid : null;
+    
+            if (!loggedIn) {
+                                    
+                res.locals.isLiked = false;
+                return next();
+    
+            }
+    
+            const likeStatus = await BlogLike.findOne({
+                attributes: ["action"],
+                raw: true,
+                where: {
+                    user_id: uid,
+                    blog_id: blogId
                 }
+            }, { transaction: t })
+            
+            if (likeStatus === null) {
+            
+                res.locals.isLiked = false;
+                return next();
+            
+            } else if (likeStatus.action === postLike.LIKE) {
+            
+                res.locals.isLiked = true;
+                return next();
+            
+            } else if (likeStatus.action === postLike.UNLIKE) {
+            
+                res.locals.isLiked = false;
+                return next();
+            }
+        });
+        
+    } catch (err) {
 
-            })            
-    })
-    .catch(err => console.log(err));
+        console.log(err);
+    }
 }
 
 const loadBlogComments = async (req, res, next) => {

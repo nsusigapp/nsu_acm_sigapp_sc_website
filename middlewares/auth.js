@@ -33,15 +33,13 @@ const isLoggedIn = (req, res, next) => {
             return next();
         }
 
-    } else {
-
-        res.locals.userInfo = {
-            loggedIn: false,
-        }
-
-        return next();
     }
 
+    res.locals.userInfo = {
+        loggedIn: false,
+    }
+
+    return next();
 }
 
 module.exports = {

@@ -1,5 +1,5 @@
 
-const { sequelize, forum: Forum, blog: Blog, events: Event, Sequelize } = require("../models/index");
+const { forum: Forum, blog: Blog, events: Event, Sequelize } = require("../models/index");
 
 const Op = Sequelize.Op;
 
@@ -30,7 +30,6 @@ const searchBlog = async (req, res, next) => {
             
             console.log(err);
         }
-
 
     } else {
 

@@ -61,85 +61,109 @@ const isAuthorized = (req, res, next) => {
     }
 }
 
-const canEditBlog = (req, res, next) => {
+const canEditBlog = async (req, res, next) => {
 
     const blogId = req.params.id;
 
-    Blog.findOne({
-        where: {
-            blog_id: blogId
-        }
-    })
-        .then(fetchedBlog => {
+    try {
 
-            if (fetchedBlog === null) {
-
-                console.log("baal")
-
-                res.locals.blogExists = false;
-                return next();
-
-            } else {
-                
-                console.log("how is this shit being executed")
-                const { author_id } = fetchedBlog;
-
-                const { sessionData, isAdmin } = res.locals.userInfo;
-
-                const actionAllowed = author_id === sessionData.uid || isAdmin ? true : false;
-
-                if (!actionAllowed) {
-
-                    console.log("does run")
-
-                    res.locals.unauthorized = true;
-                    return next();
-
-                } else {
-
-                    req.fetchedBlog = fetchedBlog;
-                    return next();
-                }
+        const fetchedBlog = await Blog.findOne({
+            where: {
+                blog_id: blogId
             }
-        })
-        .catch(err => console.log(err));
+        });
+            
+        if (fetchedBlog === null) {
+
+            res.locals.blogExists = false;
+            return next();
+        }                
+        
+        const { author_id } = fetchedBlog;
+
+        const { sessionData, isAdmin } = res.locals.userInfo;
+
+        const actionAllowed = author_id === sessionData.uid || isAdmin ? true : false;
+
+        if (!actionAllowed) {
+
+            res.locals.unauthorized = true;
+            return next();
+        }
+
+        res.locals.unauthorized = false;
+        req.fetchedBlog = fetchedBlog;
+        return next();
+
+    } catch (err) {
+        
+        console.log(err);
+    }
 }
 
-const isDisabled = (req, res, next) => {
+const isDisabled = async (req, res, next) => {
 
     if (res.locals.userInfo.isAdmin) {
 
         res.locals.userError = false;
-        return next();
-        
-    } else {
-
-        User.findOne({
-            attributes: ["status"],
-            where: {
-                u_id: req.params.id
-            }
-        })
-            .then(fetchedUser => {
-
-                if (fetchedUser === null || fetchedUser.status === userStatus.PENDING || fetchedUser.status === userStatus.IN_ACTIVE) {
-                    
-                    res.locals.userError = true;
-                    return next();
-
-                } else {
-
-                    res.locals.userError = false;
-                    return next();
-                }
-
-            })
-            .catch(err => console.log(err));
+        return next();   
     }
+
+    const fetchedUser = await User.findOne({
+        attributes: ["status"],
+        where: {
+            u_id: req.params.id
+        }
+    });
+
+    if (fetchedUser === null || fetchedUser.status === userStatus.PENDING || fetchedUser.status === userStatus.IN_ACTIVE) {
+                    
+        res.locals.userError = true;
+        return next();
+    }
+
+    res.locals.userError = false;
+    return next();
 }
 
-const canEditForum = (req, res, next) => {
+const canEditForum = async (req, res, next) => {
 
+    const forumId = req.params.id;
+
+    try {
+
+        const fetchedForum = await Forum.findOne({
+            where: {
+                f_post_id: forumId
+            }
+        });
+            
+        if (fetchedForum === null) {
+
+            res.locals.forumExists = false;
+            return next();
+        }                
+        
+        const { author_id } = fetchedForum;
+
+        const { sessionData, isAdmin } = res.locals.userInfo;
+
+        const actionAllowed = author_id === sessionData.uid || isAdmin ? true : false;
+
+        if (!actionAllowed) {
+
+            res.locals.unauthorized = true;
+            return next();
+        }
+
+        res.locals.unauthorized = false;
+        req.fetchedForum = fetchedForum;
+        return next();
+
+    } catch (err) {
+        
+        console.log(err);
+    }
 }
 
 module.exports = {
