@@ -11,7 +11,7 @@ router.post("/create-blog-post", redirectIfNotLoggedIn, blogController.createBlo
 
 router.get("/edit-blog/:id", redirectIfNotLoggedIn, canEditBlog, prepareBlogEditData, blogController.getBlogEditPage);
 
-router.post("/edit-blog/:id", redirectIfNotLoggedIn, canEditBlog, prepareBlogEditData, blogController.getBlogEditPage);
+router.post("/edit-blog/:id", redirectIfNotLoggedIn, canEditBlog, blogController.postEditBlog);
 
 router.get("/delete-blog/:id", blogController.deleteBlogById);
 

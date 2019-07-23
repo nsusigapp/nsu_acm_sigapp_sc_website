@@ -45,7 +45,7 @@ const createForumPost = async (req, res, next) => {
                     }
                 });
         
-                await ForumTag.bulkCreate(bulkTag, { transaction: t })       
+                await ForumTag.bulkCreate(bulkTag, { transaction: t });
     
                 return res.redirect("/forum");               
             }

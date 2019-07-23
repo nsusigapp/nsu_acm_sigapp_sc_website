@@ -204,15 +204,21 @@ const loadBlogComments = async (req, res, next) => {
     }
 }
 
-const prepareBlogEditData = (req, res, next) => {
+const prepareBlogEditData = async (req, res, next) => {
 
-    const { fetchedBlog } = req;
+    const errors = res.locals.error;
 
-    if (res.locals.unauthorized) {
-        
-        req.preparedBlog = null;
+    if (!(errors.blogExists)) {
+
+        return next();
+
+    } else if (errors.unauthorized) {
+
         return next();
     }
+
+    const { fetchedBlog } = req;
+    const blogId = req.params.id;
 
     if (fetchedBlog.blog_description.includes("<img data-src=")) {
 
@@ -220,8 +226,31 @@ const prepareBlogEditData = (req, res, next) => {
         // remove lazy loading tags
     }
 
-    req.preparedBlog = fetchedBlog;
-    return next();
+
+    try {
+        
+        const fetchedTags = await BlogTag.findAll({
+            attributes: [],
+            raw: true,
+            where: {
+                blog_id: blogId
+            },
+            include: [{
+                attributes: ["tag_name", "tag_id"],
+                model: Tag,
+                required: true,
+            }]
+        });
+    
+        res.locals.tags = fetchedTags;
+        res.locals.blog = fetchedBlog;
+
+        return next();
+
+    } catch (err) {
+        
+        console.log(err);
+    }
 }
 
 module.exports = {

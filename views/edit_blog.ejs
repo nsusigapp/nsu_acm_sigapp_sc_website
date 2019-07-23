@@ -32,8 +32,7 @@
 
     <main class="main-content-post-create">
 
-
-        <% if (unauthorized !== undefined && unauthorized) { %>
+        <% if (error.unauthorized || !error.blogExists) { %>
             
             <h1>What were you trying to do :/</h1>
 
@@ -45,7 +44,7 @@
                 Create New Blog Post
             </h2>
 
-            <form id="blogForm" class="create-post-wrapper--form" action="/edit-blog/<%= blog.blog_id %>" method="POST">
+            <form id="blogForm" class="create-post-wrapper--form" action="/edit-blog/<%= blog.blog_id %>?edit=true" method="POST">
                 <span class="create-post-wrapper--form--label">Title</span>
                 <div class="input-container-paral margin-gutter-small">
                     <img src="/images/icon.svg" class="input-container-paral--icon">
@@ -65,14 +64,18 @@
                     <div class="input-container-paral tag-input">
                         <img class="input-container-paral--icon" src="/images/icon.svg">
                         <input id="tagsField" placeholder="Question Tags" 
-                            type="text" class="input-container-paral--input">
+                            type="text" autocomplete="off" class="input-container-paral--input">
                     </div>
                     <a id="fetchTags" href="#">Load Available Tags</a>
                 </div>
                 
                 <div class="" id="tagSuggest"></div>
 
-                <div id="selectTagsContainer"></div>
+                <div id="selectTagsContainer">
+                    <% tags.forEach(tag => { %>
+                        <span id="select<%= tag['tag.tag_name'] %>" onclick="selectTag(event, <%= tag['tag.tag_id'] %>, '<%= tag['tag.tag_name'] %>')"><%= tag['tag.tag_name'] %></span>
+                    <% }); %>
+                </div>
 
                 <div id="tagsContainer"></div>
 
@@ -86,6 +89,9 @@
                     <input type="submit" 
                         class="full-width-btn full-width-btn--black post-submit-btn-container--btn margin-top-small">
                 </div>
+                <% tags.forEach((tag, index) => { %>
+                    <input type="hidden" id="<%= tag['tag.tag_name'] %>" name="tag[<%= index %>]" value="<%= tag['tag.tag_id'] %>">
+                <% }); %>
             </form>
         </div>
 
@@ -98,10 +104,12 @@
 
     <script src="/js/axios.js"></script>
     <script src="/js/prism.js"></script>
+
+    <% if (error.blogExists && !error.unauthorized) { %>
     <script>
 
         let fetchedTags = [];
-        let tagsCount = 0;
+        let tagsCount = <%= tags.length %>;
 
         const fetchTagsBtn = document.getElementById("fetchTags");
         const tagsContainer = document.getElementById("tagsContainer");
@@ -214,6 +222,7 @@
         });
 
     </script>
+    <% } %>
 </body>
 
 </html>

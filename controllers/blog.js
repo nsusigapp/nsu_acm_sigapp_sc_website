@@ -45,12 +45,11 @@ const createBlogPost = async (req, res, next) => {
                     }
                 });
         
-                await BlogTag.bulkCreate(bulkTag, { transaction: t });
-                            
+                await BlogTag.bulkCreate(bulkTag, { transaction: t });                
     
-                return res.redirect("/blog");
-                            
+                return res.redirect("/blog");               
             }
+
         });
 
     } catch (err) {
@@ -63,8 +62,43 @@ const getBlogEditPage = (req, res, next) => {
     
     return res.render("edit_blog", {
         pageTitle: pageTitle.EDIT_BLOG,
-        blog: req.preparedBlog
     });
+}
+
+const postEditBlog = (req, res, next) => {
+
+    const errors = res.locals.error;
+    const blogId = req.params.id;
+
+    if (!(errors.blogExists)) {
+
+        return res.redirect(`/edit-blog/${blogId}`);
+
+    } else if (errors.unauthorized) {
+
+        return res.redirect(`/edit-blog/${blogId}`);        
+    }
+
+    const { loggedIn } = res.locals.userInfo;
+    const uid = loggedIn ? res.locals.userInfo.sessionData.uid : null;
+
+    const { tag, ...formData } = req.body;
+    formData.author_id = uid;
+
+    if (formData.blog_description.length === 0) {
+
+        return res.redirect("/create-blog-post");
+
+    } else if (formData.blog_description.includes("<img src=")) {
+
+        formData.blog_description = formData.blog_description.replace("<img src=", "<img data-src=");
+        // setup lazy loading tags
+    }
+
+
+
+
+
 }
 
 const deleteBlogById = (req, res, next) => {
@@ -78,5 +112,6 @@ module.exports = {
     getBlogCreate,
     createBlogPost,
     getBlogEditPage,
+    postEditBlog,
     deleteBlogById,
 }

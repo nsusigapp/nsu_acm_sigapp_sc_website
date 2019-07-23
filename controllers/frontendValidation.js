@@ -1,48 +1,41 @@
-const { users: User, Sequelize } = require("../models/index");
 
-const Op = Sequelize.Op;
+const { users: User } = require("../models/index");
 
 const checkUserNameAvailable = async (req, res, next) => {
 
-    if (req.query.username) {
+    try {
 
-        const userName = req.query.username;
+        if (req.query.username) {
 
-        try {
-            
-        } catch (err) {
+            const userName = req.query.username;
 
-            console.log(err);
-        }
-    
-        const user = await User.findOne({
-            attributes: ["user_name"],
-            where: {
-                user_name: userName
-            }
-        });
-            
-    
-        if (user !== null) {
-
-            return res.json({
-                available: false
+            const user = await User.findOne({
+                attributes: ["user_name"],
+                where: {
+                    user_name: userName
+                }
             });
+        
+            if (user !== null) {
 
-        } else {
-    
+                return res.json({
+                    available: false
+                });
+            }
+        
             return res.json({
                 available: true
             });
         }
-
-    } else {
-        
+            
         return res.json({
             error: "key not defined",
         });
-    }
+        
+    } catch (err) {
 
+        console.log(err);
+    }
 }
 
 module.exports = {

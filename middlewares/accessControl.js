@@ -65,6 +65,11 @@ const canEditBlog = async (req, res, next) => {
 
     const blogId = req.params.id;
 
+    const errors = {
+        blogExists: false,
+        unauthorized: false
+    }
+
     try {
 
         const fetchedBlog = await Blog.findOne({
@@ -75,9 +80,11 @@ const canEditBlog = async (req, res, next) => {
             
         if (fetchedBlog === null) {
 
-            res.locals.blogExists = false;
+            res.locals.error = errors;
             return next();
-        }                
+        }
+
+        errors.blogExists = true;
         
         const { author_id } = fetchedBlog;
 
@@ -87,11 +94,14 @@ const canEditBlog = async (req, res, next) => {
 
         if (!actionAllowed) {
 
-            res.locals.unauthorized = true;
+            errors.unauthorized = true;
+
+            res.locals.error = errors;
             return next();
         }
 
-        res.locals.unauthorized = false;
+        res.locals.error = errors;
+
         req.fetchedBlog = fetchedBlog;
         return next();
 
