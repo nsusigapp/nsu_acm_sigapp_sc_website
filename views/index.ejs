@@ -10,6 +10,16 @@
 
     <main class="main-content">
 
+        <div class="modal-container">
+            <div class="backdrop" onclick="closeModal(event)"></div>
+            <div class="modal">
+                <h1>This is the modal title, ugly but dumb simple</h1>
+                <p>This happens to be a modal</p>
+                <p>Data will be fetched from the express server</p>
+                <p>there will be an endpoint which will return the data in JSON once requested for</p>
+            </div>
+        </div>
+
         <div class="home-header">
 
             <div class="home-header--text-box">
@@ -124,7 +134,7 @@
 
         </div>
 
-        <div class="faculty-advisor">
+        <div class="faculty-advisor" onclick="openModal(event)">
             <h2 class="main-content--section--title margin-top-medium margin-gutter-small center-text">
                 # Our Advisors
             </h2>
@@ -136,6 +146,8 @@
                 </a>
             </div>
         </div>
+
+        
 
         <div class="home-officer">
 
@@ -243,15 +255,15 @@
 
             <div class="neighbourhood--box">
 
-                <a href="" class="floating-rounded--card">
+                <a href="#" class="floating-rounded--card" onclick="openModal(event)">
                     <img data-src="images/acm-logo.jpg" alt="" class="floating-rounded--card--img">
                 </a>
 
-                <a href="" class="floating-rounded--card">
+                <a href="#" class="floating-rounded--card" onclick="openModal(event)">
                     <img data-src="images/acm-w-logo.png" alt="" class="floating-rounded--card--img">
                 </a>
 
-                <a href="" class="floating-rounded--card">
+                <a href="#" class="floating-rounded--card" onclick="openModal(event)">
                     <img data-src="images/sigbed-logo.png" alt="" class="floating-rounded--card--img">
                 </a>
             </div>
@@ -270,6 +282,23 @@
 
     <%- include includes/footer.ejs %>
     <%- include includes/lazy.ejs %>
+
+    <script>
+        
+        const modalContainer = document.querySelector(".modal-container");
+        const backdrop = document.querySelector(".backdrop");
+        const facultyAdvisor = document.querySelector(".faculty-advisor");
+
+        function openModal(event) {
+            event.preventDefault();
+            modalContainer.style.display = "block";
+        }
+            
+        function closeModal(event) {
+            modalContainer.style.display = "none";
+        }
+        
+    </script>
 
 </body>
 </html>
