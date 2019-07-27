@@ -10,7 +10,7 @@ const getBlogCreate = (req, res, next) => {
     });
 }
 
-const createBlogPost = async (req, res, next) => {
+const ajCreateBlogPost = async (req, res, next) => {
 
     const { loggedIn } = res.locals.userInfo;
     const uid = loggedIn ? res.locals.userInfo.sessionData.uid : null;
@@ -18,9 +18,23 @@ const createBlogPost = async (req, res, next) => {
     const { tag, ...formData } = req.body;
     formData.author_id = uid;
 
+    const messages = {
+        emptyBody: false,
+        emptyTags: false,
+        success: false
+    }
+
     if (formData.blog_description.length === 0) {
 
-        return res.redirect("/create-blog-post");
+        messages.emptyBody = true;
+        
+        return res.json(messages);
+
+    } else if (tag.length === 0) {
+
+        messages.emptyTags = true;
+
+        return res.json(messages);
 
     } else if (formData.blog_description.includes("<img src=")) {
 
@@ -36,20 +50,17 @@ const createBlogPost = async (req, res, next) => {
                     
             const { blog_id } = resCreate;
     
-            if (tag.length > 0) {
-    
-                const bulkTag = tag.map(et => {
-                    return {
-                        blog_id,
-                        tag_id: parseInt(et)
-                    }
-                });
+            const bulkTag = tag.map(et => {
+                return {
+                    blog_id,
+                    tag_id: parseInt(et)
+                }
+            });
         
-                await BlogTag.bulkCreate(bulkTag, { transaction: t });                
-    
-                return res.redirect("/blog");               
-            }
+            await BlogTag.bulkCreate(bulkTag, { transaction: t });                
 
+            messages.success = true;
+            return res.json(messages);
         });
 
     } catch (err) {
@@ -94,11 +105,6 @@ const postEditBlog = (req, res, next) => {
         formData.blog_description = formData.blog_description.replace("<img src=", "<img data-src=");
         // setup lazy loading tags
     }
-
-
-
-
-
 }
 
 const deleteBlogById = (req, res, next) => {
@@ -110,7 +116,7 @@ const deleteBlogById = (req, res, next) => {
 
 module.exports = {
     getBlogCreate,
-    createBlogPost,
+    ajCreateBlogPost,
     getBlogEditPage,
     postEditBlog,
     deleteBlogById,

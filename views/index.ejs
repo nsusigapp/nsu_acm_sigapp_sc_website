@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
     <%- include includes/meta.ejs  %>
     <title><%= pageTitle %></title>
 </head>
@@ -134,12 +133,12 @@
 
         </div>
 
-        <div class="faculty-advisor" onclick="openModal(event)">
+        <div class="faculty-advisor">
             <h2 class="main-content--section--title margin-top-medium margin-gutter-small center-text">
                 # Our Advisors
             </h2>
 
-            <div class="faculty-advisor-box">
+            <div class="faculty-advisor-box" onclick="openModal(event)">
                 <a href="/" class="faculty-advisor-box--card floating-rounded--card">
                     <img data-src="images/presentation.svg" alt="" class="floating-rounded--card--img">
                     <h2 class="margin-top-small">Message From Advisor</h2>
@@ -269,15 +268,17 @@
             </div>
         </div>
 
-        <div class="home-join-box margin-gutter-medium">
+        <% if (!userInfo.loggedIn) { %>
+            <div class="home-join-box margin-gutter-medium">
 
-            <a href="/register" class="home-join-box--link">
-                <h2 class="home-join-box--link--text main-content--section--title">
-                    <i class="fas fa-link join-us-logo"></i>
-                    Join_Us <span style="font-size: 1rem;"><%= userInfo.loggedIn ? "{ You're already a member ^_^ }" : "" %></span>
-                </h2>
-            </a>
-        </div>
+                <a href="/register" class="home-join-box--link">
+                    <h2 class="home-join-box--link--text main-content--section--title">
+                        <i class="fas fa-link join-us-logo"></i>
+                        Join_Us
+                    </h2>
+                </a>
+            </div>
+        <% } %>
     </main>
 
     <%- include includes/footer.ejs %>

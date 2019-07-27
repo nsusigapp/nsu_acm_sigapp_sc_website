@@ -10,7 +10,7 @@ const getForumCreate = (req, res, next) => {
     });
 }
 
-const createForumPost = async (req, res, next) => {
+const ajCreateForumPost = async (req, res, next) => {
 
     const { loggedIn } = res.locals.userInfo;
     const uid = loggedIn ? res.locals.userInfo.sessionData.uid : null;
@@ -18,9 +18,23 @@ const createForumPost = async (req, res, next) => {
     const { tag, ...formData } = req.body;
     formData.author_id = uid;
 
+    const messages = {
+        emptyBody: false,
+        emptyTags: false,
+        success: false
+    }
+
     if (formData.f_post_description.length === 0) {
 
-        return res.redirect("/create-forum-post");
+        messages.emptyBody = true;
+
+        return res.json(messages);
+
+    } else if (tag.length === 0) {
+
+        messages.emptyTags = true;
+
+        return res.json(messages);
 
     } else if (formData.f_post_description.includes("<img src=")) {
 
@@ -36,19 +50,18 @@ const createForumPost = async (req, res, next) => {
             
             const { f_post_id } = resCreate;
     
-            if (tag.length > 0) {
     
-                const bulkTag = tag.map(et => {
-                    return {
-                        f_post_id,
-                        tag_id: parseInt(et)
-                    }
-                });
-        
-                await ForumTag.bulkCreate(bulkTag, { transaction: t });
+            const bulkTag = tag.map(et => {
+                return {
+                    f_post_id,
+                    tag_id: parseInt(et)
+                }
+            });
     
-                return res.redirect("/forum");               
-            }
+            await ForumTag.bulkCreate(bulkTag, { transaction: t });
+            
+            messages.success = true;
+            return res.json(messages);
         });
 
     } catch (err) {
@@ -65,7 +78,7 @@ const deletePostById = (req, res, next) => {
 }
 
 module.exports = {
-    createForumPost,
+    ajCreateForumPost,
     deletePostById,
     getForumCreate,
 }

@@ -7,7 +7,7 @@
     <script>
         tinymce.init({
             oninit : "setPlainText",
-            selector: '#queseditor',
+            selector: '#blogeditor',
             plugins : 'advlist paste autolink link image lists charmap print preview autoresize codesample',
             toolbar: 'undo redo | styleselect | bold italic | link image | codesample',
             image_caption: true,
@@ -34,22 +34,26 @@
 
         <div class="create-post-wrapper">
 
+            <div id="modal-container" style="display: none">
+                <div class="backdrop"></div>
+            </div>
+
             <h2 class="secondary-title">
                 Create New Blog Post
             </h2>
 
-            <form id="blogForm" class="create-post-wrapper--form" action="/create-blog-post" method="POST">
+            <form id="blogForm" class="create-post-wrapper--form">
                 <span class="create-post-wrapper--form--label">Title</span>
                 <div class="input-container-paral margin-gutter-small">
                     <img src="/images/icon.svg" class="input-container-paral--icon">
-                    <input name="blog_title" placeholder="Question Title" 
+                    <input id="blogTitle" placeholder="Blog Title" 
                         type="text" class="input-container-paral--input">
                 </div>
 
                 <span class="create-post-wrapper--form--label">Cover Image</span>
                 <div class="input-container-paral margin-gutter-small">
                     <img src="/images/photos.svg" class="input-container-paral--icon">
-                    <input name="img_url" placeholder="Paste direct image link here" 
+                    <input id="imgUrl" placeholder="Paste direct image link here" 
                         type="text" class="input-container-paral--input">
                 </div>
 
@@ -71,10 +75,10 @@
 
                 <span class="create-post-wrapper--form--label margin-top-small">Description</span>
                 <div class="question-editor-container">
-                    <textarea name="blog_description" id="queseditor"></textarea>
+                    <textarea id="blogeditor"></textarea>
                 </div>
                 <div class="post-submit-btn-container">
-                    <input type="submit" 
+                    <input id="createBlogBtn" type="submit" 
                         class="full-width-btn full-width-btn--black post-submit-btn-container--btn margin-top-small">
                 </div>
             </form>
@@ -90,6 +94,7 @@
     <script>
 
         let fetchedTags = [];
+        let selectedTags = [];
         let tagsCount = 0;
 
         const fetchTagsBtn = document.getElementById("fetchTags");
@@ -98,6 +103,7 @@
         const tagsMsg = document.getElementById("tagsMsg");
         const tagSuggest = document.getElementById("tagSuggest");
         const blogForm = document.getElementById("blogForm");
+        const createBlogBtn = document.getElementById("createBlogBtn");
         const selectTagsContainer = document.getElementById("selectTagsContainer");
 
         let isTagsShown = false;
@@ -126,21 +132,12 @@
 
         function selectTag(event, id, name) {
 
-            const selectedTag = document.getElementById(name);
+            const isSelected = selectedTags.includes(id);
             const removeTag = document.getElementById("select" + name);
 
-            if (!selectedTag) {
+            if (!isSelected) {
 
-                let input = document.createElement("input");
-                input.setAttribute("type", "hidden");
-                input.setAttribute("id", name);
-                input.setAttribute("name", `tag[${tagsCount}]`);
-                
-                input.value = id;
-
-                blogForm.appendChild(input);
-
-                input = null;
+                selectedTags.push(id);
 
                 let span = document.createElement("span");
                 span.setAttribute("id", "select" + name);
@@ -153,7 +150,7 @@
 
             } else {
 
-                selectedTag.parentNode.removeChild(selectedTag);
+                selectedTags = selectedTags.filter(item => item !== id);
                 removeTag.parentNode.removeChild(removeTag);
                 tagsCount--;
             }
@@ -201,6 +198,41 @@
                 }
             }
         });
+
+        createBlogBtn.addEventListener("click", function(event) {
+
+            event.preventDefault();
+
+            const blogTitle = document.getElementById("blogTitle");
+            const imgUrl = document.getElementById("imgUrl");
+            const blogDescription = tinyMCE.get("blogeditor").getContent();
+
+            document.getElementById("modal-container").style.display = "block";
+
+            axios.post("/create-blog-post", {
+                blog_title: blogTitle.value,
+                blog_description: blogDescription,
+                img_url: imgUrl.value,
+                tag: selectedTags
+            })
+                .then(response => {
+
+                    document.getElementById("modal-container").style.display = "none";
+
+                    if (response.data.success) {
+                        
+                        selectedTags = [];
+                        tagsCount = 0;
+
+                        document.querySelector(".create-post-wrapper").innerHTML = "<h2>Post Created!</h2>";
+
+                    } else {
+
+                        console.log(response.data);
+                    }
+                })
+                .catch(err => console.log(err));
+            });
 
     </script>
 </body>

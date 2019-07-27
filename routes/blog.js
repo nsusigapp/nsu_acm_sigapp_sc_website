@@ -7,7 +7,7 @@ const { redirectIfNotLoggedIn, canEditBlog } = require("../middlewares/accessCon
 
 router.get("/create-blog-post", redirectIfNotLoggedIn, blogController.getBlogCreate);
 
-router.post("/create-blog-post", redirectIfNotLoggedIn, blogController.createBlogPost);
+router.post("/create-blog-post", redirectIfNotLoggedIn, blogController.ajCreateBlogPost);
 
 router.get("/edit-blog/:id", redirectIfNotLoggedIn, canEditBlog, prepareBlogEditData, blogController.getBlogEditPage);
 

@@ -3,30 +3,32 @@
 <head>
     <%- include includes/meta.ejs  %>
     <title><%= pageTitle %></title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.0.5/tinymce.min.js"></script>
-    <script>
-        tinymce.init({
-            oninit : "setPlainText",
-            paste_as_text: true,
-            selector: '#answereditor',
-            plugins : 'advlist paste autolink link image lists charmap print preview autoresize codesample',
-            toolbar: 'undo redo | styleselect | bold italic | link image | codesample',
-            image_caption: true,
-            image_description: false,
-            codesample_languages: [
-                {text: 'HTML/XML', value: 'markup'},
-                {text: 'JavaScript', value: 'javascript'},
-                {text: 'CSS', value: 'css'},
-                {text: 'PHP', value: 'php'},
-                {text: 'Ruby', value: 'ruby'},
-                {text: 'Python', value: 'python'},
-                {text: 'Java', value: 'java'},
-                {text: 'C', value: 'c'},
-                {text: 'C#', value: 'csharp'},
-                {text: 'C++', value: 'cpp'}
-            ]
-        });
-    </script>
+    <% if (userInfo.loggedIn) { %>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.0.5/tinymce.min.js"></script>
+        <script>
+            tinymce.init({
+                oninit : "setPlainText",
+                paste_as_text: true,
+                selector: '#answereditor',
+                plugins : 'advlist paste autolink link image lists charmap print preview autoresize codesample',
+                toolbar: 'undo redo | styleselect | bold italic | link image | codesample',
+                image_caption: true,
+                image_description: false,
+                codesample_languages: [
+                    {text: 'HTML/XML', value: 'markup'},
+                    {text: 'JavaScript', value: 'javascript'},
+                    {text: 'CSS', value: 'css'},
+                    {text: 'PHP', value: 'php'},
+                    {text: 'Ruby', value: 'ruby'},
+                    {text: 'Python', value: 'python'},
+                    {text: 'Java', value: 'java'},
+                    {text: 'C', value: 'c'},
+                    {text: 'C#', value: 'csharp'},
+                    {text: 'C++', value: 'cpp'}
+                ]
+            });
+        </script>
+    <% } %>
 </head>
 <body>
     <%- include includes/header.ejs  %>
@@ -215,7 +217,6 @@
 
                         setTimeout(function() {
                             this.innerHTML = "Post Comment";
-
                         }, 3000);
 
                     } else {

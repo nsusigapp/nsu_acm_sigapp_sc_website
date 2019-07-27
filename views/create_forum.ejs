@@ -35,15 +35,19 @@
 
         <div class="create-post-wrapper">
 
+            <div id="modal-container" style="display: none">
+                <div class="backdrop"></div>
+            </div>
+
             <h2 class="secondary-title">
                 Create New Question
             </h2>
 
-            <form id="forumForm" class="create-post-wrapper--form" action="/create-forum-post" method="POST">
+            <form id="forumForm" class="create-post-wrapper--form">
                 <span class="create-post-wrapper--form--label">Title</span>
                 <div class="input-container-paral margin-gutter-small">
                     <img src="./images//icon.svg" class="input-container-paral--icon">
-                    <input name="f_post_title" placeholder="Question Title" 
+                    <input id="quesTitle" placeholder="Question Title" 
                         type="text" class="input-container-paral--input">
                 </div>
 
@@ -57,7 +61,7 @@
                     <a id="fetchTags" href="#">Load Available Tags</a>
                 </div>
                 
-                <div class="" id="tagSuggest"></div>
+                <div id="tagSuggest"></div>
 
                 <div id="selectTagsContainer"></div>
 
@@ -65,10 +69,10 @@
 
                 <span class="create-post-wrapper--form--label margin-top-small">Description</span>
                 <div class="question-editor-container">
-                    <textarea name="f_post_description" id="queseditor"></textarea>
+                    <textarea id="queseditor"></textarea>
                 </div>
                 <div class="post-submit-btn-container">
-                    <input type="submit" 
+                    <input id="createForumBtn" type="submit" 
                         class="full-width-btn full-width-btn--black post-submit-btn-container--btn margin-top-small">
                 </div>
             </form>
@@ -84,6 +88,7 @@
     <script>
 
         let fetchedTags = [];
+        let selectedTags = [];
         let tagsCount = 0;
 
         const fetchTagsBtn = document.getElementById("fetchTags");
@@ -92,6 +97,7 @@
         const tagsMsg = document.getElementById("tagsMsg");
         const tagSuggest = document.getElementById("tagSuggest");
         const forumForm = document.getElementById("forumForm");
+        const createForumBtn = document.getElementById("createForumBtn");
         const selectTagsContainer = document.getElementById("selectTagsContainer");
 
         let isTagsShown = false;
@@ -120,21 +126,12 @@
 
         function selectTag(event, id, name) {
 
-            const selectedTag = document.getElementById(name);
+            const isSelected = selectedTags.includes(id);
             const removeTag = document.getElementById("select" + name);
 
-            if (!selectedTag) {
+            if (!isSelected) {
 
-                let input = document.createElement("input");
-                input.setAttribute("type", "hidden");
-                input.setAttribute("id", name);
-                input.setAttribute("name", `tag[${tagsCount}]`);
-                
-                input.value = id;
-
-                forumForm.appendChild(input);
-
-                input = null;
+                selectedTags.push(id);
 
                 let span = document.createElement("span");
                 span.setAttribute("id", "select" + name);
@@ -147,13 +144,13 @@
 
             } else {
 
-                selectedTag.parentNode.removeChild(selectedTag);
+                selectedTags = selectedTags.filter(item => item !== id);
                 removeTag.parentNode.removeChild(removeTag);
                 tagsCount--;
             }
         }
 
-        fetchTagsBtn.addEventListener("click", function (event) {
+        fetchTagsBtn.addEventListener("click", function(event) {
 
             event.preventDefault();
 
@@ -173,7 +170,7 @@
             }
         });
 
-        tagsField.addEventListener("keyup", function (event) {
+        tagsField.addEventListener("keyup", function(event) {
 
             tagSuggest.innerHTML = "";
 
@@ -194,6 +191,39 @@
                     });
                 }
             }
+        });
+
+        createForumBtn.addEventListener("click", function(event) {
+
+            event.preventDefault();
+
+            const quesTitle = document.getElementById("quesTitle");
+            const quesDescription = tinyMCE.get("queseditor").getContent();
+
+            document.getElementById("modal-container").style.display = "block";
+
+            axios.post("/create-forum-post", {
+                f_post_title: quesTitle.value,
+                f_post_description: quesDescription,
+                tag: selectedTags
+            })
+                .then(response => {
+
+                    document.getElementById("modal-container").style.display = "none";
+
+                    if (response.data.success) {
+                        
+                        selectedTags = [];
+                        tagsCount = 0;
+
+                        document.querySelector(".create-post-wrapper").innerHTML = "<h2>Post Created!</h2>";
+
+                    } else {
+
+                        console.log("error happened");
+                    }
+                })
+                .catch(err => console.log(err));
         });
 
     </script>
