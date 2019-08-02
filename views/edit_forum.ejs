@@ -13,9 +13,6 @@
             toolbar: 'undo redo | styleselect | bold italic | link image | codesample',
             image_caption: true,
             image_description: false,
-            mobile: {
-                theme: "silver",
-            },
             codesample_languages: [
                 {text: 'HTML/XML', value: 'markup'},
                 {text: 'JavaScript', value: 'javascript'},
@@ -97,6 +94,7 @@
         let fetchedTags = [];
         let selectedTags = [];
         let tagsCount = 0;
+        const forumId = <%= post.blog_id %>;
 
         const fetchTagsBtn = document.getElementById("fetchTags");
         const tagsContainer = document.getElementById("tagsContainer");

@@ -51,7 +51,6 @@ module.exports = function(sequelize, DataTypes) {
 		Event.hasMany(models.event_registered_people, {
 			foreignKey: "event_id",
 		});
-
 	}
 
 	return Event;

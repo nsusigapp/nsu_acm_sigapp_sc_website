@@ -7,16 +7,28 @@
         background: #374353;
         padding: 2rem;
 
+        @media only screen and(max-width: 550px){
+            padding: 0.5rem;
+        }
+
         &--img-box{
             @include displayFlex(flex-start,center);
             margin-left: 2rem;
             
             .acm-logo-img{
                 height: 6rem;
+
+                @media only screen and(max-width: 550px){
+                    height: 4.5rem;
+                }
             }
 
             .sigapp-text-img{
                 height: 5rem;
+
+                @media only screen and(max-width: 550px){
+                    height: 3.5rem;
+                }
             }
         }
     }

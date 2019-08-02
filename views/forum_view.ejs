@@ -14,6 +14,9 @@
                 toolbar: 'undo redo | styleselect | bold italic | link image | codesample',
                 image_caption: true,
                 image_description: false,
+                mobile: {
+                    theme: "silver",
+                },
                 codesample_languages: [
                     {text: 'HTML/XML', value: 'markup'},
                     {text: 'JavaScript', value: 'javascript'},
@@ -159,6 +162,8 @@
     <script src="/js/axios.js"></script>
     <script src="/js/prism.js"></script>
     <%- include includes/lazy.ejs %>
+    <%- include includes/date.ejs %>
+
     <% if (postExists && userInfo.loggedIn) { %>
         <script>
 
@@ -234,7 +239,7 @@
                                     const html = `<div class="post-reply-box--reply-container--reply">
                                         <div class="post-reply-box--reply-container--reply-username">
                                             <a href="/profile/${res.data.u_id}" class="reply-author-link">
-                                                ${res.data.user_name} - ${res.data.createdAt}
+                                                ${res.data.user_name} - ${dateFormat(res.data.createdAt)}
                                             </a>
                                             <span class="reply-link">Reply</span>
                                         </div>

@@ -7,20 +7,25 @@ const { users: User, Sequelize } = require("../models/index");
 
 const Op = Sequelize.Op;
 
-const isLoggedIn = (req, res, next) => {
+const isLoggedIn = async (req, res, next) => {
 
     if (req.session.userData && req.cookies["_pass"]) {
 
         try {
             
+            const uid = req.session.userData.uid;
+
+            // If token is tampered with, user will be forced loggedout;
             const decodeToken = jwt.verify(req.cookies["_pass"], process.env.JWT_SECRET);
 
-            const isAdmin = decodeToken.role_id === roleID.ADMIN && req.session.userData.role_id === decodeToken.role_id;
+            const user = await User.findOne({ attributes: ["role_id"], where: { u_id: uid } });
 
+            const isAdmin = user.role_id === roleID.ADMIN && req.session.userData.role_id === user.role_id;
+            
             res.locals.userInfo = {
                 sessionData: req.session.userData,
                 loggedIn: true,
-                role_id: decodeToken.role_id,
+                role_id: req.session.userData.role_id,
                 isAdmin: isAdmin
             }
 
@@ -28,15 +33,18 @@ const isLoggedIn = (req, res, next) => {
 
         } catch (err) {
 
-            console.log(err);
-            
             res.locals.userInfo = {
                 loggedIn: false,
             }
 
+            req.session.userData = null;
+
+            res.clearCookie("_pass");
+            
+            console.log(err);
+
             return next();
         }
-
     }
 
     res.locals.userInfo = {
@@ -69,7 +77,6 @@ const doesUserExist = async (req, res, next) => {
             return next();
         }
         
-        // roll back if error occurs
         const dbFetchErrorObj = {
             userNameExists: false,
             emailExists: false,

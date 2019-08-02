@@ -50,7 +50,6 @@ const ajCreateForumPost = async (req, res, next) => {
             
             const { f_post_id } = resCreate;
     
-    
             const bulkTag = tag.map(et => {
                 return {
                     f_post_id,
@@ -61,6 +60,8 @@ const ajCreateForumPost = async (req, res, next) => {
             await ForumTag.bulkCreate(bulkTag, { transaction: t });
             
             messages.success = true;
+            messages.id = f_post_id;
+            
             return res.json(messages);
         });
 

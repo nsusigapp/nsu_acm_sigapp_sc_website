@@ -1,3 +1,4 @@
+
 // helper function for formatting dates fetched from Database;
 const dateFormat = date => {
 
@@ -8,7 +9,22 @@ const dateFormat = date => {
     const year = formatDate.getFullYear();
     const day = formatDate.getDate();
 
-    return `${day} ${month}, ${year}`;
+    let hr = formatDate.getHours();
+    let min = formatDate.getMinutes();
+    let ampm = "AM";
+
+    hr = hr === 0 ? 12 : hr;
+
+    if (min < 10) {
+        min = "0" + min;
+    }
+
+    if (hr > 12) {
+        hr -= 12;
+        ampm = "PM";
+    }
+
+    return `${day} ${month}, ${year}, ${hr}:${min} ${ampm}`;
 }
 
 module.exports = dateFormat;

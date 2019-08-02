@@ -14,7 +14,7 @@
         &--text-box{
     
             &--title{
-                @include displayFlex(space-between,center);
+                @include displayFlex(space-between, center);
                 flex-direction: column;
     
                 &--main{
@@ -22,12 +22,12 @@
                     color: white;
 
                     @media only screen and(max-width: 750px){
-                        font-size: 2.4rem;
+                        font-size: 2.2rem;
                     }
                 }
     
                 &--sub{
-                    font-size: 2.3rem;
+                    font-size: 2rem;
                     color: white;
                     font-weight: 400;
 
@@ -85,7 +85,7 @@
 
             @media only screen and(max-width: 600px){
                 width: 80%;
-                margin-left: 4.5rem;
+                margin: auto;
             }
             
             &--card{
@@ -93,6 +93,12 @@
                 text-decoration: none;
                 @include displayFlex(center, center);
                 flex-direction: column;
+
+                h2{
+                    @media only screen and(max-width: 600px){
+                        font-size: 1.6rem;  
+                    }
+                }
             }
         }
     }
@@ -118,13 +124,13 @@
             }
 
             &--img-box{
-
                 flex: 1;
-
+                
                 @media only screen and(max-width: 600px){
+                    order: 1;
                     margin-bottom: 2rem;
                 }
-
+                
                 &--img{
                     height: 20rem;
                     width: 20rem;
@@ -135,10 +141,13 @@
             }
 
             &--info{
-
                 flex: 4;
                 margin-left: 3rem;
                 margin-right: 3rem;
+
+                @media only screen and(max-width: 600px){
+                    order: 2;
+                }
 
                 &--name{
                     font-size: 2.5rem;
@@ -166,6 +175,13 @@
         &--box{
             @include displayFlex(space-around, center);
             flex-wrap: wrap;
+
+            img{
+                
+                @media only screen and(max-width: 700px){
+                    height: 7rem;
+                }
+            }
 
             @media only screen and(max-width: 600px){
                 flex-wrap: nowrap;

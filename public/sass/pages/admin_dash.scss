@@ -24,10 +24,6 @@
         }
 
     }
-
-    &-right{
-
-    }
 }
 
 .admin-main{
@@ -78,8 +74,16 @@
             padding-bottom: 3rem;
             margin-bottom: 1.5rem;
 
+            @media only screen and(max-width: 750px){
+                flex-direction: column;
+            }
+
             .admin-action-card:not(:last-child){
                 margin-right: 2rem;
+                @media only screen and(max-width: 750px){
+                    margin-right: 0rem;
+                    margin-bottom: 1rem;
+                }
             }
 
             .admin-action-card{
@@ -93,6 +97,7 @@
                 @media only screen and(max-width: 750px){
                     padding: 1rem 2rem;
                     font-size: 1.4rem;
+                    width: 100%;
                 }
             }
         }
@@ -141,8 +146,9 @@
 table {
     border-collapse: collapse;
     width: 100%;
-
+    
     @media only screen and(max-width: 750px){
+        overflow-x: scroll;
         font-size: 1.3rem;
     }
 

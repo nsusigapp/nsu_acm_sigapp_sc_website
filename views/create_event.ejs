@@ -7,8 +7,7 @@
     <script>
         tinymce.init({
             oninit : "setPlainText",
-            paste_as_text: true,
-            selector: '#queseditor',
+            selector: '#blogeditor',
             plugins : 'advlist paste autolink link image lists charmap print preview autoresize codesample',
             toolbar: 'undo redo | styleselect | bold italic | link image | codesample',
             image_caption: true,
@@ -41,27 +40,34 @@
             <div id="modal-container" style="display: none">
                 <div class="backdrop"></div>
                 <div class="post-loader">
-                    <img src="./images/spinner.svg" alt="spinner">
-                    <p>Creating Post....</p>
+                    <img src="/images/spinner.svg" alt="spinner">
+                    <p>Creating Event....</p>
                 </div>
             </div>
 
             <h2 class="secondary-title">
-                Create New Question
+                Create New Event
             </h2>
 
-            <form id="forumForm" class="create-post-wrapper--form">
+            <form id="blogForm" class="create-post-wrapper--form">
                 <span class="create-post-wrapper--form--label">Title</span>
                 <div class="input-container-paral margin-gutter-small">
-                    <img src="./images/icon.svg" class="input-container-paral--icon">
-                    <input id="quesTitle" placeholder="Question Title" 
+                    <img src="/images/icon.svg" class="input-container-paral--icon">
+                    <input id="eventName" placeholder="Event Name" 
+                        type="text" class="input-container-paral--input">
+                </div>
+
+                <span class="create-post-wrapper--form--label">Cover Image</span>
+                <div class="input-container-paral margin-gutter-small">
+                    <img src="/images/photos.svg" class="input-container-paral--icon">
+                    <input id="imgUrl" placeholder="Paste direct image link here" 
                         type="text" class="input-container-paral--input">
                 </div>
 
                 <span id="tagsMsg" class="create-post-wrapper--form--label">Tags</span>
                 <div class="create-post-wrapper--form-tag-box">
                     <div class="input-container-paral tag-input">
-                        <img class="input-container-paral--icon" src="./images/icon.svg">
+                        <img class="input-container-paral--icon" src="/images/icon.svg">
                         <input id="tagsField" placeholder="Question Tags" 
                             type="text" class="input-container-paral--input">
                     </div>
@@ -76,10 +82,10 @@
 
                 <span class="create-post-wrapper--form--label margin-top-small">Description</span>
                 <div class="question-editor-container">
-                    <textarea id="queseditor"></textarea>
+                    <textarea id="blogeditor"></textarea>
                 </div>
                 <div class="post-submit-btn-container">
-                    <input id="createForumBtn" type="submit" 
+                    <input id="createEventBtn" type="submit" 
                         class="full-width-btn full-width-btn--black post-submit-btn-container--btn margin-top-small">
                 </div>
             </form>
@@ -103,8 +109,8 @@
         const tagsField = document.getElementById("tagsField");
         const tagsMsg = document.getElementById("tagsMsg");
         const tagSuggest = document.getElementById("tagSuggest");
-        const forumForm = document.getElementById("forumForm");
-        const createForumBtn = document.getElementById("createForumBtn");
+        const blogForm = document.getElementById("blogForm");
+        const createEventBtn = document.getElementById("createEventBtn");
         const selectTagsContainer = document.getElementById("selectTagsContainer");
 
         let isTagsShown = false;
@@ -157,7 +163,7 @@
             }
         }
 
-        fetchTagsBtn.addEventListener("click", function(event) {
+        fetchTagsBtn.addEventListener("click", function (event) {
 
             event.preventDefault();
 
@@ -177,7 +183,7 @@
             }
         });
 
-        tagsField.addEventListener("keyup", function(event) {
+        tagsField.addEventListener("keyup", function (event) {
 
             tagSuggest.innerHTML = "";
 
@@ -200,18 +206,20 @@
             }
         });
 
-        createForumBtn.addEventListener("click", function(event) {
+        createEventBtn.addEventListener("click", function(event) {
 
             event.preventDefault();
 
-            const quesTitle = document.getElementById("quesTitle");
-            const quesDescription = tinyMCE.get("queseditor").getContent();
+            const blogTitle = document.getElementById("blogTitle");
+            const imgUrl = document.getElementById("imgUrl");
+            const blogDescription = tinyMCE.get("blogeditor").getContent();
 
             document.getElementById("modal-container").style.display = "block";
 
-            axios.post("/create-forum-post", {
-                f_post_title: quesTitle.value,
-                f_post_description: quesDescription,
+            axios.post("/create-blog-post", {
+                blog_title: blogTitle.value,
+                blog_description: blogDescription,
+                img_url: imgUrl.value,
                 tag: selectedTags
             })
                 .then(response => {
@@ -223,15 +231,15 @@
                         selectedTags = [];
                         tagsCount = 0;
 
-                        window.location.href= `http://localhost:3000/forum-post/${response.data.id}`;
+                        window.location.href= `http://localhost:3000/blog-post/${response.data.id}`;
 
                     } else {
 
-                        console.log("error happened");
+                        console.log(response.data);
                     }
                 })
                 .catch(err => console.log(err));
-        });
+            });
 
     </script>
 </body>

@@ -103,6 +103,7 @@ const canEditBlog = async (req, res, next) => {
         res.locals.error = errors;
 
         req.fetchedBlog = fetchedBlog;
+
         return next();
 
     } catch (err) {

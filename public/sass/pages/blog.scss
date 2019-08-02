@@ -2,6 +2,10 @@
 .blog-container{
     margin-left: 5rem;
     flex: 3;
+
+    @media only screen and(max-width: 600px){
+        margin-left: 0rem;
+    }
 }
 
 .blog-container-wrapper{
@@ -25,7 +29,6 @@
             width: 100%;
         }
     
-        
         &--img{
             height: 20rem;
             width: 100%;
@@ -37,7 +40,6 @@
             color: black;
             padding: 1.5rem;
             font-size: 2rem;
-
         }
     }
 }

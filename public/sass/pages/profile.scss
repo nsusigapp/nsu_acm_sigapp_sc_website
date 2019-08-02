@@ -18,7 +18,7 @@
             padding: 1.8rem;
 
             @media only screen and(max-width: 550px){
-                width: 80%;
+                width: 90%;
                 margin-top: 2rem;
             }
 
@@ -28,10 +28,6 @@
                 border-bottom: 1px solid #374353;
                 display: inline-block;
                 padding-bottom: 0.5rem;
-
-                .icon-profile{
-                    
-                }
             }
 
             &--img-box{
@@ -97,6 +93,7 @@
             &--main-bar{
                 
                 margin-bottom: 1.8rem;
+
                 &--title{
                     padding: 0.6rem 0rem 0.6rem 3rem;
                     background: #374353;
@@ -178,18 +175,6 @@
                             }
                         }
                     }
-
-                    &--logos{
-                        &--update{
-                            text-decoration: none;
-                            color: #374353;
-                        }
-    
-                        &--delete{
-    
-                        }
-                    }
-
                 }
             }
 
@@ -198,4 +183,18 @@
             }
         }
     }
+}
+
+.profile-settings-icon{
+    text-decoration: none;
+    color: #374353;
+
+    &:not(:last-child){
+        margin-right: 1.5rem;
+    }
+
+}
+
+.delete{
+    color: crimson;
 }

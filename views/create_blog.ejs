@@ -12,6 +12,9 @@
             toolbar: 'undo redo | styleselect | bold italic | link image | codesample',
             image_caption: true,
             image_description: false,
+            mobile: {
+                theme: "silver",
+            },
             codesample_languages: [
                 {text: 'HTML/XML', value: 'markup'},
                 {text: 'JavaScript', value: 'javascript'},
@@ -36,6 +39,10 @@
 
             <div id="modal-container" style="display: none">
                 <div class="backdrop"></div>
+                <div class="post-loader">
+                    <img src="/images/spinner.svg" alt="spinner">
+                    <p>Creating Post....</p>
+                </div>
             </div>
 
             <h2 class="secondary-title">
@@ -67,7 +74,7 @@
                     <a id="fetchTags" href="#">Load Available Tags</a>
                 </div>
                 
-                <div class="" id="tagSuggest"></div>
+                <div id="tagSuggest"></div>
 
                 <div id="selectTagsContainer"></div>
 
@@ -224,7 +231,7 @@
                         selectedTags = [];
                         tagsCount = 0;
 
-                        document.querySelector(".create-post-wrapper").innerHTML = "<h2>Post Created!</h2>";
+                        window.location.href= `http://localhost:3000/blog-post/${response.data.id}`;
 
                     } else {
 

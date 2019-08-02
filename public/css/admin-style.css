@@ -75,8 +75,15 @@ body {
       border-bottom: 1px solid #1f2833;
       padding-bottom: 3rem;
       margin-bottom: 1.5rem; }
+      @media only screen and (max-width: 750px) {
+        .admin-main .admin-main-panel--action-box {
+          flex-direction: column; } }
       .admin-main .admin-main-panel--action-box .admin-action-card:not(:last-child) {
         margin-right: 2rem; }
+        @media only screen and (max-width: 750px) {
+          .admin-main .admin-main-panel--action-box .admin-action-card:not(:last-child) {
+            margin-right: 0rem;
+            margin-bottom: 1rem; } }
       .admin-main .admin-main-panel--action-box .admin-action-card {
         background: #475993;
         color: #fff;
@@ -87,7 +94,8 @@ body {
         @media only screen and (max-width: 750px) {
           .admin-main .admin-main-panel--action-box .admin-action-card {
             padding: 1rem 2rem;
-            font-size: 1.4rem; } }
+            font-size: 1.4rem;
+            width: 100%; } }
     .admin-main .admin-main-panel .admin-search-users {
       width: 100%;
       border: none;
@@ -123,6 +131,7 @@ table {
   width: 100%; }
   @media only screen and (max-width: 750px) {
     table {
+      overflow-x: scroll;
       font-size: 1.3rem; } }
   table .disabled {
     color: crimson;

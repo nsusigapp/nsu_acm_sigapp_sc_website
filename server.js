@@ -122,7 +122,7 @@ app.use(adminRoutes.router);
 
 app.use(errorRoutes.router);
 
-app.listen(3000, () => {
+app.listen(3000, "192.168.0.106", () => {
     console.log("Server started on port: 3000");
 });
 

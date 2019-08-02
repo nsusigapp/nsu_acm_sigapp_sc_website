@@ -11,6 +11,7 @@ const { loadBlogDataInit, getBlogById, loadBlogComments } = require("../middlewa
 const { fetchUserById } = require("../middlewares/userData");
 const { fetchCategories } = require("../middlewares/common");
 const { isDisabled } = require("../middlewares/accessControl");
+const { loadEvents, getEventById } = require("../middlewares/event");
 
 router.get("/", userControllers.getIndexPage);
 
@@ -22,9 +23,9 @@ router.get("/blog", fetchCategories, loadBlogDataInit, userControllers.getBlogPa
 
 router.get("/blog-post/:id", getBlogById, loadBlogComments, userControllers.getBlogViewPage);
 
-router.get("/event", userControllers.getEventPage);
+router.get("/event", loadEvents, userControllers.getEventPage);
 
-router.get("/event-details/:id", userControllers.getEventViewPage);
+router.get("/event-details/:id", getEventById, userControllers.getEventViewPage);
 
 router.get("/profile/:id", isDisabled, fetchUserById, userControllers.getUserProfilePage);
 

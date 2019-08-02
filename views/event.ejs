@@ -4,51 +4,65 @@
     <%- include includes/meta.ejs  %>
     <title><%= pageTitle %></title>
 </head>
+
 <body>
     <%- include includes/header.ejs  %>
 
-    <main class="main-content-event">
+    <main class="main-content-forum-wrapper">
 
-        <div class="main-content-event--status">
+        <div class="main-content-forum">
 
-            <ul class="main-content-event--status--catagory">
-                <li class="main-content-event--status--catagory-item
-            main-content-event--status--catagory--green-item">
-                    Ongoing
-                </li>
+            <div class="forum-sidebar-categories">
+        
+                <ul class="forum-sidebar-categories--category">
+                    <li class="forum-sidebar-categories--category-item">
+                        <a href="/">
+                            Ongoing
+                        </a>
+                    </li>
+                    <li class="forum-sidebar-categories--category-item">
+                        <a href="/">
+                            Previous
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        
+            <div class="blog-container">
 
-                <li class="main-content-event--status--catagory-item">
-                    Previous Events
-                </li>
-            </ul>
+                <div class="title-create-box">
+                    <h1 class="main-content-title">Latest Post</h1>
+                    <% if (userInfo.isAdmin) { %>
+                        <a class="narrow-solid-button narrow-solid-button-light-dark" href="/create-event">Create Event +</a>
+                    <% } %>
+                </div>
+
+                <% if (events.length === 0) { %>
+                    <h1>No posts to show!</h1>
+                <% } else { %>
+
+                    <div class="blog-container-wrapper">
+
+                        <% events.forEach(event => { %>
+
+                            <a href="/event-details/<%= event.event_id %>" class="blog-container-wrapper--box">
+                                <img data-src="<%= event.img_url %>" class="blog-container-wrapper--box--img">
+                                <h2 class="blog-container-wrapper--box--title"><%= event.event_name %></h2>
+                            </a>
+
+                        <% }); %>
+
+                    </div>
+
+                <% } %>
+        
+            </div>
+
         </div>
-
-        <div class="blog-container">
-
-            <a href="" class="blog-container--box">
-                <img src="images/event33.png" alt="" class="blog-container--box--img">
-                <h2 class="blog-container--box--title">hello Css. we should learn scss.</h2>
-            </a>
-            <a href="" class="blog-container--box">
-                <img src="images/event33.png" alt="" class="blog-container--box--img">
-                <h2 class="blog-container--box--title">hello Css. we should learn scss.</h2>
-            </a>
-
-            <a href="" class="blog-container--box">
-                <img src="images/event2.png" alt="" class="blog-container--box--img">
-                <h2 class="blog-container--box--title">hello Css. we should learn scss.</h2>
-            </a>
-
-            <a href="" class="blog-container--box">
-                <img src="images/event1.png" alt="" class="blog-container--box--img">
-                <h2 class="blog-container--box--title">hello Css. we should learn scss.</h2>
-            </a>
-        </div>
-
-    </main>
     
+    </main>
+
     <%- include includes/footer.ejs %>
     <%- include includes/lazy.ejs %>
 </body>
-
 </html>

@@ -243,6 +243,10 @@ const prepareBlogEditData = async (req, res, next) => {
         });
     
         res.locals.tags = fetchedTags;
+        res.locals.tagsId = fetchedTags.map(tag => {
+            return tag["tag.tag_id"];
+        });
+
         res.locals.blog = fetchedBlog;
 
         return next();

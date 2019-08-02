@@ -139,6 +139,8 @@
     <script src="/js/axios.js"></script>
     <script src="/js/prism.js"></script>
     <%- include includes/lazy.ejs %>
+    <%- include includes/date.ejs %>
+    
     <% if (blogExists && userInfo.loggedIn) { %>
         <script>
             (function() {
@@ -215,7 +217,7 @@
                                     const html = `<div class="post-reply-box--reply-container--reply">
                                         <div class="post-reply-box--reply-container--reply-username">
                                             <a href="/" class="reply-author-link">
-                                                ${res.data.user_name} - ${res.data.createdAt}
+                                                ${res.data.user_name} - ${dateFormat(res.data.createdAt)}
                                             </a>
                                             <span class="reply-link">Reply</span>
                                         </div>
@@ -223,7 +225,6 @@
                                                 ${res.data.com_content}
                                             </p>
                                         </div>`;
-
 
                                     const savedData = comContainer.innerHTML;
 
